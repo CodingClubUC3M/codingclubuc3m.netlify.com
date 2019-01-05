@@ -1,0 +1,435 @@
+---
+title: "An introduction to Tensorflow"
+authors: ["Hoang Nguyen"]
+date: 2018-07-03
+categories: ["R"]
+tags: ["R", "tensorflow"]
+---
+
+
+
+<p><code>Tensorflow</code> has been widely used for many applications in machine learning and deep learning. However, <code>Tensorflow</code> is more than that, it is a general purpose computing library. Based on that, people have created a rich ecosystem for quickly developing models. In this talk, I will show how statisticians can get most of the main features in <code>Tensorflow</code> such as automatic differentiation, optimization, and Bayesian analysis through a simple linear regression example.</p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p><code>Tensorflow</code> is a machine learning framework of <code>Google</code>. It is developed by <code>Google Brain</code> team since 2015 and released publicly in 02.2017. It is now implemented for many applications in machine learning and deep learning. It has <code>API</code> for <code>Python</code>, <code>R</code>, <code>C</code>.</p>
+<p><code>Tensorflow</code> is not only used for deep learning. As a statistician, there are a lot of features that we can take advantages.</p>
+<ul>
+<li><code>Tensorflow</code> = general purpose computing library.</li>
+<li><code>Tensorflow</code> in <code>R</code> = Interface to <code>TensorFlow</code> library.</li>
+<li>Computations are implemented as input data (tensor/ generalized matrix/ multidimensional array) flow through nodes (mathematical operators) to the output data.</li>
+</ul>
+<p>Tensorflow features:</p>
+<ul>
+<li>Reverse-mode auto differentiation.</li>
+<li>Multicore CPU, GPU supports.</li>
+<li>Official <code>Python</code> API and <code>C</code> API, third-party packages for <code>Julia</code>, <code>R</code>.</li>
+<li>An ecosystem with numbers of machine learning algorithms <code>tfestimators</code>, <code>keras</code>.</li>
+<li>Graphical probabilistic modelling with <code>TensorFlow Probability</code>.</li>
+<li>Monitor and metrics with <code>TensorBoard</code>.</li>
+</ul>
+<div class="figure">
+<img src="/post/2018-07-03_files/pic0.png" title="Tf framework" alt="tensorflow" />
+<p class="caption">tensorflow</p>
+</div>
+<div id="install-tensorflow-in-r" class="section level2">
+<h2>Install <code>TensorFlow</code> in R</h2>
+<p>We summary the main steps for installing <code>TensorFlow</code> package in R.
+For the full instruction, please go to:</p>
+<ul>
+<li><a href="https://www.tensorflow.org/install/install_windows">Windows</a></li>
+<li><a href="https://www.tensorflow.org/install/install_linux">Ubuntu</a></li>
+<li><a href="https://www.tensorflow.org/install/install_mac">macOS</a></li>
+</ul>
+<div id="windows" class="section level3">
+<h3>Windows</h3>
+<ol style="list-style-type: decimal">
+<li><p>Install python, pip3 and <code>TensorFlow</code>,</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Download <a href="https://www.python.org/downloads/release/python-354/">Python</a> and install (Choose add path and install pip3).</p></li>
+<li><p>Open cmd with administration role and execute,</p></li>
+</ol></li>
+</ol>
+<pre class="bash"><code>pip3 install tensorflow==1.9.0rc1
+pip3 install tfp-nightly==0.1.0rc1.dev20180702    # depends on tensorflow (CPU-only)</code></pre>
+</div>
+<div id="ubuntu" class="section level3">
+<h3>Ubuntu</h3>
+<ol style="list-style-type: decimal">
+<li>Install python, pip3 and <code>TensorFlow</code>,</li>
+</ol>
+<pre class="bash"><code>sudo apt-get install python3-pip python3-dev
+pip3 install tensorflow==1.9.0rc1
+pip3 install tfp-nightly==0.1.0rc1.dev20180702    # depends on tensorflow (CPU-only)</code></pre>
+</div>
+<div id="macos" class="section level3">
+<h3>macOS</h3>
+<p>Check pip3 version:</p>
+<pre class="bash"><code>pip3 -V # for Python 3.n</code></pre>
+<p>If pip or pip3 8.1 or later is not installed, issue the following commands to install or upgrade:</p>
+<pre class="bash"><code>sudo easy_install --upgrade pip
+sudo easy_install --upgrade six
+pip3 install tensorflow==1.9.0rc1
+pip3 install tfp-nightly==0.1.0rc1.dev20180702    # depends on tensorflow (CPU-only)</code></pre>
+<p>Once you have installed <code>TensorFlow</code>, we go to <code>Rstudio</code> and intall the R API package.</p>
+</div>
+<div id="install-r-package-tensorflow" class="section level3">
+<h3>Install <code>R</code> package <code>TensorFlow</code></h3>
+<pre class="r"><code>install.packages(&quot;tensorflow&quot;, &quot;reticulate&quot;)
+tensorflow::install_tensorflow()</code></pre>
+</div>
+</div>
+<div id="hello-tensorflow" class="section level2">
+<h2>Hello <code>TensorFlow</code></h2>
+<p>Test your installation with this chunk of codes</p>
+<pre class="r"><code>library(tensorflow)
+
+sess &lt;- tf$Session()
+
+hello &lt;- tf$constant(&quot;Hello, TensorFlow!&quot;)
+sess$run(hello)
+
+a &lt;- tf$constant(10)
+b &lt;- tf$constant(32)
+sess$run(a + b)
+
+sess$close()</code></pre>
+<p>If everything works, we are ready to go.</p>
+</div>
+</div>
+<div id="tensorflow-api-from-r" class="section level1">
+<h1>TensorFlow API from R</h1>
+<p>We start with how to declare variables, constants and placeholders in <code>TensorFlow</code>.
+We assign an object (<code>sess</code>) pointing to <code>tf$Session()</code>
+and close a session with <code>sess$close()</code>. Here top level API is <code>tf</code> which provides access to Tensorflow modules.</p>
+<p>There are several ways to evaluate a <code>TensorFlow</code> variable.</p>
+<ul>
+<li>Temporary use <code>tf$Session()</code>,</li>
+</ul>
+<pre class="r"><code>tensor_0D &lt;- tf$constant(42, name = &quot;tensor_0D&quot;)    # Declare a constant
+tensor_0D                                           # Print tensor
+
+with(tf$Session() %as% sess, {      # temporary use tf$Session()
+    sess$run(tensor_0D)             # Get the value of a tensor
+})</code></pre>
+<ul>
+<li><code>tf$Session()$run()</code> in <code>tf$Session()</code> ,</li>
+</ul>
+<pre class="r"><code> # Start a sesssion with tensorflow
+sess &lt;- tf$Session()
+# vector of variables as a place holder
+tensor_1D &lt;- tf$Variable(c(1,2,3), name = &quot;tensor_1D&quot;)
+# Initiate the values of all variables ( include tensor_1D)
+sess$run(tf$global_variables_initializer())
+sess$run(tensor_1D)
+sess$close()                # Close a session</code></pre>
+<ul>
+<li><code>object_name$eval()</code> in <code>tf$InteractiveSession()</code>,</li>
+</ul>
+<pre class="r"><code>sess &lt;- tf$InteractiveSession()             # An interactive session
+
+# Data 2D : (samples, features)
+tensor_2D &lt;- tf$placeholder(tf$float32, c(2,4), name = &quot;tensor_2D&quot;)
+# Initialize tensor_2D with data
+tensor_2D$eval(feed_dict = dict(tensor_2D = matrix(1:8, nrow = 2, ncol = 4)))
+
+
+# 3D tensor variable
+tensor_3D &lt;- tf$Variable(tf$ones(c(3,2,2)), name = &quot;tensor_3D&quot;)
+sess$run(tf$global_variables_initializer()) # Initialize  all variables
+tensor_3D$eval()                            # Instead of: sess$run(tensor_3D)
+sess$close()                                # Close a session
+tf$reset_default_graph()</code></pre>
+</div>
+<div id="linear-regression" class="section level1">
+<h1>Linear regression</h1>
+<div id="gradient-descent-algorithm" class="section level2">
+<h2>Gradient descent algorithm</h2>
+<p>We analyze an example of simple linear regression to see how to use <code>TensorFlow</code> to optimize over a loss function.
+Then we use <code>TensorBoard</code> to monitor the loss function in each iteration.
+For a simple linear regression, we fit a linear function,</p>
+<p><span class="math display">\[y = A x + b + \epsilon\]</span></p>
+<p>such that it minimize the distance between the predicted values (<span class="math inline">\(\hat{y_i}\)</span>) and the observed values (<span class="math inline">\(y_i\)</span>) in term of mean square error.</p>
+<p><span class="math display">\[MSE = \frac{1}{n} \sum_{i = 1}^n (y_i - \hat{y}_i)^2\]</span></p>
+<p>In order to illustrate how to solve for this optimization, we use the <code>iris</code> data (collected by Ronald Fisher in his well-known 1936 paper).
+We want to define a linear model between <code>Petal.Length</code> and <code>Petal.Width</code>.
+We first create a placeholder (<code>x_data</code>, <code>y_data</code>) for (<code>Petal.Length</code>, <code>Petal.Width</code>),
+Then, we derive the prediction <span class="math inline">\(\hat{y} = A x + b\)</span>.</p>
+<pre class="r"><code># We model the relationship between Petal.Width and Petal.Length
+data(iris)
+#head(iris)
+sess &lt;- tf$Session()
+
+x_data &lt;- tf$placeholder(dtype = &quot;float&quot;,
+                         shape = length(iris$Petal.Length),
+                         name = &quot;Petal.Length&quot;) # Placeholder for Petal.Length
+y_data &lt;- tf$placeholder(dtype = &quot;float&quot;,
+                         shape = length(iris$Petal.Width),
+                         name = &quot;Petal.Width&quot;) # Placeholder for Petal.Width
+
+A &lt;- tf$Variable(0.0,   name = &quot;Coefficient&quot;)
+b &lt;- tf$Variable(1.0,   name = &quot;Intercept&quot;)
+
+y_hat &lt;- A * x_data + b</code></pre>
+<p>Secondly, we define a loss function (MSE) and a submodule optimizer <code>tf$train$GradientDescentOptimizer</code>
+with a learning rate <span class="math inline">\(\gamma = 0.03\)</span>. There are several other submodules such as <code>AdagradOptimizer</code>, <code>MomentumOptimizer</code>, <code>RMSPropOptimizer</code> which based on the problem of interest. The <code>GradientDescentOptimizer</code> will update the parameters <span class="math inline">\(A\)</span> and <span class="math inline">\(b\)</span> in each iteration by,</p>
+<p><span class="math display">\[A_{n+1} = A_{n} - \gamma \nabla MSE(A_n)\]</span></p>
+<pre class="r"><code># Define MSE as the equation above
+MSE &lt;- tf$reduce_mean((y_data - y_hat)^2)
+# Optimizer engine
+optimizer &lt;- tf$train$GradientDescentOptimizer(0.03)
+# Define the objective function
+train &lt;- optimizer$minimize(MSE)</code></pre>
+<p>Finally, we fetch data to placeholder using <code>feed_dict</code> and update paramters along the gradient few thousand times.</p>
+<pre class="r"><code>sess$run(tf$global_variables_initializer()) # To init all the variables
+
+for (epoch in 1:2000) {
+        sess$run(train, feed_dict = dict(x_data = iris$Petal.Length,
+                                       y_data = iris$Petal.Width))
+}
+cat(&quot;Coefficient: &quot;, sess$run(A), &quot;\n Intercept: &quot;, sess$run(b), &quot;\n&quot;)
+sess$close()
+tf$reset_default_graph()</code></pre>
+<pre class="r"><code># Compare to linear regression
+lm(Petal.Width ~ Petal.Length, data = iris)</code></pre>
+</div>
+<div id="monitoring-with-tensorboard" class="section level2">
+<h2>Monitoring with <code>TensorBoard</code></h2>
+<p><code>TensorBoard</code> is a metrics module that helps to monitor the learning process. In the complex model, <code>TensorBoard</code> not only visualizes but also debug, optimize the objective function. Most of the codes in this section are inherited from the previous section with few lines for adding variables to our watch list.</p>
+<pre class="r"><code># We model the relationship between Petal.Width and Petal.Length
+data(iris)
+#head(iris)
+
+sess &lt;- tf$Session()
+
+x_data &lt;- tf$placeholder(dtype = &quot;float&quot;,
+                         shape = length(iris$Petal.Length),
+                         name = &quot;Petal.Length&quot;) # Placeholder for Petal.Length
+y_data &lt;- tf$placeholder(dtype = &quot;float&quot;,
+                         shape = length(iris$Petal.Width),
+                         name = &quot;Petal.Width&quot;)  # Placeholder for Petal.Width
+
+A &lt;- tf$Variable(0.0,   name = &quot;Coefficient&quot;)
+b &lt;- tf$Variable(1.0,   name = &quot;Intercept&quot;)
+
+y_hat &lt;- A * x_data + b
+
+MSE &lt;- tf$reduce_mean((y_data - y_hat)^2)
+optimizer &lt;- tf$train$GradientDescentOptimizer(0.03)
+train &lt;- optimizer$minimize(MSE)
+
+###########################################
+# Add variable to summary #
+# https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard
+###########################################
+MSE_hist &lt;- tf$summary$scalar(&quot;MSE&quot;, MSE)   # save all values of MSE
+A_hist &lt;- tf$summary$scalar(&quot;Coefficient&quot;, A)
+b_hist &lt;- tf$summary$scalar(&quot;Intercept&quot;, b)
+merged &lt;- tf$summary$merge_all()            # Merges all summaries collected in the default graph.
+
+train_writer &lt;- tf$summary$FileWriter(logdir = &quot;/home/hoanguc3m/logs&quot;)
+train_writer$add_graph(sess$graph)          # add a graph structure
+
+###########################################
+# End of summary #
+###########################################
+
+sess$run(tf$global_variables_initializer())
+
+for (epoch in 1:2000) {
+    result &lt;- sess$run(list(merged, train),   # remember to run merged
+                       feed_dict = dict(x_data = iris$Petal.Length,
+                                      y_data = iris$Petal.Width))
+    summary &lt;- result[[1]]                    # extract the summary result of merged
+    train_writer$add_summary(summary, epoch)  # write summary to disk
+}
+
+# cat(&quot;Coefficient: &quot;, sess$run(A), &quot;\n Intercept: &quot;, sess$run(b), &quot;\n&quot;)
+sess$close()
+tf$reset_default_graph()
+rm(list = ls())</code></pre>
+<pre class="r"><code>tensorboard(log_dir = &quot;/home/hoanguc3m/logs&quot;) # Play with tensorboard</code></pre>
+<p>Here are few things that we summary in <code>TensorBoard</code>. The algorithm reachs convergence after 1000 iterations. For graph structure, each node in the graph represents for an operator at the edge, we can see the flow of the data. It could be a scalar in case of <span class="math inline">\(A\)</span> and <span class="math inline">\(b\)</span> or it could be a vector in case of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.
+<img src="/post/2018-07-03_files/pic1.jpg" title="Scalar" alt="tensor_board" /></p>
+<div class="figure">
+<img src="/post/2018-07-03_files/pic2.jpg" title="Graph" alt="tensor_board" />
+<p class="caption">tensor_board</p>
+</div>
+</div>
+</div>
+<div id="maximum-likelihood-with-tensorflow" class="section level1">
+<h1>Maximum likelihood with <code>TensorFlow</code></h1>
+<p>Tensorflow contains a large collection of probability distributions. <code>tf$contrib$distributions</code> provides some common distribution such as Bernoulli, Binomial, Uniform, Normal, Student-t,… The interesting feature of these functions is automatic differentiation. Thus, we just need to sepecify the likelihood function of the model and let <code>TensorFlow</code> takes care of the likelihood. <code>TensorFlow</code> uses reserve mode automatic differentiation.</p>
+<p>In general, we have the following workflow,</p>
+<ul>
+<li>Define the graph (variables, placeholders for data).</li>
+<li>The flow of the graph and operation on graph.</li>
+<li>Calculate the loss function and choose the optimizer engine.</li>
+<li>Graph is executed.</li>
+</ul>
+<pre class="r"><code>data(iris)              # We model the relationship between Petal.Width and Petal.Length
+#head(iris)
+
+sess &lt;- tf$Session()
+
+x_data &lt;- tf$placeholder(dtype = &quot;float&quot;,
+                         shape = length(iris$Petal.Length),
+                         name = &quot;Petal.Length&quot;) # Placeholder for Petal.Length
+y_data &lt;- tf$placeholder(dtype = &quot;float&quot;,
+                         shape = length(iris$Petal.Width),
+                         name = &quot;Petal.Width&quot;)  # Placeholder for Petal.Width
+
+
+A &lt;- tf$Variable(0.0,   name = &quot;Coefficient&quot;)
+b &lt;- tf$Variable(1.0,   name = &quot;Intercept&quot;)
+
+
+sigma &lt;- tf$Variable(1, name = &quot;Sigma&quot;)
+
+y_hat &lt;- A * x_data + b
+
+#############################################################
+# MLE #
+#############################################################
+
+# define a Gaussian distribution with mean = y_hat and sd = sigma
+gaussian_dist &lt;- tf$contrib$distributions$Normal(loc = y_hat, scale = sigma)
+# log_likelihood (y_data | A,b,sigma)
+log_prob &lt;- gaussian_dist$log_prob(value = y_data)
+# negative_log_likelihood (y_data | A,b,sigma)
+neg_log_likelihood &lt;- -1.0 * tf$reduce_sum(log_prob)
+
+# gradient of neg_log_likelihood wrt (A,b,sigma)
+grad &lt;- tf$gradients(neg_log_likelihood,c(A, b, sigma))
+
+
+# optimizer
+optimizer &lt;- tf$train$AdamOptimizer(learning_rate = 0.01)
+train_op &lt;- optimizer$minimize(loss = neg_log_likelihood)
+
+#############################################################
+# End of MLE #
+#############################################################
+
+sess$run(tf$global_variables_initializer())
+
+for (epoch in 1:2000) {
+    result &lt;- sess$run(list(train_op,            # Min neg_log_likelihood
+                            neg_log_likelihood,  # neg_log_likelihood
+                            grad),               # Gradient
+                       feed_dict = dict(x_data = iris$Petal.Length,
+                                      y_data =  iris$Petal.Width))
+}
+
+cat(&quot;Coefficient: &quot;, sess$run(A), &quot;\n Intercept: &quot;, sess$run(b), &quot;\n Sigma: &quot;, sess$run(sigma))
+cat(&quot;Gradient wrt: d.A &quot;, result[[3]][[1]], &quot;\n d.b: &quot;, result[[3]][[2]], &quot;\n d.sigma: &quot;, result[[3]][[3]], &quot; \n&quot;)
+
+sess$close()
+tf$reset_default_graph()</code></pre>
+</div>
+<div id="bayesian-with-tensorflow_probability" class="section level1">
+<h1>Bayesian with <code>TensorFlow_Probability</code></h1>
+<p><code>TensorFlow_Probability</code> contains the most recent innovated Bayesian inference algorithms used in machine learning and deep learning. <code>TensorFlow_Probability</code> make it easier for probabilistic reasoning and statistical analysis.</p>
+<div class="figure">
+<img src="https://cdn-images-1.medium.com/max/800/0*19BJhsJ-2DzQ7fFH." title="Tfp framework" alt="tfp" />
+<p class="caption">tfp</p>
+</div>
+<p><code>TensorFlow</code> package in R does not support for API to <code>TensorFlow_Probability</code> yet, so we can run python code through <code>reticulate</code> package who helps to connect R and python.
+In this section, we will work with a graphical probabilistic model using <code>tfp$edward2</code> and making inference with Hamiltonian Monte Carlo <code>tfp.mcmc.HamiltonianMonteCarlo</code>. More examples could be found at <a href="https://github.com/tensorflow/probability">Github/tfp</a>.</p>
+<pre class="r"><code># For Ubuntu due to both python2 and python3
+# Sys.setenv(TENSORFLOW_PYTHON=&quot;/usr/bin/python3&quot;)
+library(tensorflow)
+# use_python(&quot;/usr/bin/python3&quot;, required = T)
+    # reticulate::use_python(&quot;/opt/local/tools/python/Python-3.6.5/bin/python3.6&quot;)
+library(reticulate)
+
+
+repl_python()
+import numpy as np
+import tensorflow as tf
+import tensorflow_probability as tfp
+from tensorflow_probability import edward2 as ed
+import matplotlib.pyplot as plt
+
+y_data = np.array(
+[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,
+0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,
+0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,
+1.5,1.3,1.6,1.,1.3,1.4,1.,1.5,1.,1.4,1.3,1.4,1.5,1.,1.5,1.1,1.8,1.3,
+1.5,1.2,1.3,1.4,1.4,1.7,1.5,1.,1.1,1.,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,
+1.2,1.4,1.2,1.,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,
+1.8,2.5,2.,1.9,2.1,2.,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2.,2.,1.8,2.1,1.8,
+1.8,1.8,2.1,1.6,1.9,2.,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,
+2.5,2.3,1.9,2.,2.3,1.8], dtype=np.float32)
+x_data = np.array(
+[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,
+1.7,1.5,1.7,1.5,1.,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,
+1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4.,
+4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4.,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4.,
+4.9,4.7,4.3,4.4,4.8,5.,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4.,
+4.4,4.6,4.,3.3,4.2,4.2,4.2,4.3,3.,4.1,6.,5.1,5.9,5.6,5.8,6.6,4.5,6.3,
+5.8,6.1,5.1,5.3,5.5,5.,5.1,5.3,5.5,6.7,6.9,5.,5.7,4.9,6.7,4.9,5.7,6.,
+4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,
+5.7,5.2,5.,5.2,5.4,5.1], dtype=np.float32)
+
+
+def linear_model(x_data):
+    A = ed.Normal(loc=0., scale=10., name=&quot;A&quot;)
+    b = ed.Normal(loc=0., scale=10., name=&quot;b&quot;)
+    sigma = ed.Gamma(concentration=1., rate=1., name=&quot;sigma&quot;)
+    mu = A * x_data + b
+    y_data = ed.Normal(loc=mu, scale=sigma,name=&quot;y_data&quot;)  # `y` above
+    return y_data
+
+log_joint = ed.make_log_joint_fn(linear_model)
+
+
+def target_log_prob_fn(A, b, sigma):
+    return log_joint(
+      x_data=x_data,
+      A=A,
+      b=b,
+      sigma=sigma,
+      y_data=y_data)
+
+
+num_results = 5000
+num_burnin_steps = 3000
+
+states, kernel_results = tfp.mcmc.sample_chain(
+    num_results=num_results,
+    num_burnin_steps=num_burnin_steps,
+    current_state=[
+        tf.zeros([], name=&#39;init_A&#39;),
+        tf.zeros([], name=&#39;init_b&#39;),
+        tf.ones([], name=&#39;init_sigma&#39;),
+    ],
+    kernel=tfp.mcmc.HamiltonianMonteCarlo(
+        target_log_prob_fn=target_log_prob_fn,
+        step_size=0.008,
+        num_leapfrog_steps=5))
+
+A, b, sigma = states
+
+sess = tf.Session()
+
+[A_mcmc, b_mcmc, sigma_mcmc, is_accepted_] = sess.run([
+      A, b, sigma, kernel_results.is_accepted])
+
+num_accepted = np.sum(is_accepted_)
+print(&#39;Acceptance rate: {}&#39;.format(num_accepted / num_results))
+
+plt.plot(A_mcmc)
+plt.show()
+
+print(&quot;Coefficient: &quot;, A_mcmc.mean(), &quot;\n Intercept: &quot;, b_mcmc.mean(), &quot;\n Sigma: &quot;, sigma_mcmc.mean())
+exit</code></pre>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<ul>
+<li><a href="http://kyleclo.github.io/maximum-likelihood-in-tensorflow-pt-1/">MLE with TensorFlow</a></li>
+<li><a href="https://www.youtube.com/watch?v=atiYXm7JZv0">Machine Learning with R and TensorFlow</a></li>
+<li><a href="https://medium.com/tensorflow/introducing-tensorflow-probability-dca4c304e245">Tensorflow probability</a></li>
+<li><a href="https://tensorflow.rstudio.com/tensorflow/articles/using_tensorflow_api.html">Using TensorFlow Api</a></li>
+</ul>
+</div>

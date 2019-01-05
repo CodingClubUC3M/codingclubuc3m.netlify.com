@@ -1,0 +1,859 @@
+---
+title: "Useful one-function R packages, big data solutions, and a message from Yoda"
+authors: ["Eduardo García-Portugués"]
+date: 2018-05-10
+categories: ["R"]
+tags: ["R", "big data", "visualization", "benchmark"]
+---
+
+
+
+<p>As the title reads, in this heterogeneous session we will see three topics of different interest. The first is a collection of three simple and useful one-function R packages that I use regularly in my coding workflow. The second collects some approaches to handling and performing linear regression with big data. The third brings in the freaky component: it presents tools to display graphical information in plain ASCII, from bivariate contours to messages from Yoda!</p>
+<p>You can download the script with the <code>R</code> code alone <a href="https://raw.githubusercontent.com/CodingClubUC3M/codingclubuc3m.github.io/master/scripts/misc.R">here</a> (right click and “Save as…”).</p>
+<p>We will need the following packages:</p>
+<pre class="r"><code>install.packages(c(&quot;viridis&quot;, &quot;microbenchmark&quot;, &quot;multcomp&quot;, &quot;manipulate&quot;, 
+                   &quot;ffbase&quot;, &quot;biglm&quot;, &quot;leaps&quot;, &quot;txtplot&quot;, &quot;NostalgiR&quot;,
+                   &quot;cowsay&quot;), 
+                 dependencies = TRUE)</code></pre>
+<div id="some-simple-and-useful-r-packages" class="section level1">
+<h1>Some simple and useful <code>R</code> packages</h1>
+<div id="color-palettes-with-viridis" class="section level2">
+<h2>Color palettes with <code>viridis</code></h2>
+<p>Built-in color palettes in base <code>R</code> are somehow limited. We have <code>rainbow</code>, <code>topo.colors</code>, <code>terrain.colors</code>, <code>heat.colors</code>, and <code>cm.colors</code>. We also have flexibility to create our own palettes, e.g. by using <code>colorRamp</code>. These palettes look like:</p>
+<pre class="r"><code># MATLAB&#39;s color palette
+jet.colors &lt;- colorRampPalette(c(&quot;#00007F&quot;, &quot;blue&quot;, &quot;#007FFF&quot;, &quot;cyan&quot;,
+                                 &quot;#7FFF7F&quot;, &quot;yellow&quot;, &quot;#FF7F00&quot;, &quot;red&quot;, 
+                                 &quot;#7F0000&quot;))
+# Plot for palettes
+testPalette &lt;- function(col, n = 200, ...) {
+  image(1:n, 1, as.matrix(1:n), col = get(col)(n = n, ...), 
+        main = col, xlab = &quot;&quot;, ylab = &quot;&quot;, axes = FALSE)
+}
+
+# Color palettes comparison
+par(mfrow = c(2, 3))
+res &lt;- sapply(c(&quot;rainbow&quot;, &quot;topo.colors&quot;, &quot;terrain.colors&quot;, 
+                &quot;heat.colors&quot;, &quot;cm.colors&quot;, &quot;jet.colors&quot;), testPalette)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/viridis-1-1.png" width="672" /></p>
+<p>Notice that some palettes clearly show <strong>non-uniformity in the color gradient</strong>. This potentially leads to an <strong>interpretation bias</strong> when inspecting heatmaps colored by these scales: some features are (unfairly) weakened and others are (unfairly) strengthen. This distortion on the representation of the data can be quite misleading.</p>
+<p>In addition to these problems, some problematic points that are not usually thought when choosing a color scale are:</p>
+<ul>
+<li>How does your pretty color image look like when you print it in <strong>black-and-white</strong>?</li>
+<li>How do <strong>colorblind</strong> people read the images?</li>
+</ul>
+<p>The package <a href="https://cran.r-project.org/web/packages/viridisLite/index.html"><code>viridisLite</code></a> (a port from <code>Python</code>’s <a href="http://matplotlib.org/"><code>Matplotlib</code></a>) comes to solve these three issues. It provides the <em>viridis</em> color palette, which uses notions from color theory to be <strong>as much uniform as possible</strong>, <strong>black-and-white-ready</strong>, and <strong>colorblind-friendly</strong>. From <code>viridisLite</code>’s help:</p>
+<blockquote>
+<p>This color map is designed in such a way that it will analytically be perfectly perceptually-uniform, both in regular form and also when converted to black-and-white. It is also designed to be perceived by readers with the most common form of color blindness.</p>
+</blockquote>
+<p>More details can be found in this great talk by one of the authors:</p>
+<iframe src="https://www.youtube.com/embed/xAoljeRJ3lU" width="600" height="315" frameborder="0" allowfullscreen=""></iframe>
+<p>There are several palettes in the package. All of them have the same properties as <code>viridis</code> (<em>i.e.</em>, perceptually-uniform, black-and-white-ready, and colorblind-friendly). The <code>cividis</code> is specifically aimed to people with color vision deficiency. Let’s see them in action:</p>
+<pre class="r"><code>library(viridisLite)
+# Color palettes comparison
+par(mfrow = c(2, 3))
+res &lt;- sapply(c(&quot;viridis&quot;, &quot;magma&quot;, &quot;inferno&quot;, &quot;plasma&quot;, &quot;cividis&quot;), 
+              testPalette)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/viridis-3-1.png" width="672" /></p>
+<p>Some useful options for any of the palettes are:</p>
+<pre class="r"><code># Reverse palette
+par(mfrow = c(1, 2))
+testPalette(&quot;viridis&quot;, direction = 1)
+testPalette(&quot;viridis&quot;, direction = -1)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/viridis-4-1.png" width="672" /></p>
+<pre class="r"><code># Truncate color range
+par(mfrow = c(1, 2))
+testPalette(&quot;viridis&quot;, begin = 0, end = 1)
+testPalette(&quot;viridis&quot;, begin = 0.25, end = 0.75)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/viridis-4-2.png" width="672" /></p>
+<pre class="r"><code># Asjust transparency
+par(mfrow = c(1, 2))
+testPalette(&quot;viridis&quot;, alpha = 1)
+testPalette(&quot;viridis&quot;, alpha = 0.5)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/viridis-4-3.png" width="672" /></p>
+<p>In the extended <a href="https://cran.r-project.org/web/packages/viridis/index.html"><code>viridis</code></a> package there are color palettes functions for <code>ggplot2</code> fans: <code>scale_color_viridis</code> and <code>scale_fill_viridis</code>. Some examples of their use:</p>
+<pre class="r"><code>library(viridis)
+library(ggplot2)
+
+# Using scale_color_viridis
+ggplot(mtcars, aes(wt, mpg)) + 
+  geom_point(size = 4, aes(color = factor(cyl))) +
+  scale_color_viridis(discrete = TRUE) +
+  theme_bw()</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/viridis-5-1.png" width="672" /></p>
+<pre class="r"><code># Using scale_fill_viridis
+dat &lt;- data.frame(x = rnorm(1e4), y = rnorm(1e4))
+ggplot(dat, aes(x = x, y = y)) +
+  geom_hex() + coord_fixed() +
+  scale_fill_viridis() + theme_bw()</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/viridis-5-2.png" width="672" /></p>
+</div>
+<div id="benchmarking-with-microbenchmark" class="section level2">
+<h2>Benchmarking with <code>microbenchmark</code></h2>
+<p>Measuring the <strong>code performance</strong> is a <strong>day-to-day routine</strong> for many developers. It is also a requirement for regular users that want to choose the most efficient coding strategy for implementing a method.</p>
+<p>As we know, we can measure running times in base <code>R</code> using <code>proc.time</code> or <code>system.time</code>:</p>
+<pre class="r"><code># Using proc.time
+time &lt;- proc.time()
+for (i in 1:100) rnorm(100)
+time &lt;- proc.time() - time
+time # elapsed is the &#39;real&#39; elapsed time since the process was started</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.014   0.001   0.017</code></pre>
+<pre class="r"><code># Using system.time - a wrapper for the above code
+system.time({for (i in 1:100) rnorm(100)})</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.009   0.000   0.008</code></pre>
+<p>However, this very basic approach presents several inconveniences to be aware of:</p>
+<ul>
+<li>The <strong>precision</strong> of <code>proc.time</code> is within the millisecond. This means that evaluating <code>1:1000000</code> (usually) takes <code>0</code> seconds at the sight of <code>proc.time</code>.</li>
+<li>Each time measurement of a procedure is subjected to <strong>variability</strong> (depends on the processor usage at that time, processor warm-up, memory status, etc). So, one single call is not enough to assess the time performance, several must be made (conveniently) and averaged.</li>
+<li>It is <strong>cumbersome</strong> to check the times for different expressions. We will need several lines of code for each and creating auxiliary variables.</li>
+<li>There is <strong>no summary</strong> of the timings. We have to code it by ourselves.</li>
+<li>There is <strong>no checking on the equality</strong> of the results outputted from different approaches (accuracy is also important, not only speed!). Again, we have to code it by ourselves.</li>
+</ul>
+<p>Hopefully, the <a href="https://cran.r-project.org/package=microbenchmark"><code>microbenchmark</code></a> package fills in these gaps. Let’s see an example of its usage on approaching a common problem in <code>R</code>: how to <strong>recentre a matrix by columns</strong>, <em>i.e.</em>, how to make each column to have zero mean. There are several possibilities to do so, with different efficiencies.</p>
+<pre class="r"><code># Data and mean
+n &lt;- 3
+m &lt;- 10
+X &lt;- matrix(1:(n * m), nrow = n, ncol = m)
+mu &lt;- colMeans(X)
+# We assume mu is given in the time comparisons</code></pre>
+<p><strong>Time to think by yourself on the competing approaches!</strong> Do not cheat and do not look into the next chunk of code!</p>
+<pre class="r"><code># SPOILER ALERT!
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
+# Some approaches:
+
+# 1) sweep
+Y1 &lt;- sweep(x = X, MARGIN = 2, STATS = mu, FUN = &quot;-&quot;)
+
+# 2) apply (+ transpose to maintain the arrangement of X)
+Y2 &lt;- t(apply(X, 1, function(x) x - mu))
+
+# 3) scale
+Y3 &lt;- scale(X, center = mu, scale = FALSE)
+
+# 4) loop
+Y4 &lt;- matrix(0, nrow = n, ncol = m)
+for (j in 1:m) Y4[, j] &lt;- X[, j] - mu[j]
+  
+# 5) magic (my favourite!)
+Y5 &lt;- t(t(X) - mu)</code></pre>
+<p>Which one do you think is faster? Do not cheat and answer before seeing the output of the next chunk of code!</p>
+<pre class="r"><code># Test speed
+library(microbenchmark)
+bench &lt;- microbenchmark(
+  sweep(x = X, MARGIN = 2, STATS = mu, FUN = &quot;-&quot;), 
+  t(apply(X, 1, function(x) x - mu)), 
+  scale(X, center = mu, scale = FALSE), 
+  {for (j in 1:m) Y4[, j] &lt;- X[, j] - mu[j]; Y4},
+  t(t(X) - mu)
+)
+
+# Printing a microbenchmark object gives a numerical summary
+bench
+# Notice the last column. It is only present if the package multcomp is present.
+# It provides a statistical ranking (accounts for which method is significantly 
+# slower or faster) using multcomp::cld
+ 
+# Adjusting display
+print(bench, unit = &quot;ms&quot;, signif = 2)
+# unit = &quot;ns&quot; (nanosecs), &quot;us&quot; (&quot;microsecs&quot;), &quot;ms&quot; (millisecs), &quot;s&quot; (secs)
+
+# Graphical methods for the microbenchmark object
+# Raw time data
+par(mfrow = c(1, 1))
+plot(bench, names = c(&quot;sweep&quot;, &quot;apply&quot;, &quot;scale&quot;, &quot;for&quot;, &quot;recycling&quot;))
+# Employs time logarithms
+boxplot(bench, names = c(&quot;sweep&quot;, &quot;apply&quot;, &quot;scale&quot;, &quot;for&quot;, &quot;recycling&quot;)) 
+# Violin plots
+autoplot(bench)
+
+# microbenchmark uses 100 evaluations and 2 warmup evaluations (these are not 
+# measured) by default. Here is how to change these dafaults:
+bench2 &lt;- microbenchmark(
+  sweep(x = X, MARGIN = 2, STATS = mu, FUN = &quot;-&quot;), 
+  t(apply(X, 1, function(x) x - mu)), 
+  scale(X, center = mu, scale = FALSE), 
+  {for (j in 1:m) Y4[, j] &lt;- X[, j] - mu[j]; Y4},
+  t(t(X) - mu),
+  times = 1000, control = list(warmup = 10)
+)
+bench2
+
+# Let&#39;s check the accuracy of the methods as well as their timings. For that 
+# we need to define a check function that takes as input a LIST with each slot
+# representing the output of each method. The check must return TRUE or FALSE
+check1 &lt;- function (results) {
+  all(sapply(results[-1], function(x) {
+    max(abs(x - results[[1]]))
+    }) &lt; 1e-15) # Compares all results pair-wisely with the first
+}
+
+# Example with check function
+bench3 &lt;- microbenchmark(
+  sweep(x = X, MARGIN = 2, STATS = mu, FUN = &quot;-&quot;), 
+  t(apply(X, 1, function(x) x - mu)), 
+  scale(X, center = mu, scale = FALSE), 
+  {for (j in 1:m) Y4[, j] &lt;- X[, j] - mu[j]; Y4},
+  t(t(X) - mu),
+  check = check1
+)
+bench3</code></pre>
+</div>
+<div id="quick-animations-with-manipulate" class="section level2">
+<h2>Quick animations with <code>manipulate</code></h2>
+<p>The <a href="https://cran.r-project.org/package=manipulate"><code>manipulate</code></a> package (works only within <code>RStudio</code>!) allows to easily create simple animations. It is a simpler, local, alternative to <code>Shiny</code> applications.</p>
+<pre class="r"><code>library(manipulate)
+
+# A simple example
+manipulate({
+  plot(1:n, sin(2 * pi * (1:n) / 100), xlim = c(1, 100), ylim = c(-1, 1),
+       type = &quot;o&quot;, xlab = &quot;x&quot;, ylab = &quot;y&quot;)
+  lines(1:100, sin(2 * pi * 1:100 / 100), col = 2)
+}, n = slider(min = 1, max = 100, step = 1, ticks = TRUE))</code></pre>
+<pre class="r"><code># Illustrating several types of controls using the kernel density estimator
+manipulate({
+  
+  # Sample data
+  if (newSample) {
+    set.seed(sample(1:1000))
+  } else {
+    set.seed(12345678)
+  }
+  samp &lt;- rnorm(n = n, mean = 0, sd = 1.5) 
+  
+  # Density estimate
+  plot(density(x = samp, bw = h, kernel = kernel), 
+       xlim = c(-x.rang, x.rang)/2, ylim = c(0, y.max))
+  
+  # Show data
+  if (rugSamp) {
+    rug(samp)
+  }
+  
+  # Add reference density
+  if (realDensity) {
+    tt &lt;- seq(-x.rang/2, x.rang/2, l = 200)
+    lines(tt, dnorm(x = tt, mean = 0, sd = 1.5), col = 2)
+  }
+  },
+  n = slider(min = 1, max = 250, step = 5, initial = 10),
+  h = slider(0.05, 2, initial = 0.5, step = 0.05),
+  x.rang = slider(1, 10, initial = 6, step = 0.5),
+  y.max = slider(0.1, 2, initial = 0.5, step = 0.1),
+  kernel = picker(&quot;gaussian&quot;, &quot;epanechnikov&quot;, &quot;rectangular&quot;, 
+                  &quot;triangular&quot;, &quot;biweight&quot;, &quot;cosine&quot;, &quot;optcosine&quot;),
+  rugSamp = checkbox(TRUE, &quot;Show rug&quot;),
+  realDensity = checkbox(TRUE, &quot;Draw real density&quot;),
+  newSample = button(&quot;New sample!&quot;)
+  )</code></pre>
+<pre class="r"><code># Another example: rotating 3D graphs without using rgl
+
+# Mexican hat
+x &lt;- seq(-10, 10, l = 50)
+y &lt;- x
+f &lt;- function(x, y) {r &lt;- sqrt(x^2 + y^2); 10 * sin(r)/r}
+z &lt;- outer(x, y, f)
+
+# Colors
+nrz &lt;- nrow(z)
+ncz &lt;- ncol(z)
+zfacet &lt;- z[-1, -1] + z[-1, -ncz] + z[-nrz, -1] + z[-nrz, -ncz]
+col &lt;- viridis(100)
+facetcol &lt;- cut(zfacet, length(col))
+col &lt;- col[facetcol]
+
+# 3D plot
+manipulate(
+  persp(x, y, z, theta = theta, phi = phi, expand = 0.5, col = col,
+        ticktype = &quot;detailed&quot;, xlab = &quot;X&quot;, ylab = &quot;Y&quot;, zlab = &quot;Sinc(r)&quot;),
+  theta = slider(-180, 180, initial = 30, step = 5),
+  phi = slider(-90, 90, initial = 30, step = 5))</code></pre>
+</div>
+</div>
+<div id="handling-big-data-in-r" class="section level1">
+<h1>Handling big data in <code>R</code></h1>
+<div id="the-ff-and-ffbase-packages" class="section level2">
+<h2>The <code>ff</code> and <code>ffbase</code> packages</h2>
+<p><code>R</code> stores all the data in RAM, which is where all the processing takes place. But when the data does not fit into RAM (e.g., vectors of size <span class="math inline">\(2\times 10^9\)</span>), alternatives are needed. <a href="https://cran.r-project.org/web/packages/ff/index.html"><code>ff</code></a> is an <code>R</code> package for working with data that does not fit in RAM. From <code>ff</code>’s description:</p>
+<blockquote>
+<p>The <code>ff</code> package provides data structures that are stored on disk but behave (almost) as if they were in RAM by transparently mapping only a section (pagesize) in main memory - the effective virtual memory consumption per <code>ff</code> object.</p>
+</blockquote>
+<p>The package <code>ff</code> lacks some standard statistical methods for operating with <code>ff</code> objects. These are provided by <a href="https://cran.r-project.org/web/packages/ffbase/index.html"><code>ffbase</code></a>.</p>
+<p>Let’s see an example.</p>
+<pre class="r"><code># Not really &quot;big data&quot;, but for the sake of illustration
+set.seed(12345)
+n &lt;- 1e6
+p &lt;- 10
+beta &lt;- seq(-1, 1, length.out = p)^5
+
+# Data for linear regression
+x1 &lt;- matrix(rnorm(n * p), nrow = n, ncol = p)
+x1[, p] &lt;- 2 * x1[, 1] + rnorm(n, sd = 0.1)
+x1[, p - 1] &lt;- 2 - x1[, 2] + rnorm(n, sd = 0.5)
+y1 &lt;- 1 + x1 %*% beta + rnorm(n)
+bigData1 &lt;- data.frame(&quot;resp&quot; = y1, &quot;pred&quot; = x1)
+
+# Data for logistic regression
+x2 &lt;- matrix(rnorm(n * p), nrow = n, ncol = p)
+y2 &lt;- rbinom(n = n, size = 1, prob = 1 / (1 + exp(-(1 + x2 %*% beta))))
+bigData2 &lt;- data.frame(&quot;resp&quot; = y2, &quot;pred&quot; = x2)
+
+# Sizes of objects
+print(object.size(bigData1), units = &quot;Mb&quot;)
+print(object.size(bigData2), units = &quot;Mb&quot;)
+
+# Save files to disk to emulate the situation with big data
+write.csv(x = bigData1, file = &quot;bigData1.csv&quot;, row.names = FALSE)
+write.csv(x = bigData2, file = &quot;bigData2.csv&quot;, row.names = FALSE)
+
+# Read files using ff
+library(ffbase) # Imports ff
+bigData1ff &lt;- read.table.ffdf(file = &quot;bigData1.csv&quot;, header = TRUE, sep = &quot;,&quot;)
+bigData2ff &lt;- read.table.ffdf(file = &quot;bigData2.csv&quot;, header = TRUE, sep = &quot;,&quot;)
+
+# Recall: the *.csv are not copied into RAM!
+print(object.size(bigData1ff), units = &quot;Kb&quot;)
+print(object.size(bigData2ff), units = &quot;Kb&quot;)
+
+# Delete the csv files in disk
+file.remove(c(&quot;bigData1.csv&quot;, &quot;bigData2.csv&quot;))</code></pre>
+<p>Operations on <code>ff</code> objects are carried out similarly as with regular <code>data.frames</code>:</p>
+<pre class="r"><code># Operations on ff objects &quot;almost&quot; as with regular data.frames
+class(bigData1ff)
+class(bigData1ff[, 1])
+bigData1ff[1:5, 1] &lt;- rnorm(5)
+# See ?ffdf for more allowed operations
+
+# Filter of data frames
+ffwhich(bigData1ff, bigData1ff$resp &gt; 5)</code></pre>
+</div>
+<div id="regression-using-biglm-and-friends" class="section level2">
+<h2>Regression using <code>biglm</code> and friends</h2>
+<p>The richness of information returned by <code>R</code>’s <code>lm</code> has immediate drawbacks when working with big data (large <span class="math inline">\(n\)</span>, <span class="math inline">\(n&gt;p\)</span>). An example is the following. If <span class="math inline">\(n=10^8\)</span> and <span class="math inline">\(p=10\)</span>, simply storing the response and the predictors takes up to <span class="math inline">\(8.2\)</span> Gb in RAM. This is in the edge of feasibility for many regular laptops. However, calling <code>lm</code> will consume, at the very least, <span class="math inline">\(16.5\)</span> Gb merely storing the <code>residuals</code>, <code>effects</code>, <code>fitted.values</code>, and <code>qr</code> decomposition. Although there are more efficient ways of performing linear regression in base <code>R</code> (e.g., with <code>.lm.fit</code>), we still need to rethink the least squares estimates computation (takes <span class="math inline">\(\mathcal{O}(np+p^2)\)</span> in memory) to do not overflow the RAM.</p>
+<p>A handy solution is given by the <a href="https://CRAN.R-project.org/package=biglm"><code>biglm</code></a> package, which allows to fit a generalized linear model (glm) in <code>R</code> consuming much less RAM. Essentially, we have two possible approaches for fitting a glm:</p>
+<ol style="list-style-type: decimal">
+<li><p>Use a regular <code>data.frame</code> object to store the data, then use <code>biglm</code> to fit the model. This assumes that:</p>
+<ul>
+<li>We are able to <strong>store the dataset in RAM</strong> or, alternatively, that we can <strong>split it into chunks</strong> that are fed into the model iteratively, <strong>updating the fit</strong> via <code>udpate</code> for each new data chunk.</li>
+<li>The <strong>updating must rely only in the new chunk</strong> of data, not in the full dataset (otherwise, there is no point in chunking the data). This is possible with linear models, but not possible (at least exaclty) for generalized linear models.</li>
+</ul></li>
+<li><p>Use a <code>ffdf</code> object to store the data, then use <code>ffbase</code>’s <code>bigglm.ffdf</code> to fit the model.</p></li>
+</ol>
+<p>We will focus on the <strong>second approach</strong> due to its simplicity. For an example of the use of the first approach with a linear model, see <a href="https://bookdown.org/egarpor/PM-UC3M/lm-iii-bigdata.html">here</a>.</p>
+<p>Let’s see first an example of <strong>linear regression</strong>.</p>
+<pre class="r"><code>library(biglm)
+# bigglm.ffdf has a very similar syntax to glm - but the formula interface does 
+# not work always as expected:
+# bigglm.ffdf(formula = resp ~ ., data = bigData1ff) # Does not work
+# bigglm.ffdf(formula = resp ~ pred.1 + pred.2, data = bigData1ff) # Does work, 
+# but not very convenient for a large number of predictors
+
+# Hack for automatic inclusion of all the predictors
+f &lt;- formula(paste(&quot;resp ~&quot;, paste(names(bigData1ff)[-1], collapse = &quot; + &quot;)))
+
+# bigglm.ffdf&#39;s call
+biglmMod &lt;- bigglm.ffdf(formula = f, data = bigData1ff, family = gaussian())
+class(biglmMod)
+
+# lm&#39;s call
+lmMod &lt;- lm(formula = resp ~ ., data = bigData1)
+
+# The reduction in size of the resulting object is more than notable
+print(object.size(biglmMod), units = &quot;Kb&quot;)
+print(object.size(lmMod), units = &quot;Mb&quot;)
+
+# Summaries
+s1 &lt;- summary(biglmMod)
+s2 &lt;- summary(lmMod)
+s1
+s2
+# The summary of a biglm object yields slightly different significances for the
+# coefficients than for lm. The reason is that biglm employs N(0, 1) 
+# approximations for the distributions of the t-tests instead of the exact 
+# t distribution. Obviously, if n is large, the differences are inappreciable.
+
+# Extract coefficients
+coef(biglmMod)
+
+# AIC
+AIC(biglmMod, k = 2)
+
+# Prediction works &quot;as usual&quot;
+predict(biglmMod, newdata = bigData1[1:5, ])
+# newdata must contain a column for the response!
+# predict(biglmMod, newdata = bigData2[1:5, -1]) # Error
+
+# Update the model with more training data - this is key for chunking the data
+update(biglmMod, moredata = bigData1[1:100, ])</code></pre>
+<p>Model selection of <code>biglm</code> models can be done with the <a href="https://cran.r-project.org/web/packages/leaps/index.html"><code>leaps</code></a> package. This is achieved by the <code>regsubsets</code> function, which returns the <em>best subset</em> of up to (by default) <code>nvmax = 8</code> predictors. The function requires the <em>full</em> <code>biglm</code> model to begin the “exhaustive” search, in which is crucial the linear structure of the estimator.</p>
+<pre class="r"><code># Model selection adapted to big data models
+library(leaps)
+reg &lt;- regsubsets(biglmMod, nvmax = p, method = &quot;exhaustive&quot;)
+plot(reg) # Plot best model (top row) to worst model (bottom row). Black color 
+# means that the predictor is included, white stands for excluded predictor
+
+# Get the model with lowest BIC
+subs &lt;- summary(reg)
+subs$which
+subs$bic
+subs$which[which.min(subs$bic), ]</code></pre>
+<p>An example of <strong>logistic regression</strong>:</p>
+<pre class="r"><code># Same comments for the formula framework - this is the hack for automatic
+# inclusion of all the predictors
+f &lt;- formula(paste(&quot;resp ~&quot;, paste(names(bigData2ff)[-1], collapse = &quot; + &quot;)))
+
+# bigglm.ffdf&#39;s call
+bigglmMod &lt;- bigglm.ffdf(formula = f, data = bigData2ff, family = binomial())
+
+# glm&#39;s call
+glmMod &lt;- glm(formula = resp ~ ., data = bigData2, family = binomial())
+
+# Compare sizes
+print(object.size(bigglmMod), units = &quot;Kb&quot;)
+print(object.size(glmMod), units = &quot;Mb&quot;)
+
+# Summaries
+s1 &lt;- summary(bigglmMod)
+s2 &lt;- summary(glmMod)
+s1
+s2
+
+# AIC
+AIC(bigglmMod, k = 2)
+
+# Prediction works &quot;as usual&quot;
+predict(bigglmMod, newdata = bigData2[1:5, ], type = &quot;response&quot;)
+# predict(bigglmMod, newdata = bigData2[1:5, -1]) # Error</code></pre>
+</div>
+</div>
+<div id="ascii-fun-in-r" class="section level1">
+<h1>ASCII fun in <code>R</code></h1>
+<div id="text-based-graphs-with-txtplot" class="section level2">
+<h2>Text-based graphs with <code>txtplot</code></h2>
+<p>When evaluating <code>R</code> in a terminal with no possible graphical outputs (e.g. in a supercomputing cluster), it may be of usefulness to, at least, visualize some simple plots in a rudimentary way. This is what the <a href="https://cran.r-project.org/web/packages/txtplot/index.html"><code>txtplot</code></a> and the <a href="https://cran.r-project.org/web/packages/NostalgiR/index.html"><code>NostalgiR</code></a> package do, by means of ASCII graphics that are equivalent to some <code>R</code> functions.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><code>R</code> graph</th>
+<th align="left">ASCII analogue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>plot</code></td>
+<td align="left"><code>txtplot</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>boxplot</code></td>
+<td align="left"><code>txtboxplot</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>barplot(table())</code></td>
+<td align="left"><code>txtbarchart</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>curve</code></td>
+<td align="left"><code>txtcurve</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>acf</code></td>
+<td align="left"><code>txtacf</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>plot(density())</code></td>
+<td align="left"><code>nos.density</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>hist</code></td>
+<td align="left"><code>nos.hist</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>plot(ecdf())</code></td>
+<td align="left"><code>nos.ecdf</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>qqnorm(); qqline()</code></td>
+<td align="left"><code>nos.qqnorm</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>qqplot</code></td>
+<td align="left"><code>nos.qqplot</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>contour</code></td>
+<td align="left"><code>nos.contour</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>image</code></td>
+<td align="left"><code>nos.image</code></td>
+</tr>
+</tbody>
+</table>
+<p>Let’s see some examples.</p>
+<pre class="r"><code>library(txtplot) # txt* functions
+
+# Generate common data
+x &lt;- rnorm(100)
+y &lt;- 1 + x + rnorm(100, sd = 1)
+let &lt;- as.factor(sample(letters, size = 1000, replace = TRUE))
+
+# txtplot
+plot(x, y)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/ascii-1-1.png" width="672" /></p>
+<pre class="r"><code>txtplot(x, y)</code></pre>
+<pre><code>##    +--+-----------+-----------+----------+-----------+-----+
+##  4 +                             *                         +
+##    |                                       *               |
+##    |                           *    * ***         *        |
+##    |                    *        ** *  *      *         *  |
+##  2 +                       *  **  ** * **     *            +
+##    |              * * *  ***   ** *** * *    * *           |
+##    |           *  *    * * * *     *  *  *                 |
+##  0 +       *      ***    ** *     **                       +
+##    |  ** *     ***  ***      ** *                          |
+##    |  * *  * * **   *   *  * *                             |
+##    |       *                                               |
+## -2 +        *           *   *                              +
+##    +--+-----------+-----------+----------+-----------+-----+
+##      -2          -1           0          1           2</code></pre>
+<pre class="r"><code># txtboxplot
+boxplot(x, horizontal = TRUE)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/ascii-1-2.png" width="672" /></p>
+<pre class="r"><code>txtboxplot(x)</code></pre>
+<pre><code>##     -2         -1           0           1          2        
+##  |---+----------+-----------+-----------+----------+-------|
+##                    +-------+------+                         
+##     ---------------|       |      |---------------------    
+##                    +-------+------+</code></pre>
+<pre class="r"><code># txtbarchart
+barplot(table(let))</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/ascii-1-3.png" width="672" /></p>
+<pre class="r"><code>txtbarchart(x = let)</code></pre>
+<pre><code>##   ++---------+---------+----------+---------+---------+----+
+## 5 +                                         * *            +
+##   |            *   *           *      * * * * *            |
+## 4 +            * * * *     *   *    * * * * * *   *   * *  +
+##   |  *         * * * * * * *   *  * * * * * * * * * * * *  |
+## 3 +  * * * *   * * * * * * * * *  * * * * * * * * * * * *  +
+##   |  * * * * * * * * * * * * * *  * * * * * * * * * * * *  |
+## 2 +  * * * * * * * * * * * * * *  * * * * * * * * * * * *  +
+##   |  * * * * * * * * * * * * * *  * * * * * * * * * * * *  |
+## 1 +  * * * * * * * * * * * * * *  * * * * * * * * * * * *  +
+##   |  * * * * * * * * * * * * * *  * * * * * * * * * * * *  |
+## 0 +  * * * * * * * * * * * * * *  * * * * * * * * * * * *  +
+##   ++---------+---------+----------+---------+---------+----+
+##    0         5        10         15        20        25     
+## Legend: 
+## 1=a, 2=b, 3=c, 4=d, 5=e, 6=f, 7=g, 8=h, 9=i, 10=j, 11=k, 12=
+## l, 13=m, 14=n, 15=o, 16=p, 17=q, 18=r, 19=s, 20=t, 21=u, 22=
+## v, 23=w, 24=x, 25=y, 26=z</code></pre>
+<pre class="r"><code># txtcurve
+curve(expr = sin(x), from = 0, to = 2 * pi)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/ascii-1-4.png" width="672" /></p>
+<pre class="r"><code>txtcurve(expr = sin(x), from = 0, to = 2 * pi)</code></pre>
+<pre><code>##      +-+-------+-------+-------+-------+------+-------+----+
+##    1 +          *********                                  +
+##      |       ***        ***                                |
+##      |      **             **                              |
+##  0.5 +    **                **                             +
+##      |   **                  **                            |
+##      |  *                      *                           |
+##    0 + *                        **                     **  +
+##      |                           **                   **   |
+## -0.5 +                             **                *     +
+##      |                              **             **      |
+##      |                                ***        ***       |
+##   -1 +                                  *********          +
+##      +-+-------+-------+-------+-------+------+-------+----+
+##        0       1       2       3       4      5       6</code></pre>
+<pre class="r"><code># txtacf
+acf(x)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/ascii-1-5.png" width="672" /></p>
+<pre class="r"><code>txtacf(x)</code></pre>
+<pre><code>##     +-+------------+-----------+------------+-----------+--+
+##   1 + *                                                    +
+##     | *                                                    |
+## 0.8 + *                                                    +
+##     | *                                                    |
+## 0.6 + *                                                    +
+##     | *                                                    |
+## 0.4 + *                                                    +
+##     | *                                                    |
+## 0.2 + *            *                                       +
+##     | *  *         * *            * *  *      *            |
+##   0 + *  * *  * *  * *  * *  * *  * *  * *  * *  * *  * *  +
+##     |      *  * *            *           *  *           *  |
+##     +-+------------+-----------+------------+-----------+--+
+##       0            5          10           15          20</code></pre>
+<pre class="r"><code>library(NostalgiR) # nos.* functions
+
+# Mexican hat
+xx &lt;- seq(-10, 10, l = 50)
+yy &lt;- xx
+f &lt;- function(x, y) {r &lt;- sqrt(x^2 + y^2); 10 * sin(r)/r}
+zz &lt;- outer(xx, yy, f)
+
+# nos.density
+plot(density(x)); rug(x)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/ascii-2-1.png" width="672" /></p>
+<pre class="r"><code>nos.density(x)</code></pre>
+<pre><code>##       +-+-------+-------+-------+------+-------+-------+---+
+##   0.4 +                       ~~~~~~~                      +
+##       |                     ~~~     ~~                     |
+##       |                   ~~~        ~~                    |
+## D 0.3 +                 ~~~           ~                    +
+## e     |                ~~             ~~                   |
+## n     |               ~~               ~~                  |
+## s 0.2 +             ~~~                 ~                  +
+## i     |            ~~                   ~~                 |
+## t     |          ~~~                     ~~                |
+## y 0.1 +         ~~                        ~~~              +
+##       |       ~~                            ~~~            |
+##     0 + ~~~~~~~ oooooooooooooooooooooooooooo o ~~~~~~~~~~  +
+##       +-+-------+-------+-------+------+-------+-------+---+
+##        -3      -2      -1       0      1       2       3</code></pre>
+<pre class="r"><code># nos.hist
+hist(x)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/ascii-2-2.png" width="672" /></p>
+<pre class="r"><code>nos.hist(x)</code></pre>
+<pre><code>##      +----+----------+----------+----------+----------+----+
+##      |                       o     o                       |
+##   20 +                       o     o                       +
+## F    |                       o     o    o                  |
+## r 15 +                  o    o     o    o                  +
+## e    |                  o    o     o    o                  |
+## q    |                  o    o     o    o                  |
+## u 10 +                  o    o     o    o                  +
+## e    |            o     o    o     o    o                  |
+## n    |       o    o     o    o     o    o                  |
+## c  5 +       o    o     o    o     o    o     o            +
+## y    | o     o    o     o    o     o    o     o    o       |
+##    0 + o     o    o     o    o     o    o     o    o    o  +
+##      +----+----------+----------+----------+----------+----+
+##          -2         -1          0          1          2</code></pre>
+<pre class="r"><code># nos.ecdf
+plot(ecdf(x))</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/ascii-2-3.png" width="672" /></p>
+<pre class="r"><code>nos.ecdf(x)</code></pre>
+<pre><code>##       +--+----------+----------+----------+----------+-----+
+##     1 +                                   o~oo~oo~o~~~~~o  +
+##       |                                 oo~                |
+##   0.8 +                              oooo                  +
+##       |                             o~                     |
+## E 0.6 +                          ooo                       +
+## C     |                       oooo                         |
+## D     |                     ooo                            |
+## F 0.4 +                   ooo                              +
+##       |               ooooo                                |
+##   0.2 +             ooo                                    +
+##       |       o~ooo~o                                      |
+##       | ooooooo                                            |
+##     0 +--+----------+----------+----------+----------+-----+
+##         -2         -1          0          1          2</code></pre>
+<pre class="r"><code># nos.qqnorm
+qqnorm(x); qqline(x)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/ascii-2-4.png" width="672" /></p>
+<pre class="r"><code>nos.qqnorm(x)</code></pre>
+<pre><code>##      +-------+--------+--------+---------+--------+--------+
+##    2 +                                               ~~~o  +
+## S    |                                          ~~o~o      |
+## a    |                                      ~~ooo          |
+## m  1 +                                  oooooo             +
+## p    |                             oooooo                  |
+## l  0 +                          oooo~                      +
+## e    |                      oooo~                          |
+##      |                  ooooo                              |
+## Q -1 +              ooooo                                  +
+## s    |          ~ooo                                       |
+##   -2 + o   o~o~oo                                          +
+##      +-------+--------+--------+---------+--------+--------+
+##             -2       -1        0         1        2         
+##                          Theoretical Qs</code></pre>
+<pre class="r"><code># nos.qqplot
+qqplot(x, y)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/ascii-2-5.png" width="672" /></p>
+<pre class="r"><code>nos.qqplot(x, y)</code></pre>
+<pre><code>##    +--+-----------+-----------+----------+-----------+-----+
+##  4 +                                                    o  +
+##    |                                              o        |
+##    |                                     o o ooo           |
+##    |                                   oo             ~~~  |
+##  2 +                               ooooo        ~~~~~~~    +
+##    |                         oooooo      ~~~~~~~           |
+##    |                      oooo     ~~~~~~~                 |
+##  0 +                  ooooo ~~~~~~~                        +
+##    |            ooooooo~~~~~~                              |
+##    |     o ooo oo~~~~~                                     |
+##    |    o~~~~~~~                                           |
+## -2 +  oo~                                                  +
+##    +--+-----------+-----------+----------+-----------+-----+
+##      -2          -1           0          1           2</code></pre>
+<pre class="r"><code># nos.contour
+contour(xx, yy, zz)</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/ascii-2-6.png" width="672" /></p>
+<pre class="r"><code>nos.contour(data = zz, xmin = min(xx), xmax = max(xx), 
+            ymin = min(yy), ymax = max(yy))</code></pre>
+<pre><code>##     +-+------------+-----------+------------+-----------+--+
+##  10 +       33  22   22222 3333333333 22222  222  33       +
+##     |   33332222222233333444444444444443333322222222333    |
+##     | 333222 222333444444              444444333222 22233  |
+##     |  222222333444    444444444444444444    444333222222  |
+##   5 + 2 22233444   44443333222222222233334444   4443322 2  +
+##     |   2 3344   444332 1111111111111111 233444   4433 2   |
+##     | 22 3 44   44332111112345555554321111123344   44 3 2  |
+##     |   3 44   4332 111134555      555431111 2334   4433   |
+##     |   3 4   4 32 111 245            542 11  2344   4 3   |
+##   0 +   3 4   4 32 111 245            542 11  2344   4 3   +
+##     |   3 44   4332 111134555      555431111 2334   4433   |
+##     | 22 3 44   43322111112345555554321111122344   44 3 2  |
+##     |  2233344   444332111111111111111111233444   4433322  |
+##  -5 + 2 22233444   44443332222111122223334444   4443322 2  +
+##     |  222222333444    444444444444444444    444333222222  |
+##     | 333222 222333444444              444444333222 22233  |
+##     |   3333222 22223333344444444444444333332222 222333    |
+## -10 +       33 222   22222 3333333333 22222  2222 33       +
+##     +-+------------+-----------+------------+-----------+--+
+##      -10          -5           0            5          10   
+## Legend: 1 ~ -2.02; 2 ~ -0.769; 3 ~ -0.082; 4 ~ 0.795; 5 ~ 1.74</code></pre>
+<pre class="r"><code># nos.image
+image(zz, col = viridis(50))</code></pre>
+<p><img src="/post/2018-05-10_files/figure-html/ascii-2-7.png" width="672" /></p>
+<pre class="r"><code>nos.image(data = zz, xmin = min(xx), xmax = max(xx), 
+          ymin = min(yy), ymax = max(yy))</code></pre>
+<pre><code>##     +-+------------+-----------+------------+-----------+--+
+##  10 + o oooo........................................ooooo  +
+##     | o oo....................oooo....................ooo  |
+##     | . .............oooooooooooooooooooooo..............  |
+##     | . .........oooooooooooooooooooooooooooooo..........  |
+##   5 + . ......oooooooooo................oooooooooo.......  +
+##     | . ....oooooooo........................oooooooo.....  |
+##     | . ...oooooooo..........................oooooooo....  |
+##     | . ..ooooooo..........oooxxxxooo..........ooooooo...  |
+##     | . ..oooooo.........ooxXX####XXxoo.........oooooo...  |
+##   0 + . .ooooooo........ooxXX######XXxoo........ooooooo..  +
+##     | . ..ooooooo........ooxxXXXXXXxxoo........ooooooo...  |
+##     | . ..oooooooo..........oooooooo..........oooooooo...  |
+##     | . ...oooooooo..........................oooooooo....  |
+##  -5 + . .....oooooooo......................oooooooo......  +
+##     | . .......ooooooooooo............ooooooooooo........  |
+##     | . ..........oooooooooooooooooooooooooooo...........  |
+##     | o ...............oooooooooooooooooo...............o  |
+## -10 + o ooo..........................................oooo  +
+##     +-+------------+-----------+------------+-----------+--+
+##      -10          -5           0            5          10   
+## Legend: 
+## . ~ (-2.17,0.235); o ~ (0.235,2.64); x ~ (2.64,5.05); X ~ (5
+## .05,7.45); # ~ (7.45,9.86)</code></pre>
+</div>
+<div id="cute-animals-with-cowsay" class="section level2">
+<h2>Cute animals with <code>cowsay</code></h2>
+<p><a href="https://cran.r-project.org/web/packages/cowsay/index.html"><code>cowsay</code></a> is a package for printing messages with ASCII animals. Although it has little practical use, it is way fun! There is only one function, <code>say</code>, that produces an animal with a speech bubble.</p>
+<pre class="r"><code>library(cowsay)
+
+# Random fortune
+set.seed(363)
+say(&quot;fortune&quot;, by = &quot;random&quot;)
+## Colors cannot be applied in this environment :( Try using a terminal or RStudio.
+## 
+##  ----- 
+## If &#39;fools rush in where angels fear to tread&#39;, then Bayesians &#39;jump&#39; in where frequentists fear to &#39;step&#39;.
+##  Charles C. Berry
+##  about Bayesian model selection as an alternative to stepwise regression
+##  R-help
+##  November 2009 
+##  ------ 
+##     \   
+##      \  
+##       \
+##        /\___/\
+##        {o}{o}|
+##        \ v  /|
+##        |    \ \
+##         \___/_/       [ab] 
+##           | |
+
+# All animals
+# sapply(names(animals), function(x) say(x, by = x))
+
+# Annoy the users of your package with good old clippy
+say(what = &quot;It looks like you\&#39;re writing a letter!&quot;, 
+    by = &quot;clippy&quot;, type = &quot;warning&quot;)
+## Colors cannot be applied in this environment :( Try using a terminal or RStudio.
+## Warning in say(what = &quot;It looks like you&#39;re writing a letter!&quot;, by = &quot;clippy&quot;, : 
+## 
+##  ----- 
+## It looks like you&#39;re writing a letter! 
+##  ------ 
+##     \   
+##      \
+##    __
+##    / \
+##    | |
+##    @ @
+##   || ||
+##   || ||
+##   |\_/|
+##   \___/ GB
+
+# A message from Yoda
+say(&quot;Participating in the Coding Club UC3M you must. Yes, hmmm.&quot;, by = &quot;yoda&quot;)
+## Colors cannot be applied in this environment :( Try using a terminal or RStudio.
+## 
+## 
+## 
+##  ----- 
+## Participating in the Coding Club UC3M you must. Yes, hmmm. 
+##  ------ 
+##     \   
+##      \
+##                    ____
+##                 _.&#39; :  `._
+##             .-.&#39;`.  ;   .&#39;`.-.
+##    __      / : ___\ ;  /___ ; \      __
+##   ,&#39;_ &quot;&quot;--.:__;&quot;.-.&quot;;: :&quot;.-.&quot;:__;.--&quot;&quot; _`,
+##   :&#39; `.t&quot;&quot;--.. &#39;&lt;@.`;_  &#39;,@&gt;` ..--&quot;&quot;j.&#39; `;
+##        `:-.._J &#39;-.-&#39;L__ `-- &#39; L_..-;&#39;
+##           &quot;-.__ ;  .-&quot;  &quot;-.  : __.-&quot;
+##              L &#39; /.------.\ &#39; J
+##              &quot;-.   &quot;--&quot;   .-&quot;
+##              __.l&quot;-:_JL_;-&quot;;.__
+##          .-j/&#39;.;  ;&quot;&quot;&quot;&quot;  / .&#39;\&quot;-.
+##          .&#39; /:`. &quot;-.:     .-&quot; .&#39;;  `.
+##       .-&quot;  / ;  &quot;-. &quot;-..-&quot; .-&quot;  :    &quot;-.
+##   .+&quot;-.  : :      &quot;-.__.-&quot;      ;-._   \
+##   ; \  `.; ;                    : : &quot;+. ;
+##   :  ;   ; ;                    : ;  : \:
+##   ;  :   ; :                    ;:   ;  :
+##   : \  ;  :  ;                  : ;  /  ::
+##   ;  ; :   ; :                  ;   :   ;:
+##   :  :  ;  :  ;                : :  ;  : ;
+##   ;\    :   ; :                ; ;     ; ;
+##   : `.&quot;-;   :  ;              :  ;    /  ;
+##  ;    -:   ; :              ;  : .-&quot;   :
+##   :\     \  :  ;            : \.-&quot;      :
+##   ;`.    \  ; :            ;.&#39;_..--  / ;
+##   :  &quot;-.  &quot;-:  ;          :/.&quot;      .&#39;  :
+##    \         \ :          ;/  __        :
+##     \       .-`.\        /t-&quot;&quot;  &quot;:-+.   :
+##      `.  .-&quot;    `l    __/ /`. :  ; ; \  ;
+##        \   .-&quot; .-&quot;-.-&quot;  .&#39; .&#39;j \  /   ;/
+##         \ / .-&quot;   /.     .&#39;.&#39; ;_:&#39;    ;
+##   :-&quot;&quot;-.`./-.&#39;     /    `.___.&#39;
+##                \ `t  ._  /  bug
+##                 &quot;-.t-._:&#39;
+## </code></pre>
+</div>
+</div>
