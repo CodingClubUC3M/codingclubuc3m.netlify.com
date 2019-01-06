@@ -2,7 +2,7 @@
 # Recent and Upcoming Talks widget.
 widget = "talks"
 active = true
-date = 2016-04-20T00:00:00
+date = 2019-01-05T00:00:00
 
 title = "Sessions"
 subtitle = "Recent & Upcoming"
