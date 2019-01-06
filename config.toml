@@ -239,7 +239,7 @@ enableGitInfo = false
   weight = 3
 
 [[menu.main]]
-  name = "|"
+  name = '<span class="middot-divider"></span>'
   weight = 4
 
 [[menu.main]]
