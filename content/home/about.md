@@ -24,7 +24,7 @@ visit the [Contributing](/contribute/) section.
 
 ## When, Where, Why, How
 
-We meet bi- or tri-weekly (see the calendar for more info) at the Department of
+We meet bi- or tri-weekly (see [past sessions](/talk/)) at the Department of
 Statistics, either in Leganés or Getafe.
 
 - We like coding and keeping up-to-date in the most recent advances and methodologies.
@@ -43,8 +43,8 @@ ask questions on the go. The presentation is informal and the speaker’s goal i
 to deliver the key insights behind the code, useful tricks and patches to common
 errors.
 
-The materials for each session are hosted in this website as posts. Each post
-will be solely authored by the presenter, hence providing a proof of
+The materials for each session are [hosted in this website as posts](/post/).
+Each post will be solely authored by the presenter, hence providing a proof of
 participation. Also, the post may contain possible follow-ups and comments to
 the sessions.
 
