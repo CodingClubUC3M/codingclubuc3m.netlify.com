@@ -20,7 +20,7 @@ announcements by email, please [contact us](#contact) indicating so.
 any problem with the form, please [contact us](#contact).
 
 - **We are looking for speakers!** If you are interested in contributing, please
-visit the [Contributing](/doc/) section.
+visit the [Contributing](/contribute/) section.
 
 ## When, Where, Why, How
 
