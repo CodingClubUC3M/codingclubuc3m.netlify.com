@@ -15,10 +15,10 @@ tags: ["R", "big data", "visualization", "benchmark"]
                    &quot;ffbase&quot;, &quot;biglm&quot;, &quot;leaps&quot;, &quot;txtplot&quot;, &quot;NostalgiR&quot;,
                    &quot;cowsay&quot;), 
                  dependencies = TRUE)</code></pre>
-<div id="some-simple-and-useful-r-packages" class="section level1">
-<h1>Some simple and useful <code>R</code> packages</h1>
-<div id="color-palettes-with-viridis" class="section level2">
-<h2>Color palettes with <code>viridis</code></h2>
+<div id="some-simple-and-useful-r-packages" class="section level2">
+<h2>Some simple and useful <code>R</code> packages</h2>
+<div id="color-palettes-with-viridis" class="section level3">
+<h3>Color palettes with <code>viridis</code></h3>
 <p>Built-in color palettes in base <code>R</code> are somehow limited. We have <code>rainbow</code>, <code>topo.colors</code>, <code>terrain.colors</code>, <code>heat.colors</code>, and <code>cm.colors</code>. We also have flexibility to create our own palettes, e.g. by using <code>colorRamp</code>. These palettes look like:</p>
 <pre class="r"><code># MATLAB&#39;s color palette
 jet.colors &lt;- colorRampPalette(c(&quot;#00007F&quot;, &quot;blue&quot;, &quot;#007FFF&quot;, &quot;cyan&quot;,
@@ -87,8 +87,8 @@ ggplot(dat, aes(x = x, y = y)) +
   scale_fill_viridis() + theme_bw()</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/viridis-5-2.png" width="672" /></p>
 </div>
-<div id="benchmarking-with-microbenchmark" class="section level2">
-<h2>Benchmarking with <code>microbenchmark</code></h2>
+<div id="benchmarking-with-microbenchmark" class="section level3">
+<h3>Benchmarking with <code>microbenchmark</code></h3>
 <p>Measuring the <strong>code performance</strong> is a <strong>day-to-day routine</strong> for many developers. It is also a requirement for regular users that want to choose the most efficient coding strategy for implementing a method.</p>
 <p>As we know, we can measure running times in base <code>R</code> using <code>proc.time</code> or <code>system.time</code>:</p>
 <pre class="r"><code># Using proc.time
@@ -97,11 +97,11 @@ for (i in 1:100) rnorm(100)
 time &lt;- proc.time() - time
 time # elapsed is the &#39;real&#39; elapsed time since the process was started</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.014   0.001   0.017</code></pre>
+##   0.007   0.000   0.008</code></pre>
 <pre class="r"><code># Using system.time - a wrapper for the above code
 system.time({for (i in 1:100) rnorm(100)})</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.009   0.000   0.008</code></pre>
+##   0.005   0.000   0.006</code></pre>
 <p>However, this very basic approach presents several inconveniences to be aware of:</p>
 <ul>
 <li>The <strong>precision</strong> of <code>proc.time</code> is within the millisecond. This means that evaluating <code>1:1000000</code> (usually) takes <code>0</code> seconds at the sight of <code>proc.time</code>.</li>
@@ -212,8 +212,8 @@ bench3 &lt;- microbenchmark(
 )
 bench3</code></pre>
 </div>
-<div id="quick-animations-with-manipulate" class="section level2">
-<h2>Quick animations with <code>manipulate</code></h2>
+<div id="quick-animations-with-manipulate" class="section level3">
+<h3>Quick animations with <code>manipulate</code></h3>
 <p>The <a href="https://cran.r-project.org/package=manipulate"><code>manipulate</code></a> package (works only within <code>RStudio</code>!) allows to easily create simple animations. It is a simpler, local, alternative to <code>Shiny</code> applications.</p>
 <pre class="r"><code>library(manipulate)
 
@@ -283,10 +283,10 @@ manipulate(
   phi = slider(-90, 90, initial = 30, step = 5))</code></pre>
 </div>
 </div>
-<div id="handling-big-data-in-r" class="section level1">
-<h1>Handling big data in <code>R</code></h1>
-<div id="the-ff-and-ffbase-packages" class="section level2">
-<h2>The <code>ff</code> and <code>ffbase</code> packages</h2>
+<div id="handling-big-data-in-r" class="section level2">
+<h2>Handling big data in <code>R</code></h2>
+<div id="the-ff-and-ffbase-packages" class="section level3">
+<h3>The <code>ff</code> and <code>ffbase</code> packages</h3>
 <p><code>R</code> stores all the data in RAM, which is where all the processing takes place. But when the data does not fit into RAM (e.g., vectors of size <span class="math inline">\(2\times 10^9\)</span>), alternatives are needed. <a href="https://cran.r-project.org/web/packages/ff/index.html"><code>ff</code></a> is an <code>R</code> package for working with data that does not fit in RAM. From <code>ff</code>’s description:</p>
 <blockquote>
 <p>The <code>ff</code> package provides data structures that are stored on disk but behave (almost) as if they were in RAM by transparently mapping only a section (pagesize) in main memory - the effective virtual memory consumption per <code>ff</code> object.</p>
@@ -340,8 +340,8 @@ bigData1ff[1:5, 1] &lt;- rnorm(5)
 # Filter of data frames
 ffwhich(bigData1ff, bigData1ff$resp &gt; 5)</code></pre>
 </div>
-<div id="regression-using-biglm-and-friends" class="section level2">
-<h2>Regression using <code>biglm</code> and friends</h2>
+<div id="regression-using-biglm-and-friends" class="section level3">
+<h3>Regression using <code>biglm</code> and friends</h3>
 <p>The richness of information returned by <code>R</code>’s <code>lm</code> has immediate drawbacks when working with big data (large <span class="math inline">\(n\)</span>, <span class="math inline">\(n&gt;p\)</span>). An example is the following. If <span class="math inline">\(n=10^8\)</span> and <span class="math inline">\(p=10\)</span>, simply storing the response and the predictors takes up to <span class="math inline">\(8.2\)</span> Gb in RAM. This is in the edge of feasibility for many regular laptops. However, calling <code>lm</code> will consume, at the very least, <span class="math inline">\(16.5\)</span> Gb merely storing the <code>residuals</code>, <code>effects</code>, <code>fitted.values</code>, and <code>qr</code> decomposition. Although there are more efficient ways of performing linear regression in base <code>R</code> (e.g., with <code>.lm.fit</code>), we still need to rethink the least squares estimates computation (takes <span class="math inline">\(\mathcal{O}(np+p^2)\)</span> in memory) to do not overflow the RAM.</p>
 <p>A handy solution is given by the <a href="https://CRAN.R-project.org/package=biglm"><code>biglm</code></a> package, which allows to fit a generalized linear model (glm) in <code>R</code> consuming much less RAM. Essentially, we have two possible approaches for fitting a glm:</p>
 <ol style="list-style-type: decimal">
@@ -439,10 +439,10 @@ predict(bigglmMod, newdata = bigData2[1:5, ], type = &quot;response&quot;)
 # predict(bigglmMod, newdata = bigData2[1:5, -1]) # Error</code></pre>
 </div>
 </div>
-<div id="ascii-fun-in-r" class="section level1">
-<h1>ASCII fun in <code>R</code></h1>
-<div id="text-based-graphs-with-txtplot" class="section level2">
-<h2>Text-based graphs with <code>txtplot</code></h2>
+<div id="ascii-fun-in-r" class="section level2">
+<h2>ASCII fun in <code>R</code></h2>
+<div id="text-based-graphs-with-txtplot" class="section level3">
+<h3>Text-based graphs with <code>txtplot</code></h3>
 <p>When evaluating <code>R</code> in a terminal with no possible graphical outputs (e.g. in a supercomputing cluster), it may be of usefulness to, at least, visualize some simple plots in a rudimentary way. This is what the <a href="https://cran.r-project.org/web/packages/txtplot/index.html"><code>txtplot</code></a> and the <a href="https://cran.r-project.org/web/packages/NostalgiR/index.html"><code>NostalgiR</code></a> package do, by means of ASCII graphics that are equivalent to some <code>R</code> functions.</p>
 <table>
 <thead>
@@ -514,42 +514,42 @@ let &lt;- as.factor(sample(letters, size = 1000, replace = TRUE))
 plot(x, y)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-1-1.png" width="672" /></p>
 <pre class="r"><code>txtplot(x, y)</code></pre>
-<pre><code>##    +--+-----------+-----------+----------+-----------+-----+
-##  4 +                             *                         +
-##    |                                       *               |
-##    |                           *    * ***         *        |
-##    |                    *        ** *  *      *         *  |
-##  2 +                       *  **  ** * **     *            +
-##    |              * * *  ***   ** *** * *    * *           |
-##    |           *  *    * * * *     *  *  *                 |
-##  0 +       *      ***    ** *     **                       +
-##    |  ** *     ***  ***      ** *                          |
-##    |  * *  * * **   *   *  * *                             |
-##    |       *                                               |
-## -2 +        *           *   *                              +
-##    +--+-----------+-----------+----------+-----------+-----+
-##      -2          -1           0          1           2</code></pre>
+<pre><code>##    +-------+-------+--------+-------+--------+-------+-----+
+##  4 +                                           *       *   +
+##    |                                           * *         |
+##    |                                        *     *     *  |
+##    |                                  *  **                |
+##  2 +                            *  *  *  **       **       +
+##    |                              **  **** * ***     *     |
+##    |                       *    ** *  ***      *           |
+##    |                 *   ** * ** **** * *    *             |
+##  0 +                *  ***   ******  *****                 +
+##    |                      *  *   *         *               |
+##    |  *                           *                        |
+## -2 +          *                                            +
+##    +-------+-------+--------+-------+--------+-------+-----+
+##           -3      -2       -1       0        1       2</code></pre>
 <pre class="r"><code># txtboxplot
 boxplot(x, horizontal = TRUE)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-1-2.png" width="672" /></p>
 <pre class="r"><code>txtboxplot(x)</code></pre>
-<pre><code>##     -2         -1           0           1          2        
-##  |---+----------+-----------+-----------+----------+-------|
-##                    +-------+------+                         
-##     ---------------|       |      |---------------------    
-##                    +-------+------+</code></pre>
+<pre><code>##   -2          -1           0           1            2       
+##  |-+-----------+-----------+-----------+------------+------|
+##                     +-------+-----+                         
+##     ----------------|       |     |---------------------    
+##                     +-------+-----+</code></pre>
 <pre class="r"><code># txtbarchart
 barplot(table(let))</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-1-3.png" width="672" /></p>
 <pre class="r"><code>txtbarchart(x = let)</code></pre>
 <pre><code>##   ++---------+---------+----------+---------+---------+----+
-## 5 +                                         * *            +
-##   |            *   *           *      * * * * *            |
-## 4 +            * * * *     *   *    * * * * * *   *   * *  +
-##   |  *         * * * * * * *   *  * * * * * * * * * * * *  |
-## 3 +  * * * *   * * * * * * * * *  * * * * * * * * * * * *  +
-##   |  * * * * * * * * * * * * * *  * * * * * * * * * * * *  |
-## 2 +  * * * * * * * * * * * * * *  * * * * * * * * * * * *  +
+## 5 +                  *                              *      +
+##   |        * *       *         *      * * * *   *   *   *  |
+## 4 +    *   * * *     *       * *      * * * * * *   *   *  +
+##   |    * * * * * * * *   *   * *      * * * * * * * *   *  |
+## 3 +  * * * * * * * * * * * * * *  * * * * * * * * * *   *  +
+##   |  * * * * * * * * * * * * * *  * * * * * * * * * *   *  |
+## 2 +  * * * * * * * * * * * * * *  * * * * * * * * * *   *  +
 ##   |  * * * * * * * * * * * * * *  * * * * * * * * * * * *  |
 ## 1 +  * * * * * * * * * * * * * *  * * * * * * * * * * * *  +
 ##   |  * * * * * * * * * * * * * *  * * * * * * * * * * * *  |
@@ -583,21 +583,21 @@ curve(expr = sin(x), from = 0, to = 2 * pi)</code></pre>
 acf(x)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-1-5.png" width="672" /></p>
 <pre class="r"><code>txtacf(x)</code></pre>
-<pre><code>##     +-+------------+-----------+------------+-----------+--+
-##   1 + *                                                    +
-##     | *                                                    |
-## 0.8 + *                                                    +
-##     | *                                                    |
-## 0.6 + *                                                    +
-##     | *                                                    |
-## 0.4 + *                                                    +
-##     | *                                                    |
-## 0.2 + *            *                                       +
-##     | *  *         * *            * *  *      *            |
-##   0 + *  * *  * *  * *  * *  * *  * *  * *  * *  * *  * *  +
-##     |      *  * *            *           *  *           *  |
-##     +-+------------+-----------+------------+-----------+--+
-##       0            5          10           15          20</code></pre>
+<pre><code>##      +-+------------+-----------+-----------+-----------+--+
+##    1 + *                                                   +
+##      | *                                                   |
+##  0.8 + *                                                   +
+##      | *                                                   |
+##  0.6 + *                                                   +
+##      | *                                                   |
+##  0.4 + *                                                   +
+##      | *                                                   |
+##  0.2 + *                 *      *         *                +
+##      | *    *            *      * *       *      *  *   *  |
+##    0 + *  * *  * *  * *  * * *  * *  * *  * *  * *  * * *  +
+##      |    *         * *      *       *      *         *    |
+## -0.2 +-+------------+-----------+-----------+-----------+--+
+##        0            5          10          15          20</code></pre>
 <pre class="r"><code>library(NostalgiR) # nos.* functions
 
 # Mexican hat
@@ -610,97 +610,97 @@ zz &lt;- outer(xx, yy, f)
 plot(density(x)); rug(x)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-2-1.png" width="672" /></p>
 <pre class="r"><code>nos.density(x)</code></pre>
-<pre><code>##       +-+-------+-------+-------+------+-------+-------+---+
-##   0.4 +                       ~~~~~~~                      +
-##       |                     ~~~     ~~                     |
-##       |                   ~~~        ~~                    |
-## D 0.3 +                 ~~~           ~                    +
-## e     |                ~~             ~~                   |
-## n     |               ~~               ~~                  |
-## s 0.2 +             ~~~                 ~                  +
-## i     |            ~~                   ~~                 |
-## t     |          ~~~                     ~~                |
-## y 0.1 +         ~~                        ~~~              +
-##       |       ~~                            ~~~            |
-##     0 + ~~~~~~~ oooooooooooooooooooooooooooo o ~~~~~~~~~~  +
-##       +-+-------+-------+-------+------+-------+-------+---+
-##        -3      -2      -1       0      1       2       3</code></pre>
+<pre><code>##       +-----+-----------+-----------+------------+---------+
+##   0.4 +                          ~~~~~~~                   +
+##       |                          ~     ~                   |
+##       |                         ~      ~~                  |
+## D 0.3 +                        ~~       ~                  +
+## e     |                        ~         ~                 |
+## n     |                       ~~         ~~                |
+## s 0.2 +                      ~~           ~~               +
+## i     |                     ~~             ~~~~            |
+## t     |                    ~~                 ~~           |
+## y 0.1 +                   ~~                   ~~          +
+##       |                 ~~~                      ~~~       |
+##     0 + ~~~~~~~~~~~~~~~~~oooooooooooooooooooooooo o~~~~~~  +
+##       +-----+-----------+-----------+------------+---------+
+##            -4          -2           0            2</code></pre>
 <pre class="r"><code># nos.hist
 hist(x)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-2-2.png" width="672" /></p>
 <pre class="r"><code>nos.hist(x)</code></pre>
-<pre><code>##      +----+----------+----------+----------+----------+----+
-##      |                       o     o                       |
-##   20 +                       o     o                       +
-## F    |                       o     o    o                  |
-## r 15 +                  o    o     o    o                  +
-## e    |                  o    o     o    o                  |
-## q    |                  o    o     o    o                  |
-## u 10 +                  o    o     o    o                  +
-## e    |            o     o    o     o    o                  |
-## n    |       o    o     o    o     o    o                  |
-## c  5 +       o    o     o    o     o    o     o            +
-## y    | o     o    o     o    o     o    o     o    o       |
-##    0 + o     o    o     o    o     o    o     o    o    o  +
-##      +----+----------+----------+----------+----------+----+
-##          -2         -1          0          1          2</code></pre>
+<pre><code>##      +------+-------+-------+-------+-------+-------+------+
+##      |                          o       o                  |
+##   30 +                          o       o                  +
+## F    |                          o       o                  |
+## r    |                          o       o                  |
+## e    |                          o       o                  |
+## q 20 +                          o       o                  +
+## u    |                          o       o                  |
+## e    |                          o       o       o          |
+## n 10 +                  o       o       o       o          +
+## c    |                  o       o       o       o          |
+## y    |                  o       o       o       o          |
+##    0 + o        o       o       o       o       o       o  +
+##      +------+-------+-------+-------+-------+-------+------+
+##            -3      -2      -1       0       1       2</code></pre>
 <pre class="r"><code># nos.ecdf
 plot(ecdf(x))</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-2-3.png" width="672" /></p>
 <pre class="r"><code>nos.ecdf(x)</code></pre>
-<pre><code>##       +--+----------+----------+----------+----------+-----+
-##     1 +                                   o~oo~oo~o~~~~~o  +
-##       |                                 oo~                |
-##   0.8 +                              oooo                  +
-##       |                             o~                     |
-## E 0.6 +                          ooo                       +
-## C     |                       oooo                         |
-## D     |                     ooo                            |
-## F 0.4 +                   ooo                              +
-##       |               ooooo                                |
-##   0.2 +             ooo                                    +
-##       |       o~ooo~o                                      |
-##       | ooooooo                                            |
-##     0 +--+----------+----------+----------+----------+-----+
-##         -2         -1          0          1          2</code></pre>
+<pre><code>##       +------+-------+-------+--------+-------+-------+----+
+##     1 +                                          ooooo~~o  +
+##       |                                       ooo~         |
+##   0.8 +                                   oooo~            +
+##       |                                 ooo                |
+## E 0.6 +                                oo                  +
+## C     |                               oo                   |
+## D     |                            oooo                    |
+## F 0.4 +                           oo                       +
+##       |                          oo                        |
+##   0.2 +                        ooo                         +
+##       |                    oo~o                            |
+##       | o~~~~~~~o~~~~~oo~ooo                               |
+##     0 +------+-------+-------+--------+-------+-------+----+
+##             -3      -2      -1        0       1       2</code></pre>
 <pre class="r"><code># nos.qqnorm
 qqnorm(x); qqline(x)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-2-4.png" width="672" /></p>
 <pre class="r"><code>nos.qqnorm(x)</code></pre>
-<pre><code>##      +-------+--------+--------+---------+--------+--------+
-##    2 +                                               ~~~o  +
-## S    |                                          ~~o~o      |
-## a    |                                      ~~ooo          |
-## m  1 +                                  oooooo             +
-## p    |                             oooooo                  |
-## l  0 +                          oooo~                      +
-## e    |                      oooo~                          |
-##      |                  ooooo                              |
-## Q -1 +              ooooo                                  +
-## s    |          ~ooo                                       |
-##   -2 + o   o~o~oo                                          +
-##      +-------+--------+--------+---------+--------+--------+
-##             -2       -1        0         1        2         
+<pre><code>##      +-----+-------+-------+--------+-------+-------+------+
+##    2 +                                            ~o~o~ o  +
+## S    |                                        ooooo        |
+## a  1 +                                    ~ooo~            +
+## m    |                               oooooo                |
+## p  0 +                           ooooo                     +
+## l    |                      oooooo                         |
+## e -1 +                  ooooo~                             +
+##      |              ~ooo~                                  |
+## Q -2 +          ~~~~~                                      +
+## s -3 +      ~~~~~ o o                                      +
+##      | ~~~~~   o                                           |
+##      +-----+-------+-------+--------+-------+-------+------+
+##           -3      -2      -1        0       1       2       
 ##                          Theoretical Qs</code></pre>
 <pre class="r"><code># nos.qqplot
 qqplot(x, y)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-2-5.png" width="672" /></p>
 <pre class="r"><code>nos.qqplot(x, y)</code></pre>
-<pre><code>##    +--+-----------+-----------+----------+-----------+-----+
-##  4 +                                                    o  +
-##    |                                              o        |
-##    |                                     o o ooo           |
-##    |                                   oo             ~~~  |
-##  2 +                               ooooo        ~~~~~~~    +
-##    |                         oooooo      ~~~~~~~           |
-##    |                      oooo     ~~~~~~~                 |
-##  0 +                  ooooo ~~~~~~~                        +
-##    |            ooooooo~~~~~~                              |
-##    |     o ooo oo~~~~~                                     |
-##    |    o~~~~~~~                                           |
-## -2 +  oo~                                                  +
-##    +--+-----------+-----------+----------+-----------+-----+
-##      -2          -1           0          1           2</code></pre>
+<pre><code>##    +-------+-------+--------+-------+--------+-------+-----+
+##  4 +                                                   oo  +
+##    |                                              oo o     |
+##    |                                           o oo        |
+##  2 +                                       ooooo    ~~~~~  +
+##    |                                   oooo   ~~~~~~       |
+##    |                               oooo ~~~~~~             |
+##  0 +                          oooooo~~~~~                  +
+##    |                    ooooooo~~~~                        |
+##    |          o     oo o~~~~~                              |
+## -2 +  o       o  ~~~~~~                                    +
+##    |       ~~~~~~                                          |
+##    |  ~~~~~~                                               |
+## -4 +-------+-------+--------+-------+--------+-------+-----+
+##           -3      -2       -1       0        1       2</code></pre>
 <pre class="r"><code># nos.contour
 contour(xx, yy, zz)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-2-6.png" width="672" /></p>
@@ -758,8 +758,8 @@ image(zz, col = viridis(50))</code></pre>
 ## . ~ (-2.17,0.235); o ~ (0.235,2.64); x ~ (2.64,5.05); X ~ (5
 ## .05,7.45); # ~ (7.45,9.86)</code></pre>
 </div>
-<div id="cute-animals-with-cowsay" class="section level2">
-<h2>Cute animals with <code>cowsay</code></h2>
+<div id="cute-animals-with-cowsay" class="section level3">
+<h3>Cute animals with <code>cowsay</code></h3>
 <p><a href="https://cran.r-project.org/web/packages/cowsay/index.html"><code>cowsay</code></a> is a package for printing messages with ASCII animals. Although it has little practical use, it is way fun! There is only one function, <code>say</code>, that produces an animal with a speech bubble.</p>
 <pre class="r"><code>library(cowsay)
 

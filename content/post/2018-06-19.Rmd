@@ -18,7 +18,7 @@ We will need RStudio with R (>= 3.0.2) and the following package:
 install.packages("shiny", dependencies = TRUE)
 ```
 
-# Introduction
+## Introduction
 
 New teaching methodologies have arised during the last years and many of them have been leaded by the introduction of emerging technologies. Bright examples are *Active Learning* or *Research-Informed Learning* phylosophies which aim to give a more participative role to the students and motivates the learning proccess by means of practical examples. 
 
@@ -34,9 +34,9 @@ Universities and academic staff have noticed the potencial of such as Shiny R Ap
 
 Despite the main motivation of the session is devoted to teaching and researching, Shiny App is becoming more and more employed in industry. Their usefulness and adaptability to different needs do not have limit as can be shown in these [more ambicious examples](https://shiny.rstudio.com/gallery/) and [these others](https://www.showmeshiny.com/).
 
-# What is an Interactive Web R Shiny App?
+## What is an Interactive Web R Shiny App?
 
-## What is a Web?
+### What is a Web?
 
 A web page is just a set of files HTML (HyperText Markup Language), CSS (Cascading Style Sheets) and JS (JavaScript) typically located in a server. We, as users, can request these data from our computer and display them with a browser. This process is outlined in the figure below.
 
@@ -46,7 +46,7 @@ Each of this files enumarated above has a different goal. HTML is in charge of i
 
 As the abstracts says, today we do not need knowledge about these but it is important to take it into account to value the work that Shiny is doing for us. Despite this, basic knowledge of web programming would increase exponentially your options.
 
-## What is an Interactive App?
+### What is an Interactive App?
 
 The user can interactuate with the server in such a way he/she can lead the process behind the App. The user declare input or variables that the developer design for being modificated by him/her. Afterwards, the server uses this input for conditionally returning the output.
 
@@ -56,15 +56,15 @@ This trade off between user and server is a key point and it is the difference b
 
 Today we will forget about the comunication betwen user and server and our dynamic App will be running locally; the user and the files providing the web are in the same place as at the right panel of the sketch above.
 
-## What is R Shiny?
+### What is R Shiny?
 
 The Shiny package in [CRAN](https://cran.r-project.org/web/packages/shiny/index.html) is a web application framework for R. Obviously, the idea of creating an application with statistical purposes is not new at all, in fact, there are many projects related with the development of [Applet](http://www.rossmanchance.com/applets/). However, this tool require high knowledge of web programming, while Shiny mitigates this drawback by nesting R functions that assemble a complete Application. 
 
 ![](/post/2018-06-19_files/cran.png)
 
-# Developing a Shiny App
+## Developing a Shiny App
 
-## Baselines
+### Baselines
 
 In this section, we present a simple template with the skeleton of a Shiny App. It can be taken as a starting point for developing any other App. Mainly, it contains the following parts:
 
@@ -107,7 +107,7 @@ summary(x)
 
 > Which values from our code are going to be inputs and which one outputs?
 
-### Inputs Objects
+#### Inputs Objects
 
 In orther to see that the empirical mean converges to the expected value, one would like to see how this sample mean behave when increasing the number of realizations $N$. In the same way, one could also think about modifiying the parameter $p$ of the distribution. Therefore, we have two inputs values i.e. $p$ and $N$.
 
@@ -138,7 +138,7 @@ server <- function(input, output){}
 shinyApp(ui = ui, server = server)
 ```
 
-### Output Objects
+#### Output Objects
 
 Once we have the input values, we can use them to *produce* an output with R for being *provided* to the user in the interface. This last sentence has two parts 1) to produce and 2) to provide in the same way we have to program our App by 1) `render*()` and 2)  `*Output()` functions. 
 
@@ -185,7 +185,7 @@ server <- function(input, output){
 shinyApp(ui = ui, server = server)
 ```
 
-### Modulating Reactivity
+#### Modulating Reactivity
 
 Up to here, we have desing very simple reactive relationship; each input is linked with a simple ouput. However, Shiny allows to have more complex connections through different functions. Some of them are the following,
 
@@ -333,13 +333,13 @@ shinyApp(ui = ui, server = server)
   
 Some of this functions may appear so similar in this when applying to our example. However, each one satisfies one different need for more complex settings.   
 
-## Polishing our App
+### Polishing our App
 
 Up to here, we have just messed inputs and ouputs up without any structure at all. Now is the moment for making up our App and arranging the contents in a friendly and beautiful structure.  
 
 As explained at the beginning, the UI part of the code is in charge of the visualization aspect and therefore all the code related with these will be located at the `fluidPage()` function.
 
-### Adding layouts
+#### Adding layouts
 
 One possible option is to organize our input and output with layout functions. In the figure below, we have som examples. 
 
@@ -385,7 +385,7 @@ server <- function(input, output){
 shinyApp(ui = ui, server = server)
 ```
 
-### Adding tabs
+#### Adding tabs
 
 One could also structure the App in diffent panels with simple functions.
 ![From Shiny [https://www.rstudio.com/resources/cheatsheets/](Cheat Sheet)](/post/2018-06-19_files/tabs.png)
@@ -438,7 +438,7 @@ server <- function(input, output){
 shinyApp(ui = ui, server = server)
 ```
 
-### UI is an HTML document!
+#### UI is an HTML document!
 
 Rstudio and Shiny converst our code inside `fluidPage` into a HTML file for builing our web App. One can observed this fact just by running the following code in the console,
 
@@ -517,9 +517,9 @@ server <- function(input, output){
 shinyApp(ui = ui, server = server)
 ```
 
-## Other handy features
+### Other handy features
 
-### Conditional Panels
+#### Conditional Panels
 Following with our App, one could be willing to proof empirically the Law of Large Number but for a random variable coming from another distribution rather than Bernouilli. This task brings the problem of including inputs that depends on the selected distribution. In other words, one would need conditional panels. For example, if the selected distribution is the univariate Gaussian, one would like to have as input $\mu$ and $\sigma ^2$ rather than $p$.
 
 Fortuntely, we can use the function `conditionalPanel()` in addition to an extra input object for selecting the distribution. For now, lets just include a binomial, $Bin(n,p)$ and an univariate Gaussian distribution, $N(\mu, \sigma)$.
@@ -585,7 +585,7 @@ shinyApp(ui = ui, server = server)
 
 ```
 
-### Shiny themes
+#### Shiny themes
 
 We could also like to use a nice style but we do not want to include a CSS file. In this case, there are pre-defined themes with the package `shinythemes`.
 
@@ -650,7 +650,7 @@ server <- function(input, output){
 shinyApp(ui = ui, server = server)
 ```
 
-# References
+## References
 
 1. Scott Freeman, Sarah L. Eddy, Miles McDonough, Michelle K. Smith, Nnadozie Okoroafor, Hannah Jordt, and Mary Pat Wenderoth (2014). "Active Learning increases student performance in science, engineering, and mathematics", *PNAS*. [link](http://www.pnas.org/content/111/23/8410.full)
 2. Fawcett, Lee (2018). "Using Interactive Shiny Applications to Facilitate Research-Informed Learning and Teaching", *Journal of Statistical Education*. [link]( https://www.tandfonline.com/doi/full/10.1080/10691898.2018.1436999

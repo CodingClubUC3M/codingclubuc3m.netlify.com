@@ -23,9 +23,9 @@ install.packages(c("viridis", "microbenchmark", "multcomp", "manipulate",
                  dependencies = TRUE)
 ```
 
-# Some simple and useful `R` packages
+## Some simple and useful `R` packages
 
-## Color palettes with `viridis`
+### Color palettes with `viridis`
 
 Built-in color palettes in base `R` are somehow limited. We have `rainbow`, `topo.colors`, `terrain.colors`, `heat.colors`, and `cm.colors`. We also have flexibility to create our own palettes, e.g. by using `colorRamp`. These palettes look like:
 
@@ -112,7 +112,7 @@ ggplot(dat, aes(x = x, y = y)) +
   scale_fill_viridis() + theme_bw()
 ```
 
-## Benchmarking with `microbenchmark`
+### Benchmarking with `microbenchmark`
 
 Measuring the **code performance** is a **day-to-day routine** for many developers. It is also a requirement for regular users that want to choose the most efficient coding strategy for implementing a method.
 
@@ -250,7 +250,7 @@ bench3 <- microbenchmark(
 bench3
 ```
 
-## Quick animations with `manipulate`
+### Quick animations with `manipulate`
 
 The [`manipulate`](https://cran.r-project.org/package=manipulate) package (works only within `RStudio`!) allows to easily create simple animations. It is a simpler, local, alternative to `Shiny` applications.
 
@@ -329,9 +329,9 @@ manipulate(
   phi = slider(-90, 90, initial = 30, step = 5))
 ```
 
-# Handling big data in `R`
+## Handling big data in `R`
 
-## The `ff` and `ffbase` packages
+### The `ff` and `ffbase` packages
 
 `R` stores all the data in RAM, which is where all the processing takes place. But when the data does not fit into RAM (e.g., vectors of size $2\times 10^9$), alternatives are needed. [`ff`](https://cran.r-project.org/web/packages/ff/index.html) is an `R` package for working with data that does not fit in RAM. From `ff`'s description:
 
@@ -393,7 +393,7 @@ bigData1ff[1:5, 1] <- rnorm(5)
 ffwhich(bigData1ff, bigData1ff$resp > 5)
 ```
 
-## Regression using `biglm` and friends
+### Regression using `biglm` and friends
 
 The richness of information returned by `R`'s `lm` has immediate drawbacks when working with big data (large $n$, $n>p$). An example is the following. If $n=10^8$ and $p=10$, simply storing the response and the predictors takes up to $8.2$ Gb in RAM. This is in the edge of feasibility for many regular laptops. However, calling `lm` will consume, at the very least, $16.5$ Gb merely storing the `residuals`, `effects`, `fitted.values`, and `qr` decomposition. Although there are more efficient ways of performing linear regression in base `R` (e.g., with `.lm.fit`), we still need to rethink the least squares estimates computation (takes $\mathcal{O}(np+p^2)$ in memory) to do not overflow the RAM.
 
@@ -504,9 +504,9 @@ predict(bigglmMod, newdata = bigData2[1:5, ], type = "response")
 # predict(bigglmMod, newdata = bigData2[1:5, -1]) # Error
 ```
 
-# ASCII fun in `R`
+## ASCII fun in `R`
 
-## Text-based graphs with `txtplot`
+### Text-based graphs with `txtplot`
 
 When evaluating `R` in a terminal with no possible graphical outputs (e.g. in a supercomputing cluster), it may be of usefulness to, at least, visualize some simple plots in a rudimentary way. This is what the [`txtplot`](https://cran.r-project.org/web/packages/txtplot/index.html) and the [`NostalgiR`](https://cran.r-project.org/web/packages/NostalgiR/index.html) package do, by means of ASCII graphics that are equivalent to some `R` functions.
 
@@ -596,7 +596,7 @@ nos.image(data = zz, xmin = min(xx), xmax = max(xx),
           ymin = min(yy), ymax = max(yy))
 ```
 
-## Cute animals with `cowsay`
+### Cute animals with `cowsay`
 
 [`cowsay`](https://cran.r-project.org/web/packages/cowsay/index.html) is a package for printing messages with ASCII animals. Although it has little practical use, it is way fun! There is only one function, `say`, that produces an animal with a speech bubble.
 

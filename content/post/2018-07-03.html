@@ -9,8 +9,8 @@ tags: ["R", "tensorflow"]
 
 
 <p><code>Tensorflow</code> has been widely used for many applications in machine learning and deep learning. However, <code>Tensorflow</code> is more than that, it is a general purpose computing library. Based on that, people have created a rich ecosystem for quickly developing models. In this talk, I will show how statisticians can get most of the main features in <code>Tensorflow</code> such as automatic differentiation, optimization, and Bayesian analysis through a simple linear regression example.</p>
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
 <p><code>Tensorflow</code> is a machine learning framework of <code>Google</code>. It is developed by <code>Google Brain</code> team since 2015 and released publicly in 02.2017. It is now implemented for many applications in machine learning and deep learning. It has <code>API</code> for <code>Python</code>, <code>R</code>, <code>C</code>.</p>
 <p><code>Tensorflow</code> is not only used for deep learning. As a statistician, there are a lot of features that we can take advantages.</p>
 <ul>
@@ -31,8 +31,8 @@ tags: ["R", "tensorflow"]
 <img src="/post/2018-07-03_files/pic0.png" title="Tf framework" alt="tensorflow" />
 <p class="caption">tensorflow</p>
 </div>
-<div id="install-tensorflow-in-r" class="section level2">
-<h2>Install <code>TensorFlow</code> in R</h2>
+<div id="install-tensorflow-in-r" class="section level3">
+<h3>Install <code>TensorFlow</code> in R</h3>
 <p>We summary the main steps for installing <code>TensorFlow</code> package in R.
 For the full instruction, please go to:</p>
 <ul>
@@ -40,8 +40,8 @@ For the full instruction, please go to:</p>
 <li><a href="https://www.tensorflow.org/install/install_linux">Ubuntu</a></li>
 <li><a href="https://www.tensorflow.org/install/install_mac">macOS</a></li>
 </ul>
-<div id="windows" class="section level3">
-<h3>Windows</h3>
+<div id="windows" class="section level4">
+<h4>Windows</h4>
 <ol style="list-style-type: decimal">
 <li><p>Install python, pip3 and <code>TensorFlow</code>,</p>
 <ol style="list-style-type: lower-alpha">
@@ -52,8 +52,8 @@ For the full instruction, please go to:</p>
 <pre class="bash"><code>pip3 install tensorflow==1.9.0rc1
 pip3 install tfp-nightly==0.1.0rc1.dev20180702    # depends on tensorflow (CPU-only)</code></pre>
 </div>
-<div id="ubuntu" class="section level3">
-<h3>Ubuntu</h3>
+<div id="ubuntu" class="section level4">
+<h4>Ubuntu</h4>
 <ol style="list-style-type: decimal">
 <li>Install python, pip3 and <code>TensorFlow</code>,</li>
 </ol>
@@ -61,8 +61,8 @@ pip3 install tfp-nightly==0.1.0rc1.dev20180702    # depends on tensorflow (CPU-o
 pip3 install tensorflow==1.9.0rc1
 pip3 install tfp-nightly==0.1.0rc1.dev20180702    # depends on tensorflow (CPU-only)</code></pre>
 </div>
-<div id="macos" class="section level3">
-<h3>macOS</h3>
+<div id="macos" class="section level4">
+<h4>macOS</h4>
 <p>Check pip3 version:</p>
 <pre class="bash"><code>pip3 -V # for Python 3.n</code></pre>
 <p>If pip or pip3 8.1 or later is not installed, issue the following commands to install or upgrade:</p>
@@ -72,14 +72,14 @@ pip3 install tensorflow==1.9.0rc1
 pip3 install tfp-nightly==0.1.0rc1.dev20180702    # depends on tensorflow (CPU-only)</code></pre>
 <p>Once you have installed <code>TensorFlow</code>, we go to <code>Rstudio</code> and intall the R API package.</p>
 </div>
-<div id="install-r-package-tensorflow" class="section level3">
-<h3>Install <code>R</code> package <code>TensorFlow</code></h3>
+<div id="install-r-package-tensorflow" class="section level4">
+<h4>Install <code>R</code> package <code>TensorFlow</code></h4>
 <pre class="r"><code>install.packages(&quot;tensorflow&quot;, &quot;reticulate&quot;)
 tensorflow::install_tensorflow()</code></pre>
 </div>
 </div>
-<div id="hello-tensorflow" class="section level2">
-<h2>Hello <code>TensorFlow</code></h2>
+<div id="hello-tensorflow" class="section level3">
+<h3>Hello <code>TensorFlow</code></h3>
 <p>Test your installation with this chunk of codes</p>
 <pre class="r"><code>library(tensorflow)
 
@@ -96,8 +96,8 @@ sess$close()</code></pre>
 <p>If everything works, we are ready to go.</p>
 </div>
 </div>
-<div id="tensorflow-api-from-r" class="section level1">
-<h1>TensorFlow API from R</h1>
+<div id="tensorflow-api-from-r" class="section level2">
+<h2>TensorFlow API from R</h2>
 <p>We start with how to declare variables, constants and placeholders in <code>TensorFlow</code>.
 We assign an object (<code>sess</code>) pointing to <code>tf$Session()</code>
 and close a session with <code>sess$close()</code>. Here top level API is <code>tf</code> which provides access to Tensorflow modules.</p>
@@ -140,10 +140,10 @@ tensor_3D$eval()                            # Instead of: sess$run(tensor_3D)
 sess$close()                                # Close a session
 tf$reset_default_graph()</code></pre>
 </div>
-<div id="linear-regression" class="section level1">
-<h1>Linear regression</h1>
-<div id="gradient-descent-algorithm" class="section level2">
-<h2>Gradient descent algorithm</h2>
+<div id="linear-regression" class="section level2">
+<h2>Linear regression</h2>
+<div id="gradient-descent-algorithm" class="section level3">
+<h3>Gradient descent algorithm</h3>
 <p>We analyze an example of simple linear regression to see how to use <code>TensorFlow</code> to optimize over a loss function.
 Then we use <code>TensorBoard</code> to monitor the loss function in each iteration.
 For a simple linear regression, we fit a linear function,</p>
@@ -192,8 +192,8 @@ tf$reset_default_graph()</code></pre>
 <pre class="r"><code># Compare to linear regression
 lm(Petal.Width ~ Petal.Length, data = iris)</code></pre>
 </div>
-<div id="monitoring-with-tensorboard" class="section level2">
-<h2>Monitoring with <code>TensorBoard</code></h2>
+<div id="monitoring-with-tensorboard" class="section level3">
+<h3>Monitoring with <code>TensorBoard</code></h3>
 <p><code>TensorBoard</code> is a metrics module that helps to monitor the learning process. In the complex model, <code>TensorBoard</code> not only visualizes but also debug, optimize the objective function. Most of the codes in this section are inherited from the previous section with few lines for adding variables to our watch list.</p>
 <pre class="r"><code># We model the relationship between Petal.Width and Petal.Length
 data(iris)
@@ -256,8 +256,8 @@ rm(list = ls())</code></pre>
 </div>
 </div>
 </div>
-<div id="maximum-likelihood-with-tensorflow" class="section level1">
-<h1>Maximum likelihood with <code>TensorFlow</code></h1>
+<div id="maximum-likelihood-with-tensorflow" class="section level2">
+<h2>Maximum likelihood with <code>TensorFlow</code></h2>
 <p>Tensorflow contains a large collection of probability distributions. <code>tf$contrib$distributions</code> provides some common distribution such as Bernoulli, Binomial, Uniform, Normal, Student-t,… The interesting feature of these functions is automatic differentiation. Thus, we just need to sepecify the likelihood function of the model and let <code>TensorFlow</code> takes care of the likelihood. <code>TensorFlow</code> uses reserve mode automatic differentiation.</p>
 <p>In general, we have the following workflow,</p>
 <ul>
@@ -326,8 +326,8 @@ cat(&quot;Gradient wrt: d.A &quot;, result[[3]][[1]], &quot;\n d.b: &quot;, resu
 sess$close()
 tf$reset_default_graph()</code></pre>
 </div>
-<div id="bayesian-with-tensorflow_probability" class="section level1">
-<h1>Bayesian with <code>TensorFlow_Probability</code></h1>
+<div id="bayesian-with-tensorflow_probability" class="section level2">
+<h2>Bayesian with <code>TensorFlow_Probability</code></h2>
 <p><code>TensorFlow_Probability</code> contains the most recent innovated Bayesian inference algorithms used in machine learning and deep learning. <code>TensorFlow_Probability</code> make it easier for probabilistic reasoning and statistical analysis.</p>
 <div class="figure">
 <img src="https://cdn-images-1.medium.com/max/800/0*19BJhsJ-2DzQ7fFH." title="Tfp framework" alt="tfp" />
@@ -424,8 +424,8 @@ plt.show()
 print(&quot;Coefficient: &quot;, A_mcmc.mean(), &quot;\n Intercept: &quot;, b_mcmc.mean(), &quot;\n Sigma: &quot;, sigma_mcmc.mean())
 exit</code></pre>
 </div>
-<div id="references" class="section level1">
-<h1>References</h1>
+<div id="references" class="section level2">
+<h2>References</h2>
 <ul>
 <li><a href="http://kyleclo.github.io/maximum-likelihood-in-tensorflow-pt-1/">MLE with TensorFlow</a></li>
 <li><a href="https://www.youtube.com/watch?v=atiYXm7JZv0">Machine Learning with R and TensorFlow</a></li>

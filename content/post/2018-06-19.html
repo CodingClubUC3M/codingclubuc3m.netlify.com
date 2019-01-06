@@ -11,8 +11,8 @@ tags: ["R", "app", "shiny", "teaching"]
 <p>The main goal of this session is to show a regular R user how to develop his/her own interactive (web) application without much effort. For doing so, we introduce the Shiny R package that makes this task simple even for an R programmer that has never heard about HTML, CSS or JavaScript (or does not care about them at all). During the session, we will develop from scratch an interactive app that illustrates the law of large numbers. This will allow us to understand the input and output of a Shiny app, as well as the whole workflow intuition for building Shiny apps.</p>
 <p>We will need RStudio with R (&gt;= 3.0.2) and the following package:</p>
 <pre class="r"><code>install.packages(&quot;shiny&quot;, dependencies = TRUE)</code></pre>
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
 <p>New teaching methodologies have arised during the last years and many of them have been leaded by the introduction of emerging technologies. Bright examples are <em>Active Learning</em> or <em>Research-Informed Learning</em> phylosophies which aim to give a more participative role to the students and motivates the learning proccess by means of practical examples.</p>
 <p>In addition to be a pontetially more enjoyable approach, these methodologies have demostrated to improve significanly the performance of the students in many areas of knowledge in high level education. Freeman et Al (2014) compared the performance in undergraduate science, technology, engineering, and mathematics courses under traditional lecturing versus <em>Active Learning</em> and concluded that “average examination scores improved by about 6% in Active Learning sections, and that students in classes with traditional lecturing were 1.5 times more likely to fail than were students in classes with Active Learning”. As another example, Fawcett (2018) introduced Interactive Shiny Apps for supporting <em>Research-Informed Learning and Teaching</em>. They studied its effect on students’ responses in data analysis work, and assigments that require the interpretation of methods in a recently published paper. For doing so, they compare the results of student who had access to the Apps versus student that did not and they concluded that the methods benefited students, not only in terms of their ability to understand and implement advanced techniques from the recent literature but also in terms of their confidence and overall satisfaction with the course.
 In the same direction, Williams and Williams (2017) and Doi et al (2016) used R Shiny App as support for their innovation teaching projects.</p>
@@ -25,32 +25,32 @@ In the same direction, Williams and Williams (2017) and Doi et al (2016) used R 
 </ul>
 <p>Despite the main motivation of the session is devoted to teaching and researching, Shiny App is becoming more and more employed in industry. Their usefulness and adaptability to different needs do not have limit as can be shown in these <a href="https://shiny.rstudio.com/gallery/">more ambicious examples</a> and <a href="https://www.showmeshiny.com/">these others</a>.</p>
 </div>
-<div id="what-is-an-interactive-web-r-shiny-app" class="section level1">
-<h1>What is an Interactive Web R Shiny App?</h1>
-<div id="what-is-a-web" class="section level2">
-<h2>What is a Web?</h2>
+<div id="what-is-an-interactive-web-r-shiny-app" class="section level2">
+<h2>What is an Interactive Web R Shiny App?</h2>
+<div id="what-is-a-web" class="section level3">
+<h3>What is a Web?</h3>
 <p>A web page is just a set of files HTML (HyperText Markup Language), CSS (Cascading Style Sheets) and JS (JavaScript) typically located in a server. We, as users, can request these data from our computer and display them with a browser. This process is outlined in the figure below.</p>
 <p><img src="/post/2018-06-19_files/web.png" /></p>
 <p>Each of this files enumarated above has a different goal. HTML is in charge of including the information we want to visualize and building the structure of the web. CSS introduces the desing of the web and how to present the information. Finally, JS is the programming lenguage of HTML and allows to introduce dynamics.</p>
 <p>As the abstracts says, today we do not need knowledge about these but it is important to take it into account to value the work that Shiny is doing for us. Despite this, basic knowledge of web programming would increase exponentially your options.</p>
 </div>
-<div id="what-is-an-interactive-app" class="section level2">
-<h2>What is an Interactive App?</h2>
+<div id="what-is-an-interactive-app" class="section level3">
+<h3>What is an Interactive App?</h3>
 <p>The user can interactuate with the server in such a way he/she can lead the process behind the App. The user declare input or variables that the developer design for being modificated by him/her. Afterwards, the server uses this input for conditionally returning the output.</p>
 <p>This trade off between user and server is a key point and it is the difference between a dynamic App and a static document (.pdf) or a book. The following diagram illustrates this workflow for an App runing on a server.</p>
 <p><img src="/post/2018-06-19_files/app.png" /></p>
 <p>Today we will forget about the comunication betwen user and server and our dynamic App will be running locally; the user and the files providing the web are in the same place as at the right panel of the sketch above.</p>
 </div>
-<div id="what-is-r-shiny" class="section level2">
-<h2>What is R Shiny?</h2>
+<div id="what-is-r-shiny" class="section level3">
+<h3>What is R Shiny?</h3>
 <p>The Shiny package in <a href="https://cran.r-project.org/web/packages/shiny/index.html">CRAN</a> is a web application framework for R. Obviously, the idea of creating an application with statistical purposes is not new at all, in fact, there are many projects related with the development of <a href="http://www.rossmanchance.com/applets/">Applet</a>. However, this tool require high knowledge of web programming, while Shiny mitigates this drawback by nesting R functions that assemble a complete Application.</p>
 <p><img src="/post/2018-06-19_files/cran.png" /></p>
 </div>
 </div>
-<div id="developing-a-shiny-app" class="section level1">
-<h1>Developing a Shiny App</h1>
-<div id="baselines" class="section level2">
-<h2>Baselines</h2>
+<div id="developing-a-shiny-app" class="section level2">
+<h2>Developing a Shiny App</h2>
+<div id="baselines" class="section level3">
+<h3>Baselines</h3>
 <p>In this section, we present a simple template with the skeleton of a Shiny App. It can be taken as a starting point for developing any other App. Mainly, it contains the following parts:</p>
 <ul>
 <li><code>ui</code> (User Interface) - nested R functions that assemble an HTML user interface for the App. Is is in charge of the contents and style of the App,</li>
@@ -80,12 +80,12 @@ abline(h = p)</code></pre>
 <p><img src="/post/2018-06-19_files/figure-html/unnamed-chunk-3-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>summary(x)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   0.000   0.000   0.000   0.234   0.000   1.000</code></pre>
+##   0.000   0.000   0.000   0.243   0.000   1.000</code></pre>
 <blockquote>
 <p>Which values from our code are going to be inputs and which one outputs?</p>
 </blockquote>
-<div id="inputs-objects" class="section level3">
-<h3>Inputs Objects</h3>
+<div id="inputs-objects" class="section level4">
+<h4>Inputs Objects</h4>
 <p>In orther to see that the empirical mean converges to the expected value, one would like to see how this sample mean behave when increasing the number of realizations <span class="math inline">\(N\)</span>. In the same way, one could also think about modifiying the parameter <span class="math inline">\(p\)</span> of the distribution. Therefore, we have two inputs values i.e. <span class="math inline">\(p\)</span> and <span class="math inline">\(N\)</span>.</p>
 <p>There are many different functions from Shiny that allows to collect these values from the user. In the following figure, we have a set of examples:</p>
 <div class="figure">
@@ -108,8 +108,8 @@ server &lt;- function(input, output){}
 
 shinyApp(ui = ui, server = server)</code></pre>
 </div>
-<div id="output-objects" class="section level3">
-<h3>Output Objects</h3>
+<div id="output-objects" class="section level4">
+<h4>Output Objects</h4>
 <p>Once we have the input values, we can use them to <em>produce</em> an output with R for being <em>provided</em> to the user in the interface. This last sentence has two parts 1) to produce and 2) to provide in the same way we have to program our App by 1) <code>render*()</code> and 2) <code>*Output()</code> functions.</p>
 <p>This two functions work together and each output function has its own render function counterpart. The following image presents some of this functions,</p>
 <div class="figure">
@@ -148,8 +148,8 @@ server &lt;- function(input, output){
 
 shinyApp(ui = ui, server = server)</code></pre>
 </div>
-<div id="modulating-reactivity" class="section level3">
-<h3>Modulating Reactivity</h3>
+<div id="modulating-reactivity" class="section level4">
+<h4>Modulating Reactivity</h4>
 <p>Up to here, we have desing very simple reactive relationship; each input is linked with a simple ouput. However, Shiny allows to have more complex connections through different functions. Some of them are the following,</p>
 <ol style="list-style-type: decimal">
 <li><code>reactive()</code>: this function generate a reactive expression i.e. each time one its inputs values is modified, all its code is re-run. Once we have created the reactive value <code>example &lt;- reactive({code})</code>, you can use the result by <code>example()</code>.</li>
@@ -287,12 +287,12 @@ shinyApp(ui = ui, server = server)</code></pre>
 <p>Some of this functions may appear so similar in this when applying to our example. However, each one satisfies one different need for more complex settings.</p>
 </div>
 </div>
-<div id="polishing-our-app" class="section level2">
-<h2>Polishing our App</h2>
+<div id="polishing-our-app" class="section level3">
+<h3>Polishing our App</h3>
 <p>Up to here, we have just messed inputs and ouputs up without any structure at all. Now is the moment for making up our App and arranging the contents in a friendly and beautiful structure.</p>
 <p>As explained at the beginning, the UI part of the code is in charge of the visualization aspect and therefore all the code related with these will be located at the <code>fluidPage()</code> function.</p>
-<div id="adding-layouts" class="section level3">
-<h3>Adding layouts</h3>
+<div id="adding-layouts" class="section level4">
+<h4>Adding layouts</h4>
 <p>One possible option is to organize our input and output with layout functions. In the figure below, we have som examples.</p>
 <div class="figure">
 <img src="/post/2018-06-19_files/layout.png" alt="From Shiny https://www.rstudio.com/resources/cheatsheets/" />
@@ -335,8 +335,8 @@ server &lt;- function(input, output){
 
 shinyApp(ui = ui, server = server)</code></pre>
 </div>
-<div id="adding-tabs" class="section level3">
-<h3>Adding tabs</h3>
+<div id="adding-tabs" class="section level4">
+<h4>Adding tabs</h4>
 <p>One could also structure the App in diffent panels with simple functions.
 <img src="/post/2018-06-19_files/tabs.png" alt="From Shiny https://www.rstudio.com/resources/cheatsheets/" /></p>
 <p>Lets suppose that we want to explit the different outputs in different tabs with <code>tabsetPanel</code> at our main panel layout section. And lets also add a table printing the generate data set.</p>
@@ -384,8 +384,8 @@ server &lt;- function(input, output){
 
 shinyApp(ui = ui, server = server)</code></pre>
 </div>
-<div id="ui-is-an-html-document" class="section level3">
-<h3>UI is an HTML document!</h3>
+<div id="ui-is-an-html-document" class="section level4">
+<h4>UI is an HTML document!</h4>
 <p>Rstudio and Shiny converst our code inside <code>fluidPage</code> into a HTML file for builing our web App. One can observed this fact just by running the following code in the console,</p>
 <pre class="r"><code>library(shiny)
 
@@ -456,10 +456,10 @@ server &lt;- function(input, output){
 shinyApp(ui = ui, server = server)</code></pre>
 </div>
 </div>
-<div id="other-handy-features" class="section level2">
-<h2>Other handy features</h2>
-<div id="conditional-panels" class="section level3">
-<h3>Conditional Panels</h3>
+<div id="other-handy-features" class="section level3">
+<h3>Other handy features</h3>
+<div id="conditional-panels" class="section level4">
+<h4>Conditional Panels</h4>
 <p>Following with our App, one could be willing to proof empirically the Law of Large Number but for a random variable coming from another distribution rather than Bernouilli. This task brings the problem of including inputs that depends on the selected distribution. In other words, one would need conditional panels. For example, if the selected distribution is the univariate Gaussian, one would like to have as input <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma ^2\)</span> rather than <span class="math inline">\(p\)</span>.</p>
 <p>Fortuntely, we can use the function <code>conditionalPanel()</code> in addition to an extra input object for selecting the distribution. For now, lets just include a binomial, <span class="math inline">\(Bin(n,p)\)</span> and an univariate Gaussian distribution, <span class="math inline">\(N(\mu, \sigma)\)</span>.</p>
 <pre class="r"><code>library(&#39;shiny&#39;)
@@ -520,8 +520,8 @@ server &lt;- function(input, output){
 
 shinyApp(ui = ui, server = server)</code></pre>
 </div>
-<div id="shiny-themes" class="section level3">
-<h3>Shiny themes</h3>
+<div id="shiny-themes" class="section level4">
+<h4>Shiny themes</h4>
 <p>We could also like to use a nice style but we do not want to include a CSS file. In this case, there are pre-defined themes with the package <code>shinythemes</code>.</p>
 <pre class="r"><code>library(&#39;shiny&#39;)
 library(&#39;shinythemes&#39;)
@@ -584,8 +584,8 @@ shinyApp(ui = ui, server = server)</code></pre>
 </div>
 </div>
 </div>
-<div id="references" class="section level1">
-<h1>References</h1>
+<div id="references" class="section level2">
+<h2>References</h2>
 <ol style="list-style-type: decimal">
 <li>Scott Freeman, Sarah L. Eddy, Miles McDonough, Michelle K. Smith, Nnadozie Okoroafor, Hannah Jordt, and Mary Pat Wenderoth (2014). “Active Learning increases student performance in science, engineering, and mathematics”, <em>PNAS</em>. <a href="http://www.pnas.org/content/111/23/8410.full">link</a></li>
 <li>Fawcett, Lee (2018). “Using Interactive Shiny Applications to Facilitate Research-Informed Learning and Teaching”, <em>Journal of Statistical Education</em>. <a href="https://www.tandfonline.com/doi/full/10.1080/10691898.2018.1436999">link</a></li>

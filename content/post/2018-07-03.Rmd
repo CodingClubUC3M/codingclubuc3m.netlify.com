@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 
 ```Tensorflow``` has been widely used for many applications in machine learning and deep learning. However, ```Tensorflow``` is more than that, it is a general purpose computing library. Based on that, people have created a rich ecosystem for quickly developing models. In this talk, I will show how statisticians can get most of the main features in ```Tensorflow``` such as automatic differentiation, optimization, and Bayesian analysis through a simple linear regression example.
 
-# Introduction
+## Introduction
 
 ```Tensorflow``` is a machine learning framework of `Google`. It is developed by ```Google Brain``` team since 2015 and released publicly in 02.2017. It is now implemented for many applications in machine learning and deep learning. It has ```API``` for ```Python```, ```R```, ```C```.
 
@@ -33,7 +33,7 @@ Tensorflow features:
 
 ![tensorflow](/post/2018-07-03_files/pic0.png "Tf framework")
 
-## Install ```TensorFlow``` in R
+### Install ```TensorFlow``` in R
 
 We summary the main steps for installing ```TensorFlow``` package in R.
 For the full instruction, please go to:
@@ -42,7 +42,7 @@ For the full instruction, please go to:
 - [Ubuntu](https://www.tensorflow.org/install/install_linux)
 - [macOS](https://www.tensorflow.org/install/install_mac)
 
-### Windows
+#### Windows
 
 1. Install python, pip3 and ```TensorFlow```,
 
@@ -56,7 +56,7 @@ pip3 install tfp-nightly==0.1.0rc1.dev20180702    # depends on tensorflow (CPU-o
 
 
 
-### Ubuntu
+#### Ubuntu
 1. Install python, pip3 and ```TensorFlow```,
 ```{bash, eval=FALSE}
 sudo apt-get install python3-pip python3-dev
@@ -65,7 +65,7 @@ pip3 install tfp-nightly==0.1.0rc1.dev20180702    # depends on tensorflow (CPU-o
 ```
 
 
-### macOS
+#### macOS
 
 Check pip3 version:
 ```{bash, eval=FALSE}
@@ -83,14 +83,14 @@ pip3 install tfp-nightly==0.1.0rc1.dev20180702    # depends on tensorflow (CPU-o
 
 Once you have installed `TensorFlow`, we go to `Rstudio` and intall the R API package.
 
-### Install ```R``` package ```TensorFlow```
+#### Install ```R``` package ```TensorFlow```
 
 ```{r eval=FALSE}
 install.packages("tensorflow", "reticulate")
 tensorflow::install_tensorflow()
 ```
 
-## Hello ```TensorFlow```
+### Hello ```TensorFlow```
 
 Test your installation with this chunk of codes
 
@@ -112,7 +112,7 @@ sess$close()
 If everything works, we are ready to go.
 
 
-# TensorFlow API from R
+## TensorFlow API from R
 
 We start with how to declare variables, constants and placeholders in ```TensorFlow```.
 We assign an object (```sess```) pointing to ```tf$Session()```
@@ -166,9 +166,9 @@ tf$reset_default_graph()
 
 
 
-# Linear regression
+## Linear regression
 
-## Gradient descent algorithm
+### Gradient descent algorithm
 We analyze an example of simple linear regression to see how to use ```TensorFlow``` to optimize over a loss function.
 Then we use ```TensorBoard``` to monitor the loss function in each iteration.
 For a simple linear regression, we fit a linear function,
@@ -235,7 +235,7 @@ tf$reset_default_graph()
 lm(Petal.Width ~ Petal.Length, data = iris)
 ```
 
-## Monitoring with ```TensorBoard```
+### Monitoring with ```TensorBoard```
 ```TensorBoard``` is a metrics module that helps to monitor the learning process. In the complex model, ```TensorBoard``` not only visualizes but also debug, optimize the objective function. Most of the codes in this section are inherited from the previous section with few lines for adding variables to our watch list.
 
 ```{r}
@@ -302,7 +302,7 @@ Here are few things that we summary in ```TensorBoard```. The algorithm reachs c
 
 ![tensor_board](/post/2018-07-03_files/pic2.jpg "Graph")
 
-# Maximum likelihood with ```TensorFlow```
+## Maximum likelihood with ```TensorFlow```
 
 Tensorflow contains a large collection of probability distributions. ```tf$contrib$distributions``` provides some common distribution such as Bernoulli, Binomial, Uniform, Normal, Student-t,... The interesting feature of these functions is automatic differentiation. Thus, we just need to sepecify the likelihood function of the model and let ```TensorFlow``` takes care of the likelihood. ```TensorFlow``` uses reserve mode automatic differentiation.
 
@@ -376,7 +376,7 @@ tf$reset_default_graph()
 ```
 
 
-# Bayesian with ```TensorFlow_Probability```
+## Bayesian with ```TensorFlow_Probability```
 ```TensorFlow_Probability``` contains the most recent innovated Bayesian inference algorithms used in machine learning and deep learning. ```TensorFlow_Probability``` make it easier for probabilistic reasoning and statistical analysis.
 
 ![tfp](https://cdn-images-1.medium.com/max/800/0*19BJhsJ-2DzQ7fFH. "Tfp framework")
@@ -478,7 +478,7 @@ exit
 
 
 
-# References
+## References
 
 - [MLE with TensorFlow](http://kyleclo.github.io/maximum-likelihood-in-tensorflow-pt-1/)
 - [Machine Learning with R and TensorFlow](https://www.youtube.com/watch?v=atiYXm7JZv0)
