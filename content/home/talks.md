@@ -8,7 +8,7 @@ title = "Sessions"
 subtitle = "Recent & Upcoming"
 
 # Order that this section will appear in.
-weight = 3
+weight = 4
 
 # Number of talks to list.
 count = 3

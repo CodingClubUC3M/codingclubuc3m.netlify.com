@@ -5,7 +5,7 @@ active = true
 date = 2019-01-05T00:00:00
 
 # Order that this section will appear in.
-weight = 5
+weight = 6
 
 +++
 
