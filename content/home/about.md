@@ -12,7 +12,7 @@ weight = 6
 ## Join us!
 
 - If you want to receive information about upcoming sessions, you can subscribe to
-the [RSS feed](http://127.0.0.1:4321/talk/index.xml). If you prefer to receive
+the [RSS feed](/talk/index.xml). If you prefer to receive
 announcements by email, please [contact us](#contact) indicating so.
 
 - If you plan to attend the next session with reasonable confidence, please
