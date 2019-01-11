@@ -50,8 +50,8 @@ the sessions.
 
 ## Organizers
 
-Members of the **Department of Statistics** and the **UC3M-Santander Institute
-of Big Data**, with the kind collaboration of other departments (Mathematics,
+Members of the **Department of Statistics** and the **UC3M-Santander Big Data
+Institute**, with the kind collaboration of other departments (Mathematics,
 Economics, Computer Science and Engineering, etc). Any person with interest in
 coding is welcome to join!
 
@@ -59,4 +59,4 @@ coding is welcome to join!
 - **Review Editor**: [David García Heredia](https://github.com/DavidGarHeredia)
 - **Logistics**: [Antonio Elías Fernández](https://www.linkedin.com/in/antonio-el%C3%ADas-fern%C3%A1ndez-656ab495/)
 - **Content Manager**: [Iñaki Úcar](https://github.com/Enchufa2), [Hoang Nguyen](http://hoanguc3m.github.io/) (until 12-2018)
-- **Sponsor**: [UC3M-Santander Institute of Big Data](https://twitter.com/bigdata_uc3m)
+- **Sponsor**: [UC3M-Santander Big Data Institute](https://twitter.com/bigdata_uc3m)
