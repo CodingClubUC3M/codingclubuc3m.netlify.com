@@ -2,7 +2,7 @@
 title = "Repository"
 
 date = 2019-01-06
-lastmod = 2019-01-06
+lastmod = 2019-01-11
 
 toc = true
 type = "docs"  # Do not modify.
@@ -31,6 +31,7 @@ The working directory will have the following structure:
 |   ├── home
 |   ├── post  <-- Here goes your tutorial
 |   └── talk
+├── layouts
 ├── static
 |   ├── img
 |   └── post  <-- Here goes any additional resources
