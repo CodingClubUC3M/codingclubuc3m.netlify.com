@@ -18,9 +18,16 @@ number crunching and teaching of statistics using a variety of languages and too
 
 Each session consists of a ~1-hour [talk](/talk/), and follows a reproducible
 tutorial that is [posted](/post/) in this website for the session and for future
-reference. This documentation describes the authoring process, which is intended
+reference. This documentation describes the contributing process, which is intended
 to be as smooth and painless as possible for both the contributors as well as
 the organizers.
+
+## Get in contact
+
+If you wish to contribute a session, the first step is to get contact with the 
+organizers to prearrange logistics and have some feedback on the session's topic.
+To do so, please get in contact with them at any of the sessions or, 
+alternatively, send a [proposal form](https://goo.gl/forms/5OEDWrV6P0rFn7K03).
 
 ## Authoring process
 
@@ -52,6 +59,8 @@ Once the draft is ready, the contributor shall open a pull request (PR) on
 GitHub. Then, a reviewer from the organization shall be assigned, and changes
 may be discussed and requested. The main advantage of this method is that Netlify
 also deploys PRs, so that the result can be previewed online before publishing.
+
+Your materials, as the rest of contents of the website, will be licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 ## Timeframe and milestones
 
