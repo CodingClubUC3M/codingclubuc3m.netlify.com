@@ -24,6 +24,7 @@ url_code = ""
 
 [image]
   caption = "[**External link**](http://portal.uc3m.es/portal/page/portal/dpto_estadistica/personal/juan_miguel_marin_diazaraque)"
+  focal_point = "Center" 
 +++
 
 ### About the speaker
