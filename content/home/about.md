@@ -11,13 +11,13 @@ weight = 6
 
 ## Join us!
 
-- If you want to receive information about upcoming sessions, you can subscribe to
+- If you plan to **attend the next session** with reasonable confidence, please let us know by
+[filling in the form](https://goo.gl/forms/ABjVgafSKr0Kn2G03). This will help us arrange the logistics. If you experience
+any problem with the form, please [contact us](#contact).
+
+- If you want to receive information about **upcoming sessions**, you can subscribe to
 the [RSS feed](/talk/index.xml). If you prefer to receive
 announcements by email, please [contact us](#contact) indicating so.
-
-- If you plan to attend the next session with reasonable confidence, please
-[fill in the form](https://goo.gl/forms/U87YTjZOCQtLAOGw2). If you experience
-any problem with the form, please [contact us](#contact).
 
 - **We are looking for speakers!** If you are interested in contributing, please
 visit the [Contributing](/contribute/) section.
@@ -40,7 +40,7 @@ week before.
 In ~60 minutes, the speaker presents a topic they may think it is of interest
 using materials with reproducible code. Attendees follow the materials and may
 ask questions on the go. The presentation is informal and the speaker’s goal is
-to deliver the key insights behind the code, useful tricks and patches to common
+to deliver the key insights behind the code, useful tricks, and patches to common
 errors.
 
 The materials for each session are [hosted in this website as posts](/post/).
@@ -55,7 +55,7 @@ Institute**, with the kind collaboration of other departments (Mathematics,
 Economics, Computer Science and Engineering, etc). Any person with interest in
 coding is welcome to join!
 
-- **Main Coordinator**: [Eduardo García Portugués](http://egarpor.github.io/)
+- **Coordinator**: [Eduardo García Portugués](http://egarpor.github.io/)
 - **Review Editor**: [David García Heredia](https://github.com/DavidGarHeredia)
 - **Logistics**: [Antonio Elías Fernández](https://www.linkedin.com/in/antonio-el%C3%ADas-fern%C3%A1ndez-656ab495/)
 - **Content Manager**: [Iñaki Úcar](https://github.com/Enchufa2), [Hoang Nguyen](http://hoanguc3m.github.io/) (until 12-2018)
