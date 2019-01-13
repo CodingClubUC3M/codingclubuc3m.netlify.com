@@ -97,11 +97,11 @@ for (i in 1:100) rnorm(100)
 time &lt;- proc.time() - time
 time # elapsed is the &#39;real&#39; elapsed time since the process was started</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.007   0.000   0.008</code></pre>
+##   0.003   0.000   0.003</code></pre>
 <pre class="r"><code># Using system.time - a wrapper for the above code
 system.time({for (i in 1:100) rnorm(100)})</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.005   0.000   0.006</code></pre>
+##   0.002   0.000   0.003</code></pre>
 <p>However, this very basic approach presents several inconveniences to be aware of:</p>
 <ul>
 <li>The <strong>precision</strong> of <code>proc.time</code> is within the millisecond. This means that evaluating <code>1:1000000</code> (usually) takes <code>0</code> seconds at the sight of <code>proc.time</code>.</li>
@@ -506,6 +506,7 @@ predict(bigglmMod, newdata = bigData2[1:5, ], type = &quot;response&quot;)
 <pre class="r"><code>library(txtplot) # txt* functions
 
 # Generate common data
+set.seed(987202226)
 x &lt;- rnorm(100)
 y &lt;- 1 + x + rnorm(100, sd = 1)
 let &lt;- as.factor(sample(letters, size = 1000, replace = TRUE))
@@ -514,42 +515,42 @@ let &lt;- as.factor(sample(letters, size = 1000, replace = TRUE))
 plot(x, y)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-1-1.png" width="672" /></p>
 <pre class="r"><code>txtplot(x, y)</code></pre>
-<pre><code>##    +-------+-------+--------+-------+--------+-------+-----+
-##  4 +                                           *       *   +
-##    |                                           * *         |
-##    |                                        *     *     *  |
-##    |                                  *  **                |
-##  2 +                            *  *  *  **       **       +
-##    |                              **  **** * ***     *     |
-##    |                       *    ** *  ***      *           |
-##    |                 *   ** * ** **** * *    *             |
-##  0 +                *  ***   ******  *****                 +
-##    |                      *  *   *         *               |
-##    |  *                           *                        |
-## -2 +          *                                            +
-##    +-------+-------+--------+-------+--------+-------+-----+
-##           -3      -2       -1       0        1       2</code></pre>
+<pre><code>##    +-------+---------+---------+---------+---------+-------+
+##  4 +                                 *        *    ***     +
+##    |                    *          *                    *  |
+##  3 +                       *    *   * **         * *       +
+##    |                           * *  * *    *               |
+##  2 +                     * * * *    ** *                   +
+##    |                     * *     ******  *  *              |
+##  1 +    *        *   **  ** ** **     *  ** *              +
+##    |          *   * *    ****  *                           |
+##  0 +                 ** *  * *   *    *                    +
+##    |              ****       *  *                          |
+## -1 +  *    ** **      ***   *                              +
+##    |   **     *   *                                        |
+## -2 +-------+---------+---------+---------+---------+-------+
+##           -2        -1         0         1         2</code></pre>
 <pre class="r"><code># txtboxplot
 boxplot(x, horizontal = TRUE)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-1-2.png" width="672" /></p>
 <pre class="r"><code>txtboxplot(x)</code></pre>
-<pre><code>##   -2          -1           0           1            2       
-##  |-+-----------+-----------+-----------+------------+------|
-##                     +-------+-----+                         
-##     ----------------|       |     |---------------------    
-##                     +-------+-----+</code></pre>
+<pre><code>##          -2        -1          0         1          2       
+##  |--------+---------+----------+---------+----------+------|
+##                        +-----+-------+                      
+##     -------------------|     |       |------------------    
+##                        +-----+-------+</code></pre>
 <pre class="r"><code># txtbarchart
 barplot(table(let))</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-1-3.png" width="672" /></p>
 <pre class="r"><code>txtbarchart(x = let)</code></pre>
 <pre><code>##   ++---------+---------+----------+---------+---------+----+
-## 5 +                  *                              *      +
-##   |        * *       *         *      * * * *   *   *   *  |
-## 4 +    *   * * *     *       * *      * * * * * *   *   *  +
-##   |    * * * * * * * *   *   * *      * * * * * * * *   *  |
-## 3 +  * * * * * * * * * * * * * *  * * * * * * * * * *   *  +
-##   |  * * * * * * * * * * * * * *  * * * * * * * * * *   *  |
-## 2 +  * * * * * * * * * * * * * *  * * * * * * * * * *   *  +
+## 5 +  *                                                  *  +
+##   |  * *                       *        *   *           *  |
+## 4 +  * *             *   *     *  * *   * * *   * *     *  +
+##   |  * *   *   * * * * * * * * *  * * * * * * * * *   * *  |
+## 3 +  * * * * * * * * * * * * * *  * * * * * * * * * * * *  +
+##   |  * * * * * * * * * * * * * *  * * * * * * * * * * * *  |
+## 2 +  * * * * * * * * * * * * * *  * * * * * * * * * * * *  +
 ##   |  * * * * * * * * * * * * * *  * * * * * * * * * * * *  |
 ## 1 +  * * * * * * * * * * * * * *  * * * * * * * * * * * *  +
 ##   |  * * * * * * * * * * * * * *  * * * * * * * * * * * *  |
@@ -587,16 +588,16 @@ acf(x)</code></pre>
 ##    1 + *                                                   +
 ##      | *                                                   |
 ##  0.8 + *                                                   +
-##      | *                                                   |
 ##  0.6 + *                                                   +
 ##      | *                                                   |
 ##  0.4 + *                                                   +
 ##      | *                                                   |
-##  0.2 + *                 *      *         *                +
-##      | *    *            *      * *       *      *  *   *  |
+##  0.2 + *                                                   +
+##      | *                          *                   *    |
 ##    0 + *  * *  * *  * *  * * *  * *  * *  * *  * *  * * *  +
-##      |    *         * *      *       *      *         *    |
-## -0.2 +-+------------+-----------+-----------+-----------+--+
+##      |    *      *                   *    *    *        *  |
+## -0.2 +    *                               *                +
+##      +-+------------+-----------+-----------+-----------+--+
 ##        0            5          10          15          20</code></pre>
 <pre class="r"><code>library(NostalgiR) # nos.* functions
 
@@ -610,97 +611,97 @@ zz &lt;- outer(xx, yy, f)
 plot(density(x)); rug(x)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-2-1.png" width="672" /></p>
 <pre class="r"><code>nos.density(x)</code></pre>
-<pre><code>##       +-----+-----------+-----------+------------+---------+
-##   0.4 +                          ~~~~~~~                   +
-##       |                          ~     ~                   |
-##       |                         ~      ~~                  |
-## D 0.3 +                        ~~       ~                  +
-## e     |                        ~         ~                 |
-## n     |                       ~~         ~~                |
-## s 0.2 +                      ~~           ~~               +
-## i     |                     ~~             ~~~~            |
-## t     |                    ~~                 ~~           |
-## y 0.1 +                   ~~                   ~~          +
-##       |                 ~~~                      ~~~       |
-##     0 + ~~~~~~~~~~~~~~~~~oooooooooooooooooooooooo o~~~~~~  +
-##       +-----+-----------+-----------+------------+---------+
-##            -4          -2           0            2</code></pre>
+<pre><code>##       +-----------+--------------+-------------+-----------+
+##       |                      ~~~~~~                        |
+##       |                   ~~~     ~~                       |
+##   0.3 +                 ~~~        ~~                      +
+## D     |                ~~           ~~                     |
+## e     |               ~~             ~~                    |
+## n 0.2 +              ~~               ~~~                  +
+## s     |             ~~                  ~~~                |
+## i     |            ~~                      ~~              |
+## t 0.1 +           ~~                        ~~~            +
+## y     |          ~~                           ~~~          |
+##       |        ~~~                              ~~~        |
+##     0 + ~~~~~~~~o oo oooooooooooooooooooooooo oooo~~~~~~~  +
+##       +-----------+--------------+-------------+-----------+
+##                  -2              0             2</code></pre>
 <pre class="r"><code># nos.hist
 hist(x)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-2-2.png" width="672" /></p>
 <pre class="r"><code>nos.hist(x)</code></pre>
-<pre><code>##      +------+-------+-------+-------+-------+-------+------+
-##      |                          o       o                  |
-##   30 +                          o       o                  +
-## F    |                          o       o                  |
-## r    |                          o       o                  |
-## e    |                          o       o                  |
-## q 20 +                          o       o                  +
-## u    |                          o       o                  |
-## e    |                          o       o       o          |
-## n 10 +                  o       o       o       o          +
-## c    |                  o       o       o       o          |
-## y    |                  o       o       o       o          |
-##    0 + o        o       o       o       o       o       o  +
-##      +------+-------+-------+-------+-------+-------+------+
-##            -3      -2      -1       0       1       2</code></pre>
+<pre><code>##      +----+----------+----------+----------+----------+----+
+##      |                  o          o                       |
+##      |                  o    o     o                       |
+## F 15 +            o     o    o     o                       +
+## r    |            o     o    o     o                       |
+## e    |            o     o    o     o                       |
+## q 10 +            o     o    o     o          o            +
+## u    |       o    o     o    o     o    o     o            |
+## e    |       o    o     o    o     o    o     o            |
+## n  5 +       o    o     o    o     o    o     o            +
+## c    |       o    o     o    o     o    o     o    o       |
+## y    | o     o    o     o    o     o    o     o    o    o  |
+##    0 + o     o    o     o    o     o    o     o    o    o  +
+##      +----+----------+----------+----------+----------+----+
+##          -2         -1          0          1          2</code></pre>
 <pre class="r"><code># nos.ecdf
 plot(ecdf(x))</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-2-3.png" width="672" /></p>
 <pre class="r"><code>nos.ecdf(x)</code></pre>
-<pre><code>##       +------+-------+-------+--------+-------+-------+----+
-##     1 +                                          ooooo~~o  +
-##       |                                       ooo~         |
-##   0.8 +                                   oooo~            +
-##       |                                 ooo                |
-## E 0.6 +                                oo                  +
-## C     |                               oo                   |
-## D     |                            oooo                    |
-## F 0.4 +                           oo                       +
-##       |                          oo                        |
-##   0.2 +                        ooo                         +
-##       |                    oo~o                            |
-##       | o~~~~~~~o~~~~~oo~ooo                               |
-##     0 +------+-------+-------+--------+-------+-------+----+
-##             -3      -2      -1        0       1       2</code></pre>
+<pre><code>##       +-----+---------+----------+----------+---------+----+
+##     1 +                                         o~o~ooooo  +
+##       |                                     ooooo          |
+##   0.8 +                                ooo~o~              +
+##       |                           ooooo~                   |
+## E 0.6 +                          oo                        +
+## C     |                        ooo                         |
+## D     |                      ooo                           |
+## F 0.4 +                   ooo~                             +
+##       |                oooo                                |
+##   0.2 +             oooo                                   +
+##       |         ooooo                                      |
+##       | o~~oo~~oo                                          |
+##     0 +-----+---------+----------+----------+---------+----+
+##            -2        -1          0          1         2</code></pre>
 <pre class="r"><code># nos.qqnorm
 qqnorm(x); qqline(x)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-2-4.png" width="672" /></p>
 <pre class="r"><code>nos.qqnorm(x)</code></pre>
-<pre><code>##      +-----+-------+-------+--------+-------+-------+------+
-##    2 +                                            ~o~o~ o  +
-## S    |                                        ooooo        |
-## a  1 +                                    ~ooo~            +
-## m    |                               oooooo                |
-## p  0 +                           ooooo                     +
-## l    |                      oooooo                         |
-## e -1 +                  ooooo~                             +
-##      |              ~ooo~                                  |
-## Q -2 +          ~~~~~                                      +
-## s -3 +      ~~~~~ o o                                      +
-##      | ~~~~~   o                                           |
-##      +-----+-------+-------+--------+-------+-------+------+
-##           -3      -2      -1        0       1       2       
+<pre><code>##      +-------+--------+---------+--------+---------+-------+
+##    2 +                                           o~o~o~ o  +
+## S    |                                        ooo~~        |
+## a  1 +                                    ooooo            +
+## m    |                                 ooo~                |
+## p    |                             ~~oo~                   |
+## l  0 +                         oooooo                      +
+## e    |                      oooo                           |
+##   -1 +                  ooooo                              +
+## Q    |              ooooo                                  |
+## s    |         ooooo                                       |
+##   -2 + o   o~o~~~                                          +
+##      +-------+--------+---------+--------+---------+-------+
+##             -2       -1         0        1         2        
 ##                          Theoretical Qs</code></pre>
 <pre class="r"><code># nos.qqplot
 qqplot(x, y)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-2-5.png" width="672" /></p>
 <pre class="r"><code>nos.qqplot(x, y)</code></pre>
-<pre><code>##    +-------+-------+--------+-------+--------+-------+-----+
-##  4 +                                                   oo  +
-##    |                                              oo o     |
-##    |                                           o oo        |
-##  2 +                                       ooooo    ~~~~~  +
-##    |                                   oooo   ~~~~~~       |
-##    |                               oooo ~~~~~~             |
-##  0 +                          oooooo~~~~~                  +
-##    |                    ooooooo~~~~                        |
-##    |          o     oo o~~~~~                              |
-## -2 +  o       o  ~~~~~~                                    +
-##    |       ~~~~~~                                          |
-##    |  ~~~~~~                                               |
-## -4 +-------+-------+--------+-------+--------+-------+-----+
-##           -3      -2       -1       0        1       2</code></pre>
+<pre><code>##  4 +-----+----------+-----------+----------+----------+----+
+##    |                                              o ooooo  |
+##    |                                        ooooo          |
+##  2 +                                    o oo          ~~~  +
+##    |                             o ooooo       ~~~~~~~     |
+##    |                          oooo      ~~~~~~~~           |
+##    |                    ooooooo  ~~~~~~~~                  |
+##  0 +                 oooo  ~~~~~~~                         +
+##    |            oooooo~~~~~                                |
+##    |         ooo~~~~~                                      |
+## -2 +  ~~~o~~~~                                             +
+##    |  ~ o                                                  |
+##    |  o                                                    |
+##    +-----+----------+-----------+----------+----------+----+
+##         -2         -1           0          1          2</code></pre>
 <pre class="r"><code># nos.contour
 contour(xx, yy, zz)</code></pre>
 <p><img src="/post/2018-05-10_files/figure-html/ascii-2-6.png" width="672" /></p>

@@ -187,7 +187,7 @@ Y5 <- t(t(X) - mu)
 
 Which one do you think is faster? Do not cheat and answer before seeing the output of the next chunk of code!
 
-```{r, bench-4, eval=FALSE, message = FALSE, cache = TRUE, fig.asp = 1}
+```{r, bench-4, eval = FALSE, message = FALSE, cache = TRUE, fig.asp = 1}
 # Test speed
 library(microbenchmark)
 bench <- microbenchmark(
@@ -341,7 +341,7 @@ The package `ff` lacks some standard statistical methods for operating with `ff`
 
 Let's see an example.
 
-```{r, ffbase-1, eval=FALSE, cache = TRUE, message = FALSE, fig.asp = 1}
+```{r, ffbase-1, eval = FALSE, cache = TRUE, message = FALSE, fig.asp = 1}
 # Not really "big data", but for the sake of illustration
 set.seed(12345)
 n <- 1e6
@@ -382,7 +382,7 @@ file.remove(c("bigData1.csv", "bigData2.csv"))
 ```
 
 Operations on `ff` objects are carried out similarly as with regular `data.frames`:
-```{r, ffbase-2, eval=FALSE, cache = TRUE, message = FALSE, fig.asp = 1}
+```{r, ffbase-2, eval = FALSE, cache = TRUE, message = FALSE, fig.asp = 1}
 # Operations on ff objects "almost" as with regular data.frames
 class(bigData1ff)
 class(bigData1ff[, 1])
@@ -410,7 +410,7 @@ We will focus on the **second approach** due to its simplicity. For an example o
 
 Let's see first an example of **linear regression**.
 
-```{r, bigglm-1, eval=FALSE, message = FALSE, cache = TRUE}
+```{r, bigglm-1, eval = FALSE, message = FALSE, cache = TRUE}
 library(biglm)
 # bigglm.ffdf has a very similar syntax to glm - but the formula interface does 
 # not work always as expected:
@@ -459,7 +459,7 @@ update(biglmMod, moredata = bigData1[1:100, ])
 
 Model selection of `biglm` models can be done with the [`leaps`](https://cran.r-project.org/web/packages/leaps/index.html) package. This is achieved by the `regsubsets` function, which returns the *best subset* of up to (by default) `nvmax = 8` predictors. The function requires the *full* `biglm` model to begin the "exhaustive" search, in which is crucial the linear structure of the estimator. 
 
-```{r, bigglm-2, eval=FALSE, message = FALSE, cache = TRUE}
+```{r, bigglm-2, eval = FALSE, message = FALSE, cache = TRUE}
 # Model selection adapted to big data models
 library(leaps)
 reg <- regsubsets(biglmMod, nvmax = p, method = "exhaustive")
@@ -475,7 +475,7 @@ subs$which[which.min(subs$bic), ]
 
 An example of **logistic regression**:
 
-```{r, bigglm-3, eval=FALSE, message = FALSE, cache = TRUE}
+```{r, bigglm-3, eval = FALSE, message = FALSE, cache = TRUE}
 # Same comments for the formula framework - this is the hack for automatic
 # inclusion of all the predictors
 f <- formula(paste("resp ~", paste(names(bigData2ff)[-1], collapse = " + ")))
@@ -531,6 +531,7 @@ Let's see some examples.
 library(txtplot) # txt* functions
 
 # Generate common data
+set.seed(987202226)
 x <- rnorm(100)
 y <- 1 + x + rnorm(100, sd = 1)
 let <- as.factor(sample(letters, size = 1000, replace = TRUE))

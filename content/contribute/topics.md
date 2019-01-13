@@ -19,11 +19,11 @@ free to suggest topics in which you are interested that are not listed here!
 
 ## General topics
 
+- ~~Introduction to [GitHub](https://github.com/)~~
 - ~~Introduction to [Julia](http://julialang.org/)~~
 - Introduction to [Mathematica](https://www.wolfram.com/mathematica/)
 - Introduction to [Python](https://www.python.org/)
-- Introduction to [Stan](http://mc-stan.org/)
-- How to develop efficiently with [GitHub](https://github.com/)
+- ~~Introduction to [Stan](http://mc-stan.org/)~~
 
 ## About R packages
 
