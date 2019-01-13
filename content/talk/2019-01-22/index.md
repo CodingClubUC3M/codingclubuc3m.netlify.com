@@ -2,8 +2,8 @@
 title = "An introduction to Stan with R"
 date = 2019-01-13
 
-time_start = 2019-01-22T15:00:00
-time_end = 2018-01-22T16:00:00
+time_start = 2019-01-22T13:00:00
+time_end = 2018-01-22T14:00:00
 
 authors = ["Juan Miguel Marín Diazaraque"]
 
@@ -12,7 +12,8 @@ abstract = "Stan is a probabilistic programming language for specifying statisti
 event = "Tutorial"
 event_url = ""
 
-location = "**Room 7.3.J08**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
+location = "**TBA**"
+# location = "**Room 7.3.J08**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
 
 selected = false
 
@@ -29,5 +30,5 @@ url_code = ""
 
 ### About the speaker
 
-Ph.D. degree in Genetics from U. Complutense and Ph.D. degree in Statistics and O.R. from U. Complutense of Madrid. He has been professor in U. Complutense of Madrid, URJC and finally in U. Carlos III from 2004. He works in Bayesian Statistics and Biostatistics. 
+Ph.D. degree in Genetics from U. Complutense and Ph.D. degree in Statistics and O.R. from U. Complutense of Madrid. He has been professor in U. Complutense of Madrid, URJC and finally in U. Carlos III de Madrid from 2004. He works in Bayesian Statistics and Biostatistics. 
 
