@@ -11,16 +11,17 @@ weight = 6
 
 ## Join us!
 
-- If you plan to **attend the next session** with reasonable confidence, please let us know by
-[filling in the form](https://goo.gl/forms/ABjVgafSKr0Kn2G03). This will help us arrange the logistics. If you experience
-any problem with the form, please [contact us](#contact).
+- If you plan to **attend the next session** with reasonable confidence, please
+  let us know by filling in the form (click "Join here!" in the [upcoming session]
+  (#talks)). This will help us arrange the logistics. If you experience any
+  problem with the form, please [contact us](#contact).
 
-- If you want to receive information about **upcoming sessions**, you can subscribe to
-the [RSS feed](/talk/index.xml). If you prefer to receive
-announcements by email, please [contact us](#contact) indicating so.
+- If you want to receive information about **upcoming sessions**, you can
+  subscribe to the [RSS feed](/talk/index.xml). If you prefer to receive
+  announcements by email, please [contact us](#contact) indicating so.
 
 - **We are looking for speakers!** If you are interested in contributing, please
-visit the [Contributing](/contribute/) section.
+  visit the [Contributing](/contribute/) section.
 
 ## When, Where, Why, How
 

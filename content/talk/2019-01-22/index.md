@@ -3,7 +3,7 @@ title = "An introduction to Stan with R"
 date = 2019-01-13
 
 time_start = 2019-01-22T13:00:00
-time_end = 2018-01-22T14:00:00
+time_end = 2019-01-22T14:00:00
 
 authors = ["Juan Miguel Marín Diazaraque"]
 
@@ -11,6 +11,7 @@ abstract = "Stan is a probabilistic programming language for specifying statisti
 
 event = "Tutorial"
 event_url = ""
+event_form = "https://goo.gl/forms/ABjVgafSKr0Kn2G03"
 
 location = "**TBA**"
 # location = "**Room 7.3.J08**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
