@@ -239,18 +239,23 @@ enableGitInfo = false
   weight = 3
 
 [[menu.main]]
-  name = '<span class="middot-divider"></span>'
+  name = "Links"
+  url = "#links"
   weight = 4
+
+[[menu.main]]
+  name = '<span class="middot-divider"></span>'
+  weight = 5
 
 [[menu.main]]
   name = "Posts"
   url = "/post/"
-  weight = 5
+  weight = 6
 
 [[menu.main]]
   name = "Contributing"
   url = "/contribute/"
-  weight = 6
+  weight = 7
 
 # Search.
 [params.search]
