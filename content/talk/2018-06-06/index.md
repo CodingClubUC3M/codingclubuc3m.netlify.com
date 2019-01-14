@@ -7,7 +7,7 @@ time_end = 2018-06-06T17:30:00
 
 authors = ["David García-Heredia"]
 
-abstract = "In this session we will learn how to take advantage of a multi-core PC through the use of parallel computing in `Julia`. It is worth to mention that several of the examples provided here come from `Julia`'s [website](<https://julialang.org/>), that is why we have decided to preserve the structure of the contents developed there. The reader may appreciate that when using the same examples, we have detailed a little bit more the explanation such that the ideas exposed can be easily understood. As a result, this post turns out to be a mix of examples: ones coming from the official documentation, and others coming from our own."
+abstract = "In this session we will learn how to take advantage of a multi-core PC through the use of parallel computing in Julia. It is worth to mention that several of the examples provided here come from Julia's [website](<https://julialang.org/>), that is why we have decided to preserve the structure of the contents developed there. The reader may appreciate that when using the same examples, we have detailed a little bit more the explanation such that the ideas exposed can be easily understood. As a result, this post turns out to be a mix of examples: ones coming from the official documentation, and others coming from our own."
 
 event = "Tutorial"
 event_url = "/post/2018-06-06"

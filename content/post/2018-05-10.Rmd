@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 As the title reads, in this heterogeneous session we will see three topics of different interest. The first is a collection of three simple and useful one-function R packages that I use regularly in my coding workflow. The second collects some approaches to handling and performing linear regression with big data. The third brings in the freaky component: it presents tools to display graphical information in plain ASCII, from bivariate contours to messages from Yoda!
 
-You can download the script with the `R` code alone [here](https://raw.githubusercontent.com/CodingClubUC3M/codingclubuc3m.github.io/master/scripts/misc.R) (right click and "Save as...").
+You can download the script with the R code alone [here](https://raw.githubusercontent.com/CodingClubUC3M/codingclubuc3m.github.io/master/scripts/misc.R) (right click and "Save as...").
 
 We will need the following packages:
 
@@ -23,11 +23,11 @@ install.packages(c("viridis", "microbenchmark", "multcomp", "manipulate",
                  dependencies = TRUE)
 ```
 
-## Some simple and useful `R` packages
+## Some simple and useful R packages
 
 ### Color palettes with `viridis`
 
-Built-in color palettes in base `R` are somehow limited. We have `rainbow`, `topo.colors`, `terrain.colors`, `heat.colors`, and `cm.colors`. We also have flexibility to create our own palettes, e.g. by using `colorRamp`. These palettes look like:
+Built-in color palettes in base R are somehow limited. We have `rainbow`, `topo.colors`, `terrain.colors`, `heat.colors`, and `cm.colors`. We also have flexibility to create our own palettes, e.g. by using `colorRamp`. These palettes look like:
 
 ```{r, viridis-1, message = FALSE, cache = TRUE, fig.asp = 2/3}
 # MATLAB's color palette
@@ -53,7 +53,7 @@ In addition to these problems, some problematic points that are not usually thou
 - How does your pretty color image look like when you print it in **black-and-white**?
 - How do **colorblind** people read the images?
 
-The package [`viridisLite`](https://cran.r-project.org/web/packages/viridisLite/index.html) (a port from `Python`'s [`Matplotlib`](http://matplotlib.org/)) comes to solve these three issues. It provides the *viridis* color palette, which uses notions from color theory to be **as much uniform as possible**, **black-and-white-ready**, and **colorblind-friendly**. From `viridisLite`'s help:
+The package [`viridisLite`](https://cran.r-project.org/web/packages/viridisLite/index.html) (a port from Python's [`Matplotlib`](http://matplotlib.org/)) comes to solve these three issues. It provides the *viridis* color palette, which uses notions from color theory to be **as much uniform as possible**, **black-and-white-ready**, and **colorblind-friendly**. From `viridisLite`'s help:
 
 > This color map is designed in such a way that it will analytically be perfectly perceptually-uniform, both in regular form and also when converted to black-and-white. It is also designed to be perceived by readers with the most common form of color blindness.
 
@@ -116,7 +116,7 @@ ggplot(dat, aes(x = x, y = y)) +
 
 Measuring the **code performance** is a **day-to-day routine** for many developers. It is also a requirement for regular users that want to choose the most efficient coding strategy for implementing a method.
 
-As we know, we can measure running times in base `R` using `proc.time` or `system.time`:
+As we know, we can measure running times in base R using `proc.time` or `system.time`:
 
 ```{r, bench-1, message = FALSE, cache = TRUE, fig.asp = 1}
 # Using proc.time
@@ -137,7 +137,7 @@ However, this very basic approach presents several inconveniences to be aware of
 - There is **no summary** of the timings. We have to code it by ourselves.
 - There is **no checking on the equality** of the results outputted from different approaches (accuracy is also important, not only speed!). Again, we have to code it by ourselves.
 
-Hopefully, the [`microbenchmark`](https://cran.r-project.org/package=microbenchmark) package fills in these gaps. Let's see an example of its usage on approaching a common problem in `R`: how to **recentre a matrix by columns**, *i.e.*, how to make each column to have zero mean. There are several possibilities to do so, with different efficiencies.
+Hopefully, the [`microbenchmark`](https://cran.r-project.org/package=microbenchmark) package fills in these gaps. Let's see an example of its usage on approaching a common problem in R: how to **recentre a matrix by columns**, *i.e.*, how to make each column to have zero mean. There are several possibilities to do so, with different efficiencies.
 
 ```{r, bench-2, message = FALSE, cache = TRUE, fig.asp = 1}
 # Data and mean
@@ -329,11 +329,11 @@ manipulate(
   phi = slider(-90, 90, initial = 30, step = 5))
 ```
 
-## Handling big data in `R`
+## Handling big data in R
 
 ### The `ff` and `ffbase` packages
 
-`R` stores all the data in RAM, which is where all the processing takes place. But when the data does not fit into RAM (e.g., vectors of size $2\times 10^9$), alternatives are needed. [`ff`](https://cran.r-project.org/web/packages/ff/index.html) is an `R` package for working with data that does not fit in RAM. From `ff`'s description:
+R stores all the data in RAM, which is where all the processing takes place. But when the data does not fit into RAM (e.g., vectors of size $2\times 10^9$), alternatives are needed. [`ff`](https://cran.r-project.org/web/packages/ff/index.html) is an R package for working with data that does not fit in RAM. From `ff`'s description:
 
 > The `ff` package provides data structures that are stored on disk but behave (almost) as if they were in RAM by transparently mapping only a section (pagesize) in main memory - the effective virtual memory consumption per `ff` object.
 
@@ -395,9 +395,9 @@ ffwhich(bigData1ff, bigData1ff$resp > 5)
 
 ### Regression using `biglm` and friends
 
-The richness of information returned by `R`'s `lm` has immediate drawbacks when working with big data (large $n$, $n>p$). An example is the following. If $n=10^8$ and $p=10$, simply storing the response and the predictors takes up to $8.2$ Gb in RAM. This is in the edge of feasibility for many regular laptops. However, calling `lm` will consume, at the very least, $16.5$ Gb merely storing the `residuals`, `effects`, `fitted.values`, and `qr` decomposition. Although there are more efficient ways of performing linear regression in base `R` (e.g., with `.lm.fit`), we still need to rethink the least squares estimates computation (takes $\mathcal{O}(np+p^2)$ in memory) to do not overflow the RAM.
+The richness of information returned by R's `lm` has immediate drawbacks when working with big data (large $n$, $n>p$). An example is the following. If $n=10^8$ and $p=10$, simply storing the response and the predictors takes up to $8.2$ Gb in RAM. This is in the edge of feasibility for many regular laptops. However, calling `lm` will consume, at the very least, $16.5$ Gb merely storing the `residuals`, `effects`, `fitted.values`, and `qr` decomposition. Although there are more efficient ways of performing linear regression in base R (e.g., with `.lm.fit`), we still need to rethink the least squares estimates computation (takes $\mathcal{O}(np+p^2)$ in memory) to do not overflow the RAM.
 
-A handy solution is given by the [`biglm`](https://CRAN.R-project.org/package=biglm ) package, which allows to fit a generalized linear model (glm) in `R` consuming much less RAM. Essentially, we have two possible approaches for fitting a glm:
+A handy solution is given by the [`biglm`](https://CRAN.R-project.org/package=biglm ) package, which allows to fit a generalized linear model (glm) in R consuming much less RAM. Essentially, we have two possible approaches for fitting a glm:
 
 1. Use a regular `data.frame` object to store the data, then use `biglm` to fit the model. This assumes that:
 
@@ -504,13 +504,13 @@ predict(bigglmMod, newdata = bigData2[1:5, ], type = "response")
 # predict(bigglmMod, newdata = bigData2[1:5, -1]) # Error
 ```
 
-## ASCII fun in `R`
+## ASCII fun in R
 
 ### Text-based graphs with `txtplot`
 
-When evaluating `R` in a terminal with no possible graphical outputs (e.g. in a supercomputing cluster), it may be of usefulness to, at least, visualize some simple plots in a rudimentary way. This is what the [`txtplot`](https://cran.r-project.org/web/packages/txtplot/index.html) and the [`NostalgiR`](https://cran.r-project.org/web/packages/NostalgiR/index.html) package do, by means of ASCII graphics that are equivalent to some `R` functions.
+When evaluating R in a terminal with no possible graphical outputs (e.g. in a supercomputing cluster), it may be of usefulness to, at least, visualize some simple plots in a rudimentary way. This is what the [`txtplot`](https://cran.r-project.org/web/packages/txtplot/index.html) and the [`NostalgiR`](https://cran.r-project.org/web/packages/NostalgiR/index.html) package do, by means of ASCII graphics that are equivalent to some R functions.
 
-| `R` graph | ASCII analogue |
+| R graph | ASCII analogue |
 |:--------------|:-------------------|
 | `plot` | `txtplot` |
 | `boxplot` | `txtboxplot` |

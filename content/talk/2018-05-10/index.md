@@ -28,7 +28,7 @@ url_code = ""
 
 ### About the speaker
 
-Assistant professor at the Department of Statistics of Carlos III University of Madrid. Enthusiast of coding since his early days as a student fighting against `FORTRAN`. Now with a reasonable expertise in `R` and its evolving ecosystem. His developed software is available at https://github.com/egarpor/
+Assistant professor at the Department of Statistics of Carlos III University of Madrid. Enthusiast of coding since his early days as a student fighting against FORTRAN. Now with a reasonable expertise in R and its evolving ecosystem. His developed software is available at https://github.com/egarpor/
 
 ![](/img/sessions/2018-05-10-1.jpg)
 

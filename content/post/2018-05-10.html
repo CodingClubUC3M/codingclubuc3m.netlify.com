@@ -9,17 +9,17 @@ tags: ["R", "big data", "visualization", "benchmark"]
 
 
 <p>As the title reads, in this heterogeneous session we will see three topics of different interest. The first is a collection of three simple and useful one-function R packages that I use regularly in my coding workflow. The second collects some approaches to handling and performing linear regression with big data. The third brings in the freaky component: it presents tools to display graphical information in plain ASCII, from bivariate contours to messages from Yoda!</p>
-<p>You can download the script with the <code>R</code> code alone <a href="https://raw.githubusercontent.com/CodingClubUC3M/codingclubuc3m.github.io/master/scripts/misc.R">here</a> (right click and “Save as…”).</p>
+<p>You can download the script with the R code alone <a href="https://raw.githubusercontent.com/CodingClubUC3M/codingclubuc3m.github.io/master/scripts/misc.R">here</a> (right click and “Save as…”).</p>
 <p>We will need the following packages:</p>
 <pre class="r"><code>install.packages(c(&quot;viridis&quot;, &quot;microbenchmark&quot;, &quot;multcomp&quot;, &quot;manipulate&quot;, 
                    &quot;ffbase&quot;, &quot;biglm&quot;, &quot;leaps&quot;, &quot;txtplot&quot;, &quot;NostalgiR&quot;,
                    &quot;cowsay&quot;), 
                  dependencies = TRUE)</code></pre>
 <div id="some-simple-and-useful-r-packages" class="section level2">
-<h2>Some simple and useful <code>R</code> packages</h2>
+<h2>Some simple and useful R packages</h2>
 <div id="color-palettes-with-viridis" class="section level3">
 <h3>Color palettes with <code>viridis</code></h3>
-<p>Built-in color palettes in base <code>R</code> are somehow limited. We have <code>rainbow</code>, <code>topo.colors</code>, <code>terrain.colors</code>, <code>heat.colors</code>, and <code>cm.colors</code>. We also have flexibility to create our own palettes, e.g. by using <code>colorRamp</code>. These palettes look like:</p>
+<p>Built-in color palettes in base R are somehow limited. We have <code>rainbow</code>, <code>topo.colors</code>, <code>terrain.colors</code>, <code>heat.colors</code>, and <code>cm.colors</code>. We also have flexibility to create our own palettes, e.g. by using <code>colorRamp</code>. These palettes look like:</p>
 <pre class="r"><code># MATLAB&#39;s color palette
 jet.colors &lt;- colorRampPalette(c(&quot;#00007F&quot;, &quot;blue&quot;, &quot;#007FFF&quot;, &quot;cyan&quot;,
                                  &quot;#7FFF7F&quot;, &quot;yellow&quot;, &quot;#FF7F00&quot;, &quot;red&quot;, 
@@ -41,7 +41,7 @@ res &lt;- sapply(c(&quot;rainbow&quot;, &quot;topo.colors&quot;, &quot;terrain.c
 <li>How does your pretty color image look like when you print it in <strong>black-and-white</strong>?</li>
 <li>How do <strong>colorblind</strong> people read the images?</li>
 </ul>
-<p>The package <a href="https://cran.r-project.org/web/packages/viridisLite/index.html"><code>viridisLite</code></a> (a port from <code>Python</code>’s <a href="http://matplotlib.org/"><code>Matplotlib</code></a>) comes to solve these three issues. It provides the <em>viridis</em> color palette, which uses notions from color theory to be <strong>as much uniform as possible</strong>, <strong>black-and-white-ready</strong>, and <strong>colorblind-friendly</strong>. From <code>viridisLite</code>’s help:</p>
+<p>The package <a href="https://cran.r-project.org/web/packages/viridisLite/index.html"><code>viridisLite</code></a> (a port from Python’s <a href="http://matplotlib.org/"><code>Matplotlib</code></a>) comes to solve these three issues. It provides the <em>viridis</em> color palette, which uses notions from color theory to be <strong>as much uniform as possible</strong>, <strong>black-and-white-ready</strong>, and <strong>colorblind-friendly</strong>. From <code>viridisLite</code>’s help:</p>
 <blockquote>
 <p>This color map is designed in such a way that it will analytically be perfectly perceptually-uniform, both in regular form and also when converted to black-and-white. It is also designed to be perceived by readers with the most common form of color blindness.</p>
 </blockquote>
@@ -90,7 +90,7 @@ ggplot(dat, aes(x = x, y = y)) +
 <div id="benchmarking-with-microbenchmark" class="section level3">
 <h3>Benchmarking with <code>microbenchmark</code></h3>
 <p>Measuring the <strong>code performance</strong> is a <strong>day-to-day routine</strong> for many developers. It is also a requirement for regular users that want to choose the most efficient coding strategy for implementing a method.</p>
-<p>As we know, we can measure running times in base <code>R</code> using <code>proc.time</code> or <code>system.time</code>:</p>
+<p>As we know, we can measure running times in base R using <code>proc.time</code> or <code>system.time</code>:</p>
 <pre class="r"><code># Using proc.time
 time &lt;- proc.time()
 for (i in 1:100) rnorm(100)
@@ -110,7 +110,7 @@ system.time({for (i in 1:100) rnorm(100)})</code></pre>
 <li>There is <strong>no summary</strong> of the timings. We have to code it by ourselves.</li>
 <li>There is <strong>no checking on the equality</strong> of the results outputted from different approaches (accuracy is also important, not only speed!). Again, we have to code it by ourselves.</li>
 </ul>
-<p>Hopefully, the <a href="https://cran.r-project.org/package=microbenchmark"><code>microbenchmark</code></a> package fills in these gaps. Let’s see an example of its usage on approaching a common problem in <code>R</code>: how to <strong>recentre a matrix by columns</strong>, <em>i.e.</em>, how to make each column to have zero mean. There are several possibilities to do so, with different efficiencies.</p>
+<p>Hopefully, the <a href="https://cran.r-project.org/package=microbenchmark"><code>microbenchmark</code></a> package fills in these gaps. Let’s see an example of its usage on approaching a common problem in R: how to <strong>recentre a matrix by columns</strong>, <em>i.e.</em>, how to make each column to have zero mean. There are several possibilities to do so, with different efficiencies.</p>
 <pre class="r"><code># Data and mean
 n &lt;- 3
 m &lt;- 10
@@ -284,10 +284,10 @@ manipulate(
 </div>
 </div>
 <div id="handling-big-data-in-r" class="section level2">
-<h2>Handling big data in <code>R</code></h2>
+<h2>Handling big data in R</h2>
 <div id="the-ff-and-ffbase-packages" class="section level3">
 <h3>The <code>ff</code> and <code>ffbase</code> packages</h3>
-<p><code>R</code> stores all the data in RAM, which is where all the processing takes place. But when the data does not fit into RAM (e.g., vectors of size <span class="math inline">\(2\times 10^9\)</span>), alternatives are needed. <a href="https://cran.r-project.org/web/packages/ff/index.html"><code>ff</code></a> is an <code>R</code> package for working with data that does not fit in RAM. From <code>ff</code>’s description:</p>
+<p>R stores all the data in RAM, which is where all the processing takes place. But when the data does not fit into RAM (e.g., vectors of size <span class="math inline">\(2\times 10^9\)</span>), alternatives are needed. <a href="https://cran.r-project.org/web/packages/ff/index.html"><code>ff</code></a> is an R package for working with data that does not fit in RAM. From <code>ff</code>’s description:</p>
 <blockquote>
 <p>The <code>ff</code> package provides data structures that are stored on disk but behave (almost) as if they were in RAM by transparently mapping only a section (pagesize) in main memory - the effective virtual memory consumption per <code>ff</code> object.</p>
 </blockquote>
@@ -342,8 +342,8 @@ ffwhich(bigData1ff, bigData1ff$resp &gt; 5)</code></pre>
 </div>
 <div id="regression-using-biglm-and-friends" class="section level3">
 <h3>Regression using <code>biglm</code> and friends</h3>
-<p>The richness of information returned by <code>R</code>’s <code>lm</code> has immediate drawbacks when working with big data (large <span class="math inline">\(n\)</span>, <span class="math inline">\(n&gt;p\)</span>). An example is the following. If <span class="math inline">\(n=10^8\)</span> and <span class="math inline">\(p=10\)</span>, simply storing the response and the predictors takes up to <span class="math inline">\(8.2\)</span> Gb in RAM. This is in the edge of feasibility for many regular laptops. However, calling <code>lm</code> will consume, at the very least, <span class="math inline">\(16.5\)</span> Gb merely storing the <code>residuals</code>, <code>effects</code>, <code>fitted.values</code>, and <code>qr</code> decomposition. Although there are more efficient ways of performing linear regression in base <code>R</code> (e.g., with <code>.lm.fit</code>), we still need to rethink the least squares estimates computation (takes <span class="math inline">\(\mathcal{O}(np+p^2)\)</span> in memory) to do not overflow the RAM.</p>
-<p>A handy solution is given by the <a href="https://CRAN.R-project.org/package=biglm"><code>biglm</code></a> package, which allows to fit a generalized linear model (glm) in <code>R</code> consuming much less RAM. Essentially, we have two possible approaches for fitting a glm:</p>
+<p>The richness of information returned by R’s <code>lm</code> has immediate drawbacks when working with big data (large <span class="math inline">\(n\)</span>, <span class="math inline">\(n&gt;p\)</span>). An example is the following. If <span class="math inline">\(n=10^8\)</span> and <span class="math inline">\(p=10\)</span>, simply storing the response and the predictors takes up to <span class="math inline">\(8.2\)</span> Gb in RAM. This is in the edge of feasibility for many regular laptops. However, calling <code>lm</code> will consume, at the very least, <span class="math inline">\(16.5\)</span> Gb merely storing the <code>residuals</code>, <code>effects</code>, <code>fitted.values</code>, and <code>qr</code> decomposition. Although there are more efficient ways of performing linear regression in base R (e.g., with <code>.lm.fit</code>), we still need to rethink the least squares estimates computation (takes <span class="math inline">\(\mathcal{O}(np+p^2)\)</span> in memory) to do not overflow the RAM.</p>
+<p>A handy solution is given by the <a href="https://CRAN.R-project.org/package=biglm"><code>biglm</code></a> package, which allows to fit a generalized linear model (glm) in R consuming much less RAM. Essentially, we have two possible approaches for fitting a glm:</p>
 <ol style="list-style-type: decimal">
 <li><p>Use a regular <code>data.frame</code> object to store the data, then use <code>biglm</code> to fit the model. This assumes that:</p>
 <ul>
@@ -440,14 +440,14 @@ predict(bigglmMod, newdata = bigData2[1:5, ], type = &quot;response&quot;)
 </div>
 </div>
 <div id="ascii-fun-in-r" class="section level2">
-<h2>ASCII fun in <code>R</code></h2>
+<h2>ASCII fun in R</h2>
 <div id="text-based-graphs-with-txtplot" class="section level3">
 <h3>Text-based graphs with <code>txtplot</code></h3>
-<p>When evaluating <code>R</code> in a terminal with no possible graphical outputs (e.g. in a supercomputing cluster), it may be of usefulness to, at least, visualize some simple plots in a rudimentary way. This is what the <a href="https://cran.r-project.org/web/packages/txtplot/index.html"><code>txtplot</code></a> and the <a href="https://cran.r-project.org/web/packages/NostalgiR/index.html"><code>NostalgiR</code></a> package do, by means of ASCII graphics that are equivalent to some <code>R</code> functions.</p>
+<p>When evaluating R in a terminal with no possible graphical outputs (e.g. in a supercomputing cluster), it may be of usefulness to, at least, visualize some simple plots in a rudimentary way. This is what the <a href="https://cran.r-project.org/web/packages/txtplot/index.html"><code>txtplot</code></a> and the <a href="https://cran.r-project.org/web/packages/NostalgiR/index.html"><code>NostalgiR</code></a> package do, by means of ASCII graphics that are equivalent to some R functions.</p>
 <table>
 <thead>
 <tr class="header">
-<th align="left"><code>R</code> graph</th>
+<th align="left">R graph</th>
 <th align="left">ASCII analogue</th>
 </tr>
 </thead>

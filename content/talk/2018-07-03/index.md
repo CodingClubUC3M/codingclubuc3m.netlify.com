@@ -7,7 +7,7 @@ time_end = 2018-07-03T16:00:00
 
 authors = ["Hoang Nguyen"]
 
-abstract = "```Tensorflow``` has been widely used for many applications in machine learning and deep learning. However, ```Tensorflow``` is more than that, it is a general purpose computing library. Based on that, people have created a rich ecosystem for quickly developing models. In this talk, I will show how statisticians can get most of the main features in ```Tensorflow``` such as automatic differentiation, optimization, and Bayesian analysis through a simple linear regression example."
+abstract = "TensorFlow has been widely used for many applications in machine learning and deep learning. However, TensorFlow is more than that, it is a general purpose computing library. Based on that, people have created a rich ecosystem for quickly developing models. In this talk, I will show how statisticians can get most of the main features in TensorFlow such as automatic differentiation, optimization, and Bayesian analysis through a simple linear regression example."
 
 event = "Tutorial"
 event_url = "/post/2018-07-03"
