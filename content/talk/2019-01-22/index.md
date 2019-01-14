@@ -13,8 +13,7 @@ event = "Tutorial"
 event_url = ""
 event_form = "https://goo.gl/forms/ABjVgafSKr0Kn2G03"
 
-location = "**TBA**"
-# location = "**Room 7.3.J08**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
+location = "**Room 7.3.J06**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
 
 selected = false
 
