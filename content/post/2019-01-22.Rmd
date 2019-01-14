@@ -14,20 +14,6 @@ Stan is a probabilistic programming language for specifying statistical models. 
 
 ***
 
-#### Development Team of STAN
-
-**Andrew Gelman** 
-Bob Carpenter, Daniel Lee, Ben Goodrich,
-Michael Betancourt, Marcus Brubaker, Jiqiang Guo, Allen Riddell,
-Marco Inacio, Jeffrey Arnold, Mitzi Morris, Rob Trangucci,
-Rob Goedman, Brian Lau, Jonah Sol Gabry, Robert L. Grant,
-Krzysztof Sakrejda, Aki Vehtari, Rayleigh Lei, Sebastian Weber,
-Charles Margossian, Vincent Picaud, Imad Ali, Sean Talts,
-Ben Bales, Ari Hartikainen, Matthijs Vakar, Andrew Johnson,
-Dan Simpson
-
-***
-
 #### What is Stan?
 
 - Stan is named in honor of *Stanislaw Ulam* (1909-1984): Co-inventor of the Monte Carlo method
