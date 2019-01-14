@@ -28,6 +28,10 @@ url_code = ""
   focal_point = "Center" 
 +++
 
+### Requirements
+
+This tutorial requires the `rstan` package and a C++ compiler (on Windows, the latest version of [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is required).
+
 ### About the speaker
 
 Ph.D. degree in Genetics from U. Complutense and Ph.D. degree in Statistics and O.R. from U. Complutense of Madrid. He has been professor in U. Complutense of Madrid, URJC and finally in U. Carlos III de Madrid from 2004. He works in Bayesian Statistics and Biostatistics. 
