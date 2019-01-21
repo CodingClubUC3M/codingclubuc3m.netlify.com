@@ -7,10 +7,10 @@ time_end = 2019-01-22T14:00:00
 
 authors = ["Juan Miguel Marín Diazaraque"]
 
-abstract = "Stan is a probabilistic programming language for specifying statistical models. Stan provides full Bayesian inference for continuous-variable models through Markov chain Monte Carlo methods such as the No-U-Turn sampler, an adaptive form of Hamiltonian Monte Carlo sampling. Penalized maximum likelihood estimates are calculated using optimization methods such as the limited memory Broyden-Fletcher-Goldfarb-Shanno algorithm. Stan can be called through R using the `rstan` package, and through Python using the `pystan` package. Both interfaces support sampling and optimization-based inference with diagnostics and posterior analysis. In this talk it is shown a brief glance about the main properties of Stan. It is shown, also a couple of examples: first one related with a simple Bernoulli model and second one, about a Lotka-Volterra model based on ordinary differential equations."
+abstract = "Stan is a probabilistic programming language for specifying statistical models. Stan provides full Bayesian inference for continuous-variable models through Markov Chain Monte Carlo methods such as the No-U-Turn sampler, an adaptive form of Hamiltonian Monte Carlo sampling. Penalized maximum likelihood estimates are calculated using optimization methods such as the limited memory Broyden-Fletcher-Goldfarb-Shanno algorithm. Stan can be called through R using the `rstan` package, and through Python using the `pystan` package. Both interfaces support sampling and optimization-based inference with diagnostics and posterior analysis. In this talk it is shown a brief glance about the main properties of Stan. It is shown, also a couple of examples: first one related with a simple Bernoulli model and second one, about a Lotka-Volterra model based on ordinary differential equations."
 
 event = "Tutorial"
-event_url = ""
+event_url = "/post/2019-01-22"
 event_form = "https://goo.gl/forms/ABjVgafSKr0Kn2G03"
 
 location = "**Room 7.3.J06**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."

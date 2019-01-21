@@ -1,0 +1,600 @@
+---
+title: "An introduction to Stan with R"
+authors: ["J. Miguel Marín"]
+date: 2019-01-22
+categories: ["R", "Stan"]
+tags: ["R", "Stan", "bayesian", "functional programming"]
+---
+
+
+
+<p>Stan is a probabilistic programming language for specifying statistical models. Stan provides full Bayesian inference for continuous-variable models through Markov Chain Monte Carlo methods such as the No-U-Turn sampler, an adaptive form of Hamiltonian Monte Carlo sampling. Penalized maximum likelihood estimates are calculated using optimization methods such as the limited memory Broyden-Fletcher-Goldfarb-Shanno algorithm. Stan can be called through R using the <code>rstan</code> package, and through Python using the <code>pystan</code> package. Both interfaces support sampling and optimization-based inference with diagnostics and posterior analysis. In this talk it is shown a brief glance about the main properties of Stan. It is also shown a couple of examples: the first one related with a simple Bernoulli model and the second one, about a Lotka-Volterra model based on ordinary differential equations.</p>
+<div id="what-is-stan" class="section level2">
+<h2>What is Stan?</h2>
+<ul>
+<li>Stan was created by <a href="https://en.wikipedia.org/wiki/Andrew_Gelman">Andrew Gelman</a> and Bob Carpenter, with a <a href="https://mc-stan.org/about/team/">development team</a> consisting of 34 members.</li>
+<li>Stan is named in honor of <a href="https://en.wikipedia.org/wiki/Stanislaw_Ulam">Stanislaw Ulam</a> (1909-1984), co-inventor of the Monte Carlo method.</li>
+<li>Stan is an imperative probabilistic programming language.</li>
+<li>A Stan program defines a probability model.</li>
+<li>It declares data and (constrained) parameter variables.</li>
+<li>It defines log posterior (or penalized likelihood).</li>
+<li>Stan inference: fits model to data and makes predictions.</li>
+<li>It can use Markov Chain Monte Carlo (MCMC) for full Bayesian inference.</li>
+<li>Or Variational Bayesian (VB) for approximate Bayesian inference.</li>
+<li>Or Maximum Likelihood Estimation (MLE) for penalized maximum likelihood estimation.</li>
+</ul>
+</div>
+<div id="what-does-stan-compute" class="section level2">
+<h2>What does Stan compute?</h2>
+<ul>
+<li>Draws from <strong>posterior distributions</strong>.</li>
+<li>MCMC sampling.</li>
+<li>Sequence of draws <span class="math inline">\(\theta_{(1)} ,\theta_{(2)}, \ldots, \theta_{(M)}\)</span> where each draw <span class="math inline">\(\theta_{(i)}\)</span> is marginally distributed according to the posterior <span class="math inline">\(p(\theta|y)\)</span>.</li>
+<li>Plot with histograms, kernel density estimates, etc.</li>
+</ul>
+<p>You can see a quick look about <code>rstan</code> in its original <a href="https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started">wiki page</a>.</p>
+</div>
+<div id="installing-rstan" class="section level2">
+<h2>Installing <code>rstan</code></h2>
+<p>To run Stan in R, it is necessary to install <code>rstan</code> and a C++ compiler. On Windows, this means that <a href="https://cran.r-project.org/bin/windows/Rtools">Rtools</a> is required, and you have to check whether the path (in Windows) is correctly fixed for all its binaries. If it is not the case, write in R:</p>
+<pre><code>install.packages(devtools)
+library(devtools)
+Sys.setenv(PATH = paste(&quot;C:\\Rtools\\bin&quot;, Sys.getenv(&quot;PATH&quot;), sep=&quot;;&quot;))
+Sys.setenv(PATH = paste(&quot;C:\\Rtools\\mingw_64\\bin&quot;, Sys.getenv(&quot;PATH&quot;), sep=&quot;;&quot;))</code></pre>
+<p>Finally, install <code>rstan</code>:</p>
+<pre><code>install.packages(rstan)</code></pre>
+<p>For more information about the frameworks which work with Stan (e.g.: Python) check <a href="https://mc-stan.org/users/interfaces/index.html">this link</a>.</p>
+</div>
+<div id="basic-syntax-in-stan" class="section level2">
+<h2>Basic syntax in Stan</h2>
+<div id="defining-the-model" class="section level3">
+<h3>Defining the model</h3>
+<p>A Stan model is defined by six <strong>program blocks</strong>:</p>
+<ul>
+<li>Data (<em>required</em>).</li>
+<li>Transformed data.</li>
+<li>Parameters (<em>required</em>).</li>
+<li>Transformed parameters.</li>
+<li>Model (<em>required</em>).</li>
+<li>Generated quantities.</li>
+</ul>
+<p>The <strong>data</strong> block reads external information.</p>
+<pre><code>data {
+  int N;
+  int x[N];
+  int offset;
+}</code></pre>
+<p>The <strong>transformed data</strong> block allows for preprocessing of the data.</p>
+<pre><code>transformed data {
+  int y[N];
+  for (n in 1:N)
+    y[n] = x[n] - offset;
+}</code></pre>
+<p>The <strong>parameters</strong> block defines the sampling space.</p>
+<pre><code>parameters {
+  real&lt;lower=0&gt; lambda1;
+  real&lt;lower=0&gt; lambda2;
+}</code></pre>
+<p>The <strong>transformed parameters</strong> block allows for parameter processing before the posterior is computed.</p>
+<pre><code>transformed parameters {
+  real&lt;lower=0&gt; lambda;
+  lambda = lambda1 + lambda2;
+}</code></pre>
+<p>In the <strong>model</strong> block we define our posterior distributions.</p>
+<pre><code>model {
+  y ~ poisson(lambda);
+  lambda1 ~ cauchy(0, 2.5);
+  lambda2 ~ cauchy(0, 2.5);
+}</code></pre>
+<p>Lastly, the <strong>generated quantities</strong> block allows for postprocessing.</p>
+<pre><code>generated quantities {
+  int x_predict;
+  x_predict = poisson_rng(lambda) + offset;
+}</code></pre>
+</div>
+<div id="types" class="section level3">
+<h3>Types</h3>
+<p>Stan has two primitive <strong>types</strong> and both can be bounded.</p>
+<ul>
+<li><strong>int</strong> is an integer type.</li>
+<li><strong>real</strong> is a floating point precision type.</li>
+</ul>
+<pre><code>int&lt;lower=1&gt; N;
+
+real&lt;upper=5&gt; alpha;
+real&lt;lower=-1,upper=1&gt; beta;
+
+real gamma;
+real&lt;upper=gamma&gt; zeta;</code></pre>
+<p>Reals extend to linear algebra types.</p>
+<pre><code>vector[10] a;     // Column vector
+matrix[10, 1] b;
+
+row_vector[10] c; // Row vector
+matrix[1, 10] d;</code></pre>
+<p>Arrays of integers, reals, vectors, and matrices are available.</p>
+<pre><code>real a[10];
+
+vector[10] b;
+
+matrix[10, 10] c;</code></pre>
+<p>Stan also implements a variety of <em>constrained</em> types.</p>
+<pre><code>simplex[5] theta;        // sum(theta) = 1
+
+ordered[5] o;            // o[1] &lt; ... &lt; o[5]
+positive_ordered[5] p;
+
+corr_matrix[5] C;        // Symmetric and
+cov_matrix[5] Sigma;     // positive-definite</code></pre>
+</div>
+<div id="more-about-stan" class="section level3">
+<h3>More about Stan</h3>
+<p>All the typical control and loop statements are available, too.</p>
+<pre><code>if/then/else
+
+for (i in 1:I)
+
+while (i &lt; I)</code></pre>
+<p>There are two ways to modify the posterior.</p>
+<pre><code>y ~ normal(0, 1);
+
+increment_log_posterior(log_normal(y, 0, 1));</code></pre>
+<p>And many sampling statements are <em>vectorized</em>.</p>
+<pre><code>parameters {
+  real mu[N];
+  real&lt;lower=0&gt; sigma[N];
+}
+
+model {
+  // for (n in 1:N)
+  // y[n] ~ normal(mu[n], sigma[n]);
+
+  y ~ normal(mu, sigma);  // Vectorized version
+}</code></pre>
+</div>
+</div>
+<div id="the-bayesian-approach" class="section level2">
+<h2>The Bayesian approach</h2>
+<p>Probability is <strong>epistemic</strong>. For instance, <em>John Stuart Mill</em> (Logic 1882, Part III, Ch. 2) said:</p>
+<blockquote>
+<p>[…] the probability of an event is not a quality of the event itself, but a mere name for the degree of ground which we, or someone else, have for expecting it. Every event is in itself certain, not probable; if we knew all, we should either know positively that it will happen, or positively that it will not.</p>
+<p>[…] its probability to us means the degree of expectation of its occurrence, which we are warranted in entertaining by our present evidence.</p>
+</blockquote>
+<p>Probabilities quantify uncertainty and we can consider that statistical reasoning is <em>counterfactual</em>.</p>
+</div>
+<div id="bayesian-example-with-stan-repeated-binary-trial-model" class="section level2">
+<h2>Bayesian example with Stan: repeated binary trial model</h2>
+<p>As a first real approach to Stan and its syntax, we will start solving a small example in which the objective is, given a random sample drawn from a Bernoulli population, to estimate the posterior distribution of the missing parameter <span class="math inline">\(\theta \in \lbrack 0,1]\)</span> (chance of success).</p>
+<div id="step-1-structure-of-the-problem" class="section level3">
+<h3>Step 1: Structure of the problem</h3>
+<p>In this example we will consider the following structure:</p>
+<ul>
+<li><p>Data:</p>
+<ul>
+<li><span class="math inline">\(N\in \{0,1,\ldots \}\)</span>, number of trials.</li>
+<li><span class="math inline">\(y_{n}\in \{0,1\}\)</span>, result of trial <em>n</em> (known, modeled data).</li>
+</ul></li>
+<li><p>Parameter:</p></li>
+</ul>
+<p><span class="math display">\[\theta \in \lbrack 0,1]\]</span></p>
+<ul>
+<li>Prior distribution</li>
+</ul>
+<p><span class="math display">\[p(\theta) = \mathrm{Uniform}(\theta|0,1) = 1\]</span></p>
+<ul>
+<li>Likelihood</li>
+</ul>
+<p><span class="math display">\[p(y|\theta )=\prod_{n=1}^{N}\mathrm{Bernoulli}(y_{n}|\theta) = \prod_{n=1}^{N}\theta ^{y_{n}}(1-\theta )^{1-y_{n}}\]</span></p>
+<ul>
+<li>Posterior distribution</li>
+</ul>
+<p><span class="math display">\[p(\theta |y)\propto p(\theta )p(y|\theta )\]</span></p>
+</div>
+<div id="step-2-stan-program" class="section level3">
+<h3>Step 2: Stan Program</h3>
+<p>We create the Stan program which we will call from R.</p>
+<pre class="r"><code>bern.stan &lt;-
+&quot;
+data {
+  int&lt;lower=0&gt; N;               // number of trials
+  int&lt;lower=0, upper=1&gt; y[N];   // success on trial n
+}
+
+parameters {
+  real&lt;lower=0, upper=1&gt; theta; // chance of success
+}
+
+model {
+  theta ~ uniform(0, 1);        // prior
+  y ~ bernoulli(theta);         // likelihood
+}
+&quot;</code></pre>
+</div>
+<div id="step-3-the-data" class="section level3">
+<h3>Step 3: The data</h3>
+<p>In this case, instead of using a given data set, we will simulate a random sample to use in our example.</p>
+<pre class="r"><code># Generate data
+theta &lt;- 0.30
+N &lt;- 20
+y &lt;- rbinom(N, 1, 0.3)
+y</code></pre>
+<pre><code>##  [1] 1 0 0 0 1 0 1 0 1 1 1 0 0 0 1 0 0 1 1 1</code></pre>
+<p>Calculate <em>MLE</em> as the sample mean from data:</p>
+<pre class="r"><code>sum(y) / N</code></pre>
+<pre><code>## [1] 0.5</code></pre>
+</div>
+<div id="step-4-bayesian-posterior-using-rstan" class="section level3">
+<h3>Step 4: Bayesian Posterior using <code>rstan</code></h3>
+<p>The final step is to obtain our estimation using Stan from R.</p>
+<pre class="r"><code>library(rstan)</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Loading required package: StanHeaders</code></pre>
+<pre><code>## rstan (Version 2.18.2, GitRev: 2e1f913d3ca3)</code></pre>
+<pre><code>## For execution on a local, multicore CPU with excess RAM we recommend calling
+## options(mc.cores = parallel::detectCores()).
+## To avoid recompilation of unchanged Stan programs, we recommend calling
+## rstan_options(auto_write = TRUE)</code></pre>
+<pre class="r"><code>fit &lt;- stan(model_code=bern.stan, data=list(y=y, N=N), iter=5000)</code></pre>
+<pre><code>## 
+## SAMPLING FOR MODEL &#39;6dcfbccbf2f063595ccc9b93f383e221&#39; NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 6e-06 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:    1 / 5000 [  0%]  (Warmup)
+## Chain 1: Iteration:  500 / 5000 [ 10%]  (Warmup)
+## Chain 1: Iteration: 1000 / 5000 [ 20%]  (Warmup)
+## Chain 1: Iteration: 1500 / 5000 [ 30%]  (Warmup)
+## Chain 1: Iteration: 2000 / 5000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 2500 / 5000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 2501 / 5000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 3000 / 5000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 3500 / 5000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 4000 / 5000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 4500 / 5000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 5000 / 5000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 0.013271 seconds (Warm-up)
+## Chain 1:                0.01396 seconds (Sampling)
+## Chain 1:                0.027231 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;6dcfbccbf2f063595ccc9b93f383e221&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 3e-06 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.03 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:    1 / 5000 [  0%]  (Warmup)
+## Chain 2: Iteration:  500 / 5000 [ 10%]  (Warmup)
+## Chain 2: Iteration: 1000 / 5000 [ 20%]  (Warmup)
+## Chain 2: Iteration: 1500 / 5000 [ 30%]  (Warmup)
+## Chain 2: Iteration: 2000 / 5000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 2500 / 5000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 2501 / 5000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 3000 / 5000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 3500 / 5000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 4000 / 5000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 4500 / 5000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 5000 / 5000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 0.013294 seconds (Warm-up)
+## Chain 2:                0.012962 seconds (Sampling)
+## Chain 2:                0.026256 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;6dcfbccbf2f063595ccc9b93f383e221&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 2e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.02 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:    1 / 5000 [  0%]  (Warmup)
+## Chain 3: Iteration:  500 / 5000 [ 10%]  (Warmup)
+## Chain 3: Iteration: 1000 / 5000 [ 20%]  (Warmup)
+## Chain 3: Iteration: 1500 / 5000 [ 30%]  (Warmup)
+## Chain 3: Iteration: 2000 / 5000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 2500 / 5000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 2501 / 5000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 3000 / 5000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 3500 / 5000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 4000 / 5000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 4500 / 5000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 5000 / 5000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 0.013645 seconds (Warm-up)
+## Chain 3:                0.013222 seconds (Sampling)
+## Chain 3:                0.026867 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;6dcfbccbf2f063595ccc9b93f383e221&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 3e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.03 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:    1 / 5000 [  0%]  (Warmup)
+## Chain 4: Iteration:  500 / 5000 [ 10%]  (Warmup)
+## Chain 4: Iteration: 1000 / 5000 [ 20%]  (Warmup)
+## Chain 4: Iteration: 1500 / 5000 [ 30%]  (Warmup)
+## Chain 4: Iteration: 2000 / 5000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 2500 / 5000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 2501 / 5000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 3000 / 5000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 3500 / 5000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 4000 / 5000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 4500 / 5000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 5000 / 5000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 0.012951 seconds (Warm-up)
+## Chain 4:                0.014998 seconds (Sampling)
+## Chain 4:                0.027949 seconds (Total)
+## Chain 4:</code></pre>
+<pre class="r"><code>print(fit, probs=c(0.1, 0.9))</code></pre>
+<pre><code>## Inference for Stan model: 6dcfbccbf2f063595ccc9b93f383e221.
+## 4 chains, each with iter=5000; warmup=2500; thin=1; 
+## post-warmup draws per chain=2500, total post-warmup draws=10000.
+## 
+##         mean se_mean   sd    10%    90% n_eff Rhat
+## theta   0.50    0.00 0.10   0.36   0.64  3945    1
+## lp__  -15.76    0.01 0.71 -16.63 -15.26  4137    1
+## 
+## Samples were drawn using NUTS(diag_e) at Mon Jan 21 15:48:10 2019.
+## For each parameter, n_eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor on split chains (at 
+## convergence, Rhat=1).</code></pre>
+<pre class="r"><code># Extracting the posterior draws
+theta_draws &lt;- extract(fit)$theta
+
+# Calculating posterior mean (estimator)
+mean(theta_draws)</code></pre>
+<pre><code>## [1] 0.4992493</code></pre>
+<pre class="r"><code># Calculating posterior intervals
+quantile(theta_draws, probs=c(0.10, 0.90))</code></pre>
+<pre><code>##       10%       90% 
+## 0.3635266 0.6351452</code></pre>
+<pre class="r"><code>theta_draws_df &lt;- data.frame(list(theta=theta_draws))
+plotpostre &lt;- ggplot(theta_draws_df, aes(x=theta)) +
+  geom_histogram(bins=20, color=&quot;gray&quot;)
+plotpostre</code></pre>
+<p><img src="/post/2019-01-22_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="rstan-map-penalized-mle" class="section level3">
+<h3>RStan: MAP, penalized MLE</h3>
+<p>Stan’s optimization for estimation; two views:</p>
+<ul>
+<li>max posterior mode, also known as max a posteriori (<em>MAP</em>).</li>
+<li>max penalized likelihood (<em>MLE</em>).</li>
+</ul>
+<pre class="r"><code>library(rstan)
+N &lt;- 5
+y &lt;- c(0, 1, 1, 0, 0)
+
+model &lt;- stan_model(model_code=bern.stan)
+mle &lt;- optimizing(model, data=c(&quot;N&quot;, &quot;y&quot;))
+
+print(mle, digits=2)</code></pre>
+<pre><code>## $par
+## theta 
+##   0.4 
+## 
+## $value
+## [1] -3.4
+## 
+## $return_code
+## [1] 0</code></pre>
+</div>
+</div>
+<div id="lotka-volterras-model" class="section level2">
+<h2>Lotka-Volterra’s Model</h2>
+<ul>
+<li>Lotka (1925) and Volterra (1926) formulated parametric differential equations that characterize the oscillating populations of predators and preys.</li>
+<li>A statistical model to account for measurement error and unexplained variation uses the deterministic solutions to the Lotka-Volterra equations as expected population sizes.</li>
+<li>Full Bayesian inference may be used to estimate future (or past) populations.</li>
+<li>Stan is used to encode the statistical model and perform full Bayesian inference to solve the inverse problem of inferring parameters from noisy data.</li>
+</ul>
+<p>See full reference: <a href="https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html#data-lynx-and-hare-pelts-in-canada">Stan and Lotka-Volterra models</a>.</p>
+<p>In this example, we want to fit the model to Canadian lynx predator and snowshoe hare prey with respective populations between 1900 and 1920, based on the number of pelts collected annually by the Hudson’s Bay Company.</p>
+<div id="notation-and-mathematical-model" class="section level3">
+<h3>Notation and mathematical model</h3>
+<p>We denote <span class="math inline">\(u(t)\)</span> and <span class="math inline">\(v(t)\)</span> as the prey and predator <strong>population</strong> respectively. The differential equations that relate them are:</p>
+<p><span class="math display">\[\frac{d}{dt}u = (\alpha -\beta v)u\]</span></p>
+<p><span class="math display">\[\frac{d}{dt}v=(-\gamma +\delta u)v\]</span></p>
+<p>Here:</p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span>: prey growth, intrinsic.</li>
+<li><span class="math inline">\(\beta\)</span>: prey shrinkage due to predation.</li>
+<li><span class="math inline">\(\gamma\)</span>: predator shrinkage, intrinsic.</li>
+<li><span class="math inline">\(\delta\)</span>: predator growth from predation.</li>
+</ul>
+</div>
+<div id="lotka-volterra-in-stan" class="section level3">
+<h3>Lotka-Volterra in Stan</h3>
+<pre><code>real[] dz_dt(data real t,       // time
+  real[] z,                     // system state
+  real[] theta,                 // parameters
+  data real[] x_r,              // real data
+  data int[] x_i)               // integer data
+{
+  real u = z[1];                // extract state
+  real v = z[2];
+  real alpha = theta[1];
+  real beta = theta[2];
+  real gamma = theta[3];
+  real delta = theta[4];
+
+  real du_dt = (alpha - beta * v) * u;
+  real dv_dt = (-gamma + delta * u) * v;
+  return { du_dt, dv_dt };
+}</code></pre>
+<p>Known variables are observed:</p>
+<ul>
+<li><span class="math inline">\(y_{n,k}\)</span>: denotes species <span class="math inline">\(k\)</span> at times <span class="math inline">\(t_{n}\)</span> for <span class="math inline">\(n \in 0:N\)</span></li>
+</ul>
+<p>Unknown variables must be inferred (inverse problem):</p>
+<ul>
+<li>Initial state: <span class="math inline">\(z_{k}^{init}\)</span>: initial population for <span class="math inline">\(k\)</span>.</li>
+<li>Subsequent states <span class="math inline">\(z_{n,k}\)</span>: population <span class="math inline">\(k\)</span> at time <span class="math inline">\(t_{n}\)</span>.</li>
+<li>Parameters <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\gamma\)</span>, <span class="math inline">\(\delta &gt; 0\)</span>.</li>
+</ul>
+<p>Likelihood assumes errors are proportional (not additive):</p>
+<p><span class="math display">\[y_{n,k}\sim \mathrm{LogNormal}(\hat{z}_{n,k}, \sigma_{k})\]</span></p>
+<p>Equivalently:</p>
+<p><span class="math display">\[\log y_{n,k} = \log \widehat{z}_{n,k} + \epsilon_{n,k}\]</span></p>
+<p>with</p>
+<p><span class="math display">\[\epsilon_{n,k} \sim \mathrm{Normal}(0, \sigma_{k})\]</span></p>
+<div id="creating-the-model" class="section level4">
+<h4>Creating the model</h4>
+<p>Variables for known constants and observed data.</p>
+<pre><code>data {
+  int&lt;lower = 0&gt; N;       // num measurements
+  real ts[N];             // measurement times &gt; 0
+  real y0[2];             // initial pelts
+  real&lt;lower=0&gt; y[N,2];   // subsequent pelts
+}</code></pre>
+<p>Variables for unknown parameters.</p>
+<pre><code>parameters {
+  real&lt;lower=0&gt; theta[4];    // alpha, beta, gamma, delta
+  real&lt;lower=0&gt; z0[2];       // initial population
+  real&lt;lower=0&gt; sigma[2];    // scale of prediction error
+}</code></pre>
+<p>Prior distribution and likelihood.</p>
+<pre><code>model {
+  // priors
+  sigma ~ lognormal(0, 0.5);
+  theta[{1, 3}] ~ normal(1, 0.5);
+  theta[{2, 4}] ~ normal(0.05, 0.05);
+  z0[1] ~ lognormal(log(30), 5);
+  z0[2] ~ lognormal(log(5), 5);
+
+  // likelihood (lognormal)
+  for (k in 1:2) {
+    y0[k] ~ lognormal(log(z0[k]), sigma[k]);
+    y[ , k] ~ lognormal(log(z[, k]), sigma[k]);
+  }
+}</code></pre>
+<p>Solution to the differential equations. We have to define variables for populations predicted by <code>ode</code>, given:</p>
+<ul>
+<li>System function (<code>dz_dt</code>), initial populations (<code>z0</code>).</li>
+<li>Initial time (<code>0.0</code>), solution times (<code>ts</code>).</li>
+<li>Parameters (<code>theta</code>), data arrays.</li>
+<li>Tolerances (<code>1e-6, 1-e4</code>), max iterations (<code>1e3</code>).</li>
+</ul>
+<pre><code>transformed parameters {
+  real z[N, 2] = integrate_ode_rk45(
+    dz_dt, z0, 0.0, ts, theta, rep_array(0.0, 0),
+    rep_array(0, 0), 1e-6, 1e-4, 1e3);
+}</code></pre>
+</div>
+<div id="lotka-volterra-parameter-estimation" class="section level4">
+<h4>Lotka-Volterra Parameter estimation</h4>
+<pre class="r"><code>fit &lt;- stan(lotka-volterra.stan, data=lynx_hare_data)
+
+print(fit, c(&quot;theta&quot;, &quot;sigma&quot;), probs=c(0.1, 0.5, 0.9))</code></pre>
+<p>It is obtained, for example:</p>
+<pre><code>## mean     se_mean   sd  10%  50%  90% n_eff  Rhat
+## theta[1]    0.55    0 0.07 0.46 0.54 0.64 1168 1
+## theta[2]    0.03    0 0.00 0.02 0.03 0.03 1305 1
+## theta[3]    0.80    0 0.10 0.68 0.80 0.94 1117 1
+## theta[4]    0.02    0 0.00 0.02 0.02 0.03 1230 1
+## sigma[1]    0.29    0 0.05 0.23 0.28 0.36 2673 1
+## sigma[2]    0.29    0 0.06 0.23 0.29 0.37 2821 1</code></pre>
+</div>
+<div id="analysis-of-the-obtained-results" class="section level4">
+<h4>Analysis of the obtained results:</h4>
+<ul>
+<li>Rhat near 1 signals convergence; n_eff is effective sample size.</li>
+<li>10%, … posterior quantiles; e.g. <span class="math inline">\(P[\alpha \in (0.46,0.64)|y]=0.8\)</span>.</li>
+<li>Posterior mean is a Bayesian point estimate: <span class="math inline">\(\alpha = 0.55\)</span>.</li>
+<li>Standard error in posterior mean estimate is 0 (with rounding).</li>
+<li>Posterior standard deviation of <span class="math inline">\(\alpha\)</span> is 0.07.</li>
+</ul>
+</div>
+<div id="full-program-to-run" class="section level4">
+<h4>Full program to run</h4>
+<pre class="r"><code>file &lt;- &quot;https://raw.githubusercontent.com/stan-dev/example-models/master/knitr/lotka-volterra/hudson-bay-lynx-hare.csv&quot;
+# https://github.com/bblais/Systems-Modeling-Spring-2015-Notebooks/blob/master/data/Lynx%20and%20Hare%20Data/lynxhare.csv
+
+lynx_hare_df &lt;- read.csv(file, header=TRUE, comment.char=&quot;#&quot;)
+# lynx_hare_df
+
+N &lt;- length(lynx_hare_df$Year) - 1
+ts &lt;- 1:N
+y_init &lt;- c(lynx_hare_df$Hare[1], lynx_hare_df$Lynx[1])
+y &lt;- as.matrix(lynx_hare_df[2:(N + 1), 2:3])
+y &lt;- cbind(y[ , 2], y[ , 1]); # hare, lynx order
+lynx_hare_data &lt;- list(N, ts, y_init, y)
+
+library(rstan)
+
+thething &lt;- &quot;
+
+functions {
+  real[] dz_dt(real t, real[] z, real[] theta,
+             real[] x_r, int[] x_i) {
+      real u = z[1];
+      real v = z[2];
+
+      real alpha = theta[1];
+      real beta = theta[2];
+      real gamma = theta[3];
+      real delta = theta[4];
+
+      real du_dt = (alpha - beta * v) * u;
+      real dv_dt = (-gamma + delta * u) * v;
+      return { du_dt, dv_dt };
+    }
+}
+
+data {
+  int&lt;lower = 0&gt; N;           // num measurements
+  real ts[N];                 // measurement times &gt; 0
+  real y_init[2];             // initial measured population
+  real&lt;lower = 0&gt; y[N, 2];    // measured population at measurement times
+}
+
+parameters {
+  real&lt;lower = 0&gt; theta[4];   // theta = {alpha, beta, gamma, delta}
+  real&lt;lower = 0&gt; z_init[2];  // initial population
+  real&lt;lower = 0&gt; sigma[2];   // error scale
+}
+
+transformed parameters {
+  real z[N, 2]
+    = integrate_ode_rk45(dz_dt, z_init, 0, ts, theta,
+                         rep_array(0.0, 0), rep_array(0, 0),
+                         1e-6, 1e-5, 1e3);
+}
+
+model {
+  theta[{1, 3}] ~ normal(1, 0.5);
+  theta[{2, 4}] ~ normal(0.05, 0.05);
+  sigma ~ lognormal(-1, 1);
+  z_init ~ lognormal(log(10), 1);
+  for (k in 1:2) {
+    y_init[k] ~ lognormal(log(z_init[k]), sigma[k]);
+    y[ , k] ~ lognormal(log(z[, k]), sigma[k]);
+  }
+}
+&quot;
+
+fit &lt;- stan(model_code=thething, data=lynx_hare_data, iter=5000, chains=3, cores=3)
+
+print(fit, pars=c(&quot;theta&quot;, &quot;sigma&quot;, &quot;z_init&quot;),
+      probs=c(0.1, 0.5, 0.9), digits = 3)</code></pre>
+</div>
+</div>
+</div>
+<div id="other-references-and-examples-of-stan" class="section level2">
+<h2>Other references and examples of Stan</h2>
+<ul>
+<li>Andrew Gelman has a blog about <code>rstan</code> that <a href="(https://andrewgelman.com/2018/10/12/stan-on-the-web-for-free-thanks-to-rstudio)">shows examples</a> to run in RStudio Cloud. But I had problems to run these codes in the Cloud… :-(</li>
+<li><a href="https://rstudio.cloud/project/56157">Example Session in RStudio Cloud</a>.</li>
+<li>All examples of his blog can be downloaded <a href="https://github.com/stan-dev/example-models/archive/master.zip">from GitHub</a>.</li>
+</ul>
+</div>
