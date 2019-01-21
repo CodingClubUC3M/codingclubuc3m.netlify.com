@@ -19,7 +19,7 @@ paginate = 10
 disqusShortname = "codingclubuc3m"
 
 # Enable analytics by entering your Google Analytics tracking ID
-googleAnalytics = ""
+googleAnalytics = "UA-85366626-1"
 
 # Default language to use (if you setup multilingual support)
 defaultContentLanguage = "en"
