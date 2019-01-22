@@ -11,7 +11,7 @@ abstract = "Stan is a probabilistic programming language for specifying statisti
 
 event = "Tutorial"
 event_url = "/post/2019-01-22"
-event_form = "https://goo.gl/forms/ABjVgafSKr0Kn2G03"
+event_form = ""
 
 location = "**Room 7.3.J06**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
 
@@ -36,3 +36,4 @@ This tutorial requires the `rstan` package and a C++ compiler (on Windows, the l
 
 Ph.D. degree in Genetics from U. Complutense and Ph.D. degree in Statistics and O.R. from U. Complutense of Madrid. He has been professor in U. Complutense of Madrid, URJC and finally in U. Carlos III de Madrid from 2004. He works in Bayesian Statistics and Biostatistics. 
 
+![](/img/sessions/2019-01-22.jpg)
