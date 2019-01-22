@@ -138,7 +138,10 @@ while (i &lt; I)</code></pre>
 <p>There are two ways to modify the posterior.</p>
 <pre><code>y ~ normal(0, 1);
 
-increment_log_posterior(log_normal(y, 0, 1));</code></pre>
+target += normal_lpdf(y | 0, 1);
+
+# Deprecated in new versions of Stan:
+increment_log_posterior(log_normal(y, 0, 1))</code></pre>
 <p>And many sampling statements are <em>vectorized</em>.</p>
 <pre><code>parameters {
   real mu[N];
@@ -193,7 +196,7 @@ model {
 <div id="step-2-stan-program" class="section level3">
 <h3>Step 2: Stan Program</h3>
 <p>We create the Stan program which we will call from R.</p>
-<pre class="r"><code>bern.stan &lt;-
+<pre class="r"><code>bern.stan =
 &quot;
 data {
   int&lt;lower=0&gt; N;               // number of trials
@@ -214,14 +217,14 @@ model {
 <h3>Step 3: The data</h3>
 <p>In this case, instead of using a given data set, we will simulate a random sample to use in our example.</p>
 <pre class="r"><code># Generate data
-theta &lt;- 0.30
-N &lt;- 20
-y &lt;- rbinom(N, 1, 0.3)
+theta = 0.30
+N = 20
+y = rbinom(N, 1, 0.3)
 y</code></pre>
-<pre><code>##  [1] 1 0 0 0 1 0 1 0 1 1 1 0 0 0 1 0 0 1 1 1</code></pre>
+<pre><code>##  [1] 0 0 0 1 1 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1</code></pre>
 <p>Calculate <em>MLE</em> as the sample mean from data:</p>
 <pre class="r"><code>sum(y) / N</code></pre>
-<pre><code>## [1] 0.5</code></pre>
+<pre><code>## [1] 0.25</code></pre>
 </div>
 <div id="step-4-bayesian-posterior-using-rstan" class="section level3">
 <h3>Step 4: Bayesian Posterior using <code>rstan</code></h3>
@@ -234,12 +237,12 @@ y</code></pre>
 ## options(mc.cores = parallel::detectCores()).
 ## To avoid recompilation of unchanged Stan programs, we recommend calling
 ## rstan_options(auto_write = TRUE)</code></pre>
-<pre class="r"><code>fit &lt;- stan(model_code=bern.stan, data=list(y=y, N=N), iter=5000)</code></pre>
+<pre class="r"><code>fit = stan(model_code=bern.stan, data=list(y=y, N=N), iter=5000)</code></pre>
 <pre><code>## 
 ## SAMPLING FOR MODEL &#39;6dcfbccbf2f063595ccc9b93f383e221&#39; NOW (CHAIN 1).
 ## Chain 1: 
-## Chain 1: Gradient evaluation took 6e-06 seconds
-## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
+## Chain 1: Gradient evaluation took 7e-06 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
 ## Chain 1: Adjust your expectations accordingly!
 ## Chain 1: 
 ## Chain 1: 
@@ -256,15 +259,15 @@ y</code></pre>
 ## Chain 1: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.013271 seconds (Warm-up)
-## Chain 1:                0.01396 seconds (Sampling)
-## Chain 1:                0.027231 seconds (Total)
+## Chain 1:  Elapsed Time: 0.012914 seconds (Warm-up)
+## Chain 1:                0.013376 seconds (Sampling)
+## Chain 1:                0.02629 seconds (Total)
 ## Chain 1: 
 ## 
 ## SAMPLING FOR MODEL &#39;6dcfbccbf2f063595ccc9b93f383e221&#39; NOW (CHAIN 2).
 ## Chain 2: 
-## Chain 2: Gradient evaluation took 3e-06 seconds
-## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.03 seconds.
+## Chain 2: Gradient evaluation took 2e-06 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.02 seconds.
 ## Chain 2: Adjust your expectations accordingly!
 ## Chain 2: 
 ## Chain 2: 
@@ -281,15 +284,15 @@ y</code></pre>
 ## Chain 2: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 2: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 2: 
-## Chain 2:  Elapsed Time: 0.013294 seconds (Warm-up)
-## Chain 2:                0.012962 seconds (Sampling)
-## Chain 2:                0.026256 seconds (Total)
+## Chain 2:  Elapsed Time: 0.01289 seconds (Warm-up)
+## Chain 2:                0.012867 seconds (Sampling)
+## Chain 2:                0.025757 seconds (Total)
 ## Chain 2: 
 ## 
 ## SAMPLING FOR MODEL &#39;6dcfbccbf2f063595ccc9b93f383e221&#39; NOW (CHAIN 3).
 ## Chain 3: 
-## Chain 3: Gradient evaluation took 2e-06 seconds
-## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.02 seconds.
+## Chain 3: Gradient evaluation took 3e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.03 seconds.
 ## Chain 3: Adjust your expectations accordingly!
 ## Chain 3: 
 ## Chain 3: 
@@ -306,9 +309,9 @@ y</code></pre>
 ## Chain 3: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 3: 
-## Chain 3:  Elapsed Time: 0.013645 seconds (Warm-up)
-## Chain 3:                0.013222 seconds (Sampling)
-## Chain 3:                0.026867 seconds (Total)
+## Chain 3:  Elapsed Time: 0.012875 seconds (Warm-up)
+## Chain 3:                0.01241 seconds (Sampling)
+## Chain 3:                0.025285 seconds (Total)
 ## Chain 3: 
 ## 
 ## SAMPLING FOR MODEL &#39;6dcfbccbf2f063595ccc9b93f383e221&#39; NOW (CHAIN 4).
@@ -331,9 +334,9 @@ y</code></pre>
 ## Chain 4: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 4: 
-## Chain 4:  Elapsed Time: 0.012951 seconds (Warm-up)
-## Chain 4:                0.014998 seconds (Sampling)
-## Chain 4:                0.027949 seconds (Total)
+## Chain 4:  Elapsed Time: 0.012823 seconds (Warm-up)
+## Chain 4:                0.014169 seconds (Sampling)
+## Chain 4:                0.026992 seconds (Total)
 ## Chain 4:</code></pre>
 <pre class="r"><code>print(fit, probs=c(0.1, 0.9))</code></pre>
 <pre><code>## Inference for Stan model: 6dcfbccbf2f063595ccc9b93f383e221.
@@ -341,25 +344,25 @@ y</code></pre>
 ## post-warmup draws per chain=2500, total post-warmup draws=10000.
 ## 
 ##         mean se_mean   sd    10%    90% n_eff Rhat
-## theta   0.50    0.00 0.10   0.36   0.64  3945    1
-## lp__  -15.76    0.01 0.71 -16.63 -15.26  4137    1
+## theta   0.27    0.00 0.09   0.16   0.39  3821    1
+## lp__  -13.40    0.01 0.73 -14.25 -12.90  3998    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Mon Jan 21 15:48:10 2019.
+## Samples were drawn using NUTS(diag_e) at Tue Jan 22 11:25:43 2019.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
 <pre class="r"><code># Extracting the posterior draws
-theta_draws &lt;- extract(fit)$theta
+theta_draws = extract(fit)$theta
 
 # Calculating posterior mean (estimator)
 mean(theta_draws)</code></pre>
-<pre><code>## [1] 0.4992493</code></pre>
+<pre><code>## [1] 0.2715866</code></pre>
 <pre class="r"><code># Calculating posterior intervals
 quantile(theta_draws, probs=c(0.10, 0.90))</code></pre>
 <pre><code>##       10%       90% 
-## 0.3635266 0.6351452</code></pre>
-<pre class="r"><code>theta_draws_df &lt;- data.frame(list(theta=theta_draws))
-plotpostre &lt;- ggplot(theta_draws_df, aes(x=theta)) +
+## 0.1569165 0.3934832</code></pre>
+<pre class="r"><code>theta_draws_df = data.frame(list(theta=theta_draws))
+plotpostre = ggplot(theta_draws_df, aes(x=theta)) +
   geom_histogram(bins=20, color=&quot;gray&quot;)
 plotpostre</code></pre>
 <p><img src="/post/2019-01-22_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
@@ -372,11 +375,11 @@ plotpostre</code></pre>
 <li>max penalized likelihood (<em>MLE</em>).</li>
 </ul>
 <pre class="r"><code>library(rstan)
-N &lt;- 5
-y &lt;- c(0, 1, 1, 0, 0)
+N = 5
+y = c(0, 1, 1, 0, 0)
 
-model &lt;- stan_model(model_code=bern.stan)
-mle &lt;- optimizing(model, data=c(&quot;N&quot;, &quot;y&quot;))
+model = stan_model(model_code=bern.stan)
+mle = optimizing(model, data=c(&quot;N&quot;, &quot;y&quot;))
 
 print(mle, digits=2)</code></pre>
 <pre><code>## $par
@@ -493,17 +496,17 @@ print(mle, digits=2)</code></pre>
 </div>
 <div id="lotka-volterra-parameter-estimation" class="section level4">
 <h4>Lotka-Volterra Parameter estimation</h4>
-<pre class="r"><code>fit &lt;- stan(lotka-volterra.stan, data=lynx_hare_data)
+<pre class="r"><code>fit = stan(lotka-volterra.stan, data=lynx_hare_data)
 
 print(fit, c(&quot;theta&quot;, &quot;sigma&quot;), probs=c(0.1, 0.5, 0.9))</code></pre>
 <p>It is obtained, for example:</p>
-<pre><code>## mean     se_mean   sd  10%  50%  90% n_eff  Rhat
-## theta[1]    0.55    0 0.07 0.46 0.54 0.64 1168 1
-## theta[2]    0.03    0 0.00 0.02 0.03 0.03 1305 1
-## theta[3]    0.80    0 0.10 0.68 0.80 0.94 1117 1
-## theta[4]    0.02    0 0.00 0.02 0.02 0.03 1230 1
-## sigma[1]    0.29    0 0.05 0.23 0.28 0.36 2673 1
-## sigma[2]    0.29    0 0.06 0.23 0.29 0.37 2821 1</code></pre>
+<pre><code>               mean  se_mean   sd  10%  50%  90%  n_eff  Rhat
+## theta[1]    0.55    0     0.07 0.46 0.54 0.64   1168     1
+## theta[2]    0.03    0     0.00 0.02 0.03 0.03   1305     1
+## theta[3]    0.80    0     0.10 0.68 0.80 0.94   1117     1
+## theta[4]    0.02    0     0.00 0.02 0.02 0.03   1230     1
+## sigma[1]    0.29    0     0.05 0.23 0.28 0.36   2673     1
+## sigma[2]    0.29    0     0.06 0.23 0.29 0.37   2821     1</code></pre>
 </div>
 <div id="analysis-of-the-obtained-results" class="section level4">
 <h4>Analysis of the obtained results:</h4>
@@ -517,23 +520,22 @@ print(fit, c(&quot;theta&quot;, &quot;sigma&quot;), probs=c(0.1, 0.5, 0.9))</cod
 </div>
 <div id="full-program-to-run" class="section level4">
 <h4>Full program to run</h4>
-<pre class="r"><code>file &lt;- &quot;https://raw.githubusercontent.com/stan-dev/example-models/master/knitr/lotka-volterra/hudson-bay-lynx-hare.csv&quot;
+<pre class="r"><code>file = &quot;https://raw.githubusercontent.com/stan-dev/example-models/master/knitr/lotka-volterra/hudson-bay-lynx-hare.csv&quot;
 # https://github.com/bblais/Systems-Modeling-Spring-2015-Notebooks/blob/master/data/Lynx%20and%20Hare%20Data/lynxhare.csv
 
-lynx_hare_df &lt;- read.csv(file, header=TRUE, comment.char=&quot;#&quot;)
+lynx_hare_df = read.csv(file, header=TRUE, comment.char=&quot;#&quot;)
 # lynx_hare_df
 
-N &lt;- length(lynx_hare_df$Year) - 1
-ts &lt;- 1:N
-y_init &lt;- c(lynx_hare_df$Hare[1], lynx_hare_df$Lynx[1])
-y &lt;- as.matrix(lynx_hare_df[2:(N + 1), 2:3])
-y &lt;- cbind(y[ , 2], y[ , 1]); # hare, lynx order
-lynx_hare_data &lt;- list(N, ts, y_init, y)
+N = length(lynx_hare_df$Year) - 1
+ts = 1:N
+y_init = c(lynx_hare_df$Hare[1], lynx_hare_df$Lynx[1])
+y = as.matrix(lynx_hare_df[2:(N + 1), 2:3])
+y = cbind(y[ , 2], y[ , 1]); # hare, lynx order
+lynx_hare_data = list(N, ts, y_init, y)
 
 library(rstan)
 
-thething &lt;- &quot;
-
+thething = &quot;
 functions {
   real[] dz_dt(real t, real[] z, real[] theta,
              real[] x_r, int[] x_i) {
@@ -583,7 +585,7 @@ model {
 }
 &quot;
 
-fit &lt;- stan(model_code=thething, data=lynx_hare_data, iter=5000, chains=3, cores=3)
+fit = stan(model_code=thething, data=lynx_hare_data, iter=5000, chains=3, cores=3)
 
 print(fit, pars=c(&quot;theta&quot;, &quot;sigma&quot;, &quot;z_init&quot;),
       probs=c(0.1, 0.5, 0.9), digits = 3)</code></pre>

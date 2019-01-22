@@ -191,7 +191,10 @@ There are two ways to modify the posterior.
 ```
 y ~ normal(0, 1);
 
-increment_log_posterior(log_normal(y, 0, 1));
+target += normal_lpdf(y | 0, 1);
+
+# Deprecated in new versions of Stan:
+increment_log_posterior(log_normal(y, 0, 1))
 ```
 
 And many sampling statements are *vectorized*.
@@ -254,7 +257,7 @@ $$p(\theta |y)\propto p(\theta )p(y|\theta )$$
 We create the Stan program which we will call from R.
 
 ```{r}
-bern.stan <-
+bern.stan =
 "
 data {
   int<lower=0> N;               // number of trials
@@ -278,9 +281,9 @@ In this case, instead of using a given data set, we will simulate a random sampl
 
 ```{r}
 # Generate data
-theta <- 0.30
-N <- 20
-y <- rbinom(N, 1, 0.3)
+theta = 0.30
+N = 20
+y = rbinom(N, 1, 0.3)
 y
 ```
 
@@ -297,12 +300,12 @@ The final step is to obtain our estimation using Stan from R.
 ```{r}
 library(rstan)
 
-fit <- stan(model_code=bern.stan, data=list(y=y, N=N), iter=5000)
+fit = stan(model_code=bern.stan, data=list(y=y, N=N), iter=5000)
 
 print(fit, probs=c(0.1, 0.9))
 
 # Extracting the posterior draws
-theta_draws <- extract(fit)$theta
+theta_draws = extract(fit)$theta
 
 # Calculating posterior mean (estimator)
 mean(theta_draws)
@@ -310,8 +313,8 @@ mean(theta_draws)
 # Calculating posterior intervals
 quantile(theta_draws, probs=c(0.10, 0.90))
 
-theta_draws_df <- data.frame(list(theta=theta_draws))
-plotpostre <- ggplot(theta_draws_df, aes(x=theta)) +
+theta_draws_df = data.frame(list(theta=theta_draws))
+plotpostre = ggplot(theta_draws_df, aes(x=theta)) +
   geom_histogram(bins=20, color="gray")
 plotpostre
 ```
@@ -325,11 +328,11 @@ Stan's optimization for estimation; two views:
 
 ```{r}
 library(rstan)
-N <- 5
-y <- c(0, 1, 1, 0, 0)
+N = 5
+y = c(0, 1, 1, 0, 0)
 
-model <- stan_model(model_code=bern.stan)
-mle <- optimizing(model, data=c("N", "y"))
+model = stan_model(model_code=bern.stan)
+mle = optimizing(model, data=c("N", "y"))
 
 print(mle, digits=2)
 ```
@@ -464,7 +467,7 @@ transformed parameters {
 #### Lotka-Volterra Parameter estimation
 
 ```{r, echo=TRUE, eval=FALSE}
-fit <- stan(lotka-volterra.stan, data=lynx_hare_data)
+fit = stan(lotka-volterra.stan, data=lynx_hare_data)
 
 print(fit, c("theta", "sigma"), probs=c(0.1, 0.5, 0.9))
 ```
@@ -472,13 +475,13 @@ print(fit, c("theta", "sigma"), probs=c(0.1, 0.5, 0.9))
 It is obtained, for example:
 
 ```
-## mean     se_mean   sd  10%  50%  90% n_eff  Rhat
-## theta[1]    0.55    0 0.07 0.46 0.54 0.64 1168 1
-## theta[2]    0.03    0 0.00 0.02 0.03 0.03 1305 1
-## theta[3]    0.80    0 0.10 0.68 0.80 0.94 1117 1
-## theta[4]    0.02    0 0.00 0.02 0.02 0.03 1230 1
-## sigma[1]    0.29    0 0.05 0.23 0.28 0.36 2673 1
-## sigma[2]    0.29    0 0.06 0.23 0.29 0.37 2821 1
+               mean  se_mean   sd  10%  50%  90%  n_eff  Rhat
+## theta[1]    0.55    0     0.07 0.46 0.54 0.64   1168     1
+## theta[2]    0.03    0     0.00 0.02 0.03 0.03   1305     1
+## theta[3]    0.80    0     0.10 0.68 0.80 0.94   1117     1
+## theta[4]    0.02    0     0.00 0.02 0.02 0.03   1230     1
+## sigma[1]    0.29    0     0.05 0.23 0.28 0.36   2673     1
+## sigma[2]    0.29    0     0.06 0.23 0.29 0.37   2821     1
 ```
 
 #### Analysis of the obtained results:
@@ -493,23 +496,22 @@ It is obtained, for example:
 #### Full program to run
 
 ```{r, eval=FALSE}
-file <- "https://raw.githubusercontent.com/stan-dev/example-models/master/knitr/lotka-volterra/hudson-bay-lynx-hare.csv"
+file = "https://raw.githubusercontent.com/stan-dev/example-models/master/knitr/lotka-volterra/hudson-bay-lynx-hare.csv"
 # https://github.com/bblais/Systems-Modeling-Spring-2015-Notebooks/blob/master/data/Lynx%20and%20Hare%20Data/lynxhare.csv
 
-lynx_hare_df <- read.csv(file, header=TRUE, comment.char="#")
+lynx_hare_df = read.csv(file, header=TRUE, comment.char="#")
 # lynx_hare_df
 
-N <- length(lynx_hare_df$Year) - 1
-ts <- 1:N
-y_init <- c(lynx_hare_df$Hare[1], lynx_hare_df$Lynx[1])
-y <- as.matrix(lynx_hare_df[2:(N + 1), 2:3])
-y <- cbind(y[ , 2], y[ , 1]); # hare, lynx order
-lynx_hare_data <- list(N, ts, y_init, y)
+N = length(lynx_hare_df$Year) - 1
+ts = 1:N
+y_init = c(lynx_hare_df$Hare[1], lynx_hare_df$Lynx[1])
+y = as.matrix(lynx_hare_df[2:(N + 1), 2:3])
+y = cbind(y[ , 2], y[ , 1]); # hare, lynx order
+lynx_hare_data = list(N, ts, y_init, y)
 
 library(rstan)
 
-thething <- "
-
+thething = "
 functions {
   real[] dz_dt(real t, real[] z, real[] theta,
              real[] x_r, int[] x_i) {
@@ -559,7 +561,7 @@ model {
 }
 "
 
-fit <- stan(model_code=thething, data=lynx_hare_data, iter=5000, chains=3, cores=3)
+fit = stan(model_code=thething, data=lynx_hare_data, iter=5000, chains=3, cores=3)
 
 print(fit, pars=c("theta", "sigma", "z_init"),
       probs=c(0.1, 0.5, 0.9), digits = 3)
