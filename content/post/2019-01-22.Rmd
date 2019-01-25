@@ -3,7 +3,7 @@ title: "An introduction to Stan with R"
 authors: ["J. Miguel Marín"]
 date: 2019-01-22
 categories: ["R", "Stan"]
-tags: ["R", "Stan", "bayesian", "functional programming"]
+tags: ["R", "Stan", "Bayesian", "functional programming"]
 ---
 
 ```{r, setup, include = FALSE}
