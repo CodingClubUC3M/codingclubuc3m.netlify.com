@@ -47,7 +47,9 @@ errors.
 The materials for each session are [hosted in this website as posts](/post/).
 Each post will be solely authored by the presenter, hence providing a proof of
 participation. Also, the post may contain possible follow-ups and comments to
-the sessions.
+the sessions. Note that posts in the [R](/categories/r) category are automatically
+re-published in **R-Bloggers** (check
+[our contributions](https://www.r-bloggers.com/author/r-on-coding-club-uc3m/)).
 
 ## Organizers
 
