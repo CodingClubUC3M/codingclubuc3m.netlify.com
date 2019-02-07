@@ -5,7 +5,7 @@ active = true
 date = 2019-01-05T00:00:00
 
 title = "Sessions"
-subtitle = "Recent & Upcoming"
+subtitle = "Upcoming & Recent"
 
 # Order that this section will appear in.
 weight = 4
@@ -22,4 +22,3 @@ list_format = 2
 # Exclude talks that are shown in the Selected Talks widget?
 exclude_selected = false
 +++
-
