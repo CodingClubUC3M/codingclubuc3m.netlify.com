@@ -10,7 +10,7 @@ authors = ["Vanesa Guerrero"]
 abstract = "The aim of this talk is to illustrate some basics about how to model and solve optimization problems using the AMPL language. In fact, we do not need to install any kind of software because the NEOS Server will lend us their remote computers to do the job."
 
 event = "Tutorial"
-event_url = ""
+event_url = "/post/2019-02-12"
 event_form = "https://docs.google.com/forms/d/e/1FAIpQLSf_YxrGK_jL6LdT5KzU6oojBdMPAvg4RuWPf8ZV5rEyclLhmw/viewform"
 
 location = "**Room 15.1.41**. Campus de Getafe, Calle Madrid, 126, 28903 Getafe, Madrid, Spain."
