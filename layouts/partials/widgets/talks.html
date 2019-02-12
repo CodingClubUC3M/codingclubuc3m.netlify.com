@@ -1,0 +1,53 @@
+{{ $ := .root }}
+{{ $page := .page }}
+{{ $talks_len := len (where $.Site.RegularPages "Type" "talk") }}
+
+<!-- Talks widget -->
+<div class="row">
+  <div class="col-12 col-lg-4 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+    {{ if gt $talks_len $page.Params.count }}
+    <p class="view-all">
+      <a href="{{ ($.Site.GetPage "section" "talk").RelPermalink }}">
+        {{ i18n "more_talks" | markdownify }}
+        <i class="fas fa-angle-double-right"></i>
+      </a>
+    </p>
+    {{ end }}
+  </div>
+  <div class="col-12 col-lg-8">
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    {{ $.Scratch.Set "talks" (where $.Site.RegularPages "Type" "talk") }}
+
+    {{/* Exclude talks shown in Selected Talks widget? */}}
+    {{ if $page.Params.exclude_selected }}
+    {{ $.Scratch.Set "talks" (where ($.Scratch.Get "talks") ".Params.selected" "!=" true) }}
+    {{ end }}
+
+    {{ range $index, $element := first $page.Params.count (sort ($.Scratch.Get "talks") ".Params.time_start" "desc") }}
+      {{ if eq $page.Params.list_format 1 }}
+        {{ partial "talk_li_detailed" . }}
+      {{ else if eq $page.Params.list_format 2 }}
+        {{ if and (eq $index 0) (lt (.Params.time_start).Unix now.Unix) }}
+<div class="media stream-item" itemscope="" itemtype="http://schema.org/Event">
+  <div class="media-body">
+    <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=250&amp;wkst=2&amp;bgcolor=%23ffffff&amp;src=coding.club.uc3m%40gmail.com&amp;color=%23125A12&amp;ctz=Europe%2FMadrid&amp;hl=en" style="border-width:0;width:100%;height:250px" frameborder="0" scrolling="no"></iframe>
+  </div>
+</div>
+        {{ end }}
+        {{ partial "talk_li_stream" . }}
+        {{ if and (eq $index 0) (ge (.Params.time_start).Unix now.Unix) }}
+<div class="media stream-item" itemscope="" itemtype="http://schema.org/Event">
+  <div class="media-body">
+    <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=250&amp;wkst=2&amp;bgcolor=%23ffffff&amp;src=coding.club.uc3m%40gmail.com&amp;color=%23125A12&amp;ctz=Europe%2FMadrid&amp;hl=en" style="border-width:0;width:100%;height:250px" frameborder="0" scrolling="no"></iframe>
+  </div>
+</div>
+        {{ end }}
+      {{ else }}
+        {{ partial "talk_li_simple" . }}
+      {{ end }}
+    {{ end }}
+  </div>
+</div>
