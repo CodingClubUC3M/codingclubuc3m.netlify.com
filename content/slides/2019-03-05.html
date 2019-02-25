@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create elegant and informative data graphics with ggplot2</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Javier Nogales" />
+    <meta name="date" content="2018-03-05" />
+    <link href="/slides/2019-03-05_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="/slides/2019-03-05_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+class: left, top
+background-image: url("/slides/2019-03-05_files/img/uc3m.jpg")
+background-position: 90% 90%
+background-size: 60%
+
+
+### &lt;img src="/slides/2019-03-05_files/img/UC3M_logo_cc.png" width="50", hspace="20", align="left"&gt; Coding Club UC3M
+
+
+&lt;br/&gt;
+
+&amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;img src="/slides/2019-03-05_files/img/ggplot2.png" width="150"&gt; **Elegant and Informative Data-Graphics**
+
+
+### Javier Nogales 
+
+
+
+---
+# First: install ggplot2
+
+
+
+```r
+install.packages("ggplot2")
+library("ggplot2")
+```
+&lt;br/&gt;
+
+# Even better: install the set of packages tidyverse
+
+```r
+install.packages("tidyverse")
+library("tidyverse")
+```
+
+Includes: ggplot2, dplyr, tidyr, ...
+
+
+
+
+---
+# Let's work
+
+Open a dataset:
+
+```r
+install.packages("gapminder")
+library("gapminder")
+```
+
+
+Socio-economic dataset:
+
+```r
+head(gapminder)
+```
+
+```
+## # A tibble: 6 x 6
+##   country     continent  year lifeExp      pop gdpPercap
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+## 1 Afghanistan Asia       1952    28.8  8425333      779.
+## 2 Afghanistan Asia       1957    30.3  9240934      821.
+## 3 Afghanistan Asia       1962    32.0 10267083      853.
+## 4 Afghanistan Asia       1967    34.0 11537966      836.
+## 5 Afghanistan Asia       1972    36.1 13079460      740.
+## 6 Afghanistan Asia       1977    38.4 14880372      786.
+```
+
+---
+# A histogram in R Base
+
+
+```r
+hist(gapminder$lifeExp, col="lightblue", main="", xlab="Life Exp")
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-7-1.png" width="60%" /&gt;
+
+---
+# A histogram in ggplot2
+
+
+```r
+ggplot(gapminder, aes(lifeExp))+geom_histogram(fill="lightblue")+labs(title="")
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-8-1.png" width="60%" /&gt;
+
+---
+# A scatter plot in R Base
+
+
+```r
+plot(gapminder$gdpPercap, gapminder$lifeExp, main="", xlab="GDP", ylab="Life Exp")
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-9-1.png" width="60%" /&gt;
+
+---
+# A scatter plot in ggplot2
+
+
+```r
+ggplot(gapminder, aes(gdpPercap,lifeExp))+geom_point()+labs(title="")
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-10-1.png" width="60%" /&gt;
+
+---
+# So, why ggplot2?
+
+### Based on The Grammar of Graphics
+
+High-level approach
+
+Breaks up graphs into modular logical pieces (semantic components)
+
+Leland Wilkinson, 2005
+
+(statistician and computer scientist at H2O.ai)
+
+### The ggplot2 package
+
+Implementation of the Grammar of Graphics for R 
+
+Very flexible, with nice, informative and intuitive plots
+
+Hadley Wickham, 2005
+
+(statistician and chief scientist at RStudio)
+
+---
+# Syntax
+
+```
+ggplot(data = &lt;DATA&gt;) + 
+  &lt;GEOM_FUNCTION&gt;(
+     mapping = aes(&lt;MAPPINGS&gt;),
+     stat = &lt;STAT&gt;, 
+     position = &lt;POSITION&gt;
+  ) +
+  &lt;COORDINATE_FUNCTION&gt; +
+  &lt;FACET_FUNCTION&gt;
+```
+
+&lt;img src="/slides/2019-03-05_files/img/omg.jpg" width="100"/&gt;
+
+&lt;br/&gt;
+
+7 components, but mainly 3...
+
+But so useful in practice: colors, legends, faceting, rendering, ...
+
+---
+# What is exactly ggplot2?
+
+&lt;br/&gt;
+
+&gt; "It is a mapping of data variables to aesthetic attributes of geometric objects" 
+
+&lt;br/&gt;
+&lt;br/&gt;
+
+Three essential components:
+
+- data: *dataframe* with data that we map
+- aes: aesthetic attributes (x/y position, color, shape, size, ...)
+- geom: the geometric object (points, lines, bars, ...) we want to plot
+
+
+---
+# Let's understand how ggplot2 works
+
+
+```r
+plot = ggplot(gapminder, aes(x = gdpPercap, y = lifeExp))
+```
+
+Nothing happens...
+
+---
+# Let's understand how ggplot2 works
+
+
+```r
+plot + geom_point()
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-12-1.png" width="60%" /&gt;
+
+---
+# Let's understand how ggplot2 works
+
+
+```r
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + geom_point() 
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-13-1.png" width="60%" /&gt;
+
+---
+# Let's understand how ggplot2 works
+
+
+```r
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + geom_point() + 
+* scale_x_log10()
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-14-1.png" width="60%" /&gt;
+
+---
+# Let's understand how ggplot2 works
+
+
+```r
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + geom_point() + 
+* scale_x_log10() + theme_minimal() + theme(legend.position="bottom")
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-15-1.png" width="60%" /&gt;
+
+
+---
+# Let's understand how ggplot2 works
+
+Combine layers:
+
+
+```r
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent, size = pop)) +
+  geom_point(alpha=0.5) + theme_minimal() + theme(legend.position="bottom") +
+  scale_x_log10(breaks = c(300, 1e3, 3e3, 10e3, 30e3)) + 
+  labs(title = "Gapminder and ggplot2",
+       x = "Gross Domestic Product (log scale)",
+       y = "Life Expectancy at birth (years)",
+*      color = "Continent", size = "Population")
+```
+
+In that way, 4D information in a 2D plot...
+
+---
+# Let's understand how ggplot2 works
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-17-1.png" width="80%" /&gt;
+
+---
+# Some simple statistical models
+
+```r
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) + geom_point() + geom_smooth() 
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-18-1.png" width="70%" /&gt;
+
+---
+# Let's try bar plots
+
+
+```r
+ggplot(gapminder, aes(x=reorder(continent, continent, length)))+geom_bar(aes(fill=continent))
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-19-1.png" width="70%" /&gt;
+
+---
+# Let's try bar plots with polar coordinates
+
+
+```r
+ggplot(gapminder, aes(x=reorder(continent, continent, length)))+geom_bar(aes(fill=continent))+
+* coord_polar()
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-20-1.png" width="70%" /&gt;
+
+---
+## The syntax is the same!
+
+### Just change the geom function or add more pieces (layers)...
+
+# Let's try boxplots
+
+
+```r
+ggplot(gapminder, aes(x = continent, y = lifeExp)) +
+* geom_boxplot(fill="lightblue", outlier.colour = "hotpink") +
+  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
+```
+
+---
+# Boxplots
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-22-1.png" width="80%" /&gt;
+
+---
+# Densities (and formulas)
+
+
+```r
+ggplot(gapminder,aes(lifeExp))+geom_density(aes(group=continent,colour=continent,fill=continent),alpha=0.1) +
+  annotate("text", x = 38, y = 0.09, parse = TRUE, size = 8, label = "y==frac(1, sqrt(2*pi)) * e^{-x^2/2}") 
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-23-1.png" width="80%" /&gt;
+
+---
+# Time Series
+
+
+```r
+gapminder %&gt;%
+  mutate(gdp=gdpPercap*pop) %&gt;%
+  group_by(continent,year) %&gt;%
+  summarize(MeanLifeExp=mean(lifeExp), MeanGDP=mean(gdp)) %&gt;%
+  ggplot(aes(year,MeanGDP,color=continent)) + 
+* geom_line()
+```
+
+---
+# Time Series
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-25-1.png" width="80%" /&gt;
+
+
+---
+# Facets
+
+
+```r
+ggplot(gapminder, aes(gdpPercap, lifeExp, group=continent, color=year, size=pop)) + 
+  geom_point() + 
+* facet_wrap(~ continent) +
+  scale_color_gradient(low="red", high="green") +
+  theme_minimal()+ theme(legend.position="bottom") 
+```
+
+---
+# Facets
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-27-1.png" width="70%" /&gt;
+
+---
+# Themes and text
+
+
+```r
+gapminder %&gt;% filter(year==2007) %&gt;%
+  ggplot(aes(x = gdpPercap, y = lifeExp, color = continent, size = pop, label = country)) +
+* geom_text() +
+  # clean the axes names and breaks
+  scale_x_log10(limits = c(200, 60000)) +
+  labs(title = "GDP versus life expectancy in 2007",
+       x = "GDP per capita (log scale)",
+       y = "Life expectancy") +
+  # add a nicer theme
+* theme_classic() + theme(legend.position="none")
+```
+
+---
+# Themes and text
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-29-1.png" width="80%" /&gt;
+
+---
+# Correlations
+
+
+```r
+library(GGally)
+ggcorr(gapminder[,3:6], label = T)
+```
+
+&lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-30-1.png" width="80%" /&gt;
+
+---
+# Animations
+
+
+```r
+install.packages("gifski")
+library(gganimate)
+
+gapminder %&gt;%
+  ggplot(aes(gdpPercap, lifeExp, size = pop, colour = continent)) +
+  geom_point(alpha = 0.4) +
+   geom_text(aes(x = gdpPercap, y = lifeExp + 2, label = country), size=4,
+            data = filter(gapminder, country %in% c("Spain"))) +
+  scale_x_log10(limits = c(200, 60000)) +
+  theme_light() + theme(legend.position = 'bottom') +
+  labs(title = 'Year: {frame_time}', x = 'GDP per capita (log)', y = 'Life expectancy') +
+* transition_time(year) +
+* ease_aes('linear')
+```
+
+
+
+We are going to plot 5D information in a 2D plot...
+
+
+
+
+---
+class: center, middle
+&lt;img src="/slides/2019-03-05_files/img/gganimate.gif" width="800"/&gt;
+
+---
+# A little practice and you'll get...
+
+&lt;img src="/slides/2019-03-05_files/img/kll4.jpg" width="650"/&gt;
+
+---
+# A little practice and you'll get...
+
+Edward Tufte's book: Visual Display of Quantitative Information
+
+&lt;img src="/slides/2019-03-05_files/img/Dayton.png" width="1000"/&gt;
+
+---
+# A little practice and you'll get...
+
+Publication-ready plots
+
+&lt;img src="/slides/2019-03-05_files/img/heatmap.png" width="800"/&gt;
+
+---
+# A little practice and you'll get...
+
+Ask the Question, Visualize the Answer (Flowing Data)
+
+&lt;img src="/slides/2019-03-05_files/img/male-female.gif" width="650"/&gt;
+
+---
+# Final comments
+
+- Input for ggplot2 must be a data.frame
+
+- But there are shortcuts to avoid creating data frames, like qplot
+
+- Easy to save: ggsave("myplot.png")
+
+- Many themes to get different looks to your plots
+
+- Many packages based on ggplot2: factoextra, GGally, gganimate, ...
+
+- It can be integrated in interactive graphics: shyny, ggvis, etc.
+
+&lt;br/&gt;
+No excuses: use ggplot2 in your teaching, talks, publications, ...
+
+&lt;br/&gt;
+&lt;br/&gt;
+
+&gt; "The purpose of visualization is insight, not pictures" --- Ben Shneiderman
+
+---
+# More resources
+
+The main website:
+http://ggplot2.tidyverse.org/
+
+The book: ggplot2 (Elegant Graphics for Data Analysis), by Hadley Wickham
+https://www.springer.com/us/book/9780387981413
+
+The cheat sheet:
+https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+The R Graph Gallery:
+http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html
+
+Top 50 ggplot2 Visualizations
+http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html
+
+Getting help (RStudio community)
+https://community.rstudio.com
+
+Getting help (stack overflow)
+https://stackoverflow.com/questions/tagged/ggplot2
+
+
+
+---
+background-image: url("/slides/2019-03-05_files/img/uc3m.jpg")
+background-position: 90% 90%
+background-size: 60%
+
+
+# Thanks
+
+&lt;br/&gt;
+
+
+### &lt;img src="/slides/2019-03-05_files/img/UC3M_logo_cc.png" width="60", hspace="20", align="left"&gt; [**Coding Club**](https://codingclubuc3m.github.io) UC3M
+
+### &lt;img src="/slides/2019-03-05_files/img/ggplot2.png" width="60", hspace="20", align="left"&gt; ggplot2 is a part of the [**tidyverse**](https://ggplot2.tidyverse.org) ecosystem
+
+### &lt;img src="/slides/2019-03-05_files/img/xaringan.png" width="60", hspace="20", align="left"&gt; Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan)
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"css": ["default", "/slides/2019-03-05_files/my-theme.css"],
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
