@@ -1,5 +1,5 @@
 ---
-title: "Create elegant and informative data graphics with ggplot2"
+title: "Creating elegant and informative data graphics with ggplot2"
 subtitle: "Coding Club UC3M"
 author: "Javier Nogales"
 date: "March 5, 2018"

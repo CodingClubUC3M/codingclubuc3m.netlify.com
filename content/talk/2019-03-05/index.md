@@ -1,5 +1,5 @@
 +++
-title = "Create elegant and informative data graphics with ggplot2"
+title = "Creating elegant and informative data graphics with ggplot2"
 date = 2019-02-25
 
 time_start = 2019-03-05T15:00:00
@@ -23,7 +23,7 @@ selected = false
 
 # Links (optional).
 url_pdf = ""
-url_slides = "/slides/2019-03-05"
+url_slides = ""
 url_video = ""
 url_code = ""
 

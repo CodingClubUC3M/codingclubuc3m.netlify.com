@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Create elegant and informative data graphics with ggplot2</title>
+    <title>Creating elegant and informative data graphics with ggplot2</title>
     <meta charset="utf-8">
     <meta name="author" content="Javier Nogales" />
     <meta name="date" content="2018-03-05" />
@@ -27,7 +27,7 @@ background-size: 60%
 &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;img src="/slides/2019-03-05_files/img/ggplot2.png" width="150"&gt; **Elegant and Informative Data-Graphics**
 
 
-### Javier Nogales 
+### Javier Nogales
 
 
 
@@ -138,7 +138,7 @@ Leland Wilkinson, 2005
 
 ### The ggplot2 package
 
-Implementation of the Grammar of Graphics for R 
+Implementation of the Grammar of Graphics for R
 
 Very flexible, with nice, informative and intuitive plots
 
@@ -150,10 +150,10 @@ Hadley Wickham, 2005
 # Syntax
 
 ```
-ggplot(data = &lt;DATA&gt;) + 
+ggplot(data = &lt;DATA&gt;) +
   &lt;GEOM_FUNCTION&gt;(
      mapping = aes(&lt;MAPPINGS&gt;),
-     stat = &lt;STAT&gt;, 
+     stat = &lt;STAT&gt;,
      position = &lt;POSITION&gt;
   ) +
   &lt;COORDINATE_FUNCTION&gt; +
@@ -173,7 +173,7 @@ But so useful in practice: colors, legends, faceting, rendering, ...
 
 &lt;br/&gt;
 
-&gt; "It is a mapping of data variables to aesthetic attributes of geometric objects" 
+&gt; "It is a mapping of data variables to aesthetic attributes of geometric objects"
 
 &lt;br/&gt;
 &lt;br/&gt;
@@ -210,7 +210,7 @@ plot + geom_point()
 
 
 ```r
-ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + geom_point() 
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + geom_point()
 ```
 
 &lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-13-1.png" width="60%" /&gt;
@@ -220,7 +220,7 @@ ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + geom_poi
 
 
 ```r
-ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + geom_point() + 
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + geom_point() +
 * scale_x_log10()
 ```
 
@@ -231,7 +231,7 @@ ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + geom_poi
 
 
 ```r
-ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + geom_point() + 
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + geom_point() +
 * scale_x_log10() + theme_minimal() + theme(legend.position="bottom")
 ```
 
@@ -247,7 +247,7 @@ Combine layers:
 ```r
 ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent, size = pop)) +
   geom_point(alpha=0.5) + theme_minimal() + theme(legend.position="bottom") +
-  scale_x_log10(breaks = c(300, 1e3, 3e3, 10e3, 30e3)) + 
+  scale_x_log10(breaks = c(300, 1e3, 3e3, 10e3, 30e3)) +
   labs(title = "Gapminder and ggplot2",
        x = "Gross Domestic Product (log scale)",
        y = "Life Expectancy at birth (years)",
@@ -265,7 +265,7 @@ In that way, 4D information in a 2D plot...
 # Some simple statistical models
 
 ```r
-ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) + geom_point() + geom_smooth() 
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) + geom_point() + geom_smooth()
 ```
 
 &lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-18-1.png" width="70%" /&gt;
@@ -316,7 +316,7 @@ ggplot(gapminder, aes(x = continent, y = lifeExp)) +
 
 ```r
 ggplot(gapminder,aes(lifeExp))+geom_density(aes(group=continent,colour=continent,fill=continent),alpha=0.1) +
-  annotate("text", x = 38, y = 0.09, parse = TRUE, size = 8, label = "y==frac(1, sqrt(2*pi)) * e^{-x^2/2}") 
+  annotate("text", x = 38, y = 0.09, parse = TRUE, size = 8, label = "y==frac(1, sqrt(2*pi)) * e^{-x^2/2}")
 ```
 
 &lt;img src="/slides/2019-03-05_files/figure-html/unnamed-chunk-23-1.png" width="80%" /&gt;
@@ -330,7 +330,7 @@ gapminder %&gt;%
   mutate(gdp=gdpPercap*pop) %&gt;%
   group_by(continent,year) %&gt;%
   summarize(MeanLifeExp=mean(lifeExp), MeanGDP=mean(gdp)) %&gt;%
-  ggplot(aes(year,MeanGDP,color=continent)) + 
+  ggplot(aes(year,MeanGDP,color=continent)) +
 * geom_line()
 ```
 
@@ -345,11 +345,11 @@ gapminder %&gt;%
 
 
 ```r
-ggplot(gapminder, aes(gdpPercap, lifeExp, group=continent, color=year, size=pop)) + 
-  geom_point() + 
+ggplot(gapminder, aes(gdpPercap, lifeExp, group=continent, color=year, size=pop)) +
+  geom_point() +
 * facet_wrap(~ continent) +
   scale_color_gradient(low="red", high="green") +
-  theme_minimal()+ theme(legend.position="bottom") 
+  theme_minimal()+ theme(legend.position="bottom")
 ```
 
 ---
