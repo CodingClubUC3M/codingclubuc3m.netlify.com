@@ -15,7 +15,7 @@ Hence, at the end we will be able to create complex and informative plots with t
 
 event = "Tutorial"
 event_url = ""
-event_form = "https://goo.gl/forms/zRv5xxTrXOtPK15s1"
+event_form = ""
 
 location = "**Room 15.1.41**. Campus de Getafe, Calle Madrid, 126, 28903 Getafe, Madrid, Spain."
 
@@ -23,9 +23,9 @@ selected = false
 
 # Links (optional).
 url_pdf = ""
-url_slides = ""
+url_slides = "/slides/2019-03-05"
 url_video = ""
-url_code = ""
+url_code = "ggplot2.R"
 
 [image]
   caption = "[**External link**](https://sites.google.com/site/jnogalesweb/)"
