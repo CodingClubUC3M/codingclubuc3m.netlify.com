@@ -48,3 +48,6 @@ Minor requirements (only for 5% of the talk), not mandatory:
 ### About the speaker
 
 Associate Professor at Universidad Carlos III de Madrid (UC3M) since 2007. Senior member in the Research Institute UC3M-Santander of Financial Big Data. B.S. degree in Mathematics (1995) from Universidad Autónoma de Madrid and Ph.D. in Mathematics (2000) from UC3M. Young Investigator Award for Research Excellence (UC3M) in 2010, 2013 and 2017. Research interests in data science and optimization with applications in energy and finance.
+
+![](/img/sessions/2019-03-05-1.jpg)
+![](/img/sessions/2019-03-05-2.jpg)
