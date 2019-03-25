@@ -33,7 +33,7 @@ url_code = ""
 ### Requirements
 
 - The `tidyverse` and `blogdown` packages for R, better to have also installed the [RStudio](https://www.rstudio.com/) IDE.
-- A free account on [GitHub](https://github.com/).
+- A free account on [GitHub](https://github.com/) and [`git`](https://git-scm.com/downloads) installed.
 - The [Jekyll](https://jekyllrb.com/docs/installation/) static website generator.
 
 ### About the speaker
