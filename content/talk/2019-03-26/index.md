@@ -21,9 +21,9 @@ selected = false
 
 # Links (optional).
 url_pdf = ""
-url_slides = "https://brdauria.github.io/codingclubuc3m_talk"
+url_slides = "https://codingclubuc3m.github.io/20190326_slides/"
 url_video = ""
-url_code = "https://github.com/brdauria/my_blog"
+url_code = "https://github.com/CodingClubUC3M/20190326_code"
 
 [image]
   caption = "[**External link**](http://portal.uc3m.es/portal/page/portal/dpto_estadistica/personal/bernardo_d_auria)"
