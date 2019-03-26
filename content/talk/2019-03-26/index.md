@@ -13,7 +13,7 @@ The choice for GitHub pages allows to build a blog for free and without any need
 
 event = "Tutorial"
 event_url = ""
-event_form = "https://goo.gl/forms/cQyQ8kecIvAkAzjI2"
+event_form = ""
 
 location = "**Room 15.1.41**. Campus de Getafe, Calle Madrid, 126, 28903 Getafe, Madrid, Spain."
 
@@ -39,3 +39,5 @@ url_code = "https://github.com/CodingClubUC3M/20190326_code"
 ### About the speaker
 
 Ph.D. degree in Information Engineering from Salerno University (Italy), Bernardo D. has been Ramón-y-Cajal researcher and then Associate professor at the Universidad Carlos III de Madrid since 2009. His research interests are in stochastic processes with applications to Queueing Theory and control problems in Finance and Insurance. In his spare time he likes to entertain himself with computer programming.
+
+![](/img/sessions/2019-03-26.jpg)
