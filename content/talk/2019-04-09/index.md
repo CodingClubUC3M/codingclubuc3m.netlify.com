@@ -19,9 +19,9 @@ selected = false
 
 # Links (optional).
 url_pdf = ""
-url_slides = ""
+url_slides = "https://codingclubuc3m.github.io/20190409_slides"
 url_video = ""
-url_code = ""
+url_code = "https://github.com/CodingClubUC3M/20190409_slides/tree/master/Examples"
 +++
 
 ### Requirements
