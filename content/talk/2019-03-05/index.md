@@ -23,9 +23,9 @@ selected = false
 
 # Links (optional).
 url_pdf = ""
-url_slides = "/slides/2019-03-05"
+url_slides = "https://codingclubuc3m.github.io/20190305_slides"
 url_video = ""
-url_code = "ggplot2.R"
+url_code = "https://github.com/CodingClubUC3M/20190305_slides/blob/master/code.R"
 
 [image]
   caption = "[**External link**](https://sites.google.com/site/jnogalesweb/)"
