@@ -11,7 +11,7 @@ abstract = """In this session, we are going to employ the [`flexdashboard`](http
 
 event = "Tutorial"
 event_url = ""
-event_form = "https://forms.gle/uKbBKTz8S3qGqvqMA"
+event_form = ""
 
 location = "**Room 15.1.41**. Campus de Getafe, Calle Madrid, 126, 28903 Getafe, Madrid, Spain."
 
@@ -31,3 +31,6 @@ We will work with R 3.5.3 and require `install.packages(c("Rmarkdown", "Flexdash
 ### About the speaker
 
 Miguel obtained his 5-year degree in Statistical Sciences and Techniques by the University of Valencia (2002). Nowadays, he is linked to the Carlos III University of Madrid as a part-time professor. In 2007, in a congress of the SEIO, he joined the GENAEIO, a Working Group on teaching and learning Statistics and Operations Research. Since then, he has been working with R, some authoring tools (Jclic, Geogebra, eXeLearning), educational platforms (MOODLE) and software for surveys (LimeSurvey). Enthusiast of the GNU philosophy and online resources, lately, he has been adding some gamification in work (using Kahoot).
+
+![](/img/sessions/2019-04-09-1.jpg)
+![](/img/sessions/2019-04-09-2.jpg)
