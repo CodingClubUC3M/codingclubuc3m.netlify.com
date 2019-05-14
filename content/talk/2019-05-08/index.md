@@ -1,5 +1,5 @@
 +++
-title = "An Introduction to JupyterLab"
+title = "An introduction to JupyterLab"
 date = 2019-04-30
 
 time_start = 2019-05-08T13:00:00
