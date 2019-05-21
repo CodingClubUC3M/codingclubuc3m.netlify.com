@@ -10,7 +10,7 @@ authors = ["Iñaki Úcar"]
 abstract = """The R language is peculiar in many ways, and its approach to object-oriented (OO) programming is just one of them. Indeed, base R supports not one, but three different OO systems: S3, S4 and RC classes. And yet, probably none of them would qualify as a fully-fledged OO system before the astonished gaze of an expert in languages such as Python, C++ or Java. In this tutorial, we will review the S3 system, the simplest yet most elegant of them. The use case of the [quantities framework](https://github.com/r-quantities) (CRAN packages `units`, `errors` and `quantities`) will serve as the basis to study the main concepts behind S3 programming in R: classes, generics, methods and inheritance."""
 
 event = "Tutorial"
-event_url = ""
+event_url = "/post/2019-05-28"
 event_form = "https://forms.gle/Pv6a8mLvTgGLkAQ9A"
 
 location = "**Room 7.3.J06**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
