@@ -11,7 +11,7 @@ tags: ["R", "S3", "object-oriented programming"]
 <p>The R language is peculiar in many ways, and its approach to object-oriented (OO) programming is just one of them. Indeed, base R supports not one, but three different OO systems: S3, S4 and RC classes. And yet, probably none of them would qualify as a fully-fledged OO system before the astonished gaze of an expert in languages such as Python, C++ or Java. In this tutorial, we will review the S3 system, the simplest yet most elegant of them. The use case of the <a href="https://github.com/r-quantities">quantities framework</a> (CRAN packages <code>units</code>, <code>errors</code> and <code>quantities</code>) will serve as the basis to study the main concepts behind S3 programming in R: classes, generics, methods and inheritance.</p>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>You probably heard of John Chambers’ slogans about R, i.e., <em>everything that exists is an object</em> and <em>everything that happens is a function call</em> (and a function is an object too). In most languages, <em>object</em> is an OO concept referring to an instance of a certain class that encapsulates its whole lifetime: construction, associated data, behaviour and destruction. In R, instead, roughly speaking, an object is just a base type with possibly some attributes. In other words, everything is about the data in R, while construction, behaviour and destruction are defined elsewhere.</p>
+<p>You probably heard of John Chambers’ slogans about R, i.e., <em>everything that exists is an object</em> and <em>everything that happens is a function call</em> (and a function is an object too). In most languages, <em>object</em> is an OO concept referring to an instance of a certain class that encapsulates its whole lifetime: construction, associated data, behavior and destruction. In R, instead, roughly speaking, an object is just a base type with possibly some attributes. In other words, everything is about the data in R, while construction, behavior and destruction are defined elsewhere.</p>
 <p>Let us start with the common example: what are <em>factors</em> in R? What makes them so special?</p>
 <pre class="r"><code>x &lt;- factor(c(&quot;apple&quot;, &quot;orange&quot;, &quot;orange&quot;, &quot;pear&quot;))
 typeof(x)</code></pre>
@@ -26,7 +26,7 @@ typeof(x)</code></pre>
 <pre><code>## [1] 1 2 2 3
 ## attr(,&quot;levels&quot;)
 ## [1] &quot;apple&quot;  &quot;orange&quot; &quot;pear&quot;</code></pre>
-<p>As you can see, factors are just integer vectors with some metadata stored as an attribute named <code>levels</code>. Note also that there is also a special attribute called <code>class</code> which is central to defining how these objects behave. Where and how to do it is what S3 programming is about. This decoupling makes S3 less formal and more error-prone, but on the other hand, it is much more flexible, because it allows you e.g. to extend classes in other packages without requiring them to modify a single bit.</p>
+<p>As you can see, factors are just integer vectors with some metadata stored as an attribute named <code>levels</code>. Note also that there is a special attribute called <code>class</code> which is central in defining how these objects behave. Where and how to do it is what S3 programming is about. This decoupling makes S3 less formal and more error-prone, but on the other hand, it is much more flexible, because it allows you e.g. to extend classes in other packages without requiring them to modify a single bit.</p>
 <p>Arguably, there are two main use cases for an S3-style design:</p>
 <ol style="list-style-type: decimal">
 <li>Certain procedure generates a list of heterogeneous things that needs to be subsequently manipulated as a whole. For example, the output from a linear regression:</li>
@@ -81,8 +81,8 @@ x</code></pre>
 ## attr(,&quot;class&quot;)
 ## [1] &quot;errors&quot;</code></pre>
 </div>
-<div id="modifying-the-behaviour-generics-methods-and-groups" class="section level2">
-<h2>Modifying the behaviour: generics, methods and groups</h2>
+<div id="modifying-the-behavior-generics-methods-and-groups" class="section level2">
+<h2>Modifying the behavior: generics, methods and groups</h2>
 <p>One of the first things we would probably want to do with our new object is to print it properly, because our users are not interested in the implementation details that we are able to see above (i.e., the actual attributes). Therefore, we need to provide a <code>print</code> method.</p>
 <p>There are great sources to teach you all the technical details about S3 (there are some links at the end of this article). We will limit ourselves here to briefly introduce the basic building blocks of S3 programming: generics and methods. Many (most?) of the functions you daily use are <em>generics</em> (or <em>internal generics</em>, which are internally implemented functions that <em>mostly</em> behave like generics; see <code>help(InternalMethods)</code>).</p>
 <pre class="r"><code>isS3stdGeneric(print)</code></pre>
@@ -100,7 +100,7 @@ x</code></pre>
 ## [21] &quot;is.numeric&quot;     &quot;length&quot;         &quot;length&lt;-&quot;       &quot;levels&lt;-&quot;      
 ## [25] &quot;names&quot;          &quot;names&lt;-&quot;        &quot;rep&quot;            &quot;seq.int&quot;       
 ## [29] &quot;xtfrm&quot;</code></pre>
-<p>This basically mean that you can write <em>methods</em> for those generics to implement how they behave when they are applied to a particular object class. And this is as easy as writing a function named <code>&lt;generic&gt;.&lt;class&gt;</code>. The signature of this function must accommodate, at least, the same arguments as the generic. In other words, a method can be <em>more specific</em> than the generic, but cannot lose generality. Some examples:</p>
+<p>This basically means that you can write <em>methods</em> for those generics to implement how they behave when they are applied to a particular object class. And this is as easy as writing a function named <code>&lt;generic&gt;.&lt;class&gt;</code>. The signature of this function must accommodate, at least, the same arguments as the generic. In other words, a method can be <em>more specific</em> than the generic, but cannot lose generality. Some examples:</p>
 <ul>
 <li>For generic <code>foo(x)</code>, method must be <code>foo.bar(x)</code>.</li>
 <li>For generic <code>foo(x, y, z)</code>, method can be <code>foo.bar(x, y, z)</code>, or, if you are just interested in the first argument, for example, you may use dots <code>foo.bar(x, ...)</code> to summarize the rest of them.</li>
@@ -163,43 +163,33 @@ c.errors &lt;- function(..., recursive = FALSE)
 </ul>
 <p>The existence of these groups means that we can simply write a single method for a whole category to provide for all the functions included. And this is what the <code>errors</code> package does by implementing <code>Math.errors</code>, <code>Ops.errors</code> and <code>Summary.errors</code>. We can take a glimpse into one of these methods:</p>
 <pre class="r"><code>errors:::Ops.errors</code></pre>
-<pre><code>## function(e1, e2) {
-##   if (.Generic %in% c(&quot;&amp;&quot;, &quot;|&quot;, &quot;!&quot;, &quot;==&quot;, &quot;!=&quot;, &quot;&lt;&quot;, &quot;&gt;&quot;, &quot;&lt;=&quot;, &quot;&gt;=&quot;)) {
-##     warn_once(
-##       &quot;boolean operators not defined for &#39;errors&#39; objects, uncertainty dropped&quot;,
-##       fun = .Generic,
-##       type = &quot;bool&quot;
-##     )
-##     return(NextMethod())
-##   }
-## 
-##   if (!missing(e2)) {
-##     coercion &lt;- cond2int(!inherits(e1, &quot;errors&quot;), !inherits(e2, &quot;errors&quot;))
-##     if (coercion) {
-##       warn_once(
-##         &quot;non-&#39;errors&#39; operand automatically coerced to an &#39;errors&#39; object with no uncertainty&quot;,
-##         fun = &quot;Ops&quot;,
-##         type = &quot;coercion&quot;
-##       )
-##       switch(coercion, e1&lt;-set_errors(e1), e2&lt;-set_errors(e2))
+<pre><code>## function (e1, e2) 
+## {
+##     if (.Generic %in% c(&quot;&amp;&quot;, &quot;|&quot;, &quot;!&quot;, &quot;==&quot;, &quot;!=&quot;, &quot;&lt;&quot;, &quot;&gt;&quot;, 
+##         &quot;&lt;=&quot;, &quot;&gt;=&quot;)) {
+##         warn_once(&quot;boolean operators not defined for &#39;errors&#39; objects, uncertainty dropped&quot;, 
+##             fun = .Generic, type = &quot;bool&quot;)
+##         return(NextMethod())
 ##     }
-##   }
-## 
-##   deriv &lt;- switch(
-##     .Generic,
-##     &quot;+&quot; = , &quot;-&quot; =
-##       if (missing(e2)) {
+##     if (!missing(e2)) {
+##         coercion &lt;- cond2int(!inherits(e1, &quot;errors&quot;), !inherits(e2, 
+##             &quot;errors&quot;))
+##         if (coercion) {
+##             warn_once(&quot;non-&#39;errors&#39; operand automatically coerced to an &#39;errors&#39; object with no uncertainty&quot;, 
+##                 fun = &quot;Ops&quot;, type = &quot;coercion&quot;)
+##             switch(coercion, e1 &lt;- set_errors(e1), e2 &lt;- set_errors(e2))
+##         }
+##     }
+##     deriv &lt;- switch(.Generic, `+` = , `-` = if (missing(e2)) {
 ##         e2 &lt;- NA
 ##         list(do.call(.Generic, list(1)), NA)
-##       }
-##       else list(1, do.call(.Generic, list(1))),
-##     &quot;*&quot; = list(.v(e2), .v(e1)),
-##     &quot;/&quot; = , &quot;%%&quot; = , &quot;%/%&quot; = list(1 / .v(e2), -.v(e1) / .v(e2)^2),
-##     &quot;^&quot; = list(.v(e1)^(.v(e2)-1) * .v(e2), .v(e1)^.v(e2) * log(abs(.v(e1))))
-##   )
-##   propagate(unclass(NextMethod()), e1, e2, deriv[[1]], deriv[[2]])
+##     } else list(1, do.call(.Generic, list(1))), `*` = list(.v(e2), 
+##         .v(e1)), `/` = , `%%` = , `%/%` = list(1/.v(e2), -.v(e1)/.v(e2)^2), 
+##         `^` = list(.v(e1)^(.v(e2) - 1) * .v(e2), .v(e1)^.v(e2) * 
+##             log(abs(.v(e1)))))
+##     propagate(unclass(NextMethod()), e1, e2, deriv[[1]], deriv[[2]])
 ## }
-## &lt;bytecode: 0x5596dfcc9f88&gt;
+## &lt;bytecode: 0x56420b6a8a08&gt;
 ## &lt;environment: namespace:errors&gt;</code></pre>
 <p>All the arithmetic operators, as well as logical and boolean operators, share a lot of properties. But still, it is clear that we need some mechanism to be able to do different things depending on which one was called. To solve this, the S3 dispatching mechanism sets for us special variables:</p>
 <ul>
@@ -210,9 +200,10 @@ c.errors &lt;- function(..., recursive = FALSE)
 <p>This way, checking <code>.Generic</code> allows us to issue a warning if a non-supported method is called, and then delegate to <code>NextMethod</code>.</p>
 <p>Note also that the <code>Ops</code> group is pretty special for two reasons: first, there are unary operators (e.g., <code>-1</code>), so sometimes the second argument is missing, and we need to take that into account; secondly, these operators are commutative, and therefore S3 supports <em>double dispatch</em> in this case.</p>
 <p>Finally, <code>Ops.errors</code> addresses all the arithmetic operators in a unified way: it computes two derivatives depending on <code>.Generic</code> and then propagates the uncertainty using an auxiliary function that implements the Taylor Series Method.</p>
-<p>Let’s clear the workspace and load the <code>errors</code> package to check the complete functionality.</p>
+<p>What we have seen here is just a taste of the actual implementation of the <code>errors</code> package. Now, let’s clear the workspace and load it to check the complete functionality.</p>
 <pre class="r"><code>rm(list=ls())
 library(errors)
+set.seed(42)
 
 x &lt;- 1:5 + rnorm(5, sd = 0.01)
 y &lt;- 1:5 + rnorm(5, sd = 0.02)
@@ -220,40 +211,40 @@ errors(x) &lt;- 0.01
 errors(y) &lt;- 0.02
 x; y</code></pre>
 <pre><code>## Errors: 0.01 0.01 0.01 0.01 0.01
-## [1] 1.006507 1.994955 2.998801 4.003570 5.007258</code></pre>
+## [1] 1.013710 1.994353 3.003631 4.006329 5.004043</code></pre>
 <pre><code>## Errors: 0.02 0.02 0.02 0.02 0.02
-## [1] 1.002982 1.994773 2.990196 3.973667 4.993225</code></pre>
+## [1] 0.9978775 2.0302304 2.9981068 4.0403685 4.9987457</code></pre>
 <pre class="r"><code>(z &lt;- x / y)</code></pre>
-<pre><code>## Errors: 0.022356900 0.011210450 0.007495216 0.005661118 0.004488276
-## [1] 1.003514 1.000091 1.002877 1.007525 1.002810</code></pre>
+<pre><code>## Errors: 0.022693105 0.010858436 0.007469263 0.005497048 0.004477051
+## [1] 1.0158657 0.9823284 1.0018427 0.9915751 1.0010597</code></pre>
 <pre class="r"><code>correl(x, x) # one, cannot be changed</code></pre>
 <pre><code>## [1] 1 1 1 1 1</code></pre>
 <pre class="r"><code>correl(x, y) # NULL, not defined yet</code></pre>
 <pre><code>## NULL</code></pre>
 <pre class="r"><code>correl(x, y) &lt;- runif(length(x), -1, 1)
 correl(x, y)</code></pre>
-<pre><code>## [1]  0.0111945807 -0.2143488140 -0.0003037821 -0.0693411073  0.5760480314</code></pre>
+<pre><code>## [1]  0.8080628 -0.7225797  0.9777835  0.8933365 -0.8351249</code></pre>
 <pre class="r"><code>covar(x, y)</code></pre>
-<pre><code>## [1]  2.238916e-06 -4.286976e-05 -6.075641e-08 -1.386822e-05  1.152096e-04</code></pre>
+<pre><code>## [1]  0.0001616126 -0.0001445159  0.0001955567  0.0001786673 -0.0001670250</code></pre>
 <pre class="r"><code>(z_correl &lt;- x / y)</code></pre>
-<pre><code>## Errors: 0.022256777 0.012133570 0.007496125 0.005815329 0.003298006
-## [1] 1.003514 1.000091 1.002877 1.007525 1.002810</code></pre>
+<pre><code>## Errors: 0.013609754 0.013667062 0.003492530 0.002917634 0.005781596
+## [1] 1.0158657 0.9823284 1.0018427 0.9915751 1.0010597</code></pre>
 <pre class="r"><code>(df &lt;- data.frame(x, 3*x, x^2, sin(x), cumsum(x)))</code></pre>
 <pre><code>## Warning: In &#39;Ops&#39; : non-&#39;errors&#39; operand automatically coerced to an
 ## &#39;errors&#39; object with no uncertainty</code></pre>
 <pre><code>##         x   X3...x      x.2    sin.x. cumsum.x.
-## 1 1.01(1)  3.02(3)  1.01(2)  0.845(5)   1.01(1)
-## 2 1.99(1)  5.98(3)  3.98(4)  0.911(4)   3.00(1)
-## 3 3.00(1)  9.00(3)  8.99(6)   0.14(1)   6.00(2)
-## 4 4.00(1) 12.01(3) 16.03(8) -0.759(7)  10.00(2)
-## 5 5.01(1) 15.02(3)  25.1(1) -0.957(3)  15.01(2)</code></pre>
+## 1 1.01(1)  3.04(3)  1.03(2)  0.849(5)   1.01(1)
+## 2 1.99(1)  5.98(3)  3.98(4)  0.912(4)   3.01(1)
+## 3 3.00(1)  9.01(3)  9.02(6)   0.14(1)   6.01(2)
+## 4 4.01(1) 12.02(3) 16.05(8) -0.761(6)  10.02(2)
+## 5 5.00(1) 15.01(3)  25.0(1) -0.958(3)  15.02(2)</code></pre>
 <pre class="r"><code>format(df, notation=&quot;plus-minus&quot;)</code></pre>
 <pre><code>##             x       X3...x          x.2         sin.x.    cumsum.x.
-## 1 1.01 ± 0.01  3.02 ± 0.03  1.01 ± 0.02  0.845 ± 0.005  1.01 ± 0.01
-## 2 1.99 ± 0.01  5.98 ± 0.03  3.98 ± 0.04  0.911 ± 0.004  3.00 ± 0.01
-## 3 3.00 ± 0.01  9.00 ± 0.03  8.99 ± 0.06    0.14 ± 0.01  6.00 ± 0.02
-## 4 4.00 ± 0.01 12.01 ± 0.03 16.03 ± 0.08 -0.759 ± 0.007 10.00 ± 0.02
-## 5 5.01 ± 0.01 15.02 ± 0.03   25.1 ± 0.1 -0.957 ± 0.003 15.01 ± 0.02</code></pre>
+## 1 1.01 ± 0.01  3.04 ± 0.03  1.03 ± 0.02  0.849 ± 0.005  1.01 ± 0.01
+## 2 1.99 ± 0.01  5.98 ± 0.03  3.98 ± 0.04  0.912 ± 0.004  3.01 ± 0.01
+## 3 3.00 ± 0.01  9.01 ± 0.03  9.02 ± 0.06    0.14 ± 0.01  6.01 ± 0.02
+## 4 4.01 ± 0.01 12.02 ± 0.03 16.05 ± 0.08 -0.761 ± 0.006 10.02 ± 0.02
+## 5 5.00 ± 0.01 15.01 ± 0.03   25.0 ± 0.1 -0.958 ± 0.003 15.02 ± 0.02</code></pre>
 <p>And much more. This is the complete list of methods implemented in the package:</p>
 <pre class="r"><code>methods(class=&quot;errors&quot;)</code></pre>
 <pre><code>##  [1] [             [[            [[&lt;-          [&lt;-           all.equal    
@@ -303,7 +294,7 @@ area.rectangle      &lt;- function(shape)  with(shape, a * b)
 </div>
 <div id="combining-functionality-inheritance" class="section level2">
 <h2>Combining functionality: inheritance</h2>
-<p>Inheritance is also possible with S3 programming. Instead of assigning a single class, there may be multiple classes defined as a character vector. When this happens, R dispatches the first class, and subsequent calls to <code>NextMethod</code> looks for other methods in the class vector. This means that, if we want our object to resemble parent-child relationships, parent classes must go first in the class vector.</p>
+<p>Inheritance is also possible with S3 programming. Instead of assigning a single class, there may be multiple classes defined as a character vector. When this happens, R dispatches the first class, and subsequent calls to <code>NextMethod</code> look for other methods in the class vector. This means that, if we want our object to resemble parent-child relationships, parent classes must go first in the class vector.</p>
 <pre class="r"><code># constructor
 shape &lt;- function(name, ..., color) {
   shape &lt;- do.call(name, list(...))

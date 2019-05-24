@@ -14,7 +14,7 @@ The R language is peculiar in many ways, and its approach to object-oriented (OO
 
 ## Introduction
 
-You probably heard of John Chambers' slogans about R, i.e., *everything that exists is an object* and *everything that happens is a function call* (and a function is an object too). In most languages, *object* is an OO concept referring to an instance of a certain class that encapsulates its whole lifetime: construction, associated data, behaviour and destruction. In R, instead, roughly speaking, an object is just a base type with possibly some attributes. In other words, everything is about the data in R, while construction, behaviour and destruction are defined elsewhere.
+You probably heard of John Chambers' slogans about R, i.e., *everything that exists is an object* and *everything that happens is a function call* (and a function is an object too). In most languages, *object* is an OO concept referring to an instance of a certain class that encapsulates its whole lifetime: construction, associated data, behavior and destruction. In R, instead, roughly speaking, an object is just a base type with possibly some attributes. In other words, everything is about the data in R, while construction, behavior and destruction are defined elsewhere.
 
 Let us start with the common example: what are *factors* in R? What makes them so special?
 
@@ -25,7 +25,7 @@ attributes(x)
 unclass(x)
 ```
 
-As you can see, factors are just integer vectors with some metadata stored as an attribute named `levels`. Note also that there is also a special attribute called `class` which is central to defining how these objects behave. Where and how to do it is what S3 programming is about. This decoupling makes S3 less formal and more error-prone, but on the other hand, it is much more flexible, because it allows you e.g. to extend classes in other packages without requiring them to modify a single bit.
+As you can see, factors are just integer vectors with some metadata stored as an attribute named `levels`. Note also that there is a special attribute called `class` which is central in defining how these objects behave. Where and how to do it is what S3 programming is about. This decoupling makes S3 less formal and more error-prone, but on the other hand, it is much more flexible, because it allows you e.g. to extend classes in other packages without requiring them to modify a single bit.
 
 Arguably, there are two main use cases for an S3-style design:
 
@@ -83,7 +83,7 @@ But still, nothing interesting happens with them.
 x + x
 ```
 
-## Modifying the behaviour: generics, methods and groups
+## Modifying the behavior: generics, methods and groups
 
 One of the first things we would probably want to do with our new object is to print it properly, because our users are not interested in the implementation details that we are able to see above (i.e., the actual attributes). Therefore, we need to provide a `print` method.
 
@@ -95,7 +95,7 @@ isS3stdGeneric(mean)
 .S3PrimitiveGenerics
 ```
 
-This basically mean that you can write *methods* for those generics to implement how they behave when they are applied to a particular object class. And this is as easy as writing a function named `<generic>.<class>`. The signature of this function must accommodate, at least, the same arguments as the generic. In other words, a method can be *more specific* than the generic, but cannot lose generality. Some examples:
+This basically means that you can write *methods* for those generics to implement how they behave when they are applied to a particular object class. And this is as easy as writing a function named `<generic>.<class>`. The signature of this function must accommodate, at least, the same arguments as the generic. In other words, a method can be *more specific* than the generic, but cannot lose generality. Some examples:
 
 - For generic `foo(x)`, method must be `foo.bar(x)`.
 - For generic `foo(x, y, z)`, method can be `foo.bar(x, y, z)`, or, if you are just interested in the first argument, for example, you may use dots `foo.bar(x, ...)` to summarize the rest of them.
@@ -165,7 +165,7 @@ Fortunately, R defines what is called *S3 group generics* (see `help(groupGeneri
 
 The existence of these groups means that we can simply write a single method for a whole category to provide for all the functions included. And this is what the `errors` package does by implementing `Math.errors`, `Ops.errors` and `Summary.errors`. We can take a glimpse into one of these methods:
 
-```{r}
+```{r, tidy=FALSE}
 errors:::Ops.errors
 ```
 
@@ -181,11 +181,12 @@ Note also that the `Ops` group is pretty special for two reasons: first, there a
 
 Finally, `Ops.errors` addresses all the arithmetic operators in a unified way: it computes two derivatives depending on `.Generic` and then propagates the uncertainty using an auxiliary function that implements the Taylor Series Method.
 
-Let's clear the workspace and load the `errors` package to check the complete functionality.
+What we have seen here is just a taste of the actual implementation of the `errors` package. Now, let's clear the workspace and load it to check the complete functionality.
 
 ```{r}
 rm(list=ls())
 library(errors)
+set.seed(42)
 
 x <- 1:5 + rnorm(5, sd = 0.01)
 y <- 1:5 + rnorm(5, sd = 0.02)
@@ -244,7 +245,7 @@ As you can see, implementing a new generic is as easy as defining a function tha
 
 ## Combining functionality: inheritance
 
-Inheritance is also possible with S3 programming. Instead of assigning a single class, there may be multiple classes defined as a character vector. When this happens, R dispatches the first class, and subsequent calls to `NextMethod` looks for other methods in the class vector. This means that, if we want our object to resemble parent-child relationships, parent classes must go first in the class vector.
+Inheritance is also possible with S3 programming. Instead of assigning a single class, there may be multiple classes defined as a character vector. When this happens, R dispatches the first class, and subsequent calls to `NextMethod` look for other methods in the class vector. This means that, if we want our object to resemble parent-child relationships, parent classes must go first in the class vector.
 
 ```{r}
 # constructor
