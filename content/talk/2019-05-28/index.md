@@ -11,7 +11,7 @@ abstract = """The R language is peculiar in many ways, and its approach to objec
 
 event = "Tutorial"
 event_url = "/post/2019-05-28"
-event_form = "https://forms.gle/Pv6a8mLvTgGLkAQ9A"
+event_form = ""
 
 location = "**Room 7.3.J06**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
   
@@ -51,3 +51,6 @@ simulation, data wrangling and visualisation, network analysis and Markov
 processes. His current research interests are data science and complex systems,
 and their applications to social networks, financial markets, cities, mobility
 and economy.
+
+![](/img/sessions/2019-05-28-1.jpg)
+![](/img/sessions/2019-05-28-2.jpg)
