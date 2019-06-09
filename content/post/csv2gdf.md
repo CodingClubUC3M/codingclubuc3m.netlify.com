@@ -22,7 +22,8 @@ As Gephi said:
 
 This is a basic example of a GDF file, in a first part it defines the nodes and in a second the connections
 
-```nodedef>name VARCHAR,label VARCHAR
+```
+nodedef>name VARCHAR,label VARCHAR
 s1,Site number 1
 s2,Site number 2
 s3,Site number 3
@@ -44,7 +45,8 @@ The steps to extract relationships from a CSV file and generate a file in GDF fo
 ## Define the parameters for the extraction of related data
 A set of parameters are defined so this converter can be adapted to different cases. We must specify what information will be taken from the file in CSV format, where we will leave the result and the graph type
 
-```source=3
+```
+source=3
 target=9
 source_attribs= c(5,6,11,12,13)
 null_attrib=c(NA,NA,NA,NA,NA)
@@ -58,7 +60,8 @@ directed <-TRUE
 In order to store the data, dynamic structures are needed to allow data to be added as they appear. The hash tables were chosen because they are the most appropriate for this case.
 Hash tables will be used to store nodes and connections
 
-```hash_nodes <- hash()
+```
+hash_nodes <- hash()
 hash_links <- hash()
 hash_links_in <- hash()
 hash_links_out <- hash()
@@ -73,7 +76,8 @@ Related entities can appear multiple times, as a source or as a target. When an 
 For each entity, the number of total links (hash_links), the number of inbound links (hash_links_in) and the number of outbound links (hash_links) are counted. This is done to allow ordering the nodes from greater to lesser degree when generating the file in GDF format.
 For each origin-target entity pair, the number of times that relation appears (hash_connections) and the attributes (hash_connections_attrib) are stored. In the first case, we get the weight of the relationship and the second we get the associated attributes
 
-```table_csv <-read_csv2(name_file_csv)
+```
+table_csv <-read_csv2(name_file_csv)
 num_rows=nrow(table_csv)
 num_cols=ncol(table_csv)
 for (i in 1:num_rows)
@@ -130,7 +134,8 @@ for (i in 1:num_rows)
 
 The hash table object does not have the sort method, but has one to convert a hash table into a list. Once we have converted the hash list_links and list_connections into a list, we sort them down by number of connections.
 
-```list_links=as.list.hash(hash_links )
+```
+list_links=as.list.hash(hash_links )
 list_link_order = list_links[order(unlist(list_links), decreasing=TRUE)]
 list_connections=as.list.hash(hash_connections )
 list_connections_order = list_connections[order(unlist(list_connections), decreasing=TRUE)]
@@ -144,7 +149,8 @@ The information of the nodes is stored in a matrix sized in rows by the number o
 For the definition of links only the source and target nodes are required, but we can also expand with attributes. In this case we add the weight of the relation, a boolean variable to indicate if the graph is directed or not (by default it is not directed) and the attributes configured in the parameters.
 The information of the links is stored in a matrix dimensioned in rows by the number of pairs of connections and in columns by the number of attributes configured plus four
 
-```num_nodes=length(list_links)
+```
+num_nodes=length(list_links)
 table_nodes = matrix(nrow=num_nodes,ncol=num_attribs+4)
 num_nodes_connected <-0
 for(i in 1:num_nodes) 
@@ -187,7 +193,8 @@ for(i in 1:num_connections)
 ## Generate the file in GDF format
 The last step is to write the file in GDF format. We will only have to add the headers before writing the information of the nodes and links.
 
-```head_nodes<-"nodedef>name VARCHAR,links VARCHAR,Links_in VARCHAR,links_out VARCHAR"
+```
+head_nodes<-"nodedef>name VARCHAR,links VARCHAR,Links_in VARCHAR,links_out VARCHAR"
 for (j in 1:num_attribs)
 { 
   attrib_type<-paste(name_attribs[[j]],"VARCHAR",sep = " ")
