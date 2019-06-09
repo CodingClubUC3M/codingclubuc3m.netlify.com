@@ -14,6 +14,7 @@ In this session we will see how we can extract the relationships between element
 ## Introduction
 One of the most used network analysis tools is Gephi. It is a desktop application that allows us to analyse a network in depth and visualize it. It provides a set of functions to filter nodes or edges, calculate network parameters, apply different layouts, give size and colour to nodes depending on different attributes.
 Gephi supports a set of formats with which it is possible to perform more or less functions. The format with more features is GEXF but it has an XML structure that generates large files. When we work with very large graphs, size matters. The GDF Format is simple, compact and versatile. It allows us to work with attributes that are a complement that can be combined with the analysis of the topology of the network
+
 ![Input format supports by Gephi](https://github.com/congosto/codingclubuc3m.netlify.com/blob/master/static/img/Gephi_input_formats.png "Input format supports by Gephi")
 
 As Gephi said:
@@ -218,4 +219,5 @@ write.table(table_connections, file = name_file_gdf, append = TRUE, quote = FALS
 
 ## Example
 RTs map of the tweets related to Rstudio from 2019-05-27 to 2019-06-06
+
 ![RTs map of the tweets related to Rstudio](https://github.com/congosto/codingclubuc3m.netlify.com/blob/master/static/img/Rstudio_RT.jpg/ "Input format supports by Gephi")
