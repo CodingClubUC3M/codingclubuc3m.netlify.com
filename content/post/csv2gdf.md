@@ -1,3 +1,4 @@
+
 ---
 title: "Getting from flat data a world of relationships to visualize with Gephi"
 authors: ["Mariluz Congosto"]
@@ -20,8 +21,8 @@ As Gephi said:
 >“GDF is built like a database table or a coma separated file (CSV). It supports attributes to both nodes and edges. A standard file is divided in two sections, one for nodes and one for edges. Each section has a header line, which basically is the column title. Each element (i.e. node or edge) is on a line and values are separated by coma. The GDF format is therefore very easy to read and can be easily converted from CSV.”
 
 This is a basic example of a GDF file, in a first part it defines the nodes and in a second the connections
----
-nodedef>name VARCHAR,label VARCHAR
+
+```nodedef>name VARCHAR,label VARCHAR
 s1,Site number 1
 s2,Site number 2
 s3,Site number 3
@@ -30,7 +31,7 @@ s1,s2
 s2,s3
 s3,s2
 s3,s1
----
+```
 
 The steps to extract relationships from a CSV file and generate a file in GDF format are:
 1. Define the parameters for the extraction of related data
@@ -43,8 +44,7 @@ The steps to extract relationships from a CSV file and generate a file in GDF fo
 ## Define the parameters for the extraction of related data
 A set of parameters are defined so this converter can be adapted to different cases. We must specify what information will be taken from the file in CSV format, where we will leave the result and the graph type
 
----r
-source=3
+```source=3
 target=9
 source_attribs= c(5,6,11,12,13)
 null_attrib=c(NA,NA,NA,NA,NA)
@@ -52,29 +52,28 @@ name_attribs=c("app","location","hastag","lang","create at")
 name_file_csv<-"rstudio.csv"
 name_file_gdf<-"rstudio_RTs.gdf"
 directed <-TRUE
----
+```
 
 ## Define the data structures for the transformation
 In order to store the data, dynamic structures are needed to allow data to be added as they appear. The hash tables were chosen because they are the most appropriate for this case.
 Hash tables will be used to store nodes and connections
 
----r
-hash_nodes <- hash()
+```hash_nodes <- hash()
 hash_links <- hash()
 hash_links_in <- hash()
 hash_links_out <- hash()
 hash_connections <- hash()
 hash_connections_attrib<- hash()
 num_attribs<-length(source_attribs)
----
+```
+
 ## Import the data from a file in CSV format and store the data in the structures
 Import data reading the CSV file and run it row by row to store the nodes and connections in the hash tables.
 Related entities can appear multiple times, as a source or as a target. When an entity appears for the first time, it is stored in the hash_nodes table. Attributes are associated to source entities and null attributes to target entities. It is a criterion that assumes this algorithm, but there could be others. If an entity appears first as a target as source, the null attributes are replaced by theirs as source.
 For each entity, the number of total links (hash_links), the number of inbound links (hash_links_in) and the number of outbound links (hash_links) are counted. This is done to allow ordering the nodes from greater to lesser degree when generating the file in GDF format.
 For each origin-target entity pair, the number of times that relation appears (hash_connections) and the attributes (hash_connections_attrib) are stored. In the first case, we get the weight of the relationship and the second we get the associated attributes
----r
-table_csv <-read_csv2(name_file_csv)
 
+```table_csv <-read_csv2(name_file_csv)
 num_rows=nrow(table_csv)
 num_cols=ncol(table_csv)
 for (i in 1:num_rows)
@@ -125,23 +124,27 @@ for (i in 1:num_rows)
    hash_links_in[[node_target]] <-hash_links_in[[node_target]]+1
   }
 }
----
+```
+
 ## Sort data according to connections
+
 The hash table object does not have the sort method, but has one to convert a hash table into a list. Once we have converted the hash list_links and list_connections into a list, we sort them down by number of connections.
----r
-list_links=as.list.hash(hash_links )
+
+```list_links=as.list.hash(hash_links )
 list_link_order = list_links[order(unlist(list_links), decreasing=TRUE)]
 list_connections=as.list.hash(hash_connections )
 list_connections_order = list_connections[order(unlist(list_connections), decreasing=TRUE)]
----
+```
+
 ## Prepare the data for the GDF format
+
 In this step we place in GDF format nodes and links in descending order by number of connections
 In the GDF format, the only data required for the definition of nodes is the name of the node, but attributes can be added. In this case, three fixed attributes are included, which are the total number of links, the number of inbound links and the number of outbound links. Since the GDF format is readable, these attributes allow getting an idea of the most relevant nodes even before importing them into Gephi. The attributes configured in the parameters are also added.
 The information of the nodes is stored in a matrix sized in rows by the number of nodes and in columns by the number of tributes configured plus four.
 For the definition of links only the source and target nodes are required, but we can also expand with attributes. In this case we add the weight of the relation, a boolean variable to indicate if the graph is directed or not (by default it is not directed) and the attributes configured in the parameters.
 The information of the links is stored in a matrix dimensioned in rows by the number of pairs of connections and in columns by the number of attributes configured plus four
-num_nodes=length(list_links)
----r
+
+```num_nodes=length(list_links)
 table_nodes = matrix(nrow=num_nodes,ncol=num_attribs+4)
 num_nodes_connected <-0
 for(i in 1:num_nodes) 
@@ -179,11 +182,12 @@ for(i in 1:num_connections)
    table_connections[i,4+j]<-connection_attrib[[j]]
   }
 } 
----
+```
+
 ## Generate the file in GDF format
 The last step is to write the file in GDF format. We will only have to add the headers before writing the information of the nodes and links.
----r
-head_nodes<-"nodedef>name VARCHAR,links VARCHAR,Links_in VARCHAR,links_out VARCHAR"
+
+```head_nodes<-"nodedef>name VARCHAR,links VARCHAR,Links_in VARCHAR,links_out VARCHAR"
 for (j in 1:num_attribs)
 { 
   attrib_type<-paste(name_attribs[[j]],"VARCHAR",sep = " ")
@@ -211,7 +215,8 @@ write.table(table_connections, file = name_file_gdf, append = TRUE, quote = FALS
             eol = "\n", na = "NA", dec = ".", row.names = FALSE,
             col.names = FALSE, qmethod = c("escape", "double"),
             fileEncoding = "UTF-8")
----
+```
+
 ## Example
 RTs map of the tweets related to Rstudio from 2019-05-27 to 2019-06-06
 ![RTs map of the tweets related to Rstudio](https://github.com/congosto/codingclubuc3m.netlify.com/static/img/Rstudio_RT.jpg/ "Input format supports by Gephi")
