@@ -1,4 +1,3 @@
-
 ---
 title: "Getting from flat data a world of relationships to visualize with Gephi"
 authors: ["Mariluz Congosto"]
