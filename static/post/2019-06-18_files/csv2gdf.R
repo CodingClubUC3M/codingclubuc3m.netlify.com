@@ -12,18 +12,18 @@ library("stringr")
 #
 ################################
 
-source=3                         # Column number of the origin of the relationship
-target=9                         # Column number of the destination of the relationship
-source_attribs= c(5,6,11,12,13)  # Column numbers where to get the attributes
-null_attrib=c(NA,NA,NA,NA,NA)    # Default value for entities without attributes
-name_attribs=c("app",
-               "location",
-               "hastag",
-               "lang",
-               "create at")      # Names of the attributes
-name_file_csv<-"rstudio_RTs.csv" # Name of the input file in CSV format
-name_file_gdf<-"rstudio_RTs.gdf" # Name of the output file in GDF format
-directed <-TRUE                  # Indicates whether the graph is directed or not
+source <- 3                        # Column number of the origin of the relationship
+target <- 9                        # Column number of the destination of the relationship
+source_attribs <- c(5,6,11,12,13)  # Column numbers where to get the attributes
+null_attrib <- c(NA,NA,NA,NA,NA)   # Default value for entities without attributes
+name_attribs <- c("app",
+                  "location",
+                  "hastag",
+                  "lang",
+                  "create at")     # Names of the attributes
+name_file_csv <- "rstudio_RTs.csv" # Name of the input file in CSV format
+name_file_gdf <- "rstudio_RTs.gdf" # Name of the output file in GDF format
+directed <- TRUE                   # Indicates whether the graph is directed or not
 
 ###############################
 # Data
@@ -37,8 +37,8 @@ hash_links <- hash()
 hash_links_in <- hash()
 hash_links_out <- hash()
 hash_connections <- hash()
-hash_connections_attrib<- hash()
-num_attribs<-length(source_attribs)
+hash_connections_attrib <- hash()
+num_attribs <- length(source_attribs)
 ###############################
 # read source data
 #
@@ -60,10 +60,10 @@ num_attribs<-length(source_attribs)
 # and the attributes (hash_connections_attrib) are stored. In the first case, we get the weight of
 # the relationship and, in the second, we get the associated attributes.
 ###############################
-table_csv <-read_csv2(name_file_csv)
+table_csv <- read_csv2(name_file_csv)
 
-num_rows=nrow(table_csv)
-num_cols=ncol(table_csv)
+num_rows <- nrow(table_csv)
+num_cols <- ncol(table_csv)
 for (i in 1:num_rows)
 { 
   node_source <- table_csv[[i,source]]
@@ -73,18 +73,18 @@ for (i in 1:num_rows)
   # The attributes are stored and the ',' character is changed by '-'. to avoid confict in the GDF format
   for (j in 1:num_attribs)
   { 
-   k=source_attribs[[j]]
-   raw_attrib<-table_csv[[i,k]]
-   cooked_attrib<-str_replace_all(raw_attrib,",","-") 
-   node_source_attribs[[j]]<-cooked_attrib
+   k <- source_attribs[[j]]
+   raw_attrib <- table_csv[[i,k]]
+   cooked_attrib <- str_replace_all(raw_attrib,",","-") 
+   node_source_attribs[[j]] <- cooked_attrib
   }
   # If a source node appears for the first time, store with attributes 
   if (!(has.key(node_source, hash_nodes)))
   {
    hash_nodes[[node_source]] <- node_source_attribs
-   hash_links[[node_source]] <-0
-   hash_links_in[[node_source]] <-0
-   hash_links_out[[node_source]] <-0
+   hash_links[[node_source]] <- 0
+   hash_links_in[[node_source]] <- 0
+   hash_links_out[[node_source]] <- 0
   }
   # If the source node exists and has null attributes, store its own
   else
@@ -100,9 +100,9 @@ for (i in 1:num_rows)
    if (!(has.key(node_target, hash_nodes)))
    {
     hash_nodes[[node_target]] <- null_attrib
-    hash_links[[node_target]] <-0
-    hash_links_in[[node_target]] <-0
-    hash_links_out[[node_target]] <-0
+    hash_links[[node_target]] <- 0
+    hash_links_in[[node_target]] <- 0
+    hash_links_out[[node_target]] <- 0
    }
     
    #Store connections
@@ -111,15 +111,15 @@ for (i in 1:num_rows)
    if (!(has.key(par_nodes, hash_connections)))
    {
     hash_connections[[par_nodes]] <- 0
-    hash_connections_attrib[[par_nodes]]<-node_source_attribs
+    hash_connections_attrib[[par_nodes]] <- node_source_attribs
    }
    
    # In all cases, increase the number of connections
    hash_connections[[par_nodes]] <- hash_connections[[par_nodes]] +1
    hash_links[[node_source]] <- hash_links[[node_source]]+1
-   hash_links_out[[node_source]] <- hash_links_out[[node_source]]+1
-   hash_links[[node_target]] <-hash_links[[node_target]]+1
-   hash_links_in[[node_target]] <-hash_links_in[[node_target]]+1
+   hash_links_out[[node_source]] <- hash_links_out[[node_source]] +1
+   hash_links[[node_target]] <- hash_links[[node_target]]+1
+   hash_links_in[[node_target]] <- hash_links_in[[node_target]] +1
   }
 }
 
@@ -131,10 +131,10 @@ for (i in 1:num_rows)
 # Once we have converted the hash_links and hash_connections into a list, we sort them down
 # by number of connections
 ##################################
-list_links=as.list.hash(hash_links )
-list_link_order = list_links[order(unlist(list_links), decreasing=TRUE)]
-list_connections=as.list.hash(hash_connections )
-list_connections_order = list_connections[order(unlist(list_connections), decreasing=TRUE)]
+list_links <- as.list.hash(hash_links )
+list_link_order <- list_links[order(unlist(list_links), decreasing=TRUE)]
+list_connections <- as.list.hash(hash_connections )
+list_connections_order <- list_connections[order(unlist(list_connections), decreasing=TRUE)]
 
 ##################################
 # Prepare the data for the GDF format
@@ -160,44 +160,44 @@ list_connections_order = list_connections[order(unlist(list_connections), decrea
 
 # Definition of nodes
 num_nodes=length(list_links)
-table_nodes = matrix(nrow=num_nodes,ncol=num_attribs+4)
-num_nodes_connected <-0
+table_nodes <- matrix(nrow=num_nodes,ncol=num_attribs+4)
+num_nodes_connected <- 0
 for(i in 1:num_nodes) 
 {
   name_node=names(list_link_order)[i]
-  if (hash_links[[name_node]] >0)
+  if (hash_links[[name_node]] > 0)
   {
    num_nodes_connected <- num_nodes_connected+1
-   table_nodes[i,1]<-name_node
-   table_nodes[i,2]<-hash_links[[name_node]]
-   table_nodes[i,3]<-hash_links_in[[name_node]]
-   table_nodes[i,4]<-hash_links_out[[name_node]]
-   node_attrib<-hash_nodes[[name_node]]
+   table_nodes[i,1] <- name_node
+   table_nodes[i,2] <- hash_links[[name_node]]
+   table_nodes[i,3] <- hash_links_in[[name_node]]
+   table_nodes[i,4] <- hash_links_out[[name_node]]
+   node_attrib <- hash_nodes[[name_node]]
    for (j in 1:num_attribs)
    {
-    table_nodes[i,4+j]<-node_attrib[[j]]
+    table_nodes[i,4+j] <- node_attrib[[j]]
    }
   }
 }
-# Oly connected nodes are considered
-k=num_attribs+4
-table_nodes<-table_nodes[1:num_nodes_connected, 1:k]
+# Only connected nodes are considered
+k <- num_attribs+4
+table_nodes <- table_nodes[1:num_nodes_connected, 1:k]
 
 # Definition of links
-num_connections=length(list_connections)
-table_connections = matrix(nrow=num_connections,ncol=num_attribs+4)
+num_connections <- length(list_connections)
+table_connections <- matrix(nrow=num_connections,ncol=num_attribs+4)
 for(i in 1:num_connections) 
 {
-  name_conexion=names(list_connections_order)[i]
-  source_target<-strsplit(name_conexion," ")
-  table_connections[i,1]<-source_target[[1]][1]
-  table_connections[i,2]<-source_target[[1]][2]
-  table_connections[i,3]<-list_connections_order[[i]]
-  table_connections[i,4]<-directed
-  connection_attrib <-hash_connections_attrib[[name_conexion]]
+  name_conexion <- names(list_connections_order)[i]
+  source_target <- strsplit(name_conexion," ")
+  table_connections[i,1] <- source_target[[1]][1]
+  table_connections[i,2] <- source_target[[1]][2]
+  table_connections[i,3] <- list_connections_order[[i]]
+  table_connections[i,4] <- directed
+  connection_attrib <- hash_connections_attrib[[name_conexion]]
   for (j in 1:num_attribs)
   { 
-   table_connections[i,4+j]<-connection_attrib[[j]]
+   table_connections[i,4+j] <- connection_attrib[[j]]
   }
 } 
 #################################
@@ -208,11 +208,11 @@ for(i in 1:num_connections)
 #################################
 
 # Definition of nodes
-head_nodes<-"nodedef>name VARCHAR,links VARCHAR,Links_in VARCHAR,links_out VARCHAR"
+head_nodes <- "nodedef>name VARCHAR,links INT,Links_in INT,links_out INT"
 for (j in 1:num_attribs)
 { 
-  attrib_type<-paste(name_attribs[[j]],"VARCHAR",sep = " ")
-  head_nodes<-paste(head_nodes,attrib_type,sep = ",")
+  attrib_type <- paste(name_attribs[[j]],"VARCHAR",sep = " ")
+  head_nodes <- paste(head_nodes,attrib_type,sep = ",")
 } 
 write.table(head_nodes, file = name_file_gdf, append = FALSE, quote = FALSE, sep = ",",
             eol = "\n", na = "NA", dec = ".", row.names = FALSE,
@@ -224,11 +224,11 @@ write.table(table_nodes, file = name_file_gdf, append = TRUE, quote = FALSE, sep
             fileEncoding = "UTF-8")
 
 # Definition of links
-head_arcs<-"edgedef>node1 VARCHAR,node2 VARCHAR, weight VARCHAR, directed BOOLEAN"
+head_arcs<-"edgedef>node1 VARCHAR,node2 VARCHAR, weight INT, directed BOOLEAN"
 for (j in 1:num_attribs)
 { 
-  attrib_type<-paste(name_attribs[[j]],"VARCHAR",sep = " ")
-  head_arcs<-paste( head_arcs,attrib_type,sep = ",")
+  attrib_type <- paste(name_attribs[[j]],"VARCHAR",sep = " ")
+  head_arcs <- paste( head_arcs,attrib_type,sep = ",")
 } 
 write.table(head_arcs, file = name_file_gdf, append = TRUE, quote = FALSE, sep = ",",
             eol = "\n", na = "NA", dec = ".", row.names = FALSE,
