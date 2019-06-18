@@ -14,7 +14,7 @@ Relationship data require a definition of nodes and connections. Both parts have
 In this session, we will see how we can extract the relationships between elements of a file in CSV format to generate a file in GDF format to work with Gephi."""
 
 event = "Tutorial"
-event_url = ""
+event_url = "/post/2019-06-18"
 event_form = "https://forms.gle/uYCiMkoxKozu1mzs7"
 
 location = "**Room 7.3.J06**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
