@@ -15,7 +15,7 @@ In this session, we will see how we can extract the relationships between elemen
 
 event = "Tutorial"
 event_url = "/post/2019-06-18"
-event_form = "https://forms.gle/uYCiMkoxKozu1mzs7"
+event_form = ""
 
 location = "**Room 7.3.J06**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
   
@@ -39,3 +39,6 @@ R packages [`readr`](https://cran.r-project.org/package=readr), [`hash`](https:/
 ### About the speaker
 
 She received a M.Sc. in Computer Science from the Universidad Politécnica in Madrid, and a PhD degree in Telematics from the Universidad Carlos III in Madrid, where she worked as an assistant professor. She also worked for 20 years in R&D for Telefónica. Her main research interest focuses on patterns in social media networks, such as the characterization of users, how messages are spread, and analysis of events.
+
+![](/img/sessions/2019-06-18-1.jpg)
+![](/img/sessions/2019-06-18-2.jpg)
