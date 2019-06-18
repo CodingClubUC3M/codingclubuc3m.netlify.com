@@ -1,0 +1,1999 @@
+nodedef>name VARCHAR,links VARCHAR,Links_in VARCHAR,links_out VARCHAR,app VARCHAR,location VARCHAR,hastag VARCHAR,lang VARCHAR,create at VARCHAR
+@rstudio,189,186,3,Twitter Web App,Boston,RStats,en,2011
+@StatGarrett,168,168,0,Twitter Web Client,Clearwater- FL,NA,en,2014
+@KirkDBorne,150,149,1,Twitter for iPhone,Booz Allen Hamilton,Python,en,2012
+@paleolimbot,94,94,0,Twitter Web Client,Halifax- Nova Scotia,ggplot2,en,2008
+@rstatstweet,91,0,91,rstatsretweetingtool,NA,rstats,en,2018
+@minebocek,80,79,1,Twitter for iPhone,Edinburgh- Scotland,NA,en,2010
+@rstats4ds,62,0,62,R stats API access,NA,rstats,en,2018
+@mauro_lepore,27,21,6,Twitter Web Client,Washington- DC,tidyverse,en,2013
+@askdrstats,23,20,3,Twitter for iPhone,Amherst- MA,rstats,en,2011
+@Emil_Hvitfeldt,22,21,1,Twitter Web Client,Californien- USA,ggplot2,en,2016
+@CDSBMexico,21,17,4,Twitter for iPhone,NA,rstatsES,es,2018
+@aworsleynz,20,20,0,Twitter Web Client,Melbourne- Victoria,rstats,en,2015
+@jo_hardin47,17,16,1,Twitter Web Client,Claremont- CA,rstats,en,2014
+@PBecciu,16,16,0,Twitter Web Client,Haifa,NA,en,2013
+@LucyStats,15,14,1,Twitter for iPhone,NA,NA,en,2013
+@Nadia__Tahiri,14,13,1,Twitter Web Client,Montréal- Québec,NA,en,2016
+@acmeducation,14,14,0,Twitter Web Client,New York- NY,ACMTechTalk,en,2010
+@RoelandtN42,14,14,0,Twitter for Android,Ile-de-France- France,rstats,en,2017
+@fransvandunne,13,12,1,Twitter Web Client,Costa Rica,rstats,es,2010
+@thinkR_fr,13,11,2,Twitter for iPhone,NA,RStats,en,2015
+@StevenXGe,13,13,0,Twitter Web App,Brookings- SD,NA,en,2011
+@fellgernon,13,8,5,Twitter for iPhone,Baltimore,NA,en,2010
+@hglanz,12,9,3,Twitter for iPhone,San Luis Obispo- CA,rstats,en,2012
+@MaillieDavid,12,12,0,Twitter Web Client,Charlotte- NC,Creepy,en,2018
+@zkajdan,11,11,0,Twitter for iPad,Munich- Germany,NA,en,2014
+@EikoFried,10,10,0,NA,NA,NA,NA,NA
+@jkregenstein,10,10,0,Twitter Web Client,Atlanta- GA,rstats,en,2015
+@gigantumscience,9,9,0,TweetDeck,Washington- DC,rstudio,en,2018
+@WeAreRLadies,8,4,4,TweetDeck,The whole world!,NA,en,2018
+@hadleywickham,8,1,7,Tweetbot for i?S,Houston- TX,Python,en,2009
+@cascadiarconf,7,7,0,Twitter Web Client,Seattle- WA,AR,en,2017
+@romain_francois,7,2,5,Twitter for iPhone,France,RStats,en,2011
+@graemedblair,7,7,0,Twitter Web Client,LA,NA,en,2007
+@joanneberghout,7,7,0,Twitter Web Client,Tucson- AZ,Genomics,en,2015
+@pacoramon,7,0,7,Twitter for iPhone,Zaragoza- España,rstats,en,2009
+@mouli3c3,6,6,0,Twitter Web Client,McKinney TX,rstats,en,2015
+@kyle_e_walker,6,6,0,NA,NA,NA,NA,NA
+@yeyomourglia,6,5,1,Twitter Web Client,Corrientes- Argentina,flexdashboard,es,2014
+@dmi3k,6,0,6,Twitter Web App,Oslo- Norway,NA,en,2010
+@rudeboybert,6,6,0,Twitter for Android,Northampton- MA,SDSS2019,en,2009
+@_pvictorr,6,6,0,Twitter Web Client,Paris- France,rstats,en,2013
+@GamerGeekNews,6,0,6,GGN_RPiTwitterFeed,NA,NA,de,2011
+@StatStas,6,4,2,Twitter for iPhone,Columbia- MO,rstats,en,2013
+@Samantha_Toet,5,2,3,Twitter for iPhone,Charlottesville- VA,RStats,en,2018
+@CedScherer,5,5,0,NA,NA,NA,NA,NA
+@RLadiesBA,5,0,5,Twitter for Android,Buenos Aires- Argentina,NA,en,2017
+@mdsumner,5,0,5,Twitter Web Client,Hobart- Tasmania,ggplot,en,2010
+@LIBDrstats,5,5,0,Twitter for iPhone,Baltimore- MD,rstats,en,2018
+@_lacion_,5,0,5,Twitter for Android,Buenos Aires- Argentina,ACMTechTalk,en,2012
+@MilesMcBain,5,5,0,Twitter Web App,Brisbane- Queensland,NA,en,2013
+@thomas_mock,5,0,5,Twitter for iPhone,Texas,NA,en,2013
+@CytByk,5,5,0,Hootsuite Inc.,Palo Alto- CA,abdsc,en,2009
+@OmniAnalytics,5,5,0,Twitter Web Client,Global,addin,en,2018
+@dagh,4,0,4,dagh_test1,Boston- MA,gganimate,en,2007
+@KKulma,4,0,4,Twitter for Android,London- England,NA,en,2012
+@KirincicJoe,4,0,4,Twitter for iPhone,NA,gganimate,en,2018
+@PodsProgram,4,4,0,Twitter Web App,Montréal- Québec,r4ds,en,2018
+@_SevillaR,4,0,4,Twitter for Android,Sevilla,rstats,en,2015
+@peducardoso,4,3,1,Twitter for iPhone,NA,ggplot,en,2013
+@R4DScommunity,4,0,4,Twitter for iPhone,NA,TidyTuesday,en,2018
+@anu_analytics,4,0,4,Twitter for Android,NA,rstats,en,2015
+@LuisDVerde,4,4,0,NA,NA,NA,NA,NA
+@adolfoalvarez,4,0,4,Twitter for Android,Getafe - Pozna? - Curicó,ACMTechTalk,en,2009
+@iulennyc2,4,4,0,Twitter for iPhone,San Sebastián,laliga,es,2010
+@kearneymw,4,4,0,Twitter for iPhone,Columbia- MO,rstats,en,2015
+@er13_r,4,4,0,TweetDeck,York- England,Python,en,2016
+@StatistikInDD,4,0,4,Twitter Web Client,Dresden,rstats,en,2012
+@trappedalien,4,0,4,Twitter Web Client,Sri Lanka,NA,en,2010
+@mr_autumn,4,4,0,Twitter Web Client,Frankfurt on the Main- Germany,R,en,2009
+@drago_carlo,4,0,4,Twitter for iPhone,Roma,rstats,en,2012
+@favstats,4,3,1,Twitter Web App,Stuttgart- Deutschland,NA,en,2012
+@GaborCsardi,4,0,4,Twitter Web Client,Oxford- UK,NA,en,2011
+@520507,3,0,3,Twitter for iPhone,NA,ggplot2,en,2008
+@CyrusHerder,3,3,0,Twitter for Android,Nairobi- Kenya,NA,en,2011
+@maartenzam,3,3,0,Twitter Web Client,NA,NA,en,2008
+@chrissuthy,3,2,1,Twitter for Android,Amherst- MA,NA,en,2011
+@A_KI_h2,3,0,3,Twitter for iPhone,??,rstats,en,2017
+@AnimalFlight,3,0,3,Twitter for Android,University of Haifa,TidyTuesday,en,2019
+@maxheld,3,0,3,Twitter Web Client,Nuremberg- Germany,ggplot2,en,2009
+@_ColinFay,3,0,3,Twitter Web App,Rennes- France,NA,fr,2009
+@josue_ma_,3,0,3,Twitter for iPhone,Mexico,rstats,en,2010
+@Tatjana_Kec,3,0,3,Twitter for iPhone,Manchester- UK,ggplot2,en,2009
+@DavidHumeau,3,0,3,Twitter for Android,NA,tidyverse,en,2010
+@kellrstats,3,3,0,Twitter Web Client,NA,rstudioconnect,en,2016
+@nj_tierney,3,0,3,Twitter for Android,Melbourne- Victoria,gganimate,en,2013
+@kaz_yos,3,0,3,Twitter for iPhone,Boston- MA- USA,r,en,2009
+@cenuno_,3,3,0,Twitter for iPhone,Chicago- IL,rstats,en,2013
+@yutannihilat_en,3,0,3,Twitter for Android,Tokyo- Japan,gganimate,en,2018
+@malco_barrett,3,0,3,Twitter for Android,Los Angeles- CA,Python,en,2011
+@Stat_Ron,3,0,3,Twitter for iPhone,Pittsburgh- PA,rstats,en,2013
+@TalkR_ES,3,0,3,TalkR_ES,Internet,rstatsES,es,2017
+@hamzahpty,3,0,3,Twitter Web App,panama city panama,NA,es,2009
+@TheCuriousLuke,3,0,3,RTML,Switzerland,abdsc,en,2018
+@marcbeldata,3,0,3,Twitter Web Client,Barcelona,vtree,en,2015
+@AleMedinaRivera,3,0,3,Twitter for Android,México,rstatsES,es,2012
+@ghost_orange,3,0,3,Twitter for iPad,??????,rstats,en,2013
+@apreshill,3,0,3,Twitter Web Client,Portland- OR,NA,en,2015
+@eFe_Gil,3,0,3,Twitter for Android,NA,NA,en,2013
+@pacehrb,3,0,3,Twitter for iPhone,India,RStudio,en,2010
+@fopsom,3,1,2,Twitter for Android,Thessaloniki- Greece,Athens,en,2009
+@FergusJChadwick,3,3,0,Twitter Web App,NA,reprex,en,2012
+@umairdurrani87,3,0,3,Twitter Web Client,Windsor- Ontario,gganimate,en,2016
+@JuanDBeltranP,3,0,3,Twitter for iPhone,London- England,vtree,en,2013
+@thomasp85,3,0,3,Twitter for iPhone,København- Danmark,NA,en,2012
+@dataandme,3,0,3,Twitter for iPhone,Massachusetts,NA,en,2015
+@LeeLeo1993,3,0,3,Twitter Web App,NA,NA,es,2012
+@frod_san,2,0,2,Twitter Web Client,Sevilla,gganimate,en,2011
+@jupanago,2,0,2,Twitter Web Client,NA,gganimate,en,2011
+@virtualnaman,2,0,2,Twitter for Android,Vancouver- British Columbia,rstats,en,2009
+@PSYCDataScience,2,2,0,Twitter Web App,Chicago- IL,psycdatascience,en,2019
+@DrPairach,2,0,2,Twitter for iPhone,Chiang Mai- Thailand,abdsc,en,2011
+@kdpsinghlab,2,0,2,Twitter for iPhone,NA,NA,en,2009
+@james_azam,2,0,2,Twitter for iPhone,Stellenbosch,gganimate,en,2018
+@peter_jemley,2,0,2,Tweetbot for i?S,Boston- MA,gganimate,en,2019
+@unrahu1,2,0,2,Twitter for iPhone,Portland- OR,ggplot2,en,2009
+@five_books,2,2,0,Buffer,NA,NA,en,2011
+@JuliaRiseman,2,0,2,Twitter for iPhone,Northampton,rstats,en,2012
+@committedtotape,2,2,0,NA,NA,NA,NA,NA
+@meharpsingh,2,2,0,Hootsuite Inc.,Bellevue- WA,datascience,en,2010
+@daleanonymoose,2,2,0,Twitter for iPhone,NA,NA,en,2009
+@chidambara09,2,0,2,Twitter Web App,Mysore  and  BERLIN,Python,en,2016
+@hypercompetent,2,0,2,Twitter Web Client,Seattle,NA,en,2014
+@ZupEvan,2,0,2,Twitter for iPhone,Washington- DC,gganimate,en,2019
+@giladfeldman,2,0,2,Twitter for Android,Hong Kong,NA,en,2012
+@PrometeoStallm1,2,0,2,Twitter Web Client,NA,abdsc,en,2019
+@JubleeW,2,0,2,Twitter Web Client,Ontario- Canada,rstats,en,2010
+@AkilaWijerathna,2,0,2,Twitter Web App,The Hebrew University of Jerusalem,ggplot2,en,2012
+@renato_umeton,2,0,2,rtapp315156161,Boston- MA,rstats,en,2009
+@Jaysivahf,2,0,2,Twitter for iPhone,NA,NA,es,2018
+@visualisingdata,2,1,1,Twitter for iPhone,Leeds- England,NA,en,2010
+@nagyt,2,0,2,Twitter for Android,Budapest- Hungary,gganimate,en,2009
+@Aleponcem,2,0,2,Twitter Web Client,Ciudad de México,ACMTechTalk,en,2015
+@RLadiesLondon,2,0,2,Twitter for Android,London- England,rstats,en,2016
+@ines_boehm,2,2,0,Twitter for iPhone,Edinburgh- Scotland,R,en,2015
+@G_Colosimo,2,0,2,Twitter for iPad,Rome- Lazio,vtree,en,2012
+@biologeek,2,0,2,Twitter for Android,here::here(),NA,en,2009
+@NeptuneML,2,2,0,Twitter Web Client,Warszawa- Polska,rstats,en,2018
+@henry_marylene,2,0,2,Twitter for iPhone,NA,rstats,en,2013
+@IsmaelAlberto_,2,0,2,Twitter for Android,Beyond The Wall,NA,en,2011
+@no85j,2,0,2,Twitter for iPhone,NA,rstats,en,2014
+@vineetgarg2002,2,0,2,Twitter for Android,Bengaluru- India,abdsc,en,2010
+@BeltzEcology,2,0,2,Twitter for iPhone,Boston- MA,rstats,en,2017
+@RaymondCao821,2,0,2,Twitter for iPhone,NA,Python,en,2013
+@pintodrad,2,2,0,Twitter for iPhone,Köln- Deutschland,rstat,de,2015
+@dogvile,2,0,2,Twitter Web Client,Athens/Brussels,rstats,en,2008
+@AfoUnofficial,2,0,2,Twitter Web App,Lagos- Nigeria,Shiny,en,2012
+@DianeBELDAME,2,0,2,Twitter for Android,Paris- France,rstatsFR,fr,2014
+@francisco_yira,2,0,2,Twitter for iPhone,Santiago- Chile,gganimate,en,2018
+@cepayan,2,0,2,Twitter for Android,Monterrey N.L.,vtree,en,2010
+@Dyerlab,2,0,2,Twitter for iPhone,Richmond- VA,rstats,en,2015
+@JasonWilliamsNY,2,0,2,Twitter for iPhone,Cold Spring Harbor- NY,Genomics,en,2013
+@Ayeeebroham,2,0,2,Twitter for Android,Whittier- CA,NA,en,2017
+@ingorohlfing,2,2,0,TweetDeck,NA,rstats,en,2012
+@SaraKalucza,2,2,0,Twitter Web Client,Brisbane- Queensland,NA,en,2012
+@eodaGmbH,2,2,0,Twitter Web Client,Kassel- Deutschland,eoda,de,2012
+@kojimizu1028,2,0,2,Twitter for iPhone,???,rstats,en,2011
+@elli_lib,2,2,0,Twitter for Android,Greece,Athens,en,2016
+@xstodeepak,2,1,1,Twitter for Android,Bangalore,rstats,en,2011
+@analyticbridge,2,0,2,Twitter Web Client,Seattle- WA,abdsc,en,2008
+@petemohanty,2,0,2,Twitter for iPhone,San Francisco Bay Area,NA,en,2016
+@parushya,2,2,0,Twitter Web Client,Allahabad- Mumbai- Delhi,RMarkdown,en,2014
+@DontFavMe,2,0,2,Twitter for iPhone,Toronto- Ontario,rstats,en,2010
+@benmarwick,2,2,0,Twitter Web Client,NA,NA,en,2008
+@skp1621,2,0,2,Twitter for Android,India,Python,en,2013
+@inhouseconomist,2,2,0,Twitter for Android,Mumbai- India,dataanalysis,en,2014
+@healthandstats,2,1,1,Twitter Web Client,Utah- USA,rstats,en,2016
+@tehgenerallee,2,0,2,Twitter for iPhone,DC / Baltimore,Python,en,2009
+@Rovio_Red,2,0,2,Twitter Web Client,NA,abdsc,en,2012
+@FJColon,2,0,2,Twitter for Android,NA,NA,und,2010
+@BinxiePeterson,2,0,2,Twitter for Android,Potchefstroom- South Africa,tidyverse,en,2015
+@henningsway,2,2,0,Twitter Web Client,Hamburg- Germany,NA,en,2015
+@comeetie,2,0,2,Twitter for Android,paris,gganimate,en,2009
+@stevennjui,2,0,2,Twitter for Android,Nairobi- Kenya,rstats,en,2015
+@ryangarnett78,2,0,2,Twitter for Android,Toronto- Ontario,vtree,en,2013
+@drjaydutt,2,0,2,Twitter for Android,NA,Python,en,2016
+@runjollyrun,2,0,2,Twitter Web App,Boston- MA,Python,en,2013
+@tangming2005,2,0,2,Twitter Web App,Cambridge- MA,NA,en,2011
+@turgut_090,2,1,1,Twitter for iPhone,NA,tidyverse,en,2018
+@bass_analytics,2,0,2,Twitter Web Client,Planet Earth,gganimate,en,2016
+@peterlovesdata,2,1,1,Twitter for Android,Hamburg- Deutschland,NA,en,2013
+@DataSciEng,2,2,0,Twitter Web Client,NA,rstats,en,2019
+@rol1508,2,0,2,Twitter for iPhone,Genève,Python,en,2011
+@chrischizinski,2,0,2,Twitter Web Client,Lincoln- NE,gganimate,en,2011
+@kozo2,2,0,2,Twitter Web App,Osaka- Japan,ggplot2,en,2007
+@arunkumar_bvr,2,0,2,Twitter for Android,India,rstats,en,2011
+@ma_salmon,2,0,2,Twitter Web Client,Nancy- France,ggplot2,en,2014
+@rk501,2,0,2,Twitter for Android,Bengaluru South- India,Python,en,2017
+@fubits,2,0,2,Twitter for iPhone,Berlin- Deutschland,gganimate,en,2013
+@TiffanyTimbers,2,0,2,Twitter for Android,Vancouver- BC,NA,en,2014
+@aeddoud,2,0,2,Twitter for Android,Algiers,ggplot2,en,2010
+@mrjoh3,2,0,2,Twitter for Android,Melbourne- Victoria,ACMTechTalk,en,2015
+@awunderground,2,2,0,Twitter Web Client,Washington D.C.,rstats,en,2009
+@RLesur,2,0,2,Twitter Web Client,Nantes- France,NA,en,2008
+@rfortherest,2,0,2,Buffer,Portland- OR,rstats,en,2018
+@swmpkim,2,0,2,Twitter for Android,NA,ggplot2,en,2018
+@veabrunsdon,2,0,2,Twitter for Android,Canterbury- England,gganimate,en,2015
+@gonzalez_lagos,2,0,2,Twitter for Android,Chile,ggplot2,en,2014
+@jmhenner,2,0,2,Twitter for iPhone,NA,gganimate,en,2007
+@anh_n_tran,2,2,0,Twitter for Android,Chicago- IL,rstats,en,2009
+@sharlagelfand,2,0,2,Twitter Web App,Toronto- Ontario,ggplot2,en,2015
+@0_u0,2,0,2,Twitter for Android,Tokyo- Japan,rstats,en,2009
+@savirhuitron,2,0,2,Twitter for Android,NA,rstats,en,2014
+@StatnMap,2,0,2,Twitter for Android,Paris- France,rstatsFR,fr,2017
+@ellessenne,2,2,0,Twitter for Android,Leicester- England,rstats,en,2009
+@ZKamvar,2,0,2,Twitter for iPhone,Barnet- London,ggplot2,en,2014
+@DrEmWilliams,2,2,0,Twitter Web App,Manchester- England,RStats,en,2017
+@cdhowe,2,0,2,Tweetbot for Mac,Stow- Massachusetts,Shiny,en,2008
+@seathebass92,2,0,2,Twitter for Android,NA,ggplot2,en,2018
+@Granjel,2,0,2,Twitter for Android,Sevilla | Vigo,gganimate,en,2009
+@baumeister_se,2,0,2,Twitter Web Client,Deutschland,rstats,en,2017
+@tiagotvv,2,0,2,Twitter for iPhone,Vila Nova de Gaia- Portugal,rstats,en,2015
+@Laluito,2,0,2,Twitter for Android,Mexico City,NA,en,2009
+@drtagkim,2,0,2,Twitter for iPhone,????,rstats,en,2015
+@unonoctium,2,0,2,Twitter for iPhone,NA,tidyverse,en,2010
+@_lionelhenry,2,0,2,Twitter Web App,NA,ggplot2,en,2009
+@ProCogia,2,2,0,Hootsuite Inc.,Bellevue- WA,datascience,en,2013
+@TOLTECATLn,2,0,2,Twitter for Android,NA,NA,en,2011
+@_abichat,2,0,2,Twitter for Android,Paris,rstats,en,2017
+@yabellini,2,1,1,Twitter for Android,La Pampa- Argentina,rstats,en,2011
+@astroCosmos4k,2,0,2,Twitter for Android,NA,ggplot2,en,2017
+@datatrek0,2,0,2,Twitter for iPhone,NA,Python,en,2017
+@moh_fcis,2,0,2,Twitter Web Client,NA,gwasrapidd,en,2009
+@boostfintech,2,0,2,Twitter Web Client,San Francisco- CA,rstats,en,2018
+@piusmnwilson,2,0,2,Twitter for Android,Kampala- Uganda,Shiny,en,2013
+@statsgen,2,1,1,Twitter for iPhone,Sydney- Australia,gganimate,en,2009
+@bcmachlearn,2,0,2,Twitter for Android,NA,gganimate,en,2017
+@rweekly_live,2,2,0,R Weekly Live,moon,rstats,en,2017
+@divadnojnarg,2,0,2,Twitter for iPhone,Zurich- Suisse,rstats,en,2012
+@jimwestsf,2,0,2,Twitter Web Client,San Francisco- CA,rstats,en,2018
+@braddugg,2,0,2,Twitter for iPhone,Hyderabad- India,abdsc,en,2011
+@LandonGetz,1,0,1,Twitter Web Client,Halifax- Nova Scotia,ggplot,en,2013
+@NancyNSalazar,1,0,1,Twitter Web Client,León- Guanajuato,rstats,es,2014
+@JenRichmondPhD,1,0,1,Twitter for iPhone,Sydney- New South Wales,Shiny,en,2012
+@fcs_est,1,0,1,Twitter for Android,Porto Alegre,NA,en,2019
+@dvanichkina,1,0,1,Tweetbot for i?S,Sydney- New South Wales,rstats,en,2012
+@neprasad,1,0,1,Twitter for iPhone,LA,gganimate,en,2010
+@data_datum,1,0,1,Twitter for Android,Argentina,tidyverse,en,2016
+@annakrystalli,1,0,1,Twitter Web Client,Sheffield,NA,en,2008
+@CrosalZareus,1,0,1,Twitter for iPhone,Bogotá,gganimate,en,2010
+@FKondylis,1,0,1,Twitter for iPhone,NA,NA,en,2013
+@primesty22,1,0,1,Twitter for iPhone,NA,gganimate,en,2014
+@BarkleyBG,1,0,1,Twitter Web Client,NA,ggplot2,en,2015
+@CyVerseOrg,1,0,1,Twitter Web Client,NA,Genomics,en,2009
+@KLA2010,1,0,1,Twitter for iPhone,Somewhere- exploring and discovering,rstudio,en,2010
+@TanZhou17,1,0,1,Twitter Web Client,College Station- TX,rstats,en,2017
+@ericasinx,1,0,1,Twitter for iPhone,New Delhi- India,tidyverse,en,2015
+@dantonnoriega,1,0,1,Twitter Web App,Sunnyvale- CA,rstats,en,2009
+@rosidi2610,1,0,1,Twitter for iPhone,surabaya,abdsc,en,2017
+@freestatman,1,0,1,Twitter for Android,Frederick- MD,gganimate,en,2011
+@SwampThingPaul,1,1,0,Twitter for Android,Fort Myers- FL,NA,en,2017
+@joonlee3,1,0,1,Twitter for iPhone,NA,ggplot2,en,2011
+@poncemic1,1,0,1,Twitter for Android,Republica de Floresta,gganimate,en,2012
+@InfonomicsInc,1,0,1,dlvr.it,Palos Verdes Estates- CA,abdsc,en,2012
+@Roberballester,1,0,1,Twitter Web Client,Spain,rstats,en,2010
+@KuboBook,1,0,1,Twitter Web Client,???????,gganimate,en,2011
+@duttarochishnu,1,0,1,Twitter for Android,India,rstats,en,2013
+@TareqBraiwish,1,0,1,Twitter for Android,NA,abdsc,en,2008
+@jungjongyun83,1,0,1,Twitter for iPhone,Minnesota- USA,gwasrapidd,en,2015
+@M5andhu,1,0,1,Twitter for iPhone,Pasadena- CA,gganimate,en,2012
+@serdarbalci,1,0,1,Twitter Web Client,Turkey,rstats,en,2009
+@cbraboszcz,1,0,1,Twitter Web Client,Bristol- England,rstats,en,2015
+@anadiedrichs,1,0,1,Twitter Web Client,Mendoza- Argentina,NA,en,2010
+@davidjayharris,1,1,0,Tweetbot for i?S,NA,NA,en,2011
+@IamSambanthan,1,0,1,Twitter Web App,Bengaluru- India,rstats,en,2014
+@Iaroslava_Mizai,1,1,0,Twitter for Android,Ukraine- Kyiv,NA,en,2013
+@Jmar116,1,0,1,Twitter for iPhone,Worldwide Mundial,rstats,en,2012
+@jrazz12,1,0,1,Twitter for Android,Monrovia- CA,tidyverse,en,2016
+@ezgimou,1,0,1,Twitter Web Client,Ostrava- Czech Republic,rstats,en,2010
+@masternodeHQ,1,0,1,MN Retweet,NA,addin,en,2018
+@SurajRN,1,0,1,Twitter for Android,Chennai,abdsc,en,2009
+@beautiful_hack,1,0,1,Twitter for Android,Glasgow- Scotland,TidyTuesday,en,2019
+@dirk_sch,1,0,1,Twitter Web Client,Berlin- Germany,SDSS2019,en,2012
+@tsaari1,1,0,1,Twitter for iPhone,Turku- Finland,ggplot2,en,2010
+@heatherklus,1,1,0,Twitter for iPhone,Seattle- WA,NA,en,2008
+@datalatam,1,0,1,Twitter Web Client,Costa Rica,rstats,es,2016
+@laurajakli,1,0,1,Twitter Web App,Palo Alto- CA,rstats,en,2016
+@polisisti,1,0,1,Twitter Web Client,Toronto- Ontario,rstats,en,2013
+@RafaJordao13,1,0,1,Twitter for Android,Rio de Janeiro- Brasil,gganimate,en,2015
+@robustgar,1,0,1,Tweetbot for Mac,ANA:Governance,rstats,en,2013
+@KimJoaoUn,1,0,1,Twitter for iPhone,Rio de Janeiro- Brasil,gganimate,en,2016
+@1purenoize,1,0,1,Twitter Web Client,NA,gganimate,en,2015
+@mattbagg,1,0,1,Twitter Web App,He/him,ggplot2,en,2008
+@desertnaut,1,0,1,Twitter for iPhone,Athens- Greece,rstats,en,2011
+@ericrhare,1,0,1,Twitter Web App,Ames- IA,addin,en,2007
+@shamindraas,1,0,1,Twitter Web Client,Pittsburgh- PA,gganimate,en,2011
+@ShumbAfrica,1,0,1,TweetDeck,Namibia,rstats,en,2011
+@marcdotson,1,0,1,Twitter Web Client,Provo- UT,rstats,en,2011
+@JackkStat,1,0,1,Twitter for Android,Utah,Shiny,en,2013
+@lena2nguyen,1,0,1,Twitter for Android,London,ggplot2,en,2010
+@pabloc_ds,1,0,1,Twitter Web Client,The world,flexdashboard,es,2017
+@areyesq,1,0,1,Twitter for Android,Boston- MA,NA,es,2010
+@sheilasaia,1,0,1,Twitter for iPhone,Durham- NC,rstats,en,2014
+@GabyEclissi,1,0,1,Twitter for Android,NA,NA,en,2014
+@prawittan,1,0,1,Twitter for Android,Kassel- Hessen,NA,en,2017
+@DeanKleissas,1,0,1,Twitter for iPhone,District of Columbia- USA,rstudio,en,2015
+@RamyaSingh,1,0,1,Twitter for Android,Calgary,PlotsOfData,en,2009
+@ajrhr,1,0,1,Twitter Web Client,NA,rstats,en,2013
+@Kook_Lucas,1,0,1,Twitter for iPhone,Zurich- Switzerland,ggplot2,en,2013
+@magamar29,1,0,1,Twitter Web Client,NA,abdsc,en,2011
+@charlyaztec,1,0,1,Twitter for iPhone,NA,abdsc,en,2007
+@vilukin,1,0,1,Twitter Web App,Donetsk- UA,Python,en,2009
+@De_Nel7,1,0,1,Twitter for Android,Accra,gganimate,en,2015
+@neuroeco,1,0,1,Twitter Web Client,Osaka- Japan,gganimate,en,2008
+@ese_sebelek,1,0,1,Twitter for iPhone,NA,abdsc,en,2009
+@kaushikbhakat,1,0,1,Twitter for iPhone,Bengaluru- India,ggplot2,en,2010
+@MikeKSmith,1,1,0,TweetDeck,South East Kent- UK.,NA,en,2008
+@ProfAnirban,1,0,1,Twitter Web Client,Singapore- Paris- New York,rstats,en,2014
+@vmloaiza1,1,0,1,Twitter Web Client,Colchester- England,gganimate,en,2017
+@juliesquid,1,0,1,Twitter Web Client,NA,rstats,en,2012
+@Priceeqn,1,0,1,Twitter for iPhone,Salt Lake City- UT,ggplot2,en,2011
+@EcoDynIZW,1,0,1,Twitter for Android,Berlin- Germany,ggplot2,en,2019
+@P4bl0_Mu3l4,1,0,1,Twitter for Android,NA,abdsc,en,2016
+@seoeanseo,1,0,1,Twitter for Android,NA,NA,en,2017
+@sadneurons,1,1,0,Twitter for Android,Manchester- England,rstats,en,2015
+@BigDataJunkies,1,0,1,BigDataJunkies_Schnittstelle,Luxemburg,abdsc,en,2017
+@chenxingus,1,0,1,Twitter for iPhone,Boston- MA,gganimate,en,2016
+@Jade_Pickering,1,0,1,Twitter Web App,Manchester- England,RStats,en,2011
+@stonekatem,1,0,1,Twitter for Android,NA,gganimate,en,2012
+@arthlib,1,0,1,Twitter for iPhone,Boston- MA,NA,en,2013
+@AviMaayan,1,0,1,Twitter for Android,New York- NY USA,NA,en,2011
+@Max_Lyashko,1,0,1,Maxim Lyashko,NA,abdsc,en,2017
+@octavio_medina,1,0,1,Twitter Web Client,Madrid / Maputo,gganimate,en,2009
+@MagateWildhorse,1,0,1,Twitter Web Client,Toronto- Canada,ggplot2,en,2012
+@mdziemann,1,0,1,Twitter Web App,Melbourne & Geelong- Victoria,NA,en,2014
+@RamMaravilla,1,0,1,Twitter for Android,Distrito Federal- México,rstats,en,2014
+@sumanstats,1,0,1,Twitter for iPhone,Nepal,gganimate,en,2018
+@s7bX31Zke2CEia8,1,0,1,Twitter for Android,NA,Python,en,2019
+@ClaireMKBowen,1,0,1,Twitter Web Client,Los Alamos- NM,Shiny,en,2015
+@zakdraper,1,0,1,Twitter Web Client,Kelowna- BC- Canada,ggplot2,en,2009
+@SuhnyllaKler,1,0,1,Twitter for Android,NA,abdsc,en,2016
+@barryjgrant,1,0,1,Twitter for iPhone,NA,gganimate,en,2015
+@AlineSociology,1,0,1,Twitter for Android,NA,gganimate,en,2017
+@akdm_bot,1,0,1,akdm_DS_bot,United States,rstats,en,2017
+@RLadiesMTL,1,0,1,Twitter for iPhone,Montréal- Québec,rstats,en,2017
+@Hariet_Kuda,1,0,1,Twitter for Android,Durban- South Africa,rstats,en,2011
+@iljukov,1,0,1,Twitter for iPhone,Lahti- Suomi,ggplot2,en,2012
+@bhim_chaulagain,1,0,1,Twitter for iPhone,University- FL,ggplot2,en,2014
+@mmencherogarcia,1,0,1,Twitter for Android,ciudad de mexico,Shiny,en,2017
+@JerryP4,1,0,1,Twitter for iPhone,NA,rstats,en,2011
+@ThoreauBenjamin,1,0,1,Twitter for iPhone,Paris & Tours- France,abdsc,en,2012
+@SEFitopatologia,1,0,1,Twitter for Android,España,NA,en,2012
+@_open_science_,1,0,1,_open_science_,NA,rstudio,en,2017
+@bcas1984,1,0,1,Twitter for Android,Austin- TX,abdsc,en,2012
+@AGroeflin,1,0,1,Twitter for iPhone,Basel,abdsc,en,2012
+@d3tty,1,0,1,Twitter for iPhone,Toronto,rstats,en,2009
+@paternogb,1,0,1,Twitter for Android,Brasil,ggplot2,en,2015
+@citybservices,1,0,1,Twitter Web App,Côte d'Ivoire,tidyverse,en,2018
+@sjcporter,1,0,1,Twitter for iPhone,NA,rstudio,en,2010
+@Mbiguidi1,1,0,1,Twitter for iPhone,Paris- France,Shiny,en,2016
+@Lmalongo2,1,0,1,Twitter Web Client,Dar es Salaam- Tanzania,rstats,en,2014
+@Drominion,1,0,1,Twitter for iPad,NA,gganimate,en,2013
+@Cerylandor2,1,0,1,Twitter for Android,Julith,TidyTuesday,en,2018
+@pipetteprincesa,1,0,1,Twitter for iPhone,NA,rstats,en,2010
+@JeremyWilmer,1,0,1,Twitter for iPhone,Boston- MA,rstats,en,2013
+@JuanMSolana,1,0,1,Twitter for iPhone,NA,abdsc,en,2014
+@yingma_maying,1,0,1,Twitter for iPhone,Houston- TX,rstats,en,2014
+@Jo14Robert,1,0,1,Twitter for iPhone,NA,abdsc,en,2016
+@olgunaydinn,1,0,1,Twitter for Android,?stanbul- Türkiye,rstats,en,2012
+@gpmt,1,0,1,Twitter Web Client,Dinant - Belgium,abdsc,en,2010
+@kara_woo,1,0,1,TweetDeck,NA,ggplot2,en,2012
+@JacquesInnocen5,1,0,1,Twitter for Android,Kampala- Uganda,Shiny,en,2014
+@jenni_pro,1,0,1,Twitter for iPhone,Unceded Anishinaabeg Territory,SETAChelsinki,en,2013
+@jzambrano,1,0,1,Twitter for Android,Lima,abdsc,en,2007
+@el_abstemio,1,0,1,Twitter for iPhone,Bogotá- D.C.- Colombia,rstats,en,2011
+@JasonAizkalns,1,0,1,Twitter Web Client,Greater Philadelphia Area- PA,rstats,en,2013
+@CDISC,1,0,1,Hootsuite Inc.,Austin- TX,pharmaSUG,en,2009
+@BlasBenito,1,0,1,Twitter Web Client,NA,NA,en,2012
+@akpanydre,1,0,1,Twitter for iPad,NA,rstats,en,2009
+@GJMerrin,1,0,1,Twitter for iPhone,Orlando- FL,gganimate,en,2009
+@KerlyMorales01,1,0,1,Twitter for Android,NA,rstats,en,2010
+@jwbelmon,1,0,1,Twitter for iPhone,Houston- TX,ggplot2,en,2013
+@Rocksandbones,1,0,1,Twitter for Android,Davis- CA,ggplot2,en,2017
+@nanbreadvariety,1,0,1,Twitter for iPhone,NA,abdsc,en,2016
+@jhkirkland1,1,0,1,Twitter for iPhone,Charlottesville- VA,rstats,en,2014
+@diaparim,1,0,1,Twitter for iPhone,Canada,abdsc,en,2010
+@Sansom_Rob,1,1,0,NA,NA,NA,NA,NA
+@sckottie,1,0,1,Twitter for iPhone,/usr/??,rstats,en,2010
+@davclark,1,1,0,Twitter for Android,Berkeley- CA,NA,en,2008
+@GregorySmith58,1,0,1,Twitter Web App,NA,gganimate,en,2015
+@davison_mad,1,0,1,Twitter Web App,NA,djnfdata19,en,2018
+@abfleishman,1,0,1,Twitter Web App,Santa Cruz- CA,ggplot2,en,2017
+@cuorechirurgia,1,0,1,Twitter for iPhone,Massa- Toscana,vtree,en,2015
+@ElHallay,1,0,1,Twitter for Android,Trento- Trentino-Alto Adige,abdsc,en,2012
+@TickAndJordy,1,0,1,Twitter for iPhone,San Francisco- CA,rstats,en,2018
+@ProfStoebel,1,0,1,Twitter for iPhone,Claremont- CA,rstats,en,2016
+@DrDanosNicole,1,0,1,Twitter for iPhone,San Diego- CA,rstats,en,2018
+@hispeedtourist,1,0,1,Twitter for Android,New York- USA,rstats,en,2009
+@NefjodovaJ,1,0,1,Twitter for Android,Cardiff,rstats,en,2018
+@DSmilti,1,0,1,Twitter for Android,NA,Shiny,en,2018
+@_Mirkwood_,1,0,1,Twitter for Android,United Kingdom/France/Airports,gganimate,en,2010
+@jeremy_w_l,1,0,1,Twitter for iPhone,Washington- DC,rstats,en,2009
+@hisham_elamir,1,0,1,Twitter Web Client,egypt,rstats,en,2015
+@RexDouglass,1,0,1,Twitter Web App,NA,rstats,en,2013
+@HsuEmerson,1,0,1,Twitter for iPad,Atlanta- GA,NA,en,2015
+@ixpantia,1,0,1,Twitter for Android,Costa Rica,rstats,es,2015
+@fonetica_UNED,1,0,1,Twitter Web Client,Madri,ggplot2,en,2019
+@UAMedicineEdu,1,0,1,Twitter Web Client,Tucson- Arizona,NA,en,2014
+@rfsaldanhario,1,0,1,Twitter for iPhone,Rio de Janeiro- Brasil,NA,es,2008
+@Anirudh_14,1,0,1,Twitter for Android,Troy- NY,abdsc,en,2013
+@RLadiesTampa,1,0,1,Twitter for Android,Tampa- FL,rstats,en,2018
+@RosanaFerrero,1,0,1,Twitter for iPhone,España/Uruguay/Chile,gganimate,en,2013
+@anemptyarchive,1,0,1,Twitter for Android,Hello-World!???????,rstats,en,2018
+@MineDogucu,1,0,1,Twitter for iPhone,Columbus- OH,rstats,en,2014
+@YannisMarkonis,1,0,1,Twitter Web Client,Praha- ?eská republika,Shiny,en,2016
+@shermstats,1,0,1,Twitter for iPhone,Seattle- WA,gganimate,en,2015
+@tslumley,1,0,1,Twitter for Android,Auckland (mostly),rstats,en,2013
+@unhatchable,1,0,1,Twitter for Android,the philippines.,gganimate,en,2009
+@moononthebones,1,0,1,Twitter for iPhone,Bristol,abdsc,en,2011
+@earlconf,1,1,0,Sprout Social,London- England,earlconf,en,2014
+@hrbrmstr,1,1,0,Twitter Web Client,On Your Left || Bridge 4,NA,en,2007
+@lisascottbcd,1,0,1,Twitter for iPhone,university of florida,gganimate,en,2014
+@kevin_fotso,1,0,1,Twitter for iPhone,New Mexico- USA,abdsc,en,2016
+@UAresearch,1,0,1,Buffer,Tucson- AZ,Genomics,en,2015
+@jeffreyketland,1,0,1,Twitter Web Client,NA,tidyverse,en,2014
+@jnirski,1,0,1,Twitter for Android,Toru?- Polska,Shiny,en,2015
+@arminmertens,1,0,1,Twitter for iPhone,Köln- Deutschland,NA,en,2012
+@pharmasug,1,1,0,NA,NA,NA,NA,NA
+@wtchristiansen,1,0,1,Twitter for Android,South Carolina- USA,rstats,en,2014
+@javor_m,1,0,1,Twitter for iPhone,NA,NA,en,2015
+@tmlbk,1,0,1,Twitter Web App,Oxford- UK,gganimate,en,2007
+@ASA_SciPol,1,0,1,Twitter for iPhone,Alexandria- VA,rstats,en,2011
+@IanCero,1,1,0,Twitter Web Client,NA,rstats,en,2006
+@VESTEDTECH,1,0,1,Twitter for Android,Nigeria,abdsc,en,2016
+@BottiLo,1,0,1,Twitter for Android,Milano- Lombardia,rstats,en,2014
+@bergelsonlab,1,0,1,Twitter for iPhone,Durham- NC,gganimate,en,2018
+@mtrost2,1,0,1,Twitter for Android,Republic of Slovenia,tidyverse,en,2011
+@RobertYoung970,1,0,1,Twitter for Android,Copenhagen- Denmark,ggplot2,en,2017
+@Cruz_Julian_,1,0,1,Twitter for Android,Bogotá,gganimate,en,2011
+@acmweurope,1,0,1,Twitter Web Client,NA,ACMTechTalk,en,2019
+@norcalbiostat,1,1,0,Twitter for Android,Chico- CA,rstats,en,2012
+@WonderMixTape,1,1,0,Twitter for iPhone,Portland- OR,rstats,en,2012
+@aalphaloera,1,0,1,Twitter for Android,NA,abdsc,en,2011
+@BenjaminChant,1,0,1,Twitter for iPhone,NA,gganimate,en,2017
+@Kunkakom,1,0,1,Twitter for Android,Mannheim,NA,en,2010
+@GueyeNono,1,0,1,Twitter for Android,Auburn- AL,gganimate,en,2009
+@deave_g,1,0,1,Twitter for Android,Sevilla - Andalucía,laliga,es,2010
+@OlinoTom,1,0,1,Twitter for iPhone,NA,ggplot2,en,2013
+@dmsbb,1,0,1,Twitter for iPhone,NA,abdsc,en,2009
+@teuder,1,0,1,TwitPane for Android,NA,gganimate,en,2009
+@tjmooreMPH,1,0,1,Twitter for Android,Birmingham- AL,NA,en,2014
+@nicoleradziwill,1,0,1,Twitter for Android,Toronto / Virginia,rstats,en,2008
+@EstevaoAVilela,1,0,1,Twitter Web Client,Belo Horizonte- Brazil,vtree,en,2010
+@sbalthasar,1,0,1,Twitter Web Client,Zürich- Schweiz,rstats,en,2016
+@DeborahSambu,1,0,1,Twitter for Android,Nairobi,abdsc,en,2009
+@SirJedediah,1,0,1,Twitter for Android,Cyberjaya,abdsc,en,2011
+@BD2KLINCSDCIC,1,0,1,Twitter Web App,New York- NY,NA,en,2014
+@Lenafrescamente,1,0,1,Twitter for Android,Earth- mostly Europe,vtree,en,2013
+@jletteboer,1,0,1,Twitter for iPhone,The Netherlands,ggplot2,en,2009
+@Benjaming_G,1,1,0,Twitter Web Client,Fort Collins- CO,rstats,en,2008
+@pylodictis,1,1,0,Twitter for iPhone,Gainesville- FL,NA,en,2017
+@CGMassone,1,0,1,Twitter for Android,Rio de Janeiro,ggplot2,en,2017
+@AlexCEngler,1,1,0,Twitter Web Client,Washington D.C.,rstats,en,2011
+@ValaviRoozbeh,1,0,1,Twitter for iPhone,Melbourne- Victoria,ggplot2,en,2018
+@mariuskarma,1,0,1,Twitter for iPhone,Duisburg- Deutschland,NA,en,2012
+@drob,1,0,1,Twitter for iPhone,New York- NY,gganimate,en,2009
+@vishmittal2,1,0,1,Twitter for Android,NA,abdsc,en,2019
+@jdblischak,1,0,1,Twitter Web Client,Akron- OH,rstats,en,2013
+@kmathan,1,0,1,Twitter Web App,Tamilnadu- India,rstats,en,2008
+@MattNickodemus,1,0,1,Tweetbot for i?S,Casper- WY,Shiny,en,2013
+@diegopajarito,1,0,1,Twitter Web App,Barcelona- Catalunya,ggplot2,en,2010
+@jlugarrancho,1,0,1,Twitter for Android,Jaén- España,rstats,en,2017
+@gavg712,1,0,1,Twitter for Android,NA,rstats,es,2009
+@salazarbiol,1,0,1,Twitter for iPhone,NA,ggplot2,en,2012
+@nbarrowman,1,0,1,Twitter for iPhone,Ottawa- Canada,vtree,en,2009
+@adn_twitts,1,0,1,Twitter Web App,Campinas- Brasil,abdsc,en,2016
+@HelbichMarco,1,0,1,Twitter for Android,NA,rstats,en,2018
+@VictoriosV,1,0,1,Twitter for Android,Lagos- Nigeria,NA,en,2011
+@surendrk,1,0,1,Twitter Web Client,Oslo,NA,en,2009
+@kerry_benjamin1,1,0,1,Twitter Web Client,Brooklyn- NY,rstats,en,2009
+@yanivbrandvain,1,0,1,Twitter Web Client,twin cities- MN,gganimate,en,2013
+@eldonprince,1,0,1,Twitter for Android,Austin- TX,rstats,en,2012
+@mottarafael,1,0,1,Twitter for Android,tenso city,abdsc,en,2009
+@JDJonesJr,1,1,0,NA,NA,NA,NA,NA
+@AndyDSweet,1,0,1,Twitter for iPhone,St. Louis,abdsc,en,2014
+@u_ribo,1,0,1,Twitter for iPhone,Tsukuba-shi- Ibaraki,gganimate,en,2009
+@rebel_seoul,1,0,1,Twitter for Android,???? ??,rstats,en,2018
+@israel1x,1,0,1,Twitter for Android,Guayaquil,abdsc,en,2008
+@01717257469,1,0,1,Twitter for Android,Dhaka- Bangladesh,ggplot2,en,2011
+@khgiraffe,1,0,1,Twitter for iPhone,California | Texas,NA,en,2010
+@amgauna,1,0,1,Twitter Web App,Botafogo- Rio de Janeiro- BR,Python,en,2009
+@brodriguesco,1,0,1,Twitter Web App,Luxembourg,rstats,en,2014
+@pierrepinna,1,0,1,Twitter Web Client,Marseille- France,Python,en,2014
+@joel_nitta,1,0,1,Twitter for iPhone,Washington DC and Tokyo,ggplot2,en,2011
+@willynguen,1,1,0,The Tweeted Times,Berlin,NA,en,2011
+@bellsmv,1,0,1,Twitter for Android,Manchester- England,SDSS2019,en,2017
+@Torontosj,1,0,1,Twitter for Android,Toronto,gganimate,en,2011
+@monkprayogshala,1,0,1,Twitter for iPhone,India,dataanalysis,en,2013
+@genolib_19,1,0,1,Twitter for iPhone,Under the sea,gganimate,en,2018
+@JFritzjames,1,0,1,Twitter Web App,Antwerp- Belgium,ggplot2,en,2018
+@dig_revolution,1,0,1,dig_revolution_Schnittstelle,München- Bayern,abdsc,en,2016
+@BayesRuth,1,0,1,Twitter for iPhone,Edinburgh- Scotland,rstats,en,2016
+@fridahdafri,1,0,1,Twitter Web Client,Nairobi,NA,en,2011
+@poonam815,1,0,1,Twitter for Android,California- USA,ggplot2,en,2009
+@chj_vc,1,0,1,Twitter for iPad,Guatemala,tidyverse,en,2011
+@noccaea,1,0,1,Twitter Web Client,NA,gganimate,en,2015
+@adconk,1,0,1,Twitter for iPhone,Washington- DC,ACMTechTalk,en,2008
+@LandryYao05,1,0,1,Twitter for Android,Côte d'Ivoire,tidyverse,en,2017
+@LaurentFranckx,1,0,1,Twitter for Android,Belgium,rstats,en,2011
+@wekwaChinyerere,1,0,1,Twitter for Android,Harare- Zimbabwe,NA,en,2016
+@parkinsu0424,1,0,1,Twitter for Android,Eau Claire- WI,abdsc,en,2012
+@M8Macht,1,0,1,Twitter for Android,Germany,abdsc,en,2011
+@JorisMeys,1,0,1,Twitter Web Client,Ghent- Belgium,rstats,en,2018
+@celia_vgelder,1,0,1,Twitter for iPad,NA,rstats,en,2011
+@leightonlaw,1,0,1,Twitter for Android,midrand,abdsc,en,2012
+@thegymnosophist,1,0,1,Twitter for Android,Germany,NA,en,2013
+@lpachter,1,0,1,Twitter Web Client,Pasadena- CA,NA,en,2009
+@duffmanbrown,1,0,1,Twitter Web App,NA,gganimate,en,2011
+@deoland,1,0,1,Twitter for Android,Congo- Sénégal,abdsc,en,2012
+@misternaxal,1,0,1,Tweetbot for i?S,Denton- Texas,Python,en,2008
+@PabloBernabeu_,1,0,1,Twitter Web Client,NA,rstats,en,2013
+@natedayta,1,1,0,Twitter Web App,Charlottesville- VA,NA,en,2011
+@wntrcph,1,0,1,Twitter Web Client,NA,tidyverse,en,2017
+@privaGRAPH,1,0,1,Twitter for Android,Ile-de-France- France,rstatsFR,fr,2015
+@rfrsarmiento,1,0,1,Twitter for Android,Manila- Philippines,rstats,en,2009
+@GrantHumphries,1,0,1,Twitter Web App,Fort Augustus- Scotland,ggplot2,en,2012
+@Zjbb,1,0,1,Twitter Web Client,¡En mi universo paralelo!,tidyverse,en,2011
+@EmilyRiederer,1,0,1,Twitter Web App,Chicago- IL,NA,en,2011
+@tareefk,1,0,1,Twitter for iPhone,Boston- MA,NA,en,2009
+@tidyverse,1,0,1,Twitter for Android,NA,rstats,en,2016
+@jbono,1,1,0,Twitter for Android,Buffalo- NY,NA,en,2007
+@RLadiesELansing,1,0,1,Twitter Web Client,East Lansing- MI,ggplot2,en,2017
+@ErkverWuzHur,1,0,1,Show Finder,Arlington- TX,abdsc,en,2011
+@vlahan,1,0,1,Twitter for Android,Berlin- Germany,gganimate,en,2007
+@DanielB73319282,1,0,1,Twitter for Android,NA,Shiny,en,2016
+@kierisi,1,0,1,Twitter Web App,Dallas- TX / traveling,rstats,en,2014
+@asrayagiriraj,1,0,1,Twitter for Android,New Delhi- India,gganimate,en,2018
+@sharon000,1,0,1,Twitter for iPad,NA,RStudio,en,2007
+@MangoTheCat,1,0,1,Twitter Web Client,United Kingdom,gganimate,en,2009
+@pjmatting,1,0,1,Twitter for iPhone,New York- NY,R,en,2016
+@datacarpentry,1,0,1,Twitter for Android,NA,Athens,en,2014
+@Mohamed07736742,1,0,1,Twitter Web App,NA,gganimate,en,2018
+@NadiaHalidi,1,0,1,Twitter for Android,NA,rstats,en,2015
+@RiinuOts,1,0,1,Twitter for iPhone,Edinburgh- Scotland,rstats,en,2014
+@mryogeshbansal,1,0,1,Twitter Web Client,Dhuri- India,addin,en,2011
+@MunaHasanMoham2,1,0,1,Twitter Web Client,NA,NA,en,2017
+@gringene_bio,1,0,1,Twitter Web Client,Wellington City- New Zealand,rstats,en,2016
+@shawnsunger,1,0,1,Twitter for Android,Toronto- Ontario,ggplot2,en,2019
+@bhagirathl,1,0,1,Twitter for Android,Noida,abdsc,en,2009
+@koli_ajaykumar,1,0,1,Twitter Web App,Hyderabad- India,ggplot2,en,2016
+@KevinTweets1,1,0,1,Twitter Web Client,Boise- ID,abdsc,en,2012
+@daniellequinn88,1,0,1,Twitter Web Client,Newfoundland and Labrador,ggplot2,en,2011
+@ucfagls,1,0,1,Twitter Web App,Regina- Canada,rstats,en,2011
+@ocelepcikay,1,0,1,Twitter for iPhone,Houston- TX,rstats,en,2009
+@oranwutan,1,0,1,Twitter for iPhone,NA,NA,es,2018
+@gpavolini,1,0,1,Twitter Web Client,NA,gganimate,en,2011
+@monkmanmh,1,0,1,Twitter for iPhone,Victoria- BC- Canada,Python,en,2010
+@MITTI12101,1,0,1,Twitter for Android,??,rstats,en,2018
+@carlosGCMS,1,0,1,Twitter for Android,casales@uji.es,abdsc,en,2012
+@HenrikSingmann,1,0,1,Twitter Web Client,University of Warwick- UK,rstats,en,2015
+@gregor_suttie,1,0,1,Twitter for iPhone,Glasgow- Scotland,abdsc,en,2007
+@ErmiaBivatan,1,0,1,Flamingo for Android,Nowhere,rstats,en,2013
+@Hakob11,1,0,1,Twitter for Android,Armenia,rstats,en,2010
+@acangros,1,0,1,Twitter Web App,Barcelona,ggplot2,en,2008
+@aiperi_abd,1,0,1,Twitter for iPhone,Boston- MA,abdsc,en,2016
+@JaurenceRDB,1,0,1,Twitter for Android,Paris,rstats,en,2018
+@CosmoCT,1,0,1,Twitter for iPhone,Cape Town- South Africa,Shiny,en,2009
+@felipe_mattioni,1,0,1,Twitter for Android,Germany,gganimate,en,2016
+@syedimran3,1,0,1,Twitter for iPhone,Milton Keynes- England,abdsc,en,2010
+@thomashilbig2,1,0,1,TheBigDataBot,NA,abdsc,en,2017
+@MattDabrowski,1,0,1,Twitter Web Client,NA,rstats,en,2008
+@gakulamungiria,1,0,1,Twitter for Android,Dallas- TX,NA,en,2012
+@vishal_katti,1,0,1,Twitter for Android,Bengaluru- India,NA,en,2016
+@jtleek,1,0,1,Twitter for Android,Baltimore,rstats,en,2010
+@eds_satish,1,0,1,Twitter for Android,NA,tidyverse,en,2017
+@caustin0364,1,0,1,Twitter for Android,Midwest USA,rstats,en,2014
+@EFornoMD,1,0,1,Twitter for iPhone,NA,abdsc,en,2018
+@DNAed_tech,1,0,1,Edtech genomics,United States,Genomics,en,2016
+@stannals,1,0,1,Twitter for iPhone,Bengaluru- Karnataka- India,abdsc,en,2015
+@ccg_unam,1,0,1,Twitter for Android,Cuernavaca- Morelos,rstats,es,2015
+@taberuhanasu,1,0,1,Twitter for Android,?Facebook???????????????,rstats,en,2018
+@MarshallXMa,1,0,1,Twitter for iPhone,USA,abdsc,en,2013
+@realRobertKibet,1,0,1,Twitter for Android,Juja- Kenya,abdsc,en,2012
+@jmw86069,1,0,1,Twitter for iPhone,RTP- NC,ggplot2,en,2009
+@patternproject,1,0,1,Twitter Web App,NA,gganimate,en,2013
+@SebastianArcosR,1,0,1,Twitter for iPhone,Querétaro- Querétaro,ggplot2,en,2010
+@MevrouwTeh,1,0,1,Twitter for iPhone,The Netherlands,NA,en,2017
+@Michelle_Degli,1,0,1,Twitter Web Client,Oxford- England,rstats,en,2015
+@BlueLantern92,1,0,1,Twitter for iPhone,North Carolina- USA,NA,en,2018
+@Phreakaz0id,1,0,1,Twitter for Android,West Virginia- USA,abdsc,en,2013
+@Hao_and_Y,1,0,1,Twitter Web Client,Gainesville- FL,NA,en,2010
+@pophealth3,1,0,1,Twitter for Android,NA,NA,en,2018
+@AldoEscobarLVP,1,0,1,Twitter Web Client,San Miguel de Tucumán- Argenti,flexdashboard,es,2013
+@vchilks,1,0,1,Twitter for Android,Malgudi,rstats,en,2016
+@FatmaMcharek,1,0,1,Twitter for Android,Lyon- France,abdsc,en,2016
+@Picanumeros,1,0,1,Twitter Web Client,España,rstats,en,2015
+@tdongl3ss,1,0,1,Twitter Web App,Ho Chi Minh- Vietnam,Shiny,en,2012
+@katherinejchase,1,0,1,Twitter for iPad,Helena- MT,gganimate,en,2009
+@AravindaAddala,1,0,1,Twitter for Android,NA,tidyverse,en,2013
+@ivgarcas,1,0,1,Twitter for Android,Sevilla,laliga,es,2010
+@bthatcher_icc,1,0,1,Twitter for Android,Illinois,gganimate,en,2008
+@AllieSherier,1,0,1,Twitter for Android,Fort Worth- TX,gganimate,en,2018
+@julianlavila,1,0,1,Twitter for Android,En alguna comisura,rstats,en,2011
+@jmillangzz,1,0,1,Twitter for iPhone,Some place,abdsc,en,2009
+@lcgunam,1,0,1,Twitter for Android,NA,rstats,es,2011
+@libematus,1,0,1,Twitter for Android,Santiago- Chile,gganimate,en,2016
+@katieontheridge,1,0,1,Twitter for iPhone,NA,tidyverse,en,2015
+@asilazo99,1,0,1,Twitter for Android,Kenya,gganimate,en,2010
+@bobnvro,1,0,1,Twitter for Android,NA,abdsc,en,2019
+@ropolo,1,0,1,Twitter for Android,Lethbridge- Alberta,gwasrapidd,en,2009
+@thijsjanzen,1,0,1,Twitter Web Client,Groningen- Nederland,ggplot2,en,2015
+@straightedge,1,0,1,Twitter for iPhone,Melbourne via Cambridge,rstats,en,2008
+@aditihudli,1,0,1,Twitter for Android,New York- NY,TidyTuesday,en,2016
+@CoMeTWebinars,1,0,1,TweetDeck,Pittsburgh- PA,ACMTechTalk,en,2015
+@EGAPTweets,1,0,1,Twitter Web Client,HQ: Berkeley- CA,NA,en,2014
+@iampranavkumar,1,0,1,Twitter Web App,India,abdsc,en,2011
+@Manojchiba,1,0,1,Twitter for iPhone,Johannesburg- South Africa,gganimate,en,2009
+@erick_leonardo_,1,0,1,Twitter Web Client,Santo Domingo,abdsc,en,2010
+@joshualeond,1,0,1,Twitter for iPhone,Walker- LA (close to LIGO),rstats,en,2009
+@DD_Jessica_,1,0,1,Twitter for iPhone,Australia,rstats,en,2014
+@ntweetor,1,0,1,Twitter Web Client,Ithaca- NY,Shiny,en,2009
+@boscojfrancisco,1,0,1,Twitter for iPhone,Corrientes,flexdashboard,es,2010
+@TAMALES_A_2000,1,0,1,Twitter for Android,Bogotá- Colombia,tidyverse,en,2009
+@mjmoore52,1,0,1,Twitter for iPhone,Omaha- NE,gganimate,en,2009
+@ManishaMuna,1,0,1,Twitter Web Client,Ithaca- NY,gganimate,en,2017
+@zentree,1,0,1,Twitter Web Client,?tautahi | Christchurch- New Zealand,NA,en,2006
+@xieyihui,1,1,0,Twitter Web Client,Omaha- NE,NA,en,2009
+@manuscript,1,0,1,Tweetbot for i?S,London,rstudio,en,2007
+@soilandata,1,0,1,Twitter for Android,Rome- Lazio,vtree,en,2019
+@babetoduarte,1,0,1,Twitter for Android,Norman- OK,rstats,en,2010
+@semiramis_cj,1,0,1,Twitter Web App,CCG- UNAM MX,rstatsES,es,2010
+@dan_p_simpson,1,0,1,Twitter for iPhone,Toronto- Ontario,rstats,en,2018
+@LazioB,1,0,1,Twitter for Android,Buenos Aires- Argentina,rstats,en,2010
+@lstmpsmdrns,1,0,1,Twitter Web App,NA,Python,en,2013
+@cantoflor_87,1,0,1,Twitter for Android,Buenos Aires- Argentina,NA,es,2014
+@bagasbgy,1,0,1,Twitter for Android,Surabaya- Indonesia,NA,en,2012
+@konkougioumou,1,0,1,Twitter for iPhone,Neo Psychiko- Greece,gwasrapidd,en,2011
+@gabbspalomo,1,1,0,Twitter for iPhone,Nebraska- USA,NA,en,2013
+@cj_battey,1,0,1,Twitter Web App,Eugene- OR,rstats,en,2013
+@yyy_lu,1,0,1,Twitter Web Client,??- ???????,rstats,en,2010
+@SergioIbarraEs1,1,1,0,Twitter Web App,Changchun- China,rstats,en,2018
+@LeetohGitano,1,0,1,Twitter for iPhone,NA,rstats,en,2012
+@VincentGuyader,1,0,1,Twitter for Android,Paris- France,NA,fr,2017
+@CharlieCullus,1,0,1,Twitter Web App,Lorraine- France,NA,en,2016
+@theRcast,1,1,0,NA,NA,NA,NA,NA
+@mykrass,1,0,1,Twitter Web Client,???????,tidyverse,en,2012
+@SilverLinings71,1,0,1,Twitter for iPhone,NA,rstats,en,2018
+@afvallejop,1,0,1,Twitter for Android,Southampton- England,NA,en,2010
+@ethanewebtech,1,0,1,Twitter Web Client,Noida- India,rstudio,en,2013
+@mails2raghav,1,0,1,Twitter for iPhone,NA,rstats,en,2012
+@PuncozNepal,1,0,1,Twitter for Android,Bhaktapur,gganimate,en,2011
+@znmeb,1,0,1,TweetDeck,Portland- OR maybe not,rstats,en,2007
+@curvedglass,1,0,1,Twitter Web Client,Faro- Portugal,gwasrapidd,en,2009
+@DoanLe96,1,0,1,Twitter for Android,Sai Gon- Vietnam,gganimate,en,2017
+@FrederikAust,1,0,1,Twitter for iPhone,Cologne- Germany,rstats,en,2014
+@carvunis,1,0,1,Twitter for Android,NA,NA,en,2014
+@BethSignal,1,0,1,Twitter Web Client,Sydney- Australia,gganimate,en,2012
+@byerancy,1,0,1,Twitter for iPhone,NA,gganimate,en,2015
+@YaNiPaper,1,0,1,Twitter for Android,Internet,ggplot2,en,2009
+@kevinykuo,1,0,1,Twitter for Android,Seattle- WA,rstats,en,2009
+@MorayCampbell,1,0,1,Twitter for Android,NA,ggplot2,en,2013
+@JohnHelveston,1,1,0,Twitter for Android,District of Columbia- USA,NA,en,2013
+@twopeer1,1,0,1,Twitter for Android,NA,gganimate,en,2019
+@wolfnado,1,0,1,Twitter for Android,Seattle- WA,ggplot2,en,2016
+@ALEXANDRAKG92,1,0,1,Twitter for Android,France/ UK,abdsc,en,2016
+@eleakin775,1,0,1,Twitter for iPhone,NA,gganimate,en,2016
+@data_fiend,1,0,1,Twitter for iPad,Marlborough- England,ggplot2,en,2012
+@jason_abdi,1,0,1,T7 App,Calgary- Alberta,rstats,en,2019
+@gngeorgarakis,1,0,1,Twitter for iPhone,Manhattan- NY,NA,en,2012
+@ImNickHuber,1,0,1,Enflux_bot,Florida,NA,en,2012
+@AdamGruer,1,0,1,Twitter for iPhone,Bundoora-Victoria- Australia,gganimate,en,2009
+@raynamharris,1,0,1,Twitter Web Client,Austin- TX,python,en,2014
+@DataTeka,1,0,1,Twitter for iPhone,England- United Kingdom,rstats,en,2017
+@Shmuhammadd,1,0,1,Twitter Web Client,Porto - Portugal,rstats,en,2011
+@SandraCrypto,1,0,1,Twitter Web Client,Lisboa- Portugal,ggplot2,en,2015
+@cbenvenuto73,1,0,1,Twitter for Android,NA,gganimate,en,2014
+@tekitizzy,1,0,1,Twitter for Android,Kampala- Uganda,NA,en,2012
+@jcupe17,1,0,1,Twitter for Android,Paris- France,abdsc,en,2018
+@correajfc,1,0,1,Twitter for Android,En Alúna,gganimate,en,2010
+@MrP_helps,1,0,1,Twitter for Android,Rochester- NY,rstats,en,2010
+@siero5335,1,0,1,YoruFukurou,???,rstats,en,2008
+@ds_floresf,1,0,1,TweetDeck,Argentina,ggplot2,en,2017
+@Mahendra_Maria,1,0,1,Twitter for Android,NA,gganimate,en,2010
+@ipfconline1,1,0,1,Twitter for Android,Marseille- France,Python,en,2016
+@sonofsharma1,1,0,1,Twitter Web App,Singapore,Python,en,2016
+@HendraRespati,1,0,1,Twitter for iPhone,NA,rstats,en,2009
+@carolina_tlb,1,0,1,Twitter for Android,NA,rstats,en,2011
+@curtischanctpsy,1,0,1,Twitter for iPhone,Tai Po District- Hong Kong,abdsc,en,2018
+@murtha_andy,1,0,1,Twitter for Android,Atlanta- GA,NA,en,2016
+@_Stadtgorilla_,1,0,1,Twitter for Android,München- Bayern,rstats,en,2015
+@EmEmEff,1,1,0,Twitter for iPhone,Ann Arbor- MI,tidyverse,en,2011
+@dataquestio,1,1,0,NA,NA,NA,NA,NA
+@SrMikecr,1,0,1,Twitter for iPhone,Costa Rica,NA,es,2012
+@abtran,1,0,1,TweetDeck,andrew.tran@washpost.com,Python,en,2007
+@ChasingMicrobes,1,0,1,Twitter for iPhone,Chicago- IL,NA,en,2017
+@gurbuzdata,1,0,1,Twitter for Android,Dallas- TX,Python,en,2019
+@DeanImbriale,1,1,0,Twitter Web Client,NA,rstats,en,2014
+@dques2766,1,0,1,Twitter for iPad,Miami Dade College - Wolfson,rstats,en,2009
+@gcfrench,1,0,1,Twitter for Android,Peterborough- England,gganimate,en,2009
+@JXM85,1,0,1,Twitter for iPhone,Houston- TX,shortcuts,en,2010
+@PierrePudlo,1,0,1,Twitter for iPad,Marseille- France,rstats,en,2018
+@olhxl,1,0,1,Twitter Web Client,Dull- Scotlan,gganimate,en,2017
+@elbow_sans,1,0,1,Twitter for Android,NA,gganimate,en,2018
+@drlackner,1,0,1,Twitter for iPad,NA,gganimate,en,2012
+@RusselsTheepot,1,0,1,Twitter for Android,Brugge,rstats,en,2011
+@fhollenbach,1,0,1,Twitter for Android,Bryan/College Station- Texas,rstats,en,2011
+@MalditoBarbudo,1,0,1,Twitter for Android,NA,gganimate,en,2012
+@richarddmorey,1,0,1,Twitter Web App,Cardiff- UK,rstats,en,2014
+@brshallo,1,1,0,NA,NA,NA,NA,NA
+@RobertoMarmo,1,0,1,Twitter Web Client,NA,Python,en,2011
+@dejanseo,1,1,0,Twitter Web Client,Australia,NA,en,2008
+@JessieABolin,1,0,1,Twitter for iPhone,Queensland- Australia,rstats,en,2018
+@AndrewTheTM,1,0,1,Twitter for Android,Cincinnati- OH- USA,rstats,en,2009
+@RafaelVianaphD,1,0,1,Twitter Web Client,NA,gganimate,en,2011
+@colourspeak,1,0,1,Twitter Web Client,Melbourne- Online,NA,en,2014
+@Cor3Down,1,0,1,Twitter for Android,DigitalWorld!,rstats,en,2017
+@Black_Isatis,1,0,1,Twitter for Android,NA,abdsc,en,2012
+@GhazalGulati,1,0,1,Twitter for Android,Los Angeles- CA,rstats,en,2014
+@grrrck,1,1,0,Twitter Web Client,st petersburg- fl,NA,en,2009
+@borishej,1,0,1,Twitter for iPhone,NA,gganimate,en,2012
+@jogoinchato,1,0,1,Twitter Web Client,Rio de Janeiro- Brasil,abdsc,en,2010
+@aguerrero28,1,0,1,Twitter for Android,NA,rstats,en,2011
+@DianeOrihel,1,1,0,NA,NA,NA,NA,NA
+@Gilangarisptr,1,0,1,Twitter for Android,Yogyakarta- Indonesia,abdsc,en,2017
+@fomotis,1,0,1,Twitter for Android,Belgium,abdsc,en,2011
+@NVSData,1,0,1,Data NVS,Melbourne- Victoria,YouTube,en,2016
+@marianojavierd1,1,0,1,Twitter for Android,Córdoba- Argentina,rstats,en,2016
+@heyitsmehugo,1,0,1,Twitter Web Client,NA,rstats,en,2018
+@Dale_Masch,1,1,0,Twitter for iPhone,Hobart- Tasmania,NA,und,2014
+@emmy_ft,1,0,1,Twitter Web Client,Cambridge- England,NA,en,2009
+@edzerpebesma,1,0,1,Twitter Web Client,Münster- Germany,ggplot2,en,2010
+@ecojydrology,1,0,1,Twitter Web Client,Laramie- WY,gganimate,en,2017
+@Antonio_M_85,1,0,1,Twitter for Android,Metropolitana de Santiago- Chi,flexdashboard,es,2016
+@jdieramon,1,0,1,Twitter Web Client,Córdoba- Spain,rstatsES,es,2011
+@rick_pack2,1,0,1,Twitter Web App,RTP- NC,ggplot2,en,2011
+@yutannihilation,1,0,1,Twitter for Android,Tokyo- Japan,rstats,en,2009
+@FreyGeospatial,1,0,1,Twitter for iPhone,Worcester- MA,rstats,en,2017
+@AlanfsOli,1,0,1,Twitter for Android,NA,ggplot2,en,2018
+@JeffreyAsselin9,1,0,1,Twitter for iPhone,NA,abdsc,en,2011
+@pbl_data,1,0,1,Twitter for Android,Pozna?- Polska,rstats,en,2019
+@MrRols,1,0,1,Twitter for Android,everywhere,rstats,en,2011
+@philip_khor,1,0,1,Twitter Web Client,Shibuya-ku- Tokyo,NA,en,2018
+@GuillemPerdigo,1,0,1,Twitter Web App,Berlin- Germany,gganimate,en,2013
+@_OliviaBot,1,0,1,RT #MachineLearning,India,rstats,en,2019
+@Baessler_Rad,1,0,1,Twitter for Android,Mannheim- Baden-Württemberg,rstat,de,2017
+@XavierMeyer1989,1,0,1,Twitter for iPhone,Japon,ggplot2,en,2016
+@jim_savage_,1,0,1,Twitter Web Client,New York- USA,NA,en,2012
+@manginiflor,1,0,1,Twitter Web Client,Chicago- IL,rstats,es,2011
+@MarcoWirthlin,1,0,1,Twitter Web App,Antarctica,NA,en,2015
+@annaquagli,1,0,1,Twitter for Android,NA,NA,en,2015
+@servantofchaos,1,0,1,Twitter for iPhone,Sydney- Australia,abdsc,en,2007
+@StellaYu_Mizzou,1,1,0,Twitter for iPhone,Salt Lake City- UT,djnfdata19,en,2017
+@kevin_kunzmann,1,0,1,Twitter Web App,Cambridge- England,rstats,en,2018
+@RKWong04,1,0,1,Twitter Web Client,NA,rstats,en,2013
+@digitalsci,1,0,1,Twitter for iPhone,London/Boston/Melbourne/Russia/ Germany/Israel/Romania,rstudio,en,2010
+@valle451,1,0,1,Twitter for iPhone,donostia,laliga,es,2012
+@DavidAlbertoMa5,1,0,1,Twitter for Android,NA,rstats,en,2015
+@lobrowR,1,0,1,Twitter Web Client,Pittsburgh- PA,rstats,en,2017
+@BrunoContrerasM,1,0,1,Twitter Web Client,Cambridge- England,rstats,en,2017
+@gvwilson,1,0,1,Twitter Web App,Various,ggplot2,en,2009
+@noooorzin,1,0,1,Twitter Web App,Tunisia,Python,en,2018
+@DeneckerThomas,1,0,1,Twitter for Android,NA,gganimate,en,2013
+@dasalazarb,1,0,1,Twitter for Android,Holanda,gganimate,en,2011
+@Ph_D_epression,1,0,1,Twitter Web Client,NA,TidyTuesday,en,2018
+@asela_1,1,0,1,Twitter for iPhone,Jonesboro- AR,Genomics,en,2012
+@alsombra7,1,0,1,Twitter for Android,Rio de Janeiro- Brasil,rstats,en,2014
+@Ed_CfS,1,0,1,Twitter Web Client,Edinburgh- Scotland,rstats,en,2019
+@CKVanPay,1,0,1,Twitter Web App,Iowa St. University- Ames- IA,gganimate,en,2009
+@sunnyc7,1,0,1,Twitter for iPhone,New Jersey,abdsc,en,2009
+@SptAdd,1,0,1,Twitter for iPhone,NA,abdsc,en,2016
+@gdequeiroz,1,0,1,Twitter Web Client,San Francisco- CA,ACMTechTalk,en,2008
+@AudreyYeoCH,1,0,1,Twitter for Android,Zürich- Switzerland,gganimate,en,2015
+@researchremora,1,0,1,Twitter Web App,the ivory tower's cellar,gganimate,en,2012
+@bizScienc,1,0,1,Twitter for iPhone,NA,rstats,en,2017
+@emily_f_dixon,1,0,1,Twitter Web App,Birmingham,TidyTuesday,en,2009
+@AdvikSh,1,0,1,Twitter Web Client,Chicago- IL,rstats,en,2009
+@vivekvardhan05,1,0,1,Twitter for Android,Chennai- India,abdsc,en,2012
+@jeffrey_kane,1,0,1,Twitter for Android,Toledo- OH,rstats,en,2012
+@strytellrofpast,1,1,0,SamzR,Cuttack- India,RProgramming,en,2010
+@rnzbrk,1,0,1,Twitter for iPhone,Edirne Merkez- Edirne,gganimate,en,2019
+@gdlinguist,1,0,1,TweetDeck,Paris- France,RStats,en,2016
+@TyroneLavery,1,0,1,Twitter for iPhone,Chicago- IL,NA,en,2014
+@DrLeo037,1,0,1,Twitter for Android,NA,ggplot2,en,2013
+@simon_blaquiere,1,0,1,Twitter for iPad,France,NA,en,2016
+@keyboardpipette,1,0,1,Twitter for Android,Mainz- Germany,ggplot2,en,2016
+@CebEib19,1,0,1,Twitter for Android,Valencia- Spain,gganimate,en,2019
+@nm_yucel,1,0,1,Twitter for Android,Charlottesville- VA,ggplot2,en,2015
+@rikowanted,1,0,1,Twitter for Android,NA,abdsc,en,2011
+@Highcharts,1,0,1,Twitter Web Client,Vik i Sogn- Norway,NA,en,2012
+@rachelss,1,0,1,Twitter Web App,Kingston- RI,rstats,en,2009
+@MattOldach,1,1,0,Twitter Web Client,Montréal- Québec,NA,en,2011
+@UmerQaisar,1,0,1,Twitter for Android,Karachi- Pakistan,abdsc,en,2013
+@twithoff,1,0,1,Twitter for iPhone,US,RStudio,en,2012
+@MattCrump_,1,0,1,Twitter Web App,Brooklyn- NY,NA,en,2015
+@faroloye,1,0,1,Twitter for Android,Lagos- Nigeria,abdsc,en,2010
+@hansika_kapoor,1,0,1,Twitter for iPhone,Mumbai- India,dataanalysis,en,2014
+@aaronmorekin,1,0,1,Twitter for iPhone,Lehigh Valley- PA,rstats,en,2011
+@Addifaerber,1,0,1,TweetDeck,New Hampshire- USA,R,en,2012
+@muratkhal,1,0,1,Twitter for iPhone,NA,tidyverse,en,2018
+@hspter,1,0,1,Twitter for Android,San Francisco,rstats,en,2009
+@eabell_,1,1,0,NA,NA,NA,NA,NA
+@SamanoCedillo,1,0,1,Twitter for Android,Leon Gto- Mexico.,Shiny,en,2011
+@drnickisaac,1,0,1,Twitter for Android,Oxfordshire,ggplot2,en,2011
+@dreamRs_fr,1,0,1,Twitter Web Client,Paris- France,rstats,en,2016
+@H001011,1,0,1,Twitter Web Client,California- USA,abdsc,en,2018
+@vbhoyo,1,0,1,Twitter Web App,NA,rstats,en,2015
+@volz_le,1,0,1,Twitter for Android,Vienna- Austria,rstats,en,2015
+@jluishalf,1,0,1,Twitter Web App,Mexico,gganimate,en,2009
+@brsepulvado,1,0,1,Twitter for Android,Notre Dame- IN & Paris- France,Shiny,en,2013
+@whoyos21,1,0,1,Twitter for iPhone,Montería - Colombia,rstats,en,2013
+@ThomasKoller,1,0,1,Twitter for iPhone,Nuremberg- Germany,gganimate,en,2009
+@Teetetei1,1,0,1,Twitter for iPhone,NA,abdsc,en,2017
+@BJaramilloV,1,0,1,Twitter for iPhone,Quito- Ecuador,workweek,en,2016
+@CFHammill,1,0,1,Twitter for Android,Toronto- Ontario,rstats,en,2014
+@OleksiyAnokhin,1,0,1,Twitter for Android,Washington- DC,abdsc,en,2017
+@Fichulina,1,0,1,Twitter for iPhone,San José- Costa Rica,rstats,es,2009
+@JaneWal39542294,1,0,1,Twitter for iPhone,NA,gganimate,en,2018
+@rohitsohlot,1,0,1,Twitter for Android,Dharuhera,tidyverse,en,2012
+@thevideoanalyst,1,0,1,Twitter for iPhone,Ireland,NA,en,2009
+@sinarueeger,1,0,1,Twitter Web Client,Lausanne- Switzerland,gwasrapidd,en,2013
+@EldarSilver,1,0,1,Twitter for Android,NA,rstats,en,2011
+@openscience,1,0,1,Twitter Web Client,LHR | SFO | SEA,rstudio,en,2009
+@Finsola,1,0,1,Twitter for Android,NA,abdsc,en,2012
+@N_Baidya,1,0,1,Twitter Web App,NA,rstats,en,2017
+@rnall0,1,0,1,Twitter for iPhone,Florence- AL,rstats,en,2013
+@seabove7,1,0,1,Twitter for iPhone,Chapel Hill- NC,gganimate,en,2012
+@yanxian_l,1,0,1,Twitter for Android,Oslo- Norge,NA,en,2015
+@thatmschneider,1,0,1,Twitter for Android,NA,eoda,de,2013
+@presmenhiogold,1,0,1,Twitter Web App,NA,DataScience,en,2019
+@cloudaus,1,0,1,Twitter for Android,Brisbane- Australia,ggplot2,en,2013
+@abhijeetrs,1,1,0,Twitter for iPhone,Boston- MA,NetSci2019,en,2009
+@mrchypark_,1,0,1,Twitter for Android,???? ??,vtree,en,2017
+@DarioRShaw,1,0,1,Twitter for iPhone,Kingdom of Saudi Arabia,gganimate,en,2017
+@_JustExplore,1,0,1,Twitter for Android,NA,NA,en,2013
+@NugiGrace2018,1,0,1,Twitter for Android,Brisbane- Queensland,NA,en,2018
+@ranrhj,1,0,1,Twitter for Android,NA,abdsc,en,2016
+@DRG_de,1,0,1,Twitter for Android,Ernst-Reuter-Platz 10- Berlin,rstat,de,2013
+@wctonrx18,1,0,1,Twitter for Android,somewhere in the world,rstats,en,2013
+@organazized,1,0,1,Twitter for iPhone,Jersey City- NJ,rstats,en,2011
+@MiguelMAcosta,1,0,1,Twitter Web Client,Spain,abdsc,en,2011
+@mfarkhann,1,0,1,Twitter Web App,DIY - Jateng,ggplot2,en,2009
+@hfitipaldi,1,0,1,Twitter for iPhone,Malmo- Sweden,tidyverse,en,2010
+@Erika_S_S_2,1,0,1,Twitter for Android,NA,gganimate,en,2019
+@strnr,1,0,1,Tweetbot for i?S,Charlottesville- VA,NA,en,2009
+@arg_rstats,1,0,1,Twitter for Android,NA,flexdashboard,es,2018
+@Niels_Bremen,1,0,1,Twitter for iPhone,Bremen,NA,en,2010
+@MattKumar_,1,1,0,NA,NA,NA,NA,NA
+@davaoscar18,1,0,1,Twitter for iPhone,California- USA,gganimate,en,2015
+@TheEmilyAves,1,0,1,Twitter for iPhone,Tempe- AZ,rstats,en,2017
+@lukemc_js,1,0,1,lukemcjs,NA,abdsc,en,2018
+@Ron_Wasserstein,1,0,1,Twitter for iPhone,Alexandria- VA,rstats,en,2009
+@Fe_biologia,1,0,1,Twitter for iPhone,Brazil,ggplot2,en,2010
+@JosephineLukito,1,0,1,Twitter for Android,Wisconsin- USA,NA,en,2009
+@RLadiesSantiago,1,0,1,Twitter for Android,Santiago- Chile,rstats,es,2017
+@VincentTerrasi,1,0,1,Twitter for iPhone,Roubaix Valley,abdsc,en,2009
+@RLadiesValpo,1,0,1,Twitter for Android,Valparaíso- Chile,rstats,es,2018
+@larnsce,1,0,1,Twitter for Android,Zürich- Schweiz,rstats,en,2011
+@aalpzp,1,0,1,Twitter for iPhone,Puebla- México,abdsc,en,2015
+@DiegoBzl,1,0,1,Twitter for Android,CD MX,rstats,en,2010
+@satRdays_org,1,1,0,TweetDeck,Worldwide,sponsors,en,2016
+@rccclr,1,0,1,Twitter for iPhone,NA,abdsc,en,2009
+@FlorianWilhelm,1,0,1,Twitter for Android,Cologne- Germany,NA,en,2008
+@eric_normandeau,1,1,0,Twitter Web Client,Québec- Canada,rstats,en,2013
+@NCrepalde,1,0,1,Twitter for iPhone,Belo Horizonte- Minas Gerais,NA,en,2015
+@yanisea,1,0,1,Twitter Web Client,NA,NA,en,2010
+@c_gopalan,1,0,1,Twitter Web Client,Rochester- NY,rstats,en,2014
+@ounagdifno,1,0,1,Twitter Web App,NA,Rstats,en,2019
+@Robccs,1,0,1,Twitter Web Client,Variable,abdsc,en,2009
+@BrianGardunia,1,0,1,Twitter Web App,Chesterfield- MO,rstats,en,2018
+@pedroaavilaZ,1,0,1,Twitter for Android,CDMX,rstats,es,2016
+@markus_haun,1,0,1,Twitter Web Client,Heidelberg- Germany,rstats,en,2016
+@drBDOUG,1,0,1,Twitter for Android,NA,gganimate,en,2009
+@MaayanLab,1,0,1,Twitter Web Client,New York- NY USA,NA,en,2014
+@NadarSenpai,1,0,1,Twitter for Android,Mumbai- India,abdsc,en,2011
+@Rstats4Econ,1,0,1,Twitter for iPhone,Chiang Mai- Thailand,rstats,en,2012
+@cheesecaek,1,0,1,Twitter for Android,Oblivion Bubble,abdsc,en,2017
+@infoworld,1,0,1,Twitter for iPhone,San Francisco,RStudio,en,2008
+@alphaarchitect,1,0,1,Twitter for Android,Philadelphia- PA,rstats,en,2011
+@Denironyx,1,0,1,Twitter for Android,Akure- Nigeria,tidyverse,en,2015
+@Markkinuthia1,1,0,1,Twitter for Android,NA,ggplot2,en,2012
+@chrisharms,1,1,0,Tweetbot for Mac,Bonn- Germany,NA,en,2009
+@jthomascooper,1,0,1,Twitter for iPhone,Highland Heights- KY,ggplot2,en,2013
+@UNT_RITS,1,0,1,Twitter Web App,Denton- TX,NA,en,2019
+@gregory_annc,1,0,1,Twitter for iPhone,Belgium,gganimate,en,2015
+@maqartan,1,0,1,Twitter Web Client,Berlin,NA,en,2014
+@cetier1,1,1,0,Twitter for Android,47.5660° N- 7.6000° E,NA,en,2013
+@TenenbaumElena,1,0,1,Twitter for iPhone,Durham- NC,rstats,en,2010
+@jasperjcooper,1,0,1,Twitter for iPhone,NA,NA,en,2010
+@SergioSNieto,1,0,1,Twitter for Android,Mars,rstats,en,2011
+@StandardDevi8er,1,0,1,Twitter for Android,NA,gganimate,en,2017
+@navymooon,1,0,1,Twitter for iPhone,NA,abdsc,en,2018
+@kojishiromoto,1,0,1,Twitter for iPhone,Montréal- Québec,NA,en,2015
+@melancronico,1,0,1,Twitter for Android,Sao Paulo- Brazil,ggplot2,en,2016
+@Soma4SV,1,0,1,Twitter for Android,El Salvador,NA,en,2016
+@rgonzalez_tec,1,0,1,Twitter for Android,Costa Rica,NA,es,2009
+@lwjohnst,1,0,1,Twitter for Android,Arhus- Denmark,NA,en,2013
+@Calcaware,1,0,1,Calcaware,Austin- TX,abdsc,en,2016
+@JuanPabloPerezF,1,0,1,Twitter for Android,Mexico Cete,gganimate,en,2009
+@MicrobialBart,1,0,1,Twitter for iPhone,Tucson- AZ,Genomics,en,2015
+@jjakobsdottir,1,0,1,Twitter for iPhone,Iceland,rstats,en,2015
+@kodyaz,1,0,1,Twitter for iPhone,Istanbul- TR,abdsc,en,2011
+@aecoppock,1,0,1,Twitter Web Client,New Haven- CT,NA,en,2014
+@apusolitario,1,0,1,Twitter for iPhone,Lima-Perú,NA,en,2011
+@frmarcon,1,0,1,Twitter for iPhone,Amiens- France,gganimate,en,2014
+@ellis_hughes,1,0,1,Twitter Web Client,Seattle- WA,rstats,en,2011
+@RonLandis8,1,0,1,Twitter for iPhone,Chicago- IL,psycdatascience,en,2018
+@ercmrn,1,0,1,Twitter for iPhone,NA,gganimate,en,2013
+@rstudiotips,1,0,1,Twitter Web Client,Seattle- WA,rstats,en,2014
+@kmkinnaird,1,0,1,Twitter for Android,NA,SDSS2019,en,2012
+@MaxBellSchool,1,0,1,Twitter for Android,Montréal- Québec,r4ds,en,2017
+@KevinWang009,1,0,1,Twitter Web Client,Sydney- New South Wales,gganimate,en,2013
+@ikashnitsky,1,0,1,Twitter Web Client,Odense- Danmark,ggplot2,en,2016
+@Michele31415926,1,0,1,Twitter Web Client,Niterói- Brasil,ggplot2,en,2013
+edgedef>node1 VARCHAR,node2 VARCHAR, weight VARCHAR, directed BOOLEAN,app VARCHAR,location VARCHAR,hastag VARCHAR,lang VARCHAR,create at VARCHAR
+@rstatstweet,@RoelandtN42,12,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@rstats4ds,@MaillieDavid,6,TRUE,R stats API access,NA,DataScience,en,2018
+@rstats4ds,@rstudio,4,TRUE,R stats API access,NA,NA,en,2018
+@rstats4ds,@PBecciu,4,TRUE,R stats API access,NA,TidyTuesday,en,2018
+@R4DScommunity,@PBecciu,4,TRUE,Twitter for iPhone,NA,TidyTuesday,en,2018
+@pacehrb,@KirkDBorne,3,TRUE,Twitter for iPhone,India,RStudio,en,2010
+@rstatstweet,@StatGarrett,3,TRUE,rstatsretweetingtool,NA,gganimate,en,2018
+@TheCuriousLuke,@KirkDBorne,3,TRUE,RTML,Switzerland,abdsc,en,2018
+@RLadiesBA,@rstudio,3,TRUE,Twitter for Android,Buenos Aires- Argentina,NA,en,2017
+@KirincicJoe,@rstudio,3,TRUE,Twitter for iPhone,NA,rstats,en,2018
+@dmi3k,@rstudio,3,TRUE,Twitter for iPhone,Oslo- Norway,tidyverse,en,2010
+@rstatstweet,@rstudio,3,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@_SevillaR,@rstudio,3,TRUE,Twitter for Android,Sevilla,rstats,en,2015
+@dagh,@KirkDBorne,3,TRUE,dagh_test1,Boston- MA,abdsc,en,2007
+@AnimalFlight,@PBecciu,3,TRUE,Twitter for Android,University of Haifa,TidyTuesday,en,2019
+@GaborCsardi,@rstudio,3,TRUE,Twitter Web Client,Oxford- UK,NA,en,2011
+@rstatstweet,@StatStas,3,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@rstatstweet,@KirkDBorne,2,TRUE,rstatsretweetingtool,NA,Python,en,2018
+@hamzahpty,@fransvandunne,2,TRUE,Twitter Web App,panama city panama,NA,es,2009
+@peter_jemley,@StatGarrett,2,TRUE,Tweetbot for i?S,Boston- MA,gganimate,en,2019
+@rol1508,@KirkDBorne,2,TRUE,Twitter for iPhone,Genève,Python,en,2011
+@BinxiePeterson,@rstudio,2,TRUE,Twitter for Android,Potchefstroom- South Africa,tidyverse,en,2015
+@cepayan,@StatGarrett,2,TRUE,Twitter for Android,Monterrey N.L.,vtree,en,2010
+@RaymondCao821,@KirkDBorne,2,TRUE,Twitter for iPhone,NA,Python,en,2013
+@hglanz,@jo_hardin47,2,TRUE,Twitter for iPhone,San Luis Obispo- CA,rstats,en,2012
+@Rovio_Red,@KirkDBorne,2,TRUE,Twitter Web Client,NA,abdsc,en,2012
+@skp1621,@KirkDBorne,2,TRUE,Twitter for Android,India,Python,en,2013
+@tehgenerallee,@KirkDBorne,2,TRUE,Twitter for iPhone,DC / Baltimore,Python,en,2009
+@G_Colosimo,@StatGarrett,2,TRUE,Twitter for iPad,Rome- Lazio,vtree,en,2012
+@thomas_mock,@rstudio,2,TRUE,Twitter for iPhone,Texas,tidyverse,en,2013
+@rstatstweet,@mauro_lepore,2,TRUE,rstatsretweetingtool,NA,tidyverse,en,2018
+@rstats4ds,@daleanonymoose,2,TRUE,R stats API access,NA,NA,en,2018
+@romain_francois,@rstudio,2,TRUE,Twitter for iPhone,France,NA,en,2011
+@CDSBMexico,@mauro_lepore,2,TRUE,Twitter for iPhone,NA,rstats,es,2018
+@StatistikInDD,@rstudio,2,TRUE,Twitter Web Client,Dresden,Shiny,en,2012
+@AleMedinaRivera,@CDSBMexico,2,TRUE,Twitter Web Client,México,rstats,en,2012
+@ZupEvan,@StatGarrett,2,TRUE,Twitter for iPhone,Washington- DC,gganimate,en,2019
+@rstatstweet,@MilesMcBain,2,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@WeAreRLadies,@Nadia__Tahiri,2,TRUE,TweetDeck,The whole world!,rstats,en,2018
+@rstatstweet,@thinkR_fr,2,TRUE,rstatsretweetingtool,NA,RStats,en,2018
+@RLesur,@rstudio,2,TRUE,Twitter Web Client,Nantes- France,NA,en,2008
+@rstats4ds,@jo_hardin47,2,TRUE,R stats API access,NA,rstats,en,2018
+@drago_carlo,@KirkDBorne,2,TRUE,Twitter for iPhone,Roma,Python,en,2012
+@chidambara09,@KirkDBorne,2,TRUE,Twitter Web App,Mysore  and  BERLIN,Python,en,2016
+@rstatstweet,@CDSBMexico,2,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@drjaydutt,@KirkDBorne,2,TRUE,Twitter for Android,NA,Python,en,2016
+@JuanDBeltranP,@StatGarrett,2,TRUE,Twitter for iPhone,London- England,vtree,en,2013
+@datatrek0,@KirkDBorne,2,TRUE,Twitter for iPhone,NA,Python,en,2017
+@marcbeldata,@StatGarrett,2,TRUE,Twitter Web Client,Barcelona,vtree,en,2015
+@josue_ma_,@rstudio,2,TRUE,Twitter for iPhone,Mexico,rstats,en,2010
+@ryangarnett78,@StatGarrett,2,TRUE,Twitter for Android,Toronto- Ontario,vtree,en,2013
+@jimwestsf,@rstudio,2,TRUE,Twitter Web Client,San Francisco- CA,rstats,en,2018
+@romain_francois,@thinkR_fr,2,TRUE,Twitter for iPhone,France,RStats,en,2011
+@runjollyrun,@KirkDBorne,2,TRUE,Twitter Web App,Boston- MA,Python,en,2013
+@GamerGeekNews,@MaillieDavid,2,TRUE,GGN_RPiTwitterFeed,NA,DataScience,en,2011
+@IsmaelAlberto_,@rstudio,2,TRUE,Twitter for Android,Beyond The Wall,NA,en,2011
+@rstatstweet,@jo_hardin47,2,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@biologeek,@MilesMcBain,2,TRUE,Twitter for Android,here::here(),NA,en,2009
+@fellgernon,@CDSBMexico,2,TRUE,Twitter for iPhone,Baltimore,rstats,en,2010
+@RLadiesLondon,@rstudio,2,TRUE,Twitter for Android,London- England,rstats,en,2016
+@vineetgarg2002,@KirkDBorne,2,TRUE,Twitter for Android,Bengaluru- India,abdsc,en,2010
+@braddugg,@KirkDBorne,2,TRUE,Twitter for iPhone,Hyderabad- India,abdsc,en,2011
+@adolfoalvarez,@rstudio,2,TRUE,Twitter for Android,Getafe - Pozna? - Curicó,tidyverse,en,2009
+@rstats4ds,@favstats,2,TRUE,R stats API access,NA,NA,en,2018
+@boostfintech,@rstudio,2,TRUE,Twitter Web Client,San Francisco- CA,rstats,en,2018
+@TOLTECATLn,@rstudio,2,TRUE,Twitter for Android,NA,NA,en,2011
+@rk501,@KirkDBorne,2,TRUE,Twitter for Android,Bengaluru South- India,Python,en,2017
+@askdrstats,@jo_hardin47,2,TRUE,Twitter for iPhone,Amherst- MA,rstats,en,2011
+@rstats4ds,@KirkDBorne,2,TRUE,R stats API access,NA,abdsc,en,2018
+@LeeLeo1993,@rstudio,2,TRUE,Twitter Web App,NA,rstats,en,2012
+@piusmnwilson,@rstudio,2,TRUE,Twitter for Android,Kampala- Uganda,Shiny,en,2013
+@WeAreRLadies,@rstudio,2,TRUE,TweetDeck,The whole world!,NA,en,2018
+@Granjel,@StatGarrett,2,TRUE,Twitter for Android,Sevilla | Vigo,gganimate,en,2009
+@rstatstweet,@gigantumscience,1,TRUE,rstatsretweetingtool,NA,rstudio,en,2018
+@jhkirkland1,@aworsleynz,1,TRUE,Twitter for iPhone,Charlottesville- VA,rstats,en,2014
+@dantonnoriega,@rstudio,1,TRUE,Twitter Web App,Sunnyvale- CA,rstats,en,2009
+@Priceeqn,@paleolimbot,1,TRUE,Twitter for iPhone,Salt Lake City- UT,ggplot2,en,2011
+@mdsumner,@StatGarrett,1,TRUE,Twitter Web Client,Hobart- Tasmania,gganimate,en,2010
+@openscience,@gigantumscience,1,TRUE,Twitter Web Client,LHR | SFO | SEA,rstudio,en,2009
+@fubits,@aworsleynz,1,TRUE,Twitter for iPhone,Berlin- Deutschland,rstats,en,2013
+@AfoUnofficial,@KirkDBorne,1,TRUE,Twitter Web App,Lagos- Nigeria,abdsc,en,2012
+@_ColinFay,@fransvandunne,1,TRUE,Twitter Web App,Rennes- France,NA,es,2009
+@digitalsci,@gigantumscience,1,TRUE,Twitter for iPhone,London/Boston/Melbourne/Russia/ Germany/Israel/Romania,rstudio,en,2010
+@gdlinguist,@thinkR_fr,1,TRUE,TweetDeck,Paris- France,RStats,en,2016
+@NancyNSalazar,@CDSBMexico,1,TRUE,Twitter Web Client,León- Guanajuato,rstats,es,2014
+@kdpsinghlab,@LucyStats,1,TRUE,Twitter for iPhone,NA,NA,en,2009
+@rstudio,@thinkR_fr,1,TRUE,Twitter Web App,Boston,RStats,en,2011
+@0_u0,@Emil_Hvitfeldt,1,TRUE,Twitter for Android,Tokyo- Japan,rstats,en,2009
+@EstevaoAVilela,@StatGarrett,1,TRUE,Twitter Web Client,Belo Horizonte- Brazil,vtree,en,2010
+@BD2KLINCSDCIC,@StevenXGe,1,TRUE,Twitter Web App,New York- NY,NA,en,2014
+@eFe_Gil,@minebocek,1,TRUE,Twitter for Android,NA,rstats,en,2013
+@rnzbrk,@StatGarrett,1,TRUE,Twitter for iPhone,Edirne Merkez- Edirne,gganimate,en,2019
+@KevinTweets1,@KirkDBorne,1,TRUE,Twitter Web Client,Boise- ID,abdsc,en,2012
+@asrayagiriraj,@StatGarrett,1,TRUE,Twitter for Android,New Delhi- India,gganimate,en,2018
+@NadarSenpai,@KirkDBorne,1,TRUE,Twitter for Android,Mumbai- India,abdsc,en,2011
+@znmeb,@aworsleynz,1,TRUE,TweetDeck,Portland- OR maybe not,rstats,en,2007
+@BeltzEcology,@mouli3c3,1,TRUE,Twitter for iPhone,Boston- MA,rstats,en,2017
+@aiperi_abd,@KirkDBorne,1,TRUE,Twitter for iPhone,Boston- MA,abdsc,en,2016
+@tiagotvv,@StatGarrett,1,TRUE,Twitter for iPhone,Vila Nova de Gaia- Portugal,vtree,en,2015
+@thatmschneider,@eodaGmbH,1,TRUE,Twitter for Android,NA,eoda,de,2013
+@hadleywickham,@er13_r,1,TRUE,Tweetbot for i?S,Houston- TX,Python,en,2009
+@Ayeeebroham,@rstudio,1,TRUE,Twitter for Android,Whittier- CA,NA,en,2017
+@shawnsunger,@paleolimbot,1,TRUE,Twitter for Android,Toronto- Ontario,ggplot2,en,2019
+@siero5335,@rstudio,1,TRUE,YoruFukurou,???,rstats,en,2008
+@jluishalf,@StatGarrett,1,TRUE,Twitter Web App,Mexico,gganimate,en,2009
+@_lionelhenry,@minebocek,1,TRUE,Twitter Web Client,NA,rstats,en,2009
+@yanisea,@rstudio,1,TRUE,Twitter Web Client,NA,NA,en,2010
+@rstats4ds,@mouli3c3,1,TRUE,R stats API access,NA,rstats,en,2018
+@StatnMap,@rstudio,1,TRUE,Twitter for Android,Paris- France,Shiny,en,2017
+@twopeer1,@StatGarrett,1,TRUE,Twitter for Android,NA,gganimate,en,2019
+@davison_mad,@StellaYu_Mizzou,1,TRUE,Twitter Web App,NA,djnfdata19,en,2018
+@rstatstweet,@meharpsingh,1,TRUE,rstatsretweetingtool,NA,datascience,en,2018
+@SamanoCedillo,@rstudio,1,TRUE,Twitter for Android,Leon Gto- Mexico.,Shiny,en,2011
+@rstatstweet,@er13_r,1,TRUE,rstatsretweetingtool,NA,Python,en,2018
+@520507,@StatGarrett,1,TRUE,Twitter for iPhone,NA,gganimate,en,2008
+@henry_marylene,@rstudio,1,TRUE,Twitter for iPhone,NA,rstats,en,2013
+@KevinWang009,@StatGarrett,1,TRUE,Twitter Web Client,Sydney- New South Wales,gganimate,en,2013
+@jcupe17,@KirkDBorne,1,TRUE,Twitter for Android,Paris- France,abdsc,en,2018
+@HelbichMarco,@EikoFried,1,TRUE,Twitter for Android,NA,rstats,en,2018
+@malco_barrett,@er13_r,1,TRUE,Twitter for Android,Los Angeles- CA,Python,en,2011
+@MarshallXMa,@KirkDBorne,1,TRUE,Twitter for iPhone,USA,abdsc,en,2013
+@rstudio,@minebocek,1,TRUE,Twitter for iPhone,Boston,rstats,en,2011
+@AldoEscobarLVP,@yeyomourglia,1,TRUE,Twitter Web Client,San Miguel de Tucumán- Argenti,flexdashboard,es,2013
+@rfrsarmiento,@minebocek,1,TRUE,Twitter for Android,Manila- Philippines,rstats,en,2009
+@yanxian_l,@StevenXGe,1,TRUE,Twitter for Android,Oslo- Norge,NA,en,2015
+@trappedalien,@StatGarrett,1,TRUE,Twitter for Android,Sri Lanka,gganimate,en,2010
+@dvanichkina,@cenuno_,1,TRUE,Tweetbot for i?S,Sydney- New South Wales,rstats,en,2012
+@salazarbiol,@paleolimbot,1,TRUE,Twitter for iPhone,NA,ggplot2,en,2012
+@Cruz_Julian_,@StatGarrett,1,TRUE,Twitter for Android,Bogotá,gganimate,en,2011
+@hadleywickham,@hglanz,1,TRUE,Tweetbot for i?S,Houston- TX,rstats,en,2009
+@lisascottbcd,@StatGarrett,1,TRUE,Twitter for iPhone,university of florida,gganimate,en,2014
+@Black_Isatis,@KirkDBorne,1,TRUE,Twitter for Android,NA,abdsc,en,2012
+@StatistikInDD,@committedtotape,1,TRUE,Twitter Web Client,Dresden,rstats,en,2012
+@CDSBMexico,@fellgernon,1,TRUE,Twitter for iPhone,NA,rstatsES,es,2018
+@DavidAlbertoMa5,@Emil_Hvitfeldt,1,TRUE,Twitter for Android,NA,rstats,en,2015
+@rstatstweet,@_pvictorr,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@SrMikecr,@fransvandunne,1,TRUE,Twitter for iPhone,Costa Rica,NA,es,2012
+@Kook_Lucas,@paleolimbot,1,TRUE,Twitter for iPhone,Zurich- Switzerland,ggplot2,en,2013
+@frod_san,@paleolimbot,1,TRUE,Twitter for Android,Sevilla,ggplot2,en,2011
+@fonetica_UNED,@eabell_,1,TRUE,Twitter Web Client,Madri,ggplot2,en,2019
+@rstatstweet,@MattOldach,1,TRUE,rstatsretweetingtool,NA,VIM,en,2018
+@rstatstweet,@xstodeepak,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@akpanydre,@rstudio,1,TRUE,Twitter for iPad,NA,rstats,en,2009
+@Jaysivahf,@jkregenstein,1,TRUE,Twitter for iPhone,NA,rstats,en,2018
+@bcas1984,@KirkDBorne,1,TRUE,Twitter for Android,Austin- TX,abdsc,en,2012
+@gregory_annc,@StatGarrett,1,TRUE,Twitter for iPhone,Belgium,gganimate,en,2015
+@rstats4ds,@gabbspalomo,1,TRUE,R stats API access,NA,NA,en,2018
+@rikowanted,@KirkDBorne,1,TRUE,Twitter for Android,NA,abdsc,en,2011
+@DanielB73319282,@rstudio,1,TRUE,Twitter for Android,NA,Shiny,en,2016
+@aeddoud,@paleolimbot,1,TRUE,Twitter for Android,Algiers,ggplot2,en,2010
+@SurajRN,@KirkDBorne,1,TRUE,Twitter for Android,Chennai,abdsc,en,2009
+@KLA2010,@gigantumscience,1,TRUE,Twitter for iPhone,Somewhere- exploring and discovering,rstudio,en,2010
+@520507,@minebocek,1,TRUE,Twitter for iPhone,NA,rstats,en,2008
+@thijsjanzen,@paleolimbot,1,TRUE,Twitter Web Client,Groningen- Nederland,ggplot2,en,2015
+@ThomasKoller,@StatGarrett,1,TRUE,Twitter for iPhone,Nuremberg- Germany,gganimate,en,2009
+@Dyerlab,@rstudio,1,TRUE,Twitter for iPhone,Richmond- VA,rstats,en,2015
+@CGMassone,@paleolimbot,1,TRUE,Twitter for Android,Rio de Janeiro,ggplot2,en,2017
+@jnirski,@rstudio,1,TRUE,Twitter for Android,Toru?- Polska,Shiny,en,2015
+@XavierMeyer1989,@paleolimbot,1,TRUE,Twitter for iPhone,Japon,ggplot2,en,2016
+@yutannihilation,@minebocek,1,TRUE,Twitter for Android,Tokyo- Japan,rstats,en,2009
+@duffmanbrown,@StatGarrett,1,TRUE,Twitter Web App,NA,gganimate,en,2011
+@Niels_Bremen,@rstudio,1,TRUE,Twitter for iPhone,Bremen,Shiny,en,2010
+@dan_p_simpson,@minebocek,1,TRUE,Twitter for iPhone,Toronto- Ontario,rstats,en,2018
+@lwjohnst,@paleolimbot,1,TRUE,Twitter for Android,Arhus- Denmark,ggplot2,en,2013
+@KKulma,@LucyStats,1,TRUE,Twitter for Android,London- England,NA,en,2012
+@_abichat,@rstudio,1,TRUE,Twitter for Android,Paris,NA,en,2017
+@manginiflor,@mauro_lepore,1,TRUE,Twitter Web Client,Chicago- IL,rstats,es,2011
+@AkilaWijerathna,@Emil_Hvitfeldt,1,TRUE,Twitter Web App,The Hebrew University of Jerusalem,rstats,en,2012
+@Ayeeebroham,@minebocek,1,TRUE,Twitter for Android,Whittier- CA,rstats,en,2017
+@Fichulina,@CDSBMexico,1,TRUE,Twitter for iPhone,San José- Costa Rica,rstats,es,2009
+@hispeedtourist,@aworsleynz,1,TRUE,Twitter for Android,New York- USA,rstats,en,2009
+@BottiLo,@minebocek,1,TRUE,Twitter for Android,Milano- Lombardia,rstats,en,2014
+@josue_ma_,@StatGarrett,1,TRUE,Twitter Web Client,Mexico,gganimate,en,2010
+@anu_analytics,@minebocek,1,TRUE,Twitter for Android,NA,rstats,en,2015
+@1purenoize,@StatGarrett,1,TRUE,Twitter Web Client,NA,gganimate,en,2015
+@laurajakli,@aworsleynz,1,TRUE,Twitter Web App,Palo Alto- CA,rstats,en,2016
+@monkprayogshala,@inhouseconomist,1,TRUE,Twitter for iPhone,India,dataanalysis,en,2013
+@rstatstweet,@mouli3c3,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@MITTI12101,@Emil_Hvitfeldt,1,TRUE,Twitter for Android,??,rstats,en,2018
+@DSmilti,@rstudio,1,TRUE,Twitter for Android,NA,Shiny,en,2018
+@astroCosmos4k,@paleolimbot,1,TRUE,Twitter for Android,NA,ggplot2,en,2017
+@Aleponcem,@acmeducation,1,TRUE,Twitter Web Client,Ciudad de México,ACMTechTalk,en,2015
+@wntrcph,@rstudio,1,TRUE,Twitter Web Client,NA,tidyverse,en,2017
+@pjmatting,@mr_autumn,1,TRUE,Twitter for iPhone,New York- NY,R,en,2016
+@rstats4ds,@cascadiarconf,1,TRUE,R stats API access,NA,rstats,en,2018
+@JuanDBeltranP,@acmeducation,1,TRUE,Twitter for iPhone,London- England,ACMTechTalk,en,2013
+@Gilangarisptr,@KirkDBorne,1,TRUE,Twitter for Android,Yogyakarta- Indonesia,abdsc,en,2017
+@tiagotvv,@rstudio,1,TRUE,Twitter for iPhone,Vila Nova de Gaia- Portugal,rstats,en,2015
+@rstatstweet,@Nadia__Tahiri,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@jmhenner,@StatGarrett,1,TRUE,Twitter for iPhone,NA,gganimate,en,2007
+@pacoramon,@minebocek,1,TRUE,Twitter for iPhone,Zaragoza- España,rstats,en,2009
+@rstats4ds,@askdrstats,1,TRUE,R stats API access,NA,rstats,en,2018
+@thomas_mock,@LucyStats,1,TRUE,Twitter for iPhone,Texas,NA,en,2013
+@divadnojnarg,@rstudio,1,TRUE,Twitter for iPhone,Zurich- Suisse,Shiny,en,2012
+@gdequeiroz,@acmeducation,1,TRUE,Twitter Web Client,San Francisco- CA,ACMTechTalk,en,2008
+@SandraCrypto,@CedScherer,1,TRUE,Twitter Web Client,Lisboa- Portugal,ggplot2,en,2015
+@FatmaMcharek,@KirkDBorne,1,TRUE,Twitter for Android,Lyon- France,abdsc,en,2016
+@JorisMeys,@aworsleynz,1,TRUE,Twitter Web Client,Ghent- Belgium,rstats,en,2018
+@ProfAnirban,@zkajdan,1,TRUE,Twitter Web Client,Singapore- Paris- New York,rstats,en,2014
+@joonlee3,@paleolimbot,1,TRUE,Twitter for iPhone,NA,ggplot2,en,2011
+@vishmittal2,@KirkDBorne,1,TRUE,Twitter for Android,NA,abdsc,en,2019
+@astroCosmos4k,@Emil_Hvitfeldt,1,TRUE,Twitter for Android,NA,rstats,en,2017
+@nbarrowman,@StatGarrett,1,TRUE,Twitter for iPhone,Ottawa- Canada,vtree,en,2009
+@JasonWilliamsNY,@joanneberghout,1,TRUE,Twitter for iPhone,Cold Spring Harbor- NY,Genomics,en,2013
+@_abichat,@RoelandtN42,1,TRUE,Twitter for Android,Paris,rstats,en,2017
+@virtualnaman,@mouli3c3,1,TRUE,Twitter for Android,Vancouver- British Columbia,rstats,en,2009
+@paternogb,@paleolimbot,1,TRUE,Twitter for Android,Brasil,ggplot2,en,2015
+@Stat_Ron,@paleolimbot,1,TRUE,Twitter for iPhone,Pittsburgh- PA,ggplot2,en,2013
+@NadiaHalidi,@rstudio,1,TRUE,Twitter for Android,NA,rstats,en,2015
+@ericrhare,@OmniAnalytics,1,TRUE,Twitter Web App,Ames- IA,addin,en,2007
+@mauro_lepore,@LIBDrstats,1,TRUE,Twitter for iPhone,Washington- DC,rstats,en,2013
+@AudreyYeoCH,@StatGarrett,1,TRUE,Twitter for Android,Zürich- Switzerland,gganimate,en,2015
+@sharlagelfand,@rstudio,1,TRUE,Twitter Web Client,Toronto- Ontario,Shiny,en,2015
+@hadleywickham,@LucyStats,1,TRUE,Tweetbot for i?S,Houston- TX,NA,en,2009
+@aecoppock,@graemedblair,1,TRUE,Twitter Web Client,New Haven- CT,NA,en,2014
+@LucyStats,@minebocek,1,TRUE,Twitter for iPhone,NA,rstats,en,2013
+@beautiful_hack,@PBecciu,1,TRUE,Twitter for Android,Glasgow- Scotland,TidyTuesday,en,2019
+@mauro_lepore,@fellgernon,1,TRUE,Twitter for iPhone,Washington- DC,rstatsES,es,2013
+@edzerpebesma,@paleolimbot,1,TRUE,Twitter Web Client,Münster- Germany,ggplot2,en,2010
+@rstatstweet,@kearneymw,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@rstats4ds,@willynguen,1,TRUE,R stats API access,NA,NA,en,2018
+@BeltzEcology,@minebocek,1,TRUE,Twitter Web Client,Boston- MA,rstats,en,2017
+@GabyEclissi,@Nadia__Tahiri,1,TRUE,Twitter for Android,NA,NA,en,2014
+@mjmoore52,@StatGarrett,1,TRUE,Twitter for iPhone,Omaha- NE,gganimate,en,2009
+@TheEmilyAves,@Nadia__Tahiri,1,TRUE,Twitter for iPhone,Tempe- AZ,rstats,en,2017
+@jdieramon,@fellgernon,1,TRUE,Twitter Web Client,Córdoba- Spain,rstatsES,es,2011
+@N_Baidya,@Emil_Hvitfeldt,1,TRUE,Twitter Web App,NA,rstats,en,2017
+@rstatstweet,@chrissuthy,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@ghost_orange,@kyle_e_walker,1,TRUE,Twitter for iPad,??????,rstats,en,2013
+@TalkR_ES,@fellgernon,1,TRUE,TalkR_ES,Internet,rstatsES,es,2017
+@JubleeW,@Nadia__Tahiri,1,TRUE,Twitter for Android,Ontario- Canada,shortcuts,en,2010
+@rstatstweet,@FergusJChadwick,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@Zjbb,@rstudio,1,TRUE,Twitter Web Client,¡En mi universo paralelo!,tidyverse,en,2011
+@hadleywickham,@rstudio,1,TRUE,Tweetbot for i?S,Houston- TX,NA,en,2009
+@arunkumar_bvr,@rstudio,1,TRUE,Twitter for Android,India,rstats,en,2011
+@chrissuthy,@pylodictis,1,TRUE,Twitter for Android,Amherst- MA,NA,en,2011
+@NugiGrace2018,@LuisDVerde,1,TRUE,Twitter for Android,Brisbane- Queensland,NA,en,2018
+@mauro_lepore,@minebocek,1,TRUE,Twitter for iPhone,Washington- DC,rstats,en,2013
+@keyboardpipette,@paleolimbot,1,TRUE,Twitter for Android,Mainz- Germany,ggplot2,en,2016
+@mdsumner,@rstudio,1,TRUE,Twitter Web Client,Hobart- Tasmania,tidyverse,en,2010
+@dreamRs_fr,@_pvictorr,1,TRUE,Twitter Web Client,Paris- France,rstats,en,2016
+@rstats4ds,@ines_boehm,1,TRUE,R stats API access,NA,R,en,2018
+@JessieABolin,@minebocek,1,TRUE,Twitter for iPhone,Queensland- Australia,rstats,en,2018
+@areyesq,@CDSBMexico,1,TRUE,Twitter for Android,Boston- MA,rstats,es,2010
+@mauro_lepore,@fransvandunne,1,TRUE,Twitter for iPhone,Washington- DC,NA,es,2013
+@lcgunam,@CDSBMexico,1,TRUE,Twitter for Android,NA,rstats,es,2011
+@robustgar,@aworsleynz,1,TRUE,Tweetbot for Mac,ANA:Governance,rstats,en,2013
+@GhazalGulati,@hglanz,1,TRUE,Twitter for Android,Los Angeles- CA,rstats,en,2014
+@eFe_Gil,@mauro_lepore,1,TRUE,Twitter for Android,NA,rstats,es,2013
+@DavidHumeau,@Emil_Hvitfeldt,1,TRUE,Twitter for Android,NA,rstats,en,2010
+@markus_haun,@EikoFried,1,TRUE,Twitter Web Client,Heidelberg- Germany,rstats,en,2016
+@no85j,@kyle_e_walker,1,TRUE,Twitter for iPhone,NA,rstats,en,2014
+@KuboBook,@StatGarrett,1,TRUE,Twitter Web Client,???????,gganimate,en,2011
+@SuhnyllaKler,@KirkDBorne,1,TRUE,Twitter for Android,NA,abdsc,en,2016
+@davaoscar18,@StatGarrett,1,TRUE,Twitter for iPhone,California- USA,gganimate,en,2015
+@LazioB,@zkajdan,1,TRUE,Twitter for Android,Buenos Aires- Argentina,rstats,en,2010
+@pedroaavilaZ,@CDSBMexico,1,TRUE,Twitter for Android,CDMX,rstats,es,2016
+@JuanPabloPerezF,@StatGarrett,1,TRUE,Twitter for Android,Mexico Cete,gganimate,en,2009
+@bobnvro,@KirkDBorne,1,TRUE,Twitter for Android,NA,abdsc,en,2019
+@mauro_lepore,@rstudio,1,TRUE,Twitter for iPhone,Washington- DC,NA,en,2013
+@SEFitopatologia,@rstudio,1,TRUE,Twitter for Android,España,NA,en,2012
+@poonam815,@paleolimbot,1,TRUE,Twitter for Android,California- USA,ggplot2,en,2009
+@rstats4ds,@parushya,1,TRUE,R stats API access,NA,RMarkdown,en,2018
+@FJColon,@EikoFried,1,TRUE,Twitter for Android,NA,rstats,en,2010
+@akdm_bot,@askdrstats,1,TRUE,akdm_DS_bot,United States,rstats,en,2017
+@patternproject,@StatGarrett,1,TRUE,Twitter Web App,NA,gganimate,en,2013
+@kaz_yos,@paleolimbot,1,TRUE,Twitter for iPhone,Boston- MA- USA,ggplot2,en,2009
+@FrederikAust,@aworsleynz,1,TRUE,Twitter for iPhone,Cologne- Germany,rstats,en,2014
+@primesty22,@StatGarrett,1,TRUE,Twitter for iPhone,NA,gganimate,en,2014
+@Markkinuthia1,@paleolimbot,1,TRUE,Twitter for Android,NA,ggplot2,en,2012
+@jlugarrancho,@EikoFried,1,TRUE,Twitter for Android,Jaén- España,rstats,en,2017
+@aalpzp,@KirkDBorne,1,TRUE,Twitter for iPhone,Puebla- México,abdsc,en,2015
+@vmloaiza1,@StatGarrett,1,TRUE,Twitter Web Client,Colchester- England,gganimate,en,2017
+@nj_tierney,@MilesMcBain,1,TRUE,Twitter for Android,Melbourne- Victoria,rstats,en,2013
+@Denironyx,@rstudio,1,TRUE,Twitter for Android,Akure- Nigeria,tidyverse,en,2015
+@520507,@paleolimbot,1,TRUE,Twitter for iPhone,NA,ggplot2,en,2008
+@lstmpsmdrns,@KirkDBorne,1,TRUE,Twitter Web App,NA,Python,en,2013
+@gvwilson,@paleolimbot,1,TRUE,Twitter Web App,Various,ggplot2,en,2009
+@rgonzalez_tec,@fransvandunne,1,TRUE,Twitter for Android,Costa Rica,NA,es,2009
+@kevinykuo,@cascadiarconf,1,TRUE,Twitter for Android,Seattle- WA,rstats,en,2009
+@javor_m,@rstudio,1,TRUE,Twitter for iPhone,NA,NA,en,2015
+@dataandme,@StatGarrett,1,TRUE,Twitter for iPhone,Massachusetts,gganimate,en,2015
+@afvallejop,@StevenXGe,1,TRUE,Twitter for Android,Southampton- England,NA,en,2010
+@M5andhu,@StatGarrett,1,TRUE,Twitter for iPhone,Pasadena- CA,gganimate,en,2012
+@fridahdafri,@CyrusHerder,1,TRUE,Twitter Web Client,Nairobi,NA,en,2011
+@rstatstweet,@NeptuneML,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@wolfnado,@paleolimbot,1,TRUE,Twitter for Android,Seattle- WA,ggplot2,en,2016
+@wtchristiansen,@kearneymw,1,TRUE,Twitter for Android,South Carolina- USA,rstats,en,2014
+@0_u0,@WeAreRLadies,1,TRUE,Twitter for Android,Tokyo- Japan,rstats,en,2009
+@rstatstweet,@sadneurons,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@CrosalZareus,@StatGarrett,1,TRUE,Twitter for iPhone,Bogotá,gganimate,en,2010
+@parkinsu0424,@KirkDBorne,1,TRUE,Twitter for Android,Eau Claire- WI,abdsc,en,2012
+@savirhuitron,@jkregenstein,1,TRUE,Twitter for Android,NA,rstats,en,2014
+@Phreakaz0id,@KirkDBorne,1,TRUE,Twitter for Android,West Virginia- USA,abdsc,en,2013
+@AravindaAddala,@rstudio,1,TRUE,Twitter for Android,NA,tidyverse,en,2013
+@carlosGCMS,@KirkDBorne,1,TRUE,Twitter for Android,casales@uji.es,abdsc,en,2012
+@mails2raghav,@minebocek,1,TRUE,Twitter for iPhone,NA,rstats,en,2012
+@thinkR_fr,@rstudio,1,TRUE,Twitter for Android,NA,NA,en,2015
+@_OliviaBot,@cascadiarconf,1,TRUE,RT #MachineLearning,India,rstats,en,2019
+@VictoriosV,@rstudio,1,TRUE,Twitter for Android,Lagos- Nigeria,NA,en,2011
+@seathebass92,@paleolimbot,1,TRUE,Twitter for Android,NA,ggplot2,en,2018
+@rstatstweet,@SergioIbarraEs1,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@wctonrx18,@jkregenstein,1,TRUE,Twitter for Android,somewhere in the world,rstats,en,2013
+@peducardoso,@paleolimbot,1,TRUE,Twitter for iPhone,NA,ggplot2,en,2013
+@gringene_bio,@jkregenstein,1,TRUE,Twitter Web Client,Wellington City- New Zealand,rstats,en,2016
+@libematus,@StatGarrett,1,TRUE,Twitter for Android,Santiago- Chile,gganimate,en,2016
+@rstats4ds,@five_books,1,TRUE,R stats API access,NA,NA,en,2018
+@RLadiesSantiago,@mauro_lepore,1,TRUE,Twitter for Android,Santiago- Chile,rstats,es,2017
+@bellsmv,@rudeboybert,1,TRUE,Twitter for Android,Manchester- England,SDSS2019,en,2017
+@01717257469,@CedScherer,1,TRUE,Twitter for Android,Dhaka- Bangladesh,ggplot2,en,2011
+@murtha_andy,@rstudio,1,TRUE,Twitter for Android,Atlanta- GA,NA,en,2016
+@rstats4ds,@acmeducation,1,TRUE,R stats API access,NA,ACMTechTalk,en,2018
+@giladfeldman,@LucyStats,1,TRUE,Twitter for Android,Hong Kong,NA,en,2012
+@rachelss,@minebocek,1,TRUE,Twitter Web App,Kingston- RI,rstats,en,2009
+@rstatstweet,@DataSciEng,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@sjcporter,@gigantumscience,1,TRUE,Twitter for iPhone,NA,rstudio,en,2010
+@ecojydrology,@StatGarrett,1,TRUE,Twitter Web Client,Laramie- WY,gganimate,en,2017
+@alsombra7,@rstudio,1,TRUE,Twitter for Android,Rio de Janeiro- Brasil,rstats,en,2014
+@_ColinFay,@thinkR_fr,1,TRUE,Twitter for iPhone,Rennes- France,rstatsFR,fr,2009
+@freestatman,@StatGarrett,1,TRUE,Twitter for Android,Frederick- MD,gganimate,en,2011
+@mykrass,@rstudio,1,TRUE,Twitter Web Client,???????,tidyverse,en,2012
+@octavio_medina,@StatGarrett,1,TRUE,Twitter Web Client,Madrid / Maputo,gganimate,en,2009
+@Samantha_Toet,@eodaGmbH,1,TRUE,Twitter Web Client,Charlottesville- VA,eoda,de,2018
+@rstatstweet,@satRdays_org,1,TRUE,rstatsretweetingtool,NA,sponsors,en,2018
+@ucfagls,@minebocek,1,TRUE,Twitter Web App,Regina- Canada,rstats,en,2011
+@Teetetei1,@KirkDBorne,1,TRUE,Twitter for iPhone,NA,abdsc,en,2017
+@cloudaus,@paleolimbot,1,TRUE,Twitter for Android,Brisbane- Australia,ggplot2,en,2013
+@felipe_mattioni,@StatGarrett,1,TRUE,Twitter for Android,Germany,gganimate,en,2016
+@HendraRespati,@mouli3c3,1,TRUE,Twitter for iPhone,NA,rstats,en,2009
+@Michelle_Degli,@StatGarrett,1,TRUE,Twitter Web Client,Oxford- England,rstats,en,2015
+@CKVanPay,@StatGarrett,1,TRUE,Twitter Web App,Iowa St. University- Ames- IA,gganimate,en,2009
+@acmweurope,@acmeducation,1,TRUE,Twitter Web Client,NA,ACMTechTalk,en,2019
+@savirhuitron,@askdrstats,1,TRUE,Twitter for Android,NA,rstats,en,2014
+@rstatstweet,@cascadiarconf,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@rstats4ds,@StatGarrett,1,TRUE,R stats API access,NA,gganimate,en,2018
+@renato_umeton,@minebocek,1,TRUE,rtapp315156161,Boston- MA,rstats,en,2009
+@thegymnosophist,@rstudio,1,TRUE,Twitter for Android,Germany,NA,en,2013
+@ShumbAfrica,@chrissuthy,1,TRUE,TweetDeck,Namibia,rstats,en,2011
+@servantofchaos,@KirkDBorne,1,TRUE,Twitter for iPhone,Sydney- Australia,abdsc,en,2007
+@pophealth3,@LucyStats,1,TRUE,Twitter for Android,NA,NA,en,2018
+@organazized,@minebocek,1,TRUE,Twitter for iPhone,Jersey City- NJ,rstats,en,2011
+@Roberballester,@hglanz,1,TRUE,Twitter Web Client,Spain,rstats,en,2010
+@neuroeco,@StatGarrett,1,TRUE,Twitter Web Client,Osaka- Japan,gganimate,en,2008
+@rstatstweet,@paleolimbot,1,TRUE,rstatsretweetingtool,NA,ggplot2,en,2018
+@LandryYao05,@rstudio,1,TRUE,Twitter for Android,Côte d'Ivoire,tidyverse,en,2017
+@Baessler_Rad,@pintodrad,1,TRUE,Twitter for Android,Mannheim- Baden-Württemberg,rstat,de,2017
+@analyticbridge,@CytByk,1,TRUE,Twitter Web Client,Seattle- WA,abdsc,en,2008
+@fopsom,@joanneberghout,1,TRUE,Twitter for Android,Thessaloniki- Greece,Genomics,en,2009
+@ntweetor,@rstudio,1,TRUE,Twitter Web Client,Ithaca- NY,Shiny,en,2009
+@cbenvenuto73,@StatGarrett,1,TRUE,Twitter for Android,NA,gganimate,en,2014
+@KerlyMorales01,@_pvictorr,1,TRUE,Twitter for Android,NA,rstats,en,2010
+@DavidHumeau,@rstudio,1,TRUE,Twitter for Android,NA,tidyverse,en,2010
+@data_fiend,@paleolimbot,1,TRUE,Twitter for iPad,Marlborough- England,ggplot2,en,2012
+@_lacion_,@fransvandunne,1,TRUE,Twitter for Android,Buenos Aires- Argentina,NA,es,2012
+@hfitipaldi,@rstudio,1,TRUE,Twitter for iPhone,Malmo- Sweden,tidyverse,en,2010
+@Robccs,@KirkDBorne,1,TRUE,Twitter Web Client,Variable,abdsc,en,2009
+@mtrost2,@rstudio,1,TRUE,Twitter for Android,Republic of Slovenia,tidyverse,en,2011
+@swmpkim,@minebocek,1,TRUE,Twitter for Android,NA,rstats,en,2018
+@francisco_yira,@mauro_lepore,1,TRUE,Twitter for iPhone,Santiago- Chile,rstats,es,2018
+@poncemic1,@StatGarrett,1,TRUE,Twitter for Android,Republica de Floresta,gganimate,en,2012
+@DontFavMe,@rstudio,1,TRUE,Twitter for iPhone,Toronto- Ontario,rstats,en,2010
+@AndrewTheTM,@rstudio,1,TRUE,Twitter for Android,Cincinnati- OH- USA,rstats,en,2009
+@TiffanyTimbers,@LucyStats,1,TRUE,Twitter for Android,Vancouver- BC,NA,en,2014
+@apreshill,@LucyStats,1,TRUE,Twitter Web Client,Portland- OR,NA,en,2015
+@Jo14Robert,@KirkDBorne,1,TRUE,Twitter for iPhone,NA,abdsc,en,2016
+@GamerGeekNews,@cetier1,1,TRUE,GGN_RPiTwitterFeed,NA,NA,de,2011
+@nanbreadvariety,@KirkDBorne,1,TRUE,Twitter for iPhone,NA,abdsc,en,2016
+@BJaramilloV,@romain_francois,1,TRUE,Twitter for iPhone,Quito- Ecuador,workweek,en,2016
+@StandardDevi8er,@StatGarrett,1,TRUE,Twitter for Android,NA,gganimate,en,2017
+@vilukin,@KirkDBorne,1,TRUE,Twitter Web App,Donetsk- UA,Python,en,2009
+@Highcharts,@Iaroslava_Mizai,1,TRUE,Twitter Web Client,Vik i Sogn- Norway,NA,en,2012
+@rstatstweet,@healthandstats,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@HsuEmerson,@graemedblair,1,TRUE,Twitter for iPad,Atlanta- GA,NA,en,2015
+@rosidi2610,@KirkDBorne,1,TRUE,Twitter for iPhone,surabaya,abdsc,en,2017
+@swmpkim,@paleolimbot,1,TRUE,Twitter for Android,NA,ggplot2,en,2018
+@teuder,@StatGarrett,1,TRUE,TwitPane for Android,NA,gganimate,en,2009
+@KKulma,@paleolimbot,1,TRUE,Twitter Web App,London- England,ggplot2,en,2012
+@Tatjana_Kec,@rudeboybert,1,TRUE,Twitter for iPhone,Manchester- UK,SDSS2019,en,2009
+@StatStas,@rstudio,1,TRUE,Twitter for iPhone,Columbia- MO,NA,en,2013
+@dmi3k,@minebocek,1,TRUE,Twitter for iPhone,Oslo- Norway,rstats,en,2010
+@askdrstats,@hglanz,1,TRUE,Twitter for iPhone,Amherst- MA,rstats,en,2011
+@comeetie,@paleolimbot,1,TRUE,Twitter for Android,paris,ggplot2,en,2009
+@DeneckerThomas,@StatGarrett,1,TRUE,Twitter for Android,NA,gganimate,en,2013
+@DRG_de,@pintodrad,1,TRUE,Twitter for Android,Ernst-Reuter-Platz 10- Berlin,rstat,de,2013
+@pacoramon,@StatGarrett,1,TRUE,Twitter for iPhone,Zaragoza- España,gganimate,en,2009
+@kozo2,@StatGarrett,1,TRUE,Twitter Web App,Osaka- Japan,vtree,en,2007
+@JaneWal39542294,@StatGarrett,1,TRUE,Twitter for iPhone,NA,gganimate,en,2018
+@HenrikSingmann,@aworsleynz,1,TRUE,Twitter Web Client,University of Warwick- UK,rstats,en,2015
+@pacoramon,@fransvandunne,1,TRUE,Twitter for iPhone,Zaragoza- España,NA,es,2009
+@heyitsmehugo,@rstudio,1,TRUE,Twitter Web Client,NA,rstats,en,2018
+@marcbeldata,@rstudio,1,TRUE,Twitter Web App,Barcelona,tidyverse,en,2015
+@dques2766,@askdrstats,1,TRUE,Twitter for iPad,Miami Dade College - Wolfson,rstats,en,2009
+@SebastianArcosR,@paleolimbot,1,TRUE,Twitter for iPhone,Querétaro- Querétaro,ggplot2,en,2010
+@rstats4ds,@_pvictorr,1,TRUE,R stats API access,NA,rstats,en,2018
+@boscojfrancisco,@yeyomourglia,1,TRUE,Twitter for iPhone,Corrientes,flexdashboard,es,2010
+@carvunis,@abhijeetrs,1,TRUE,Twitter for Android,NA,NetSci2019,en,2014
+@pipetteprincesa,@EikoFried,1,TRUE,Twitter for iPhone,NA,rstats,en,2010
+@gngeorgarakis,@rstudio,1,TRUE,Twitter for iPhone,Manhattan- NY,NA,en,2012
+@JackkStat,@rstudio,1,TRUE,Twitter for Android,Utah,Shiny,en,2013
+@gregor_suttie,@KirkDBorne,1,TRUE,Twitter for iPhone,Glasgow- Scotland,abdsc,en,2007
+@data_datum,@rstudio,1,TRUE,Twitter for Android,Argentina,tidyverse,en,2016
+@TAMALES_A_2000,@rstudio,1,TRUE,Twitter for Android,Bogotá- Colombia,tidyverse,en,2009
+@jogoinchato,@KirkDBorne,1,TRUE,Twitter Web Client,Rio de Janeiro- Brasil,abdsc,en,2010
+@frmarcon,@StatGarrett,1,TRUE,Twitter for iPhone,Amiens- France,gganimate,en,2014
+@abfleishman,@paleolimbot,1,TRUE,Twitter Web App,Santa Cruz- CA,ggplot2,en,2017
+@deave_g,@iulennyc2,1,TRUE,Twitter for Android,Sevilla - Andalucía,laliga,es,2010
+@favstats,@aworsleynz,1,TRUE,Twitter Web App,Stuttgart- Deutschland,rstats,en,2012
+@rstats4ds,@StevenXGe,1,TRUE,R stats API access,NA,NA,en,2018
+@DataTeka,@minebocek,1,TRUE,Twitter for iPhone,England- United Kingdom,rstats,en,2017
+@iampranavkumar,@KirkDBorne,1,TRUE,Twitter Web App,India,abdsc,en,2011
+@privaGRAPH,@thinkR_fr,1,TRUE,Twitter for Android,Ile-de-France- France,rstatsFR,fr,2015
+@RLadiesBA,@minebocek,1,TRUE,TweetDeck,Buenos Aires- Argentina,rstats,en,2017
+@EmilyRiederer,@paleolimbot,1,TRUE,Twitter Web App,Chicago- IL,ggplot2,en,2011
+@EcoDynIZW,@CedScherer,1,TRUE,Twitter for Android,Berlin- Germany,ggplot2,en,2019
+@JeremyWilmer,@minebocek,1,TRUE,Twitter for iPhone,Boston- MA,rstats,en,2013
+@rstatstweet,@natedayta,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@EldarSilver,@zkajdan,1,TRUE,Twitter for Android,NA,rstats,en,2011
+@MalditoBarbudo,@StatGarrett,1,TRUE,Twitter for Android,NA,gganimate,en,2012
+@rstats4ds,@CDSBMexico,1,TRUE,R stats API access,NA,rstats,en,2018
+@Laluito,@KirkDBorne,1,TRUE,Twitter for Android,Mexico City,RStudio,en,2009
+@DeborahSambu,@KirkDBorne,1,TRUE,Twitter for Android,Nairobi,abdsc,en,2009
+@rstatstweet,@zkajdan,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@lobrowR,@theRcast,1,TRUE,Twitter Web Client,Pittsburgh- PA,rstats,en,2017
+@bergelsonlab,@StatGarrett,1,TRUE,Twitter for iPhone,Durham- NC,gganimate,en,2018
+@Stat_Ron,@StatGarrett,1,TRUE,Twitter for iPhone,Pittsburgh- PA,gganimate,en,2013
+@Shmuhammadd,@minebocek,1,TRUE,Twitter Web Client,Porto - Portugal,rstats,en,2011
+@giladfeldman,@minebocek,1,TRUE,Twitter for Android,Hong Kong,rstats,en,2012
+@tangming2005,@StevenXGe,1,TRUE,Twitter Web App,Cambridge- MA,NA,en,2011
+@sonofsharma1,@KirkDBorne,1,TRUE,Twitter Web App,Singapore,Python,en,2016
+@rstats4ds,@FergusJChadwick,1,TRUE,R stats API access,NA,rstats,en,2018
+@GJMerrin,@StatGarrett,1,TRUE,Twitter for iPhone,Orlando- FL,gganimate,en,2009
+@dmi3k,@StatGarrett,1,TRUE,Twitter for iPhone,Oslo- Norway,gganimate,en,2010
+@PuncozNepal,@StatGarrett,1,TRUE,Twitter for Android,Bhaktapur,gganimate,en,2011
+@rstats4ds,@jbono,1,TRUE,R stats API access,NA,NA,en,2018
+@jrazz12,@rstudio,1,TRUE,Twitter for Android,Monrovia- CA,tidyverse,en,2016
+@TiffanyTimbers,@minebocek,1,TRUE,Twitter for Android,Vancouver- BC,rstats,en,2014
+@jasperjcooper,@graemedblair,1,TRUE,Twitter for iPhone,NA,NA,en,2010
+@mrjoh3,@mouli3c3,1,TRUE,Twitter for Android,Melbourne- Victoria,rstats,en,2015
+@noccaea,@StatGarrett,1,TRUE,Twitter Web Client,NA,gganimate,en,2015
+@FKondylis,@graemedblair,1,TRUE,Twitter for iPhone,NA,NA,en,2013
+@GueyeNono,@StatGarrett,1,TRUE,Twitter for Android,Auburn- AL,gganimate,en,2009
+@ethanewebtech,@gigantumscience,1,TRUE,Twitter Web Client,Noida- India,rstudio,en,2013
+@magamar29,@KirkDBorne,1,TRUE,Twitter Web Client,NA,abdsc,en,2011
+@gpmt,@KirkDBorne,1,TRUE,Twitter Web Client,Dinant - Belgium,abdsc,en,2010
+@DiegoBzl,@minebocek,1,TRUE,Twitter for Android,CD MX,rstats,en,2010
+@mdziemann,@StevenXGe,1,TRUE,Twitter Web App,Melbourne & Geelong- Victoria,NA,en,2014
+@dataandme,@paleolimbot,1,TRUE,Twitter for iPhone,Massachusetts,ggplot2,en,2015
+@fcs_est,@rstudio,1,TRUE,Twitter for Android,Porto Alegre,NA,en,2019
+@SirJedediah,@KirkDBorne,1,TRUE,Twitter for Android,Cyberjaya,abdsc,en,2011
+@MangoTheCat,@StatGarrett,1,TRUE,Twitter Web Client,United Kingdom,gganimate,en,2009
+@DarioRShaw,@StatGarrett,1,TRUE,Twitter for iPhone,Kingdom of Saudi Arabia,gganimate,en,2017
+@Dyerlab,@Emil_Hvitfeldt,1,TRUE,Twitter for iPhone,Richmond- VA,rstats,en,2015
+@RamMaravilla,@EikoFried,1,TRUE,Twitter for Android,Distrito Federal- México,rstats,en,2014
+@mottarafael,@KirkDBorne,1,TRUE,Twitter for Android,tenso city,abdsc,en,2009
+@sheilasaia,@minebocek,1,TRUE,Twitter for iPhone,Durham- NC,rstats,en,2014
+@LaurentFranckx,@aworsleynz,1,TRUE,Twitter for Android,Belgium,rstats,en,2011
+@M8Macht,@KirkDBorne,1,TRUE,Twitter for Android,Germany,abdsc,en,2011
+@IamSambanthan,@_pvictorr,1,TRUE,Twitter Web App,Bengaluru- India,rstats,en,2014
+@bagasbgy,@LucyStats,1,TRUE,Twitter for Android,Surabaya- Indonesia,NA,en,2012
+@jjakobsdottir,@aworsleynz,1,TRUE,Twitter for iPhone,Iceland,rstats,en,2015
+@thomas_mock,@cascadiarconf,1,TRUE,Twitter for iPhone,Texas,rstats,en,2013
+@jeffreyketland,@rstudio,1,TRUE,Twitter Web Client,NA,tidyverse,en,2014
+@apreshill,@minebocek,1,TRUE,Twitter Web Client,Portland- OR,rstats,en,2015
+@emily_f_dixon,@PBecciu,1,TRUE,Twitter Web App,Birmingham,TidyTuesday,en,2009
+@H001011,@KirkDBorne,1,TRUE,Twitter Web Client,California- USA,abdsc,en,2018
+@iljukov,@paleolimbot,1,TRUE,Twitter for iPhone,Lahti- Suomi,ggplot2,en,2012
+@tangming2005,@paleolimbot,1,TRUE,Twitter Web App,Cambridge- MA,ggplot2,en,2011
+@simon_blaquiere,@rstudio,1,TRUE,Twitter for iPad,France,NA,en,2016
+@VincentGuyader,@rstudio,1,TRUE,Twitter for Android,Paris- France,NA,en,2017
+@ghost_orange,@Emil_Hvitfeldt,1,TRUE,Twitter for iPad,??????,rstats,en,2013
+@LeeLeo1993,@fransvandunne,1,TRUE,Twitter Web App,NA,NA,es,2012
+@tekitizzy,@CyrusHerder,1,TRUE,Twitter for Android,Kampala- Uganda,NA,en,2012
+@Lenafrescamente,@StatGarrett,1,TRUE,Twitter for Android,Earth- mostly Europe,vtree,en,2013
+@tareefk,@rstudio,1,TRUE,Twitter for iPhone,Boston- MA,NA,en,2009
+@OlinoTom,@paleolimbot,1,TRUE,Twitter for iPhone,NA,ggplot2,en,2013
+@drago_carlo,@StatGarrett,1,TRUE,Twitter for iPhone,Roma,gganimate,en,2012
+@charlyaztec,@KirkDBorne,1,TRUE,Twitter for iPhone,NA,abdsc,en,2007
+@rstats4ds,@CytByk,1,TRUE,R stats API access,NA,abdsc,en,2018
+@DrLeo037,@paleolimbot,1,TRUE,Twitter for Android,NA,ggplot2,en,2013
+@volz_le,@aworsleynz,1,TRUE,Twitter for Android,Vienna- Austria,rstats,en,2015
+@_Stadtgorilla_,@aworsleynz,1,TRUE,Twitter for Android,München- Bayern,rstats,en,2015
+@rstatstweet,@ProCogia,1,TRUE,rstatsretweetingtool,NA,datascience,en,2018
+@Cor3Down,@rstudio,1,TRUE,Twitter for Android,DigitalWorld!,rstats,en,2017
+@JuliaRiseman,@askdrstats,1,TRUE,Twitter for iPhone,Northampton,rstats,en,2012
+@jletteboer,@paleolimbot,1,TRUE,Twitter for iPhone,The Netherlands,ggplot2,en,2009
+@Hariet_Kuda,@askdrstats,1,TRUE,Twitter for Android,Durban- South Africa,rstats,en,2011
+@rnall0,@EikoFried,1,TRUE,Twitter for iPhone,Florence- AL,rstats,en,2013
+@ChasingMicrobes,@rstudio,1,TRUE,Twitter for iPhone,Chicago- IL,NA,en,2017
+@hamzahpty,@mauro_lepore,1,TRUE,Twitter Web App,panama city panama,rstats,es,2009
+@chrischizinski,@StatGarrett,1,TRUE,Twitter Web Client,Lincoln- NE,gganimate,en,2011
+@ccg_unam,@CDSBMexico,1,TRUE,Twitter for Android,Cuernavaca- Morelos,rstats,es,2015
+@dogvile,@kellrstats,1,TRUE,Twitter Web Client,Athens/Brussels,rstats,en,2008
+@yutannihilat_en,@rstudio,1,TRUE,Twitter for Android,Tokyo- Japan,tidyverse,en,2018
+@ElHallay,@KirkDBorne,1,TRUE,Twitter for Android,Trento- Trentino-Alto Adige,abdsc,en,2012
+@rstats4ds,@xieyihui,1,TRUE,R stats API access,NA,NA,en,2018
+@rstatstweet,@norcalbiostat,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@VincentTerrasi,@CytByk,1,TRUE,Twitter for iPhone,Roubaix Valley,abdsc,en,2009
+@adolfoalvarez,@aworsleynz,1,TRUE,Twitter for Android,Getafe - Pozna? - Curicó,rstats,en,2009
+@rstatstweet,@kellrstats,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@rstats4ds,@strytellrofpast,1,TRUE,R stats API access,NA,RProgramming,en,2018
+@jthomascooper,@paleolimbot,1,TRUE,Twitter for iPhone,Highland Heights- KY,ggplot2,en,2013
+@yeyomourglia,@KirkDBorne,1,TRUE,Twitter Web Client,Corrientes- Argentina,Python,en,2014
+@sinarueeger,@StatGarrett,1,TRUE,Twitter Web Client,Lausanne- Switzerland,gwasrapidd,en,2013
+@thinkR_fr,@RoelandtN42,1,TRUE,Twitter for Android,NA,rstats,en,2015
+@drnickisaac,@paleolimbot,1,TRUE,Twitter for Android,Oxfordshire,ggplot2,en,2011
+@kara_woo,@paleolimbot,1,TRUE,TweetDeck,NA,ggplot2,en,2012
+@thevideoanalyst,@visualisingdata,1,TRUE,Twitter for iPhone,Ireland,NA,en,2009
+@caustin0364,@minebocek,1,TRUE,Twitter for Android,Midwest USA,rstats,en,2014
+@kaz_yos,@StatStas,1,TRUE,Twitter for iPhone,Boston- MA- USA,rstats,en,2009
+@_Mirkwood_,@StatGarrett,1,TRUE,Twitter for Android,United Kingdom/France/Airports,gganimate,en,2010
+@apreshill,@rstudio,1,TRUE,Twitter Web Client,Portland- OR,NA,en,2015
+@jmhenner,@hglanz,1,TRUE,Twitter for iPhone,NA,rstats,en,2007
+@minebocek,@rstudio,1,TRUE,Twitter for iPhone,Edinburgh- Scotland,NA,en,2010
+@Fe_biologia,@paleolimbot,1,TRUE,Twitter for iPhone,Brazil,ggplot2,en,2010
+@vlahan,@StatGarrett,1,TRUE,Twitter for Android,Berlin- Germany,gganimate,en,2007
+@JFritzjames,@paleolimbot,1,TRUE,Twitter Web App,Antwerp- Belgium,ggplot2,en,2018
+@rstudio,@jkregenstein,1,TRUE,Twitter for iPhone,Boston,rstats,en,2011
+@JasonWilliamsNY,@minebocek,1,TRUE,Twitter for iPhone,Cold Spring Harbor- NY,rstats,en,2013
+@infoworld,@KirkDBorne,1,TRUE,Twitter for iPhone,San Francisco,RStudio,en,2008
+@UNT_RITS,@rstudio,1,TRUE,Twitter Web App,Denton- TX,NA,en,2019
+@rstats4ds,@rweekly_live,1,TRUE,R stats API access,NA,rstats,en,2018
+@KirkDBorne,@KirkDBorne,1,TRUE,Twitter for iPhone,Booz Allen Hamilton,Python,en,2012
+@rstatstweet,@peducardoso,1,TRUE,rstatsretweetingtool,NA,ggplot,en,2018
+@kojimizu1028,@StatGarrett,1,TRUE,Twitter for iPhone,???,gganimate,en,2011
+@analyticbridge,@KirkDBorne,1,TRUE,Twitter Web Client,Seattle- WA,abdsc,en,2008
+@dataandme,@minebocek,1,TRUE,Twitter for iPhone,Massachusetts,rstats,en,2015
+@Kunkakom,@rstudio,1,TRUE,Twitter for Android,Mannheim,NA,en,2010
+@CDSBMexico,@LIBDrstats,1,TRUE,Twitter for iPhone,NA,rstats,en,2018
+@rstatstweet,@eric_normandeau,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@s7bX31Zke2CEia8,@KirkDBorne,1,TRUE,Twitter for Android,NA,Python,en,2019
+@NCrepalde,@rstudio,1,TRUE,Twitter for iPhone,Belo Horizonte- Minas Gerais,NA,en,2015
+@FlorianWilhelm,@henningsway,1,TRUE,Twitter for Android,Cologne- Germany,NA,en,2008
+@malco_barrett,@paleolimbot,1,TRUE,Twitter for Android,Los Angeles- CA,ggplot2,en,2011
+@tdongl3ss,@rstudio,1,TRUE,Twitter Web App,Ho Chi Minh- Vietnam,Shiny,en,2012
+@maxheld,@minebocek,1,TRUE,Twitter Web Client,Nuremberg- Germany,rstats,en,2009
+@rstatstweet,@rweekly_live,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@nj_tierney,@StatGarrett,1,TRUE,Twitter for Android,Melbourne- Victoria,gganimate,en,2013
+@kojishiromoto,@PodsProgram,1,TRUE,Twitter for iPhone,Montréal- Québec,NA,en,2015
+@drago_carlo,@zkajdan,1,TRUE,Twitter for iPhone,Roma,rstats,en,2012
+@rstatstweet,@ingorohlfing,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@rstatstweet,@peterlovesdata,1,TRUE,rstatsretweetingtool,NA,python,en,2018
+@PrometeoStallm1,@rstudio,1,TRUE,Twitter Web Client,NA,tidyverse,en,2019
+@brodriguesco,@zkajdan,1,TRUE,Twitter Web App,Luxembourg,rstats,en,2014
+@bhim_chaulagain,@paleolimbot,1,TRUE,Twitter for iPhone,University- FL,ggplot2,en,2014
+@RobertYoung970,@paleolimbot,1,TRUE,Twitter for Android,Copenhagen- Denmark,ggplot2,en,2017
+@visualisingdata,@maartenzam,1,TRUE,Twitter for iPhone,Leeds- England,NA,en,2010
+@InfonomicsInc,@CytByk,1,TRUE,dlvr.it,Palos Verdes Estates- CA,abdsc,en,2012
+@dmsbb,@KirkDBorne,1,TRUE,Twitter for iPhone,NA,abdsc,en,2009
+@_lacion_,@minebocek,1,TRUE,Twitter for Android,Buenos Aires- Argentina,rstats,en,2012
+@Tatjana_Kec,@paleolimbot,1,TRUE,Twitter for iPhone,Manchester- UK,ggplot2,en,2009
+@ounagdifno,@brshallo,1,TRUE,Twitter Web App,NA,Rstats,en,2019
+@hadleywickham,@minebocek,1,TRUE,Tweetbot for i?S,Houston- TX,rstats,en,2009
+@Ed_CfS,@minebocek,1,TRUE,Twitter Web Client,Edinburgh- Scotland,rstats,en,2019
+@rstatstweet,@hglanz,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@strnr,@Samantha_Toet,1,TRUE,Tweetbot for i?S,Charlottesville- VA,NA,en,2009
+@dmi3k,@zkajdan,1,TRUE,Twitter for iPhone,Oslo- Norway,rstats,en,2010
+@GregorySmith58,@StatGarrett,1,TRUE,Twitter Web App,NA,gganimate,en,2015
+@trappedalien,@maartenzam,1,TRUE,Twitter Web Client,Sri Lanka,NA,en,2010
+@_lacion_,@askdrstats,1,TRUE,Twitter for Android,Buenos Aires- Argentina,rstats,en,2012
+@stevennjui,@rstudio,1,TRUE,Twitter for Android,Nairobi- Kenya,rstats,en,2015
+@nagyt,@StatGarrett,1,TRUE,Twitter for Android,Budapest- Hungary,gganimate,en,2009
+@rstats4ds,@rudeboybert,1,TRUE,R stats API access,NA,SDSS2019,en,2018
+@whoyos21,@dataquestio,1,TRUE,Twitter for iPhone,Montería - Colombia,rstats,en,2013
+@GaborCsardi,@minebocek,1,TRUE,Twitter Web Client,Oxford- UK,rstats,en,2011
+@CebEib19,@StatGarrett,1,TRUE,Twitter for Android,Valencia- Spain,gganimate,en,2019
+@unonoctium,@minebocek,1,TRUE,Twitter for iPhone,NA,rstats,en,2010
+@fopsom,@elli_lib,1,TRUE,Twitter for Android,Thessaloniki- Greece,Athens,en,2009
+@CosmoCT,@rstudio,1,TRUE,Twitter for iPhone,Cape Town- South Africa,Shiny,en,2009
+@serdarbalci,@minebocek,1,TRUE,Twitter Web Client,Turkey,rstats,en,2009
+@larnsce,@minebocek,1,TRUE,Twitter for Android,Zürich- Schweiz,rstats,en,2011
+@melancronico,@paleolimbot,1,TRUE,Twitter for Android,Sao Paulo- Brazil,ggplot2,en,2016
+@rstats4ds,@kearneymw,1,TRUE,R stats API access,NA,rstats,en,2018
+@kaushikbhakat,@paleolimbot,1,TRUE,Twitter for iPhone,Bengaluru- India,ggplot2,en,2010
+@monkmanmh,@KirkDBorne,1,TRUE,Twitter for iPhone,Victoria- BC- Canada,Python,en,2010
+@RobertoMarmo,@KirkDBorne,1,TRUE,Twitter Web Client,NA,Python,en,2011
+@Mbiguidi1,@rstudio,1,TRUE,Twitter for iPhone,Paris- France,Shiny,en,2016
+@gcfrench,@StatGarrett,1,TRUE,Twitter for Android,Peterborough- England,gganimate,en,2009
+@asela_1,@joanneberghout,1,TRUE,Twitter for iPhone,Jonesboro- AR,Genomics,en,2012
+@acangros,@paleolimbot,1,TRUE,Twitter Web App,Barcelona,ggplot2,en,2008
+@umairdurrani87,@Emil_Hvitfeldt,1,TRUE,Twitter Web Client,Windsor- Ontario,rstats,en,2016
+@LandonGetz,@statsgen,1,TRUE,Twitter Web Client,Halifax- Nova Scotia,ggplot,en,2013
+@jeffrey_kane,@rstudio,1,TRUE,Twitter for Android,Toledo- OH,rstats,en,2012
+@kerry_benjamin1,@jo_hardin47,1,TRUE,Twitter Web Client,Brooklyn- NY,rstats,en,2009
+@hypercompetent,@minebocek,1,TRUE,Twitter for Android,Seattle,rstats,en,2014
+@AlanfsOli,@paleolimbot,1,TRUE,Twitter for Android,NA,ggplot2,en,2018
+@A_KI_h2,@kyle_e_walker,1,TRUE,Twitter for iPhone,??,rstats,en,2017
+@dagh,@StatGarrett,1,TRUE,dagh_test1,Boston- MA,gganimate,en,2007
+@jo_hardin47,@hglanz,1,TRUE,Twitter for iPad,Claremont- CA,rstats,en,2014
+@SilverLinings71,@rstudio,1,TRUE,Twitter for iPhone,NA,rstats,en,2018
+@straightedge,@ingorohlfing,1,TRUE,Twitter for iPhone,Melbourne via Cambridge,rstats,en,2008
+@DianeBELDAME,@thinkR_fr,1,TRUE,Twitter for Android,Paris- France,rstatsFR,fr,2014
+@TalkR_ES,@LIBDrstats,1,TRUE,TalkR_ES,Internet,rstats,en,2017
+@BlasBenito,@LuisDVerde,1,TRUE,Twitter Web Client,NA,NA,en,2012
+@pbl_data,@EikoFried,1,TRUE,Twitter for Android,Pozna?- Polska,rstats,en,2019
+@SptAdd,@KirkDBorne,1,TRUE,Twitter for iPhone,NA,abdsc,en,2016
+@rstats4ds,@Samantha_Toet,1,TRUE,R stats API access,NA,NA,en,2018
+@rstats4ds,@benmarwick,1,TRUE,R stats API access,NA,NA,en,2018
+@cbraboszcz,@aworsleynz,1,TRUE,Twitter Web Client,Bristol- England,rstats,en,2015
+@drtagkim,@rstudio,1,TRUE,Twitter for iPhone,????,NA,cy,2015
+@StatStas,@askdrstats,1,TRUE,Twitter for iPhone,Columbia- MO,rstats,en,2013
+@faroloye,@KirkDBorne,1,TRUE,Twitter for Android,Lagos- Nigeria,abdsc,en,2010
+@pacoramon,@paleolimbot,1,TRUE,Twitter for iPhone,Zaragoza- España,ggplot2,en,2009
+@el_abstemio,@Emil_Hvitfeldt,1,TRUE,Twitter for iPhone,Bogotá- D.C.- Colombia,rstats,en,2011
+@ErmiaBivatan,@rstudio,1,TRUE,Flamingo for Android,Nowhere,rstats,en,2013
+@UAMedicineEdu,@fopsom,1,TRUE,Twitter Web Client,Tucson- Arizona,NA,en,2014
+@DNAed_tech,@joanneberghout,1,TRUE,Edtech genomics,United States,Genomics,en,2016
+@jmw86069,@paleolimbot,1,TRUE,Twitter for iPhone,RTP- NC,ggplot2,en,2009
+@Aleponcem,@CDSBMexico,1,TRUE,Twitter for iPhone,Ciudad de México,rstats,es,2015
+@eFe_Gil,@LucyStats,1,TRUE,Twitter for Android,NA,NA,en,2013
+@rstats4ds,@mauro_lepore,1,TRUE,R stats API access,NA,tidyverse,en,2018
+@MevrouwTeh,@rstudio,1,TRUE,Twitter for iPhone,The Netherlands,NA,en,2017
+@Stat_Ron,@rstudio,1,TRUE,Twitter for iPhone,Pittsburgh- PA,rstats,en,2013
+@Anirudh_14,@KirkDBorne,1,TRUE,Twitter for Android,Troy- NY,abdsc,en,2013
+@rstatstweet,@DeanImbriale,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@nj_tierney,@paleolimbot,1,TRUE,Twitter for Android,Melbourne- Victoria,ggplot2,en,2013
+@neprasad,@StatGarrett,1,TRUE,Twitter for iPhone,LA,gganimate,en,2010
+@NefjodovaJ,@jkregenstein,1,TRUE,Twitter for Android,Cardiff,rstats,en,2018
+@DrPairach,@Emil_Hvitfeldt,1,TRUE,Twitter for iPhone,Chiang Mai- Thailand,rstats,en,2011
+@JuliaRiseman,@jo_hardin47,1,TRUE,Twitter for iPhone,Northampton,rstats,en,2012
+@moh_fcis,@StatGarrett,1,TRUE,Twitter Web Client,NA,gwasrapidd,en,2009
+@ixpantia,@mauro_lepore,1,TRUE,Twitter for Android,Costa Rica,rstats,es,2015
+@rstats4ds,@NeptuneML,1,TRUE,R stats API access,NA,rstats,en,2018
+@CyVerseOrg,@joanneberghout,1,TRUE,Twitter Web Client,NA,Genomics,en,2009
+@RKWong04,@askdrstats,1,TRUE,Twitter Web Client,NA,rstats,en,2013
+@realRobertKibet,@KirkDBorne,1,TRUE,Twitter for Android,Juja- Kenya,abdsc,en,2012
+@rstatstweet,@parushya,1,TRUE,rstatsretweetingtool,NA,RMarkdown,en,2018
+@rstudiotips,@kellrstats,1,TRUE,Twitter Web Client,Seattle- WA,rstats,en,2014
+@zentree,@minebocek,1,TRUE,Twitter Web Client,?tautahi | Christchurch- New Zealand,rstats,en,2006
+@seabove7,@StatGarrett,1,TRUE,Twitter for iPhone,Chapel Hill- NC,gganimate,en,2012
+@malco_barrett,@StatGarrett,1,TRUE,Twitter for Android,Los Angeles- CA,gganimate,en,2011
+@pacoramon,@askdrstats,1,TRUE,Twitter for iPhone,Zaragoza- España,rstats,en,2009
+@jdblischak,@minebocek,1,TRUE,Twitter Web Client,Akron- OH,rstats,en,2013
+@olgunaydinn,@minebocek,1,TRUE,Twitter for Android,?stanbul- Türkiye,rstats,en,2012
+@jmillangzz,@KirkDBorne,1,TRUE,Twitter for iPhone,Some place,abdsc,en,2009
+@rebel_seoul,@askdrstats,1,TRUE,Twitter for Android,???? ??,rstats,en,2018
+@rstatstweet,@mr_autumn,1,TRUE,rstatsretweetingtool,NA,R,en,2018
+@MarcoWirthlin,@JohnHelveston,1,TRUE,Twitter Web App,Antarctica,NA,en,2015
+@bthatcher_icc,@StatGarrett,1,TRUE,Twitter for Android,Illinois,gganimate,en,2008
+@AleMedinaRivera,@fellgernon,1,TRUE,Twitter for Android,México,rstatsES,es,2012
+@erick_leonardo_,@KirkDBorne,1,TRUE,Twitter Web Client,Santo Domingo,abdsc,en,2010
+@rstatstweet,@minebocek,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@alphaarchitect,@jkregenstein,1,TRUE,Twitter for Android,Philadelphia- PA,rstats,en,2011
+@MagateWildhorse,@CedScherer,1,TRUE,Twitter Web Client,Toronto- Canada,ggplot2,en,2012
+@rstatstweet,@OmniAnalytics,1,TRUE,rstatsretweetingtool,NA,addin,en,2018
+@De_Nel7,@StatGarrett,1,TRUE,Twitter for Android,Accra,gganimate,en,2015
+@AndyDSweet,@KirkDBorne,1,TRUE,Twitter for iPhone,St. Louis,abdsc,en,2014
+@vivekvardhan05,@KirkDBorne,1,TRUE,Twitter for Android,Chennai- India,abdsc,en,2012
+@emmy_ft,@davclark,1,TRUE,Twitter Web Client,Cambridge- England,Cloud,en,2009
+@drlackner,@StatGarrett,1,TRUE,Twitter for iPad,NA,gganimate,en,2012
+@PabloBernabeu_,@minebocek,1,TRUE,Twitter Web Client,NA,rstats,en,2013
+@adolfoalvarez,@acmeducation,1,TRUE,Twitter for Android,Getafe - Pozna? - Curicó,ACMTechTalk,en,2009
+@JubleeW,@EikoFried,1,TRUE,Twitter Web Client,Ontario- Canada,rstats,en,2010
+@rstatstweet,@anh_n_tran,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@rstatstweet,@yabellini,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@virtualnaman,@KirkDBorne,1,TRUE,Twitter for Android,Vancouver- British Columbia,abdsc,en,2009
+@MineDogucu,@minebocek,1,TRUE,Twitter for iPhone,Columbus- OH,rstats,en,2014
+@celia_vgelder,@minebocek,1,TRUE,Twitter for iPad,NA,rstats,en,2011
+@datacarpentry,@elli_lib,1,TRUE,Twitter for Android,NA,Athens,en,2014
+@GuillemPerdigo,@StatGarrett,1,TRUE,Twitter Web App,Berlin- Germany,gganimate,en,2013
+@Hao_and_Y,@LucyStats,1,TRUE,Twitter Web Client,Gainesville- FL,NA,en,2010
+@ivgarcas,@iulennyc2,1,TRUE,Twitter for Android,Sevilla,laliga,es,2010
+@cdhowe,@rstudio,1,TRUE,Tweetbot for Mac,Stow- Massachusetts,Shiny,en,2008
+@CDISC,@pharmasug,1,TRUE,Hootsuite Inc.,Austin- TX,pharmaSUG,en,2009
+@RiinuOts,@minebocek,1,TRUE,Twitter for iPhone,Edinburgh- Scotland,rstats,en,2014
+@rstats4ds,@davidjayharris,1,TRUE,R stats API access,NA,NA,en,2018
+@jupanago,@paleolimbot,1,TRUE,Twitter Web App,NA,ggplot2,en,2011
+@chenxingus,@StatGarrett,1,TRUE,Twitter for iPhone,Boston- MA,gganimate,en,2016
+@ipfconline1,@KirkDBorne,1,TRUE,Twitter for Android,Marseille- France,Python,en,2016
+@Max_Lyashko,@KirkDBorne,1,TRUE,Maxim Lyashko,NA,abdsc,en,2017
+@kevin_fotso,@KirkDBorne,1,TRUE,Twitter for iPhone,New Mexico- USA,abdsc,en,2016
+@RosanaFerrero,@StatGarrett,1,TRUE,Twitter for iPhone,España/Uruguay/Chile,gganimate,en,2013
+@dasalazarb,@StatGarrett,1,TRUE,Twitter for Android,Holanda,gganimate,en,2011
+@khgiraffe,@Sansom_Rob,1,TRUE,Twitter for iPhone,California | Texas,NA,en,2010
+@julianlavila,@hadleywickham,1,TRUE,Twitter for Android,En alguna comisura,rstats,en,2011
+@MattDabrowski,@minebocek,1,TRUE,Twitter Web Client,NA,rstats,en,2008
+@syedimran3,@KirkDBorne,1,TRUE,Twitter for iPhone,Milton Keynes- England,abdsc,en,2010
+@unrahu1,@rstudio,1,TRUE,Twitter for iPhone,Portland- OR,rstats,en,2009
+@Laluito,@rstudio,1,TRUE,Twitter for Android,Mexico City,NA,en,2009
+@rstats4ds,@paleolimbot,1,TRUE,R stats API access,NA,ggplot2,en,2018
+@rstats4ds,@PodsProgram,1,TRUE,R stats API access,NA,r4ds,en,2018
+@aaronmorekin,@jkregenstein,1,TRUE,Twitter for iPhone,Lehigh Valley- PA,rstats,en,2011
+@DD_Jessica_,@minebocek,1,TRUE,Twitter for iPhone,Australia,rstats,en,2014
+@rohitsohlot,@rstudio,1,TRUE,Twitter for Android,Dharuhera,tidyverse,en,2012
+@hadleywickham,@paleolimbot,1,TRUE,Twitter Web Client,Houston- TX,ggplot2,en,2009
+@Jaysivahf,@fransvandunne,1,TRUE,Twitter for iPhone,NA,NA,es,2018
+@rstatstweet,@ellessenne,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@SergioSNieto,@rstudio,1,TRUE,Twitter for Android,Mars,rstats,en,2011
+@bass_analytics,@minebocek,1,TRUE,Twitter Web Client,Planet Earth,rstats,en,2016
+@rstats4ds,@mr_autumn,1,TRUE,R stats API access,NA,R,en,2018
+@rstatstweet,@Benjaming_G,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@desertnaut,@rstudio,1,TRUE,Twitter for iPhone,Athens- Greece,rstats,en,2011
+@aditihudli,@PBecciu,1,TRUE,Twitter for Android,New York- NY,TidyTuesday,en,2016
+@tidyverse,@hglanz,1,TRUE,Twitter for Android,NA,rstats,en,2016
+@misternaxal,@KirkDBorne,1,TRUE,Tweetbot for i?S,Denton- Texas,Python,en,2008
+@JenRichmondPhD,@rstudio,1,TRUE,Twitter for iPhone,Sydney- New South Wales,Shiny,en,2012
+@vishal_katti,@LuisDVerde,1,TRUE,Twitter for Android,Bengaluru- India,NA,en,2016
+@manuscript,@gigantumscience,1,TRUE,Tweetbot for i?S,London,rstudio,en,2007
+@correajfc,@StatGarrett,1,TRUE,Twitter for Android,En Alúna,gganimate,en,2010
+@pierrepinna,@KirkDBorne,1,TRUE,Twitter Web Client,Marseille- France,Python,en,2014
+@deoland,@KirkDBorne,1,TRUE,Twitter for Android,Congo- Sénégal,abdsc,en,2012
+@thomashilbig2,@KirkDBorne,1,TRUE,TheBigDataBot,NA,abdsc,en,2017
+@adconk,@acmeducation,1,TRUE,Twitter for iPhone,Washington- DC,ACMTechTalk,en,2008
+@ercmrn,@StatGarrett,1,TRUE,Twitter for iPhone,NA,gganimate,en,2013
+@JasonAizkalns,@Emil_Hvitfeldt,1,TRUE,Twitter Web Client,Greater Philadelphia Area- PA,rstats,en,2013
+@joshualeond,@zkajdan,1,TRUE,Twitter for iPhone,Walker- LA (close to LIGO),rstats,en,2009
+@gurbuzdata,@KirkDBorne,1,TRUE,Twitter for Android,Dallas- TX,Python,en,2019
+@ZKamvar,@paleolimbot,1,TRUE,Twitter for iPhone,Barnet- London,ggplot2,en,2014
+@JosephineLukito,@minebocek,1,TRUE,Twitter for Android,Wisconsin- USA,rstats,en,2009
+@amgauna,@KirkDBorne,1,TRUE,Twitter Web App,Botafogo- Rio de Janeiro- BR,Python,en,2009
+@DavidHumeau,@Nadia__Tahiri,1,TRUE,Twitter for Android,NA,shortcuts,en,2010
+@aeddoud,@minebocek,1,TRUE,Twitter for Android,Algiers,rstats,en,2010
+@gavg712,@mauro_lepore,1,TRUE,Twitter for Android,NA,rstats,es,2009
+@anu_analytics,@jo_hardin47,1,TRUE,Twitter for Android,NA,rstats,en,2015
+@sumanstats,@StatGarrett,1,TRUE,Twitter for iPhone,Nepal,gganimate,en,2018
+@henry_marylene,@minebocek,1,TRUE,Twitter for iPhone,NA,rstats,en,2013
+@Tatjana_Kec,@five_books,1,TRUE,Twitter for iPad,Manchester- UK,NA,en,2009
+@philip_khor,@LucyStats,1,TRUE,Twitter Web Client,Shibuya-ku- Tokyo,NA,en,2018
+@ajrhr,@StatGarrett,1,TRUE,Twitter Web Client,NA,rstats,en,2013
+@arminmertens,@rstudio,1,TRUE,Twitter for iPhone,Köln- Deutschland,NA,en,2012
+@MattCrump_,@jo_hardin47,1,TRUE,Twitter for iPhone,Brooklyn- NY,rstats,en,2015
+@fransvandunne,@mauro_lepore,1,TRUE,Twitter Web Client,Costa Rica,rstats,es,2010
+@aguerrero28,@minebocek,1,TRUE,Twitter for Android,NA,rstats,en,2011
+@RusselsTheepot,@aworsleynz,1,TRUE,Twitter for Android,Brugge,rstats,en,2011
+@yutannihilat_en,@StatGarrett,1,TRUE,Twitter for Android,Tokyo- Japan,gganimate,en,2018
+@rstatstweet,@AlexCEngler,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@AkilaWijerathna,@paleolimbot,1,TRUE,Twitter Web App,The Hebrew University of Jerusalem,ggplot2,en,2012
+@konkougioumou,@StatGarrett,1,TRUE,Twitter for iPhone,Neo Psychiko- Greece,gwasrapidd,en,2011
+@KKulma,@acmeducation,1,TRUE,Twitter Web App,London- England,ACMTechTalk,en,2012
+@nagyt,@minebocek,1,TRUE,Twitter for Android,Budapest- Hungary,rstats,en,2009
+@TalkR_ES,@CDSBMexico,1,TRUE,TalkR_ES,Internet,rstats,es,2017
+@BenjaminChant,@StatGarrett,1,TRUE,Twitter for iPhone,NA,gganimate,en,2017
+@francisco_yira,@StatGarrett,1,TRUE,Twitter for iPhone,Santiago- Chile,gganimate,en,2018
+@anemptyarchive,@kyle_e_walker,1,TRUE,Twitter for Android,Hello-World!???????,rstats,en,2018
+@ClaireMKBowen,@rstudio,1,TRUE,Twitter Web Client,Los Alamos- NM,Shiny,en,2015
+@rstatstweet,@WonderMixTape,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@hansika_kapoor,@inhouseconomist,1,TRUE,Twitter for iPhone,Mumbai- India,dataanalysis,en,2014
+@rstats4ds,@heatherklus,1,TRUE,R stats API access,NA,NA,en,2018
+@curtischanctpsy,@KirkDBorne,1,TRUE,Twitter for iPhone,Tai Po District- Hong Kong,abdsc,en,2018
+@jenni_pro,@DianeOrihel,1,TRUE,Twitter for iPhone,Unceded Anishinaabeg Territory,SETAChelsinki,en,2013
+@JeffreyAsselin9,@KirkDBorne,1,TRUE,Twitter for iPhone,NA,abdsc,en,2011
+@dig_revolution,@KirkDBorne,1,TRUE,dig_revolution_Schnittstelle,München- Bayern,abdsc,en,2016
+@kozo2,@paleolimbot,1,TRUE,Twitter Web App,Osaka- Japan,ggplot2,en,2007
+@eds_satish,@rstudio,1,TRUE,Twitter for Android,NA,tidyverse,en,2017
+@fellgernon,@mauro_lepore,1,TRUE,Twitter Web Client,Baltimore,rstats,es,2010
+@jtleek,@jo_hardin47,1,TRUE,Twitter for Android,Baltimore,rstats,en,2010
+@TickAndJordy,@EikoFried,1,TRUE,Twitter for iPhone,San Francisco- CA,rstats,en,2018
+@rstatstweet,@IanCero,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@chj_vc,@rstudio,1,TRUE,Twitter for iPad,Guatemala,tidyverse,en,2011
+@thomas_mock,@PodsProgram,1,TRUE,Twitter for iPhone,Texas,NA,en,2013
+@Mahendra_Maria,@StatGarrett,1,TRUE,Twitter for Android,NA,gganimate,en,2010
+@petemohanty,@rstudio,1,TRUE,Twitter for iPhone,San Francisco Bay Area,NA,en,2016
+@ma_salmon,@rstudio,1,TRUE,Twitter Web Client,Nancy- France,Shiny,en,2014
+@mdsumner,@paleolimbot,1,TRUE,Twitter for Android,Hobart- Tasmania,ggplot2,en,2010
+@JXM85,@Nadia__Tahiri,1,TRUE,Twitter for iPhone,Houston- TX,shortcuts,en,2010
+@rstatstweet,@fellgernon,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@navymooon,@KirkDBorne,1,TRUE,Twitter for iPhone,NA,abdsc,en,2018
+@LeetohGitano,@minebocek,1,TRUE,Twitter for iPhone,NA,rstats,en,2012
+@sharlagelfand,@paleolimbot,1,TRUE,Twitter Web App,Toronto- Ontario,ggplot2,en,2015
+@bizScienc,@jkregenstein,1,TRUE,Twitter for iPhone,NA,rstats,en,2017
+@StatistikInDD,@romain_francois,1,TRUE,Twitter Web Client,Dresden,workweek,en,2012
+@Jmar116,@minebocek,1,TRUE,Twitter for iPhone,Worldwide Mundial,rstats,en,2012
+@nicoleradziwill,@kearneymw,1,TRUE,Twitter for Android,Toronto / Virginia,rstats,en,2008
+@cantoflor_87,@fransvandunne,1,TRUE,Twitter for Android,Buenos Aires- Argentina,NA,es,2014
+@sharon000,@KirkDBorne,1,TRUE,Twitter for iPad,NA,RStudio,en,2007
+@baumeister_se,@StatGarrett,1,TRUE,Twitter Web Client,Deutschland,gwasrapidd,en,2017
+@healthandstats,@minebocek,1,TRUE,Twitter for iPhone,Utah- USA,rstats,en,2016
+@TanZhou17,@rstudio,1,TRUE,Twitter Web Client,College Station- TX,rstats,en,2017
+@Soma4SV,@rstudio,1,TRUE,Twitter for Android,El Salvador,NA,en,2016
+@Manojchiba,@StatGarrett,1,TRUE,Twitter for iPhone,Johannesburg- South Africa,gganimate,en,2009
+@OleksiyAnokhin,@KirkDBorne,1,TRUE,Twitter for Android,Washington- DC,abdsc,en,2017
+@eldonprince,@rstudio,1,TRUE,Twitter for Android,Austin- TX,rstats,en,2012
+@TenenbaumElena,@Nadia__Tahiri,1,TRUE,Twitter for iPhone,Durham- NC,rstats,en,2010
+@Hakob11,@rstudio,1,TRUE,Twitter for Android,Armenia,rstats,en,2010
+@bass_analytics,@StatGarrett,1,TRUE,Twitter Web Client,Planet Earth,gganimate,en,2016
+@unhatchable,@StatGarrett,1,TRUE,Twitter for Android,the philippines.,gganimate,en,2009
+@veabrunsdon,@Emil_Hvitfeldt,1,TRUE,Twitter for Android,Canterbury- England,rstats,en,2015
+@rstatstweet,@hrbrmstr,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@petemohanty,@graemedblair,1,TRUE,Twitter for iPhone,San Francisco Bay Area,NA,en,2016
+@DeanKleissas,@gigantumscience,1,TRUE,Twitter for iPhone,District of Columbia- USA,rstudio,en,2015
+@semiramis_cj,@fellgernon,1,TRUE,Twitter Web App,CCG- UNAM MX,rstatsES,es,2010
+@rstatstweet,@favstats,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@lpachter,@StevenXGe,1,TRUE,Twitter Web Client,Pasadena- CA,NA,en,2009
+@Cerylandor2,@PBecciu,1,TRUE,Twitter for Android,Julith,TidyTuesday,en,2018
+@mryogeshbansal,@OmniAnalytics,1,TRUE,Twitter Web Client,Dhuri- India,addin,en,2011
+@rstatstweet,@PSYCDataScience,1,TRUE,rstatsretweetingtool,NA,psycdatascience,en,2018
+@fellgernon,@LucyStats,1,TRUE,Twitter for iPhone,Baltimore,NA,en,2010
+@jim_savage_,@graemedblair,1,TRUE,Twitter Web Client,New York- USA,NA,en,2012
+@jzambrano,@KirkDBorne,1,TRUE,Twitter for Android,Lima,abdsc,en,2007
+@raynamharris,@mauro_lepore,1,TRUE,Twitter Web Client,Austin- TX,tidyverse,en,2014
+@daniellequinn88,@paleolimbot,1,TRUE,Twitter Web Client,Newfoundland and Labrador,ggplot2,en,2011
+@rstats4ds,@hglanz,1,TRUE,R stats API access,NA,rstats,en,2018
+@koli_ajaykumar,@paleolimbot,1,TRUE,Twitter Web App,Hyderabad- India,ggplot2,en,2016
+@ezgimou,@grrrck,1,TRUE,Twitter Web Client,Ostrava- Czech Republic,rstats,en,2010
+@Ron_Wasserstein,@askdrstats,1,TRUE,Twitter for iPhone,Alexandria- VA,rstats,en,2009
+@rstatstweet,@askdrstats,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@tmlbk,@StatGarrett,1,TRUE,Twitter Web App,Oxford- UK,gganimate,en,2007
+@_JustExplore,@rstudio,1,TRUE,Twitter for Android,NA,NA,en,2013
+@Jade_Pickering,@DrEmWilliams,1,TRUE,Twitter Web App,Manchester- England,RStats,en,2011
+@RonLandis8,@PSYCDataScience,1,TRUE,Twitter for iPhone,Chicago- IL,psycdatascience,en,2018
+@anu_analytics,@rstudio,1,TRUE,Twitter Web Client,NA,Shiny,en,2015
+@soilandata,@StatGarrett,1,TRUE,Twitter for Android,Rome- Lazio,vtree,en,2019
+@ErkverWuzHur,@KirkDBorne,1,TRUE,Show Finder,Arlington- TX,abdsc,en,2011
+@Nadia__Tahiri,@Nadia__Tahiri,1,TRUE,TweetDeck,Montréal- Québec,shortcuts,en,2016
+@ZKamvar,@rudeboybert,1,TRUE,Twitter for iPhone,Barnet- London,SDSS2019,en,2014
+@cj_battey,@rstudio,1,TRUE,Twitter Web App,Eugene- OR,rstats,en,2013
+@tjmooreMPH,@MaillieDavid,1,TRUE,Twitter for Android,Birmingham- AL,NA,en,2014
+@MiguelMAcosta,@KirkDBorne,1,TRUE,Twitter Web Client,Spain,abdsc,en,2011
+@_ColinFay,@rstudio,1,TRUE,Twitter for iPhone,Rennes- France,Shiny,en,2009
+@stonekatem,@StatGarrett,1,TRUE,Twitter for Android,NA,gganimate,en,2012
+@Picanumeros,@kyle_e_walker,1,TRUE,Twitter Web Client,España,rstats,en,2015
+@rstats4ds,@EmEmEff,1,TRUE,R stats API access,NA,tidyverse,en,2018
+@mauro_lepore,@CDSBMexico,1,TRUE,Twitter for iPhone,Washington- DC,rstats,es,2013
+@GamerGeekNews,@iulennyc2,1,TRUE,GGN_RPiTwitterFeed,NA,laliga,es,2011
+@maxheld,@paleolimbot,1,TRUE,Twitter Web Client,Nuremberg- Germany,ggplot2,en,2009
+@byerancy,@StatGarrett,1,TRUE,Twitter for iPhone,NA,gganimate,en,2015
+@Torontosj,@StatGarrett,1,TRUE,Twitter for Android,Toronto,gganimate,en,2011
+@yingma_maying,@minebocek,1,TRUE,Twitter for iPhone,Houston- TX,rstats,en,2014
+@mattbagg,@paleolimbot,1,TRUE,Twitter Web App,He/him,ggplot2,en,2008
+@nm_yucel,@paleolimbot,1,TRUE,Twitter for Android,Charlottesville- VA,ggplot2,en,2015
+@pacoramon,@acmeducation,1,TRUE,Twitter for iPhone,Zaragoza- España,ACMTechTalk,en,2009
+@umairdurrani87,@rstudio,1,TRUE,Twitter Web Client,Windsor- Ontario,NA,en,2016
+@AlineSociology,@StatGarrett,1,TRUE,Twitter for Android,NA,gganimate,en,2017
+@bcmachlearn,@KirkDBorne,1,TRUE,Twitter for Android,NA,abdsc,en,2017
+@taberuhanasu,@Emil_Hvitfeldt,1,TRUE,Twitter for Android,?Facebook???????????????,rstats,en,2018
+@rstatstweet,@SwampThingPaul,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@kmkinnaird,@rudeboybert,1,TRUE,Twitter for Android,NA,SDSS2019,en,2012
+@PierrePudlo,@askdrstats,1,TRUE,Twitter for iPad,Marseille- France,rstats,en,2018
+@ThoreauBenjamin,@KirkDBorne,1,TRUE,Twitter for iPhone,Paris & Tours- France,abdsc,en,2012
+@DontFavMe,@StatGarrett,1,TRUE,Twitter for iPhone,Toronto- Ontario,gganimate,en,2010
+@leightonlaw,@KirkDBorne,1,TRUE,Twitter for Android,midrand,abdsc,en,2012
+@c_gopalan,@askdrstats,1,TRUE,Twitter Web Client,Rochester- NY,rstats,en,2014
+@diaparim,@KirkDBorne,1,TRUE,Twitter for iPhone,Canada,abdsc,en,2010
+@AfoUnofficial,@rstudio,1,TRUE,Twitter Web App,Lagos- Nigeria,Shiny,en,2012
+@mmencherogarcia,@rstudio,1,TRUE,Twitter for Android,ciudad de mexico,Shiny,en,2017
+@dogvile,@StatGarrett,1,TRUE,Twitter Web App,Athens/Brussels,gganimate,en,2008
+@yanivbrandvain,@StatGarrett,1,TRUE,Twitter Web Client,twin cities- MN,gganimate,en,2013
+@moh_fcis,@rstudio,1,TRUE,Twitter Web Client,NA,NA,en,2009
+@stevennjui,@StatGarrett,1,TRUE,Twitter for Android,Nairobi- Kenya,gganimate,en,2015
+@UmerQaisar,@KirkDBorne,1,TRUE,Twitter for Android,Karachi- Pakistan,abdsc,en,2013
+@rstats4ds,@chrisharms,1,TRUE,R stats API access,NA,NA,en,2018
+@thomasp85,@paleolimbot,1,TRUE,Twitter for iPhone,København- Danmark,ggplot2,en,2012
+@AdvikSh,@cenuno_,1,TRUE,Twitter Web Client,Chicago- IL,rstats,en,2009
+@lena2nguyen,@paleolimbot,1,TRUE,Twitter for Android,London,ggplot2,en,2010
+@arthlib,@StevenXGe,1,TRUE,Twitter for iPhone,Boston- MA,NA,en,2013
+@kevin_kunzmann,@rstudio,1,TRUE,Twitter Web App,Cambridge- England,rstats,en,2018
+@mrchypark_,@StatGarrett,1,TRUE,Twitter for Android,???? ??,vtree,en,2017
+@Drominion,@StatGarrett,1,TRUE,Twitter for iPad,NA,gganimate,en,2013
+@jungjongyun83,@StatGarrett,1,TRUE,Twitter for iPhone,Minnesota- USA,gwasrapidd,en,2015
+@VESTEDTECH,@KirkDBorne,1,TRUE,Twitter for Android,Nigeria,abdsc,en,2016
+@james_azam,@rstudio,1,TRUE,Twitter Web App,Stellenbosch,tidyverse,en,2018
+@peterlovesdata,@henningsway,1,TRUE,Twitter for Android,Hamburg- Deutschland,NA,en,2013
+@aalphaloera,@KirkDBorne,1,TRUE,Twitter for Android,NA,abdsc,en,2011
+@u_ribo,@StatGarrett,1,TRUE,Twitter for iPhone,Tsukuba-shi- Ibaraki,gganimate,en,2009
+@UAresearch,@joanneberghout,1,TRUE,Buffer,Tucson- AZ,Genomics,en,2015
+@zakdraper,@paleolimbot,1,TRUE,Twitter Web Client,Kelowna- BC- Canada,ggplot2,en,2009
+@StatnMap,@thinkR_fr,1,TRUE,Twitter for Android,Paris- France,rstatsFR,fr,2017
+@hadleywickham,@acmeducation,1,TRUE,Tweetbot for i?S,Houston- TX,ACMTechTalk,en,2009
+@genolib_19,@StatGarrett,1,TRUE,Twitter for iPhone,Under the sea,gganimate,en,2018
+@RLadiesMTL,@minebocek,1,TRUE,Twitter for iPhone,Montréal- Québec,rstats,en,2017
+@rstatstweet,@aworsleynz,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@wekwaChinyerere,@rstudio,1,TRUE,Twitter for Android,Harare- Zimbabwe,NA,en,2016
+@TareqBraiwish,@KirkDBorne,1,TRUE,Twitter for Android,NA,abdsc,en,2008
+@Addifaerber,@mr_autumn,1,TRUE,TweetDeck,New Hampshire- USA,R,en,2012
+@rick_pack2,@paleolimbot,1,TRUE,Twitter Web App,RTP- NC,ggplot2,en,2011
+@mdsumner,@peducardoso,1,TRUE,Twitter Web Client,Hobart- Tasmania,ggplot,en,2010
+@baumeister_se,@askdrstats,1,TRUE,Twitter Web Client,Deutschland,rstats,en,2017
+@cuorechirurgia,@StatGarrett,1,TRUE,Twitter for iPhone,Massa- Toscana,vtree,en,2015
+@kmathan,@committedtotape,1,TRUE,Twitter Web App,Tamilnadu- India,rstats,en,2008
+@AllieSherier,@StatGarrett,1,TRUE,Twitter for Android,Fort Worth- TX,gganimate,en,2018
+@renato_umeton,@rstudio,1,TRUE,rtapp315156161,Boston- MA,rstats,en,2009
+@apusolitario,@rstudio,1,TRUE,Twitter for iPhone,Lima-Perú,NA,en,2011
+@asilazo99,@StatGarrett,1,TRUE,Twitter for Android,Kenya,gganimate,en,2010
+@kdpsinghlab,@rstudio,1,TRUE,Twitter for iPhone,NA,tidyverse,en,2009
+@ProfStoebel,@jo_hardin47,1,TRUE,Twitter for iPhone,Claremont- CA,rstats,en,2016
+@rstatstweet,@SaraKalucza,1,TRUE,rstatsretweetingtool,NA,r,en,2018
+@xstodeepak,@anh_n_tran,1,TRUE,Twitter for Android,Bangalore,rstats,en,2011
+@A_KI_h2,@WeAreRLadies,1,TRUE,Twitter for iPhone,??,rstats,en,2017
+@fellgernon,@LIBDrstats,1,TRUE,Twitter for iPhone,Baltimore,rstats,en,2010
+@seoeanseo,@dejanseo,1,TRUE,Twitter for Android,NA,NA,en,2017
+@ValaviRoozbeh,@paleolimbot,1,TRUE,Twitter for iPhone,Melbourne- Victoria,ggplot2,en,2018
+@drob,@StatGarrett,1,TRUE,Twitter for iPhone,New York- NY,gganimate,en,2009
+@RafaJordao13,@StatGarrett,1,TRUE,Twitter for Android,Rio de Janeiro- Brasil,gganimate,en,2015
+@RLadiesELansing,@paleolimbot,1,TRUE,Twitter Web Client,East Lansing- MI,ggplot2,en,2017
+@babetoduarte,@Emil_Hvitfeldt,1,TRUE,Twitter for Android,Norman- OK,rstats,en,2010
+@CFHammill,@rstudio,1,TRUE,Twitter for Android,Toronto- Ontario,rstats,en,2014
+@carolina_tlb,@minebocek,1,TRUE,Twitter for Android,NA,rstats,en,2011
+@AviMaayan,@StevenXGe,1,TRUE,Twitter for Android,New York- NY USA,NA,en,2011
+@unonoctium,@rstudio,1,TRUE,Twitter for iPhone,NA,tidyverse,en,2010
+@rstatstweet,@DrEmWilliams,1,TRUE,rstatsretweetingtool,NA,RStats,en,2018
+@FJColon,@rstudio,1,TRUE,Twitter for Android,NA,NA,en,2010
+@mfarkhann,@paleolimbot,1,TRUE,Twitter Web App,DIY - Jateng,ggplot2,en,2009
+@maxheld,@rstudio,1,TRUE,Twitter for iPhone,Nuremberg- Germany,tidyverse,en,2009
+@rstatstweet,@cenuno_,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@rstatstweet,@jkregenstein,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@ellis_hughes,@cascadiarconf,1,TRUE,Twitter Web Client,Seattle- WA,rstats,en,2011
+@trappedalien,@zkajdan,1,TRUE,Twitter for Android,Sri Lanka,rstats,en,2010
+@KimJoaoUn,@StatGarrett,1,TRUE,Twitter for iPhone,Rio de Janeiro- Brasil,gganimate,en,2016
+@seathebass92,@rstudio,1,TRUE,Twitter for Android,NA,NA,en,2018
+@rstats4ds,@maartenzam,1,TRUE,R stats API access,NA,NA,en,2018
+@masternodeHQ,@OmniAnalytics,1,TRUE,MN Retweet,NA,addin,en,2018
+@RafaelVianaphD,@StatGarrett,1,TRUE,Twitter Web Client,NA,gganimate,en,2011
+@elbow_sans,@StatGarrett,1,TRUE,Twitter for Android,NA,gganimate,en,2018
+@ericasinx,@rstudio,1,TRUE,Twitter for iPhone,New Delhi- India,tidyverse,en,2015
+@DrPairach,@KirkDBorne,1,TRUE,Twitter for iPhone,Chiang Mai- Thailand,abdsc,en,2011
+@ds_floresf,@paleolimbot,1,TRUE,TweetDeck,Argentina,ggplot2,en,2017
+@rfortherest,@jo_hardin47,1,TRUE,Buffer,Portland- OR,rstats,en,2018
+@yabellini,@mauro_lepore,1,TRUE,Twitter for Android,La Pampa- Argentina,rstats,es,2011
+@Rocksandbones,@paleolimbot,1,TRUE,Twitter for Android,Davis- CA,ggplot2,en,2017
+@rstats4ds,@minebocek,1,TRUE,R stats API access,NA,rstats,en,2018
+@gakulamungiria,@CyrusHerder,1,TRUE,Twitter for Android,Dallas- TX,NA,en,2012
+@thomasp85,@acmeducation,1,TRUE,Twitter for iPhone,København- Danmark,ACMTechTalk,en,2012
+@trappedalien,@KirkDBorne,1,TRUE,Twitter for Android,Sri Lanka,abdsc,en,2010
+@jupanago,@StatGarrett,1,TRUE,Twitter Web Client,NA,gganimate,en,2011
+@CoMeTWebinars,@acmeducation,1,TRUE,TweetDeck,Pittsburgh- PA,ACMTechTalk,en,2015
+@rstatstweet,@MaillieDavid,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@stannals,@KirkDBorne,1,TRUE,Twitter for iPhone,Bengaluru- Karnataka- India,abdsc,en,2015
+@sbalthasar,@Emil_Hvitfeldt,1,TRUE,Twitter Web Client,Zürich- Schweiz,rstats,en,2016
+@KKulma,@minebocek,1,TRUE,Twitter for Android,London- England,rstats,en,2012
+@EFornoMD,@KirkDBorne,1,TRUE,Twitter for iPhone,NA,abdsc,en,2018
+@gonzalez_lagos,@paleolimbot,1,TRUE,Twitter for Android,Chile,ggplot2,en,2014
+@ALEXANDRAKG92,@KirkDBorne,1,TRUE,Twitter for Android,France/ UK,abdsc,en,2016
+@yyy_lu,@Emil_Hvitfeldt,1,TRUE,Twitter Web Client,??- ???????,rstats,en,2010
+@gonzalez_lagos,@mauro_lepore,1,TRUE,Twitter for Android,Chile,NA,es,2014
+@AdamGruer,@StatGarrett,1,TRUE,Twitter for iPhone,Bundoora-Victoria- Australia,gganimate,en,2009
+@divadnojnarg,@_pvictorr,1,TRUE,Twitter for iPhone,Zurich- Suisse,rstats,en,2012
+@NVSData,@MaillieDavid,1,TRUE,Data NVS,Melbourne- Victoria,YouTube,en,2016
+@moononthebones,@KirkDBorne,1,TRUE,Twitter for iPhone,Bristol,abdsc,en,2011
+@juliesquid,@minebocek,1,TRUE,Twitter Web Client,NA,rstats,en,2012
+@richarddmorey,@rstudio,1,TRUE,Twitter Web App,Cardiff- UK,rstats,en,2014
+@P4bl0_Mu3l4,@KirkDBorne,1,TRUE,Twitter for Android,NA,abdsc,en,2016
+@rstats4ds,@MikeKSmith,1,TRUE,R stats API access,NA,NA,en,2018
+@colourspeak,@StevenXGe,1,TRUE,Twitter Web Client,Melbourne- Online,NA,en,2014
+@RexDouglass,@zkajdan,1,TRUE,Twitter Web App,NA,rstats,en,2013
+@israel1x,@KirkDBorne,1,TRUE,Twitter for Android,Guayaquil,abdsc,en,2008
+@DoanLe96,@StatGarrett,1,TRUE,Twitter for Android,Sai Gon- Vietnam,gganimate,en,2017
+@surendrk,@StevenXGe,1,TRUE,Twitter Web Client,Oslo,NA,en,2009
+@presmenhiogold,@MaillieDavid,1,TRUE,Twitter Web App,NA,DataScience,en,2019
+@valle451,@iulennyc2,1,TRUE,Twitter for iPhone,donostia,laliga,es,2012
+@gpavolini,@StatGarrett,1,TRUE,Twitter Web Client,NA,gganimate,en,2011
+@fomotis,@KirkDBorne,1,TRUE,Twitter for Android,Belgium,abdsc,en,2011
+@rfortherest,@askdrstats,1,TRUE,Buffer,Portland- OR,rstats,en,2018
+@katherinejchase,@StatGarrett,1,TRUE,Twitter for iPad,Helena- MT,gganimate,en,2009
+@marcdotson,@minebocek,1,TRUE,Twitter Web Client,Provo- UT,rstats,en,2011
+@Samantha_Toet,@thinkR_fr,1,TRUE,Twitter for iPhone,Charlottesville- VA,RStats,en,2018
+@shermstats,@StatGarrett,1,TRUE,Twitter for iPhone,Seattle- WA,gganimate,en,2015
+@sunnyc7,@KirkDBorne,1,TRUE,Twitter for iPhone,New Jersey,abdsc,en,2009
+@KirincicJoe,@StatGarrett,1,TRUE,Twitter for iPhone,NA,gganimate,en,2018
+@hisham_elamir,@minebocek,1,TRUE,Twitter Web Client,egypt,rstats,en,2015
+@Lmalongo2,@minebocek,1,TRUE,Twitter Web Client,Dar es Salaam- Tanzania,rstats,en,2014
+@rstats4ds,@turgut_090,1,TRUE,R stats API access,NA,NA,en,2018
+@MorayCampbell,@paleolimbot,1,TRUE,Twitter for Android,NA,ggplot2,en,2013
+@katieontheridge,@rstudio,1,TRUE,Twitter for iPhone,NA,tidyverse,en,2015
+@Michele31415926,@paleolimbot,1,TRUE,Twitter Web Client,Niterói- Brasil,ggplot2,en,2013
+@james_azam,@StatGarrett,1,TRUE,Twitter for iPhone,Stellenbosch,gganimate,en,2018
+@MrRols,@StatGarrett,1,TRUE,Twitter for Android,everywhere,rstats,en,2011
+@BigDataJunkies,@KirkDBorne,1,TRUE,BigDataJunkies_Schnittstelle,Luxemburg,abdsc,en,2017
+@statsgen,@StatGarrett,1,TRUE,Twitter for iPhone,Sydney- Australia,gganimate,en,2009
+@borishej,@StatGarrett,1,TRUE,Twitter for iPhone,NA,gganimate,en,2012
+@hspter,@jo_hardin47,1,TRUE,Twitter for Android,San Francisco,rstats,en,2009
+@oranwutan,@OmniAnalytics,1,TRUE,Twitter for iPhone,NA,addin,en,2018
+@JuanMSolana,@KirkDBorne,1,TRUE,Twitter for iPhone,NA,abdsc,en,2014
+@kodyaz,@KirkDBorne,1,TRUE,Twitter for iPhone,Istanbul- TR,abdsc,en,2011
+@Calcaware,@KirkDBorne,1,TRUE,Calcaware,Austin- TX,abdsc,en,2016
+@curvedglass,@StatGarrett,1,TRUE,Twitter Web Client,Faro- Portugal,gwasrapidd,en,2009
+@JerryP4,@rstudio,1,TRUE,Twitter for iPhone,NA,rstats,en,2011
+@pabloc_ds,@yeyomourglia,1,TRUE,Twitter Web Client,The world,flexdashboard,es,2017
+@rfsaldanhario,@fransvandunne,1,TRUE,Twitter for iPhone,Rio de Janeiro- Brasil,NA,es,2008
+@JacquesInnocen5,@rstudio,1,TRUE,Twitter for Android,Kampala- Uganda,Shiny,en,2014
+@DrDanosNicole,@Nadia__Tahiri,1,TRUE,Twitter for iPhone,San Diego- CA,rstats,en,2018
+@ropolo,@StatGarrett,1,TRUE,Twitter for Android,Lethbridge- Alberta,gwasrapidd,en,2009
+@brsepulvado,@rstudio,1,TRUE,Twitter for Android,Notre Dame- IN & Paris- France,Shiny,en,2013
+@abtran,@er13_r,1,TRUE,TweetDeck,andrew.tran@washpost.com,Python,en,2007
+@MattNickodemus,@rstudio,1,TRUE,Tweetbot for i?S,Casper- WY,Shiny,en,2013
+@Rstats4Econ,@Emil_Hvitfeldt,1,TRUE,Twitter for iPhone,Chiang Mai- Thailand,rstats,en,2012
+@prawittan,@rstudio,1,TRUE,Twitter for Android,Kassel- Hessen,NA,en,2017
+@ManishaMuna,@StatGarrett,1,TRUE,Twitter Web Client,Ithaca- NY,gganimate,en,2017
+@marianojavierd1,@rstudio,1,TRUE,Twitter for Android,Córdoba- Argentina,rstats,en,2016
+@duttarochishnu,@Nadia__Tahiri,1,TRUE,Twitter for Android,India,rstats,en,2013
+@Erika_S_S_2,@StatGarrett,1,TRUE,Twitter for Android,NA,gganimate,en,2019
+@jwbelmon,@paleolimbot,1,TRUE,Twitter for iPhone,Houston- TX,ggplot2,en,2013
+@drtagkim,@Emil_Hvitfeldt,1,TRUE,Twitter for iPhone,????,rstats,en,2015
+@YaNiPaper,@paleolimbot,1,TRUE,Twitter for Android,Internet,ggplot2,en,2009
+@cheesecaek,@KirkDBorne,1,TRUE,Twitter for Android,Oblivion Bubble,abdsc,en,2017
+@MaxBellSchool,@PodsProgram,1,TRUE,Twitter for Android,Montréal- Québec,r4ds,en,2017
+@vchilks,@minebocek,1,TRUE,Twitter for Android,Malgudi,rstats,en,2016
+@Finsola,@KirkDBorne,1,TRUE,Twitter for Android,NA,abdsc,en,2012
+@TyroneLavery,@LuisDVerde,1,TRUE,Twitter for iPhone,Chicago- IL,NA,en,2014
+@GrantHumphries,@paleolimbot,1,TRUE,Twitter Web App,Fort Augustus- Scotland,ggplot2,en,2012
+@Samantha_Toet,@rstudio,1,TRUE,Twitter for iPhone,Charlottesville- VA,NA,en,2018
+@RLadiesBA,@mauro_lepore,1,TRUE,Twitter for Android,Buenos Aires- Argentina,rstats,es,2017
+@polisisti,@minebocek,1,TRUE,Twitter Web Client,Toronto- Ontario,rstats,en,2013
+@FreyGeospatial,@Nadia__Tahiri,1,TRUE,Twitter for iPhone,Worcester- MA,rstats,en,2017
+@ghost_orange,@WeAreRLadies,1,TRUE,Twitter for iPad,??????,rstats,en,2013
+@jason_abdi,@rstudio,1,TRUE,T7 App,Calgary- Alberta,rstats,en,2019
+@tsaari1,@paleolimbot,1,TRUE,Twitter for iPhone,Turku- Finland,ggplot2,en,2010
+@BlueLantern92,@rstudio,1,TRUE,Twitter for iPhone,North Carolina- USA,NA,en,2018
+@rstatstweet,@LIBDrstats,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@BayesRuth,@minebocek,1,TRUE,Twitter for iPhone,Edinburgh- Scotland,rstats,en,2016
+@citybservices,@rstudio,1,TRUE,Twitter Web App,Côte d'Ivoire,tidyverse,en,2018
+@noooorzin,@KirkDBorne,1,TRUE,Twitter Web App,Tunisia,Python,en,2018
+@BarkleyBG,@paleolimbot,1,TRUE,Twitter Web Client,NA,ggplot2,en,2015
+@fhollenbach,@aworsleynz,1,TRUE,Twitter for Android,Bryan/College Station- Texas,rstats,en,2011
+@GamerGeekNews,@FergusJChadwick,1,TRUE,GGN_RPiTwitterFeed,NA,reprex,en,2011
+@researchremora,@StatGarrett,1,TRUE,Twitter Web App,the ivory tower's cellar,gganimate,en,2012
+@rstatstweet,@ines_boehm,1,TRUE,rstatsretweetingtool,NA,R,en,2018
+@BrianGardunia,@rstudio,1,TRUE,Twitter Web App,Chesterfield- MO,rstats,en,2018
+@tslumley,@aworsleynz,1,TRUE,Twitter for Android,Auckland (mostly),rstats,en,2013
+@bhagirathl,@KirkDBorne,1,TRUE,Twitter for Android,Noida,abdsc,en,2009
+@romain_francois,@minebocek,1,TRUE,Twitter for iPhone,France,rstats,en,2011
+@yutannihilat_en,@paleolimbot,1,TRUE,Twitter for Android,Tokyo- Japan,ggplot2,en,2018
+@arunkumar_bvr,@StatGarrett,1,TRUE,Twitter for Android,India,gganimate,en,2011
+@rstats4ds,@meharpsingh,1,TRUE,R stats API access,NA,datascience,en,2018
+@bcmachlearn,@StatGarrett,1,TRUE,Twitter for Android,NA,gganimate,en,2017
+@GamerGeekNews,@fellgernon,1,TRUE,GGN_RPiTwitterFeed,NA,NA,es,2011
+@rccclr,@KirkDBorne,1,TRUE,Twitter for iPhone,NA,abdsc,en,2009
+@MrP_helps,@rstudio,1,TRUE,Twitter for Android,Rochester- NY,rstats,en,2010
+@_SevillaR,@paleolimbot,1,TRUE,Twitter for Android,Sevilla,ggplot2,en,2015
+@Mohamed07736742,@StatGarrett,1,TRUE,Twitter Web App,NA,gganimate,en,2018
+@barryjgrant,@StatGarrett,1,TRUE,Twitter for iPhone,NA,gganimate,en,2015
+@annakrystalli,@benmarwick,1,TRUE,Twitter Web Client,Sheffield,NA,en,2008
+@JaurenceRDB,@StatGarrett,1,TRUE,Twitter for Android,Paris,rstats,en,2018
+@fubits,@StatGarrett,1,TRUE,Twitter for iPhone,Berlin- Deutschland,gganimate,en,2013
+@annaquagli,@rstudio,1,TRUE,Twitter for Android,NA,NA,en,2015
+@dirk_sch,@rudeboybert,1,TRUE,Twitter Web Client,Berlin- Germany,SDSS2019,en,2012
+@muratkhal,@rstudio,1,TRUE,Twitter for iPhone,NA,tidyverse,en,2018
+@BrunoContrerasM,@CDSBMexico,1,TRUE,Twitter Web Client,Cambridge- England,rstats,en,2017
+@frod_san,@StatGarrett,1,TRUE,Twitter Web Client,Sevilla,gganimate,en,2011
+@comeetie,@StatGarrett,1,TRUE,Twitter for Android,paris,gganimate,en,2009
+@RLadiesValpo,@mauro_lepore,1,TRUE,Twitter for Android,Valparaíso- Chile,rstats,es,2018
+@kaz_yos,@SaraKalucza,1,TRUE,Twitter for iPhone,Boston- MA- USA,r,en,2009
+@kierisi,@minebocek,1,TRUE,Twitter Web App,Dallas- TX / traveling,rstats,en,2014
+@RamyaSingh,@JDJonesJr,1,TRUE,Twitter for Android,Calgary,PlotsOfData,en,2009
+@jeremy_w_l,@awunderground,1,TRUE,Twitter for iPhone,Washington- DC,rstats,en,2009
+@RLadiesTampa,@minebocek,1,TRUE,Twitter for Android,Tampa- FL,rstats,en,2018
+@ranrhj,@KirkDBorne,1,TRUE,Twitter for Android,NA,abdsc,en,2016
+@CharlieCullus,@rstudio,1,TRUE,Twitter Web App,Lorraine- France,NA,en,2016
+@EGAPTweets,@graemedblair,1,TRUE,Twitter Web Client,HQ: Berkeley- CA,NA,en,2014
+@Ph_D_epression,@PBecciu,1,TRUE,Twitter Web Client,NA,TidyTuesday,en,2018
+@_lacion_,@acmeducation,1,TRUE,Twitter for Android,Buenos Aires- Argentina,ACMTechTalk,en,2012
+@YannisMarkonis,@rstudio,1,TRUE,Twitter Web Client,Praha- ?eská republika,Shiny,en,2016
+@anu_analytics,@ellessenne,1,TRUE,Twitter for Android,NA,rstats,en,2015
+@chrischizinski,@DataSciEng,1,TRUE,Twitter Web Client,Lincoln- NE,rstats,en,2011
+@drBDOUG,@StatGarrett,1,TRUE,Twitter for Android,NA,gganimate,en,2009
+@ikashnitsky,@paleolimbot,1,TRUE,Twitter Web Client,Odense- Danmark,ggplot2,en,2016
+@lukemc_js,@KirkDBorne,1,TRUE,lukemcjs,NA,abdsc,en,2018
+@_lacion_,@LucyStats,1,TRUE,Twitter for Android,Buenos Aires- Argentina,NA,en,2012
+@anadiedrichs,@mauro_lepore,1,TRUE,Twitter for Android,Mendoza- Argentina,rstats,es,2010
+@sckottie,@cascadiarconf,1,TRUE,Twitter for iPhone,/usr/??,rstats,en,2010
+@ASA_SciPol,@askdrstats,1,TRUE,Twitter for iPhone,Alexandria- VA,rstats,en,2011
+@cdhowe,@minebocek,1,TRUE,Tweetbot for Mac,Stow- Massachusetts,rstats,en,2008
+@_lionelhenry,@paleolimbot,1,TRUE,Twitter Web App,NA,ggplot2,en,2009
+@thomasp85,@rstudio,1,TRUE,Twitter for iPhone,København- Danmark,tidyverse,en,2012
+@BethSignal,@StatGarrett,1,TRUE,Twitter Web Client,Sydney- Australia,gganimate,en,2012
+@veabrunsdon,@StatGarrett,1,TRUE,Twitter for Android,Canterbury- England,gganimate,en,2015
+@ma_salmon,@paleolimbot,1,TRUE,Twitter Web Client,Nancy- France,ggplot2,en,2014
+@MicrobialBart,@joanneberghout,1,TRUE,Twitter for iPhone,Tucson- AZ,Genomics,en,2015
+@Antonio_M_85,@yeyomourglia,1,TRUE,Twitter for Android,Metropolitana de Santiago- Chi,flexdashboard,es,2016
+@_open_science_,@gigantumscience,1,TRUE,_open_science_,NA,rstudio,en,2017
+@vbhoyo,@askdrstats,1,TRUE,Twitter Web App,NA,rstats,en,2015
+@rstatstweet,@awunderground,1,TRUE,rstatsretweetingtool,NA,rstats,en,2018
+@mdsumner,@Dale_Masch,1,TRUE,Twitter for Android,Hobart- Tasmania,NA,und,2010
+@arg_rstats,@yeyomourglia,1,TRUE,Twitter for Android,NA,flexdashboard,es,2018
+@mariuskarma,@rstudio,1,TRUE,Twitter for iPhone,Duisburg- Deutschland,NA,en,2012
+@AGroeflin,@KirkDBorne,1,TRUE,Twitter for iPhone,Basel,abdsc,en,2012
+@MunaHasanMoham2,@StevenXGe,1,TRUE,Twitter Web Client,NA,NA,en,2017
+@pacoramon,@kyle_e_walker,1,TRUE,Twitter Web App,Zaragoza- España,rstats,en,2009
+@shamindraas,@StatGarrett,1,TRUE,Twitter Web Client,Pittsburgh- PA,gganimate,en,2011
+@eleakin775,@StatGarrett,1,TRUE,Twitter for iPhone,NA,gganimate,en,2016
+@turgut_090,@rstudio,1,TRUE,Twitter for iPhone,NA,tidyverse,en,2018
+@ImNickHuber,@rstudio,1,TRUE,Enflux_bot,Florida,NA,en,2012
+@Emil_Hvitfeldt,@paleolimbot,1,TRUE,Twitter Web Client,Californien- USA,ggplot2,en,2016
+@DianeBELDAME,@rstudio,1,TRUE,Twitter for Android,Paris- France,Shiny,en,2014
+@mrjoh3,@acmeducation,1,TRUE,Twitter for Android,Melbourne- Victoria,ACMTechTalk,en,2015
+@hglanz,@askdrstats,1,TRUE,Twitter for iPhone,San Luis Obispo- CA,rstats,en,2012
+@unrahu1,@paleolimbot,1,TRUE,Twitter for iPhone,Portland- OR,ggplot2,en,2009
+@MaayanLab,@StevenXGe,1,TRUE,Twitter Web Client,New York- NY USA,NA,en,2014
+@hypercompetent,@paleolimbot,1,TRUE,Twitter Web Client,Seattle,ggplot2,en,2014
+@datalatam,@mauro_lepore,1,TRUE,Twitter Web Client,Costa Rica,rstats,es,2016
+@rstatstweet,@earlconf,1,TRUE,rstatsretweetingtool,NA,earlconf,en,2018
+@d3tty,@MattKumar_,1,TRUE,Twitter for iPhone,Toronto,rstats,en,2009
+@rstats4ds,@peducardoso,1,TRUE,R stats API access,NA,ggplot,en,2018
+@no85j,@WeAreRLadies,1,TRUE,Twitter for iPhone,NA,rstats,en,2014
+@ocelepcikay,@minebocek,1,TRUE,Twitter for iPhone,Houston- TX,rstats,en,2009
+@kojimizu1028,@zkajdan,1,TRUE,Twitter for iPhone,???,rstats,en,2011
+@olhxl,@StatGarrett,1,TRUE,Twitter Web Client,Dull- Scotlan,gganimate,en,2017
+@rstats4ds,@ProCogia,1,TRUE,R stats API access,NA,datascience,en,2018
+@ese_sebelek,@KirkDBorne,1,TRUE,Twitter for iPhone,NA,abdsc,en,2009
+@diegopajarito,@CedScherer,1,TRUE,Twitter Web App,Barcelona- Catalunya,ggplot2,en,2010
+@joel_nitta,@paleolimbot,1,TRUE,Twitter for iPhone,Washington DC and Tokyo,ggplot2,en,2011
+@PrometeoStallm1,@CytByk,1,TRUE,Twitter Web Client,NA,abdsc,en,2019
+@twithoff,@KirkDBorne,1,TRUE,Twitter for iPhone,US,RStudio,en,2012
+@A_KI_h2,@Emil_Hvitfeldt,1,TRUE,Twitter for iPhone,??,rstats,en,2017
+@maqartan,@rstudio,1,TRUE,Twitter Web Client,Berlin,NA,en,2014
+@umairdurrani87,@StatGarrett,1,TRUE,Twitter Web Client,Windsor- Ontario,gganimate,en,2016
+@adn_twitts,@KirkDBorne,1,TRUE,Twitter Web App,Campinas- Brasil,abdsc,en,2016
