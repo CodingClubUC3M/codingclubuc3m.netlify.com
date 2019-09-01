@@ -30,7 +30,7 @@ for (i in 1:ncol(df)) {
   output[[i]] &lt;- mean(df[[i]])
 }
 output</code></pre>
-<pre><code>## [1]  0.017374454 -0.051138933 -0.003129565 -0.017921319</code></pre>
+<pre><code>## [1]  0.001234251 -0.011186552 -0.006037145  0.034129932</code></pre>
 <p>In the previous example, we repeated 4 times the task (which is the <em>piece</em> of code inside the curly brackets). Another way to do iterations in R, sometimes more efficient than a <code>for</code> loop, is by using the <em>apply</em> family. This is how the previous loop can be rewritten using the <code>apply</code> function:</p>
 <pre class="r"><code>output &lt;- apply(df, 2, mean)
 output</code></pre>
@@ -54,7 +54,7 @@ output</code></pre>
 </div>
 <div id="populating-attractors-an-inefficient-approach" class="section level2">
 <h2>Populating attractors: an inefficient approach</h2>
-<p>To represent the trajectory of a particular point, we need to store in a data frame its locations at every single (discrete) moment of time. For example, this is how we can do it using a <code>for</code>loop:</p>
+<p>To represent the trajectory of a particular point, we need to store in a data frame its locations at every single (discrete) moment of time. For example, this is how we can do it using a <code>for</code> loop:</p>
 <pre class="r"><code># Parameters setting
 a &lt;- -1.25
 b &lt;- -1.25
@@ -85,7 +85,7 @@ df</code></pre>
 ## 4  0.8172482  0.9946399
 ## 5 -1.8969558 -1.4673201
 ## 6  2.2716156  1.1936322</code></pre>
-<p>As you can see, our point started at <code>(0,0)</code> and <em>jumped</em> 5 times (the number of jumps is represented by <code>n</code>). You can try to change <code>n</code> from <code>5</code> to <code>10000000</code> and see what happens (disclamer: be patient).</p>
+<p>As you can see, our point started at <code>(0,0)</code> and <em>jumped</em> 5 times (the number of jumps is represented by <code>n</code>). You can try to change <code>n</code> from <code>5</code> to <code>10000000</code> and see what happens (disclaimer: be patient).</p>
 <p>A better approach to do it is using <code>purrr</code>, a functional programming package which provides useful tools for iterating through lists and vectors, generalizing code and removing programming redundancies. The <code>purrr</code> tools work in combination with functions, lists and vectors and results in code that is consistent and concise. This can be a <code>purrr</code> approach to our problem:</p>
 <pre class="r"><code>library(purrrlyr)
 
@@ -98,7 +98,7 @@ df &lt;- tibble(x = numeric(n+1),
 # Convert our data frame into a list
 by_row(df, function(v) list(v)[[1L]], .collate = &quot;list&quot;)$.out -&gt; df
 
-# This function computes current location dependind of previous one
+# This function computes current location depending of previous one
 f &lt;- function(j, k, a, b, c, d) {
   tibble(
     x = sin(a*j$y)+c*cos(a*j$x),
@@ -168,16 +168,16 @@ head(df)</code></pre>
 ## 4  0.8172482  0.9946399
 ## 5 -1.8969558 -1.4673201
 ## 6  2.2716156  1.1936322</code></pre>
-<p>Note that, apart of <code>Rcpp</code>, we also loaded the tidyverse package. This is becaus we will use some of its features, as <code>dplyr</code> or <code>ggplot2</code>, later.</p>
-<p>The function <code>createTrajectory</code> is written in <code>C++</code> and stores the itinerary of a initial point. You can try it to see that It’s extremely fast. In the previous example, I populated on the fly our data frame with 10 milion points starting at <code>(0,0)</code> in less than 5 seconds in a conventional laptop.</p>
+<p>Note that, apart from <code>Rcpp</code>, we also loaded the tidyverse package. This is because we will use some of its features, as <code>dplyr</code> or <code>ggplot2</code>, later.</p>
+<p>The function <code>createTrajectory</code> is written in <code>C++</code> and stores the itinerary of an initial point. You can try it to see that It’s extremely fast. In the previous example, I populated on the fly our data frame with 10 million points starting at <code>(0,0)</code> in less than 5 seconds in a conventional laptop.</p>
 </div>
 <div id="rendering-the-plot-with-ggplot" class="section level2">
 <h2>Rendering the plot with ggplot</h2>
-<p>Once we have build our data frame, it’s time to represent it with <code>ggplot</code>.</p>
+<p>Once we have built our data frame, it’s time to represent it with <code>ggplot</code>.</p>
 <p>Making graphics is a necessary skill and for this <code>ggplot</code> is an amazing tool, which by the way, I encourage you to learn. Usually, a good visualization is the best way to show your results. R is an extraordinary tool for visualizing data and one of the most important libraries to do it is <code>ggplot2</code>: it is powerful, flexible and is updated to include functionalities regularly. Although its syntax may seem a bit strange at first, here are four important concepts from my point of view to help you out with understanding it:</p>
 <ul>
 <li>It’s truly important to have clear the type of graph you want to plot: for each one there’s a different <em>geometry</em>: <code>geom_point</code> to represent points, <code>geom_line</code> to represent time series, <code>geom_bar</code> to do bar chars … Have a look to <code>ggplot2</code> package, there are many other types.</li>
-<li>Each of those geometries needs to define what data is to be used and how. For example, as you will se in our graph, we placed on the x-axis the <code>x</code> column of our data frame <code>df</code> and <code>y</code> on the y-axis, so we did <code>aes(x = x, y = y)</code>.</li>
+<li>Each of those geometries needs to define what data is to be used and how. For example, as you will see in our graph, we placed on the x-axis the <code>x</code> column of our data frame <code>df</code> and <code>y</code> on the y-axis, so we did <code>aes(x = x, y = y)</code>.</li>
 <li>You can also combine geometries. We didn’t do that for our example but you may want, for example, to combine bars and lines on the same plot. To do it you can just use <code>+</code> operator. This operator is very important: it doesn’t only combine geometries, it’s also used to add features to the plot as we did to define its aspect ratio (with <code>coord_equal</code>) or its appearance (with <code>theme_void</code>).</li>
 <li>You can modify every detail of the look and feel of your graph but be patient. To begin with, I recommend the use of predefined themes as I did with <code>theme_void</code>. There are many of them and it’s is a <em>quick and easy</em> way to change the appearance of your plot: just a way of making life easier and simpler.</li>
 </ul>
@@ -213,7 +213,7 @@ ggsave(&quot;strange2.png&quot;, plot, height = 5, width = 5, units = &#39;in&#3
 <center>
 <img src="../../static/post/2019-10-15_files/strange2.png" width="450" />
 </center>
-<p>Don’t you feel like playing with parameters? From my point of view, this is a <em>very classy</em> way of spend your time.</p>
+<p>Don’t you feel like playing with parameters? From my point of view, this is a <em>very classy</em> way of spending your time.</p>
 </div>
 <div id="the-general-2d-map" class="section level2">
 <h2>The General 2D-Map</h2>
@@ -285,7 +285,7 @@ ggsave(&quot;strange3.png&quot;, plot, height = 5, width = 5, units = &#39;in&#3
 <p>Sometimes you will need to process the data frame after you generate it since:</p>
 <ul>
 <li>Extreme values can hide the pattern as happened before or even <em>scape</em> to infinite (solution: remove outliers).</li>
-<li>Some image can be quite <em>boring</em>: from my point of view, the more <em>distributed</em> ae points on the XY plane, the nicer is the resulting image (solution: try with a small data frame and keep it if some measure of dispersion over the plane or the individual axis is high enough; in this case, compute the big picture).</li>
+<li>Some images can be quite <em>boring</em>: from my point of view, the more <em>distributed</em> ae points on the XY plane, the nicer is the resulting image (solution: try with a small data frame and keep it if some measure of dispersion over the plane or the individual axis is high enough; in this case, compute the big picture).</li>
 </ul>
 <p>To conclude, let’s change the appearance of our plot. We will use the <code>theme</code> function to customize it setting the background color to black and adding a white line as frame.</p>
 <pre class="r"><code>opt &lt;-  theme(legend.position  = &quot;none&quot;,

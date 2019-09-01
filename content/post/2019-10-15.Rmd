@@ -82,7 +82,7 @@ These attractors were discovered by [Clifford Pickover](https://en.wikipedia.org
 
 ## Populating attractors: an inefficient approach
 
-To represent the trajectory of a particular point, we need to store in a data frame its locations at every single (discrete) moment of time. For example, this is how we can do it using a `for`loop:
+To represent the trajectory of a particular point, we need to store in a data frame its locations at every single (discrete) moment of time. For example, this is how we can do it using a `for` loop:
 
 ```{r, warning = FALSE, message = FALSE}
 
@@ -111,7 +111,7 @@ for (i in 1:n) {
 df
 ```
 
-As you can see, our point started at `(0,0)` and *jumped* 5 times (the number of jumps is represented by `n`). You can try to change `n` from `5` to `10000000` and see what happens (disclamer: be patient).
+As you can see, our point started at `(0,0)` and *jumped* 5 times (the number of jumps is represented by `n`). You can try to change `n` from `5` to `10000000` and see what happens (disclaimer: be patient).
 
 A better approach to do it is using `purrr`, a functional programming package which provides useful tools for iterating through lists and vectors, generalizing code and removing programming redundancies. The `purrr` tools work in combination with functions, lists and vectors and results in code that is consistent and concise. This can be a `purrr` approach to our problem:
 
@@ -127,7 +127,7 @@ df <- tibble(x = numeric(n+1),
 # Convert our data frame into a list
 by_row(df, function(v) list(v)[[1L]], .collate = "list")$.out -> df
 
-# This function computes current location dependind of previous one
+# This function computes current location depending of previous one
 f <- function(j, k, a, b, c, d) {
   tibble(
     x = sin(a*j$y)+c*cos(a*j$x),
@@ -191,19 +191,19 @@ df <- createTrajectory(10000000, 0, 0, a, b, c, d)
 head(df)
 ```
 
-Note that, apart of `Rcpp`,  we also loaded the tidyverse package. This is becaus we will use some of its features, as `dplyr` or `ggplot2`, later. 
+Note that, apart from `Rcpp`,  we also loaded the tidyverse package. This is because we will use some of its features, as `dplyr` or `ggplot2`, later. 
 
-The function `createTrajectory` is written in `C++` and stores the itinerary of a initial point. You can try it to see that It's extremely fast. In the previous example, I populated on the fly our data frame with 10 milion points starting at `(0,0)` in less than 5 seconds in a conventional laptop.
+The function `createTrajectory` is written in `C++` and stores the itinerary of an initial point. You can try it to see that It's extremely fast. In the previous example, I populated on the fly our data frame with 10 million points starting at `(0,0)` in less than 5 seconds in a conventional laptop.
 
 ## Rendering the plot with ggplot
 
-Once we have build our data frame, it's time to represent it with `ggplot`. 
+Once we have built our data frame, it's time to represent it with `ggplot`. 
 
 Making graphics is a necessary skill and for this `ggplot` is an amazing tool, which by
 the way, I encourage you to learn. Usually, a good visualization is the best way to show your results. R is an extraordinary tool for visualizing data and one of the most important libraries to do it is `ggplot2`: it is powerful, flexible and is updated to include functionalities regularly. Although its syntax may seem a bit strange at first, here are four important concepts from my point of view to help you out with understanding it:
 
 + It’s truly important to have clear the type of graph you want to plot: for each one there’s a different *geometry*: `geom_point` to represent points, `geom_line` to represent time series, `geom_bar` to do bar chars ... Have a look to `ggplot2` package, there are many other types.
-+ Each of those geometries needs to define what data is to be used and how. For example, as you will se in our graph, we placed on the x-axis the `x` column of our data frame `df` and `y` on the y-axis, so we did `aes(x = x, y = y)`.
++ Each of those geometries needs to define what data is to be used and how. For example, as you will see in our graph, we placed on the x-axis the `x` column of our data frame `df` and `y` on the y-axis, so we did `aes(x = x, y = y)`.
 + You can also combine geometries. We didn’t do that for our example but you may want, for example, to combine bars and lines on the same plot. To do it you can just use `+` operator. This operator is very important: it doesn’t only combine geometries, it’s also used to add features to the plot as we did to define its aspect ratio (with `coord_equal`) or its appearance (with `theme_void`).
 + You can modify every detail of the look and feel of your graph but be patient. To begin with, I recommend the use of predefined themes as I did with `theme_void`. There are many of them and it’s is a *quick and easy* way to change the appearance of your plot: just a way of making life easier and simpler.
 
@@ -257,7 +257,7 @@ ggsave("strange2.png", plot, height = 5, width = 5, units = 'in')
 ![](../../static/post/2019-10-15_files/strange2.png){width=450px}
 </center>
 
-Don't you feel like playing with parameters? From my point of view, this is a *very classy* way of spend your time.
+Don't you feel like playing with parameters? From my point of view, this is a *very classy* way of spending your time.
 
 ## The General 2D-Map
 
@@ -349,7 +349,7 @@ Now a stunning image appears.
 Sometimes you will need to process the data frame after you generate it since:
 
 + Extreme values can hide the pattern as happened before or even *scape* to infinite (solution: remove outliers).
-+ Some image can be quite *boring*: from my point of view, the more *distributed* ae points on the XY plane, the nicer is the resulting image (solution: try with a small data frame and keep it if some measure of dispersion over the plane or the individual axis is high enough; in this case, compute the big picture).
++ Some images can be quite *boring*: from my point of view, the more *distributed* ae points on the XY plane, the nicer is the resulting image (solution: try with a small data frame and keep it if some measure of dispersion over the plane or the individual axis is high enough; in this case, compute the big picture).
 
 To conclude, let's change the appearance of our plot. We will use the `theme` function to customize it setting the background color to black and adding a white line as frame. 
 
