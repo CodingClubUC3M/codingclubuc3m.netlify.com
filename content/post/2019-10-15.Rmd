@@ -10,7 +10,7 @@ tags: ["R", "Rcpp", "purrr", "creative coding"]
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Learning to code can be quite hard. Apart of the difficulties of learning a new *language*, following a book can be quite boring. From my point of view, one of the bests ways to become a good programmer is choosing *small and funny* experiments oriented to train specific techniques of programming. This is what I use to do in my blog [Fronkonstin](www.fronkonstin.com). In this tutorial, we will learn to combine C++ with R to create efficient loops. We will also learn interesting things about `ggplot2`, a very important package for data visualization. The *excuse* to do all this, is to create beautiful images using a mathematical concept called *Strange Attractors*, that we will discuss briefly also. Combining art and coding is often called as *generative art*, so be ready because after following this tutorial you can discover a new use of R to fall for as I am. Here we go!
+Learning to code can be quite hard. Apart from the difficulties of learning a new *language*, following a book can be quite boring. From my point of view, one of the bests ways to become a good programmer is choosing *small and funny* experiments oriented to train specific techniques of programming. This is what I usually do in my blog [Fronkonstin](www.fronkonstin.com). In this tutorial, we will learn to combine C++ with R to create efficient loops. We will also learn interesting things about `ggplot2`, a very important package for data visualization. The *excuse* to do all this is to create beautiful images using a mathematical concept called *Strange Attractors*, that we will discuss briefly also. Combining art and coding is often called *generative art*, so be ready because after following this tutorial you can discover a new use of R to fall for as I am. Here we go!
 
 ## Introduction
 
@@ -37,20 +37,20 @@ for (i in 1:ncol(df)) {
 output
 ```
 
-In the previous example, we repeated 4 times the task (which is the *piece* of code inside the curly brakets). Another way to do iterations in R, sometimes more efficientent than a `for` loop, is using the *apply* family. This is how the previous loop can be rewritten using the `apply` function:
+In the previous example, we repeated 4 times the task (which is the *piece* of code inside the curly brackets). Another way to do iterations in R, sometimes more efficient than a `for` loop, is by using the *apply* family. This is how the previous loop can be rewritten using the `apply` function:
 
 ```{r, eval = FALSE}
 output <- apply(df, 2, mean)
 output
 ```
 
-These approaches have limitations. For example, if you want to use the result of an iteration as the input of the next one, you can not use *apply*. Another one is that sometimes R is not enough fast, which makes the `for` function quite inefficient. When you face to these kind of situations, a good option is combinig C++ and R. To illustrate this, let's briefly intoduce a stunning mathematical *creature*: the strange attractors.
+These approaches have limitations. For example, if you want to use the result of an iteration as the input of the next one, you can not use *apply*. Another one is that sometimes R is not enough fast, which makes the `for` function quite inefficient. When you face this kind of situations, a good option is combinnig C++ and R. To illustrate this, let's briefly introduce a stunning mathematical *creature*: the strange attractors.
 
 ## What are strange attractors?
 
-In mathematics, a dynamical system is a set of functions which  describes the time dependence of a point in a geometrical space. An attractor is a set of numerical values towards a dynamical systems tend to evolve in discrete time regardless of their starting conditions. Simple attractors can be **fixed points**, **sets of points** or **limit cycles**. More interesting attractors are *strange*, *chaotic* or *itinerant* attractors, which span an array of possible states in which a dynamical system can roam around without repeating itself.
+In mathematics, a dynamical system is a set of functions which  describes the time dependence of a point in a geometrical space. An attractor is a set of numerical values towards a dynamical system tend to evolve in discrete time regardless of their starting conditions. Simple attractors can be **fixed points**, **sets of points** or **limit cycles**. More interesting attractors are *strange*, *chaotic* or *itinerant* attractors, which span an array of possible states in which a dynamical system can roam around without repeating itself.
 
-One of the best known examples of strange attractors was discovered by Kiyohiro Ikeda [^1] and bears his name. It is defined by next equations:
+One of the best-known examples of strange attractors was discovered by Kiyohiro Ikeda [^1] and bears his name. It is defined by the next equations:
 
 [^1]: K.Ikeda, Multiple-valued Stationary State and its Instability of the Transmitted Light by a Ring Cavity System, Opt. Commun. 30 257-261 (1979); K. Ikeda, H. Daido and O. Akimoto, Optical Turbulence: Chaotic Behavior of Transmitted Light from a Ring Cavity, Phys. Rev. Lett. 45, 709–712 (1980)
 
@@ -62,7 +62,7 @@ with $u\ge0.6$ and
 
 $t_{n}=0.4-{\frac {6}{1+x_{n}^{2}+y_{n}^{2}}}$
 
-In this example, our *imaginary* point moves in a 2D dimensional space, since we just need `(x, y)` coordinates to describe its movement. In the previous system, time is represented by `n`. As you can see, the Ikeda's system only depends on one parameter, called `u`. The location of point at `n` depends only on its location at `n-1`. For example, this image [^2] shows the trajectories of 2000 random points following this previous equation with $u = 0.918$:
+In this example, our *imaginary* point moves in a 2D dimensional space, since we just need `(x, y)` coordinates to describe its movement. In the previous system, time is represented by `n`. As you can see, the Ikeda's system only depends on one parameter, called `u`. The location of the point at `n` depends only on its location at `n-1`. For example, this image [^2] shows the trajectories of 2000 random points following this previous equation with $u = 0.918$:
 
 <center>
 ![](../../static/post/2019-10-15_files/Ikeda_map_simulation_u=0.918_cropped.png){width=412px}
@@ -202,9 +202,9 @@ Once we have build our data frame, it's time to represent it with `ggplot`.
 Making graphics is a necessary skill and for this `ggplot` is an amazing tool, which by
 the way, I encourage you to learn. Usually, a good visualization is the best way to show your results. R is an extraordinary tool for visualizing data and one of the most important libraries to do it is `ggplot2`: it is powerful, flexible and is updated to include functionalities regularly. Although its syntax may seem a bit strange at first, here are four important concepts from my point of view to help you out with understanding it:
 
-+ It’s truly important to have clear the type of graph you want to plot: for each one there’s a different *geometry*: `geom_point` to represent points, `geom_line` to represent time series, `geom_bar` to do bar chars ... Have a wonder though `ggplot2` package, there are many other types.
++ It’s truly important to have clear the type of graph you want to plot: for each one there’s a different *geometry*: `geom_point` to represent points, `geom_line` to represent time series, `geom_bar` to do bar chars ... Have a look to `ggplot2` package, there are many other types.
 + Each of those geometries needs to define what data is to be used and how. For example, as you will se in our graph, we placed on the x-axis the `x` column of our data frame `df` and `y` on the y-axis, so we did `aes(x = x, y = y)`.
-+ You can also combine geometries. We didn’t do that for our example but you may want, for example, to combine bars and lines on a same plot. To do it you can just use `+` operator. This operator is very important: it doesn’t only combine geometries, it’s also used to add features to the plot as we did to define its aspect ratio (with `coord_equal`) or its appearance (with `theme_void`).
++ You can also combine geometries. We didn’t do that for our example but you may want, for example, to combine bars and lines on the same plot. To do it you can just use `+` operator. This operator is very important: it doesn’t only combine geometries, it’s also used to add features to the plot as we did to define its aspect ratio (with `coord_equal`) or its appearance (with `theme_void`).
 + You can modify every detail of the look and feel of your graph but be patient. To begin with, I recommend the use of predefined themes as I did with `theme_void`. There are many of them and it’s is a *quick and easy* way to change the appearance of your plot: just a way of making life easier and simpler.
 
 The `ggplot2` package is a new world by itself and takes part of the `tidyverse`, a collection of efficient libraries designed to analyze data in a consistent way.
@@ -229,7 +229,7 @@ ggsave("strange1.png", plot, height = 5, width = 5, units = 'in')
 
 The syntax of our plot is quite simple. Just two comments about it:
 +  shape is set to 46, the smallest filled point. More info about shapes, [here](http://sape.inf.usi.ch/quick-reference/ggplot2/shape)
-+ Since there are a lot of points, I make them transparent with alpha to take advantage on its overlaping and reveal patterns of shadows.
++ Since there are a lot of points, I make them transparent with alpha to take advantage on its overlapping and reveal patterns of shadows.
 
 
 ## Playing with parameters
@@ -351,7 +351,7 @@ Sometimes you will need to process the data frame after you generate it since:
 + Extreme values can hide the pattern as happened before or even *scape* to infinite (solution: remove outliers).
 + Some image can be quite *boring*: from my point of view, the more *distributed* ae points on the XY plane, the nicer is the resulting image (solution: try with a small data frame and keep it if some measure of dispersion over the plane or the individual axis is high enough; in this case, compute the big picture).
 
-To end, let's change the appearance of our plot. We will use the `theme` function to customize it setting the background color to black and adding a white line as frame. 
+To conclude, let's change the appearance of our plot. We will use the `theme` function to customize it setting the background color to black and adding a white line as frame. 
 
 ```{r, eval = FALSE}
 
