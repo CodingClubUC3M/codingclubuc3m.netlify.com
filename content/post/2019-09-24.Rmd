@@ -1,5 +1,5 @@
 ---
-title: "Mastering R Presentations"
+title: "Mastering R presentations"
 authors: ["Paula LC"]
 date: 2019-09-24
 categories: ["R", "Markdown"]
