@@ -2,17 +2,15 @@
 title: "Mastering R Presentations"
 authors: ["Paula LC"]
 date: 2019-09-24
-categories: ["R"]
-tags: ["R", "RMarkdown", "Presentations"]
+categories: ["R", "Markdown"]
+tags: ["R", "Markdown", "presentations", "reproducibility"]
 ---
 
-Do you want to know how to make elegant and simple reproducible presentations? In this talk, we are going to explain how to do presentations in different output formats using one of the easiest and most exhaustive statistical software, R. Now, it is possible create Beamer, PowerPoint, or HTML presentations, including R code, LaTeX equations, graphics, or interactive content.
+Do you want to know how to make elegant and simple reproducible presentations? In this talk, we are going to explain how to do presentations in different output formats using one of the easiest and most exhaustive statistical software, R. Now, it is possible create Beamer, PowerPoint, or HTML presentations, including R code, $\LaTeX$ equations, graphics, or interactive content.
 
 After the tutorial, you will be able to create R presentations on your own with R Markdown in RStudio. But don’t worry if you don’t know a lot of R Markdown, because it’s really simple to use it with RStudio and you will discover the keys to master the language.
 
-We have several options to create amazing technical presentations in pdf format with tools like PowerPoint or $LaTeX$. But the truth is that when we want to generate a full and complete document with graphs, code, and text, then we invest more time in the appearance than in the content itself, or learning how to add content easily. So here I want to show you a good alternative using R. The best feature R has is the flexibility and simplicity of the code to reproduce amazing presentations with little work. To achieve it, R uses Markdown. But, what is exactly Markdown?
-
-We have several options to create amazing technical presentations in pdf format with tools like PowerPoint or $LaTeX$. But the truth is that when we want to generate a full and complete document with graphs, code, and text, then we invest more time in the appearance than in the content itself, or learning how to add content easily. So here I want to show you a good alternative using R. The best feature R has is the flexibility and simplicity of the code to reproduce amazing presentations with little work. To achieve it, R uses Markdown. But, what is exactly Markdown?
+We have several options to create amazing technical presentations in pdf format with tools like PowerPoint or $\LaTeX$. But the truth is that when we want to generate a full and complete document with graphs, code, and text, then we invest more time in the appearance than in the content itself, or learning how to add content easily. So here I want to show you a good alternative using R. The best feature R has is the flexibility and simplicity of the code to reproduce amazing presentations with little work. To achieve it, R uses Markdown. But, what is exactly Markdown?
 
 ## What is Markdown?
 
@@ -75,14 +73,12 @@ Inline-style:
 Inline `code` has `back-ticks around` it.
 ```
 
-<pre lang="no-highlight">
-<code>
+````text
 ```python
 s = "Python syntax highlighting"
 print s
 ```
-</code></pre>
-
+````
 
 #### Blockquotes
 ```text
@@ -98,7 +94,7 @@ Besides these basics, you can to add tables, rulers, links to videos, HTML code,
 
 R has a specific file format for this type of documents *.Rmd*. R Markdown has an online book really useful and detailed here https://bookdown.org/yihui/rmarkdown/. This tool let you build different type of documents like the next ones:
 
-- **Documents**: HTML, $LaTeX$/PDF, Microsoft Word, Tufte-style handouts
+- **Documents**: HTML, $\LaTeX$/PDF, Microsoft Word, Tufte-style handouts
 - **Interactive documents**: HTML Widgets, Shiny
 - **Dashboards**: Gauges, values boxes, HTML Widgets, Shiny, Storyboard
 - **Books**: HTML, PDF, EPUB
@@ -113,19 +109,19 @@ In the next link, you will find some examples of each one  https://rmarkdown.rst
 
 The first step is to get R and RStudio, and install the package *rmarkdown* with the code 
 ```R 
-library(rmarkdown)
+install.packages("rmarkdown")
 ```
 In the last versions you can directly create presentations going to `File -> New File -> R Presentation`. Then, a *.RPres* document is going to be created. This is the simplest, really simplest, way to start but my advice is to go quickly to the next step if you want more flexibility in the slides and final appearance. 
 
 So going to `File -> New File -> R Markdown` and selecting the option `Presentation`, you are going to have different options to create your slides. Selecting any of them, a file like this is automatically generated:
 
-![Markdown document of a Slidy presentation.](post/2019-09-24_files/image1.PNG)
+![](/post/2019-09-24_files/image1.png)
 
 Depending on the final style of the output there are different output options. In the next points, we are going to explain in detail the main features of all them.
 
-- **ioslides**: the option `ouptut:ioslides_presentation` 
-- **slidy**: the option `ouptut:slidy_presentation` 
-- **beamer**: the option `ouptut:beamer_presentation` 
+- **ioslides**: the option `output: ioslides_presentation` 
+- **slidy**: the option `output: slidy_presentation` 
+- **beamer**: the option `output: beamer_presentation` 
 
 ## The R Markdown file
 
@@ -137,7 +133,7 @@ The header is the R Markdown document part where you can set the title, the auth
 ---
 title: "Mastering R presentations"
 author: "Paula LC"
-date: "24 de septiembre de 2019"
+date: "2019-09-24"
 output: ioslides_document
 ---
 ```
@@ -147,7 +143,7 @@ But at the same time, other options can be determined as follows:
 ---
 title: "Mastering R presentations"
 author: "Paula LC"
-date: "24 de septiembre de 2019"
+date: "2019-09-24"
 output: 
   ioslides_presentation:
     incremental: false
@@ -194,7 +190,7 @@ In the next link you can find more details about R chunks: https://bookdown.org/
 
 #### Equations
 
-There is the chance to add equations to your presentations with *MathJax* scripts. These are included in HTML documents for rendering $LaTeX$ and MathML equations. To control how MathJax is included you have the next options:
+There is the chance to add equations to your presentations with *MathJax* scripts. These are included in HTML documents for rendering $\LaTeX$ and MathML equations. To control how MathJax is included you have the next options:
 
 - `default` to use an HTTPS URL from a CDN host (currently provided by RStudio)
 - `local`: to use a local version of MathJax (which is copied into the output directory). Note that when using "local" you also need to set the self_contained option to false.
@@ -254,12 +250,11 @@ stargazer::stargazer(data, type = 'HTML', title = 'Table with stargazer')
 In R there are a lot of packages to create interactive graphs. *Highcharter* is one of them, as well as the well-known *HTMLwidgets*. Here we have an example of a highcharter graph.
 
 ```{r, echo=T, message=F, warning=F}
-library(magrittr)
 library(highcharter)
 highchart() %>% 
   hc_title(text = "Scatter chart with size and color") %>% 
-  hc_add_series_scatter(mtcars$wt, mtcars$mpg,
-                        mtcars$drat, mtcars$hp)
+  hc_add_series(mtcars, "point", hcaes(wt, mpg, size=drat, color=hp)) %>%
+  widgetframe::frameWidget()
 ```
 
 
@@ -348,14 +343,14 @@ Moreover, the syntax highlighting style can be specified with the option `highli
 
 ### Beamer
 
-Beamer is a $LaTeX$ class to produce presentations and slides. It is so common in academia and so useful to add mathematical formulas and expressions. You can create your own Beamer presentations from R without a deep knowledge of $LaTeX$ (only Markdown).
+Beamer is a $\LaTeX$ class to produce presentations and slides. It is so common in academia and so useful to add mathematical formulas and expressions. You can create your own Beamer presentations from R without a deep knowledge of $\LaTeX$ (only Markdown).
 
-So the first step is to install tex. Tex is a typesetting for complex mathematical formulae used in LaTeX. To install it, download tone of the next programs, depending on your OS system:
+So the first step is to install tex. Tex is a typesetting for complex mathematical formulae used in $\LaTeX$. To install it, download tone of the next programs, depending on your OS system:
 - MikTeX on Windows
 - MacTeX 2013+ on OS X
 - TeX Live 2013+ on Linux
 
-Beamer themes are the same that you can find in $LaTeX$. In the next link https://hartwork.org/beamer-theme-matrix/ you have the list of the different available header options related to the appearance and style:
+Beamer themes are the same that you can find in $\LaTeX$. In the next link https://hartwork.org/beamer-theme-matrix/ you have the list of the different available header options related to the appearance and style:
 
 ```text
 ---
@@ -379,7 +374,7 @@ install.packages("revealjs")
 
 Then, you can directly change in the R Markdown document header the *output* argument to `revealjs_presentation` or go to menu `File -> New File -> R Markdown -> From template` and select reveal.js presentation.
 
-![Creating a revealjs presentation](post/2019-09-24_files/revealjs.png)
+![](/post/2019-09-24_files/revealjs.png)
 
 There are some amazing keyboard shortcuts:
 
@@ -437,7 +432,7 @@ devtools::install_github('yihui/xaringan')
 ```
 Once you get installed, go to the menu `File -> New File -> R Markdown -> From template` and click on ninja presentation. 
 
-![Selecting ninja presentation.](post/2019-09-24_files/ninja.png)
+![](/post/2019-09-24_files/ninja.png)
 
 Note: If you understand chinese you can select the last option ;).
 
