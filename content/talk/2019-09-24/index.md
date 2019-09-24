@@ -40,3 +40,6 @@ url_code = ""
 ### About the speaker
 
 Paula is Data Scientist at Telefónica and she is passionate about data, innovation, and technology. She was graduated in Statistics at Universidad de Valladolid in 2015 and she finished her Master's degree in Applied Statistics at Universidad de Granada the next year. Now, she is PhD Student in Economics and collaborates in research areas of Stochastic Optimal Control and Dynamic Games. She also was a lecturer and final project advisor at several universities in the recent years.
+
+![](/img/sessions/2019-09-24-1.jpg)
+![](/img/sessions/2019-09-24-2.jpg)
