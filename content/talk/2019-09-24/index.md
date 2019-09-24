@@ -12,8 +12,8 @@ abstract = """Do you want to know how to make elegant and simple reproducible pr
 After the tutorial, you will be able to create R presentations on your own with R Markdown in RStudio. But don't worry if you don't know a lot of R Markdown, because it's really simple to use it with RStudio and you will discover the keys to master the language."""
 
 event = "Tutorial"
-event_url = ""
-event_form = "https://forms.gle/UAg66RHthei8FvXr7"
+event_url = "/post/2019-09-24"
+event_form = ""
 
 location = "**Room 7.3.J06**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
   
