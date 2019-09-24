@@ -1,0 +1,461 @@
+---
+title: "Mastering R presentations"
+authors: ["Paula LC"]
+date: 2019-09-24
+categories: ["R", "Markdown"]
+tags: ["R", "Markdown", "presentations", "reproducibility"]
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+
+
+<p>Do you want to know how to make elegant and simple reproducible presentations? In this talk, we are going to explain how to do presentations in different output formats using one of the easiest and most exhaustive statistical software, R. Now, it is possible create Beamer, PowerPoint, or HTML presentations, including R code, <span class="math inline">\(\LaTeX\)</span> equations, graphics, or interactive content.</p>
+<p>After the tutorial, you will be able to create R presentations on your own with R Markdown in RStudio. But don’t worry if you don’t know a lot of R Markdown, because it’s really simple to use it with RStudio and you will discover the keys to master the language.</p>
+<p>We have several options to create amazing technical presentations in pdf format with tools like PowerPoint or <span class="math inline">\(\LaTeX\)</span>. But the truth is that when we want to generate a full and complete document with graphs, code, and text, then we invest more time in the appearance than in the content itself, or learning how to add content easily. So here I want to show you a good alternative using R. The best feature R has is the flexibility and simplicity of the code to reproduce amazing presentations with little work. To achieve it, R uses Markdown. But, what is exactly Markdown?</p>
+<div id="what-is-markdown" class="section level2">
+<h2>What is Markdown?</h2>
+<p>Markdown is a simple language to write web-based content easy both for writing and reading. The key is that it can be converted to many output formats with a simplified syntax.</p>
+<div id="basics-of-markdown" class="section level3">
+<h3>Basics of Markdown</h3>
+<p>Here you have a summary guide of the main style syntax.</p>
+<div id="headers" class="section level4">
+<h4>Headers</h4>
+<pre class="text"><code># H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
+
+Alternatively, for H1 and H2, an underline-ish style:
+
+Alt-H1
+======
+
+Alt-H2
+------</code></pre>
+</div>
+<div id="emphasis" class="section level4">
+<h4>Emphasis</h4>
+<pre class="text"><code>*italics* or _italics_.
+
+**bold** or __bold__.
+
+~~Strikethrough~~</code></pre>
+</div>
+<div id="lists" class="section level4">
+<h4>Lists</h4>
+<pre class="text"><code>1. First ordered list item
+2. Another item
+
+* Unordered list can use asterisks
+- Or minuses
++ Or pluses</code></pre>
+</div>
+<div id="links" class="section level4">
+<h4>Links</h4>
+<pre class="text"><code>[I&#39;m an inline-style link](https://www.google.com)</code></pre>
+</div>
+<div id="images" class="section level4">
+<h4>Images</h4>
+<pre class="text"><code>Inline-style: 
+![alt text](&quot;image&quot;)</code></pre>
+</div>
+<div id="code-and-syntax-highlighting" class="section level4">
+<h4>Code and syntax highlighting</h4>
+<pre class="text"><code>Inline `code` has `back-ticks around` it.</code></pre>
+<pre class="text"><code>```python
+s = &quot;Python syntax highlighting&quot;
+print s
+```</code></pre>
+</div>
+<div id="blockquotes" class="section level4">
+<h4>Blockquotes</h4>
+<pre class="text"><code>&gt; Blockquotes are very handy in emails to emulate reply text.</code></pre>
+</div>
+<div id="tex-formula" class="section level4">
+<h4>TeX Formula</h4>
+<pre class="text"><code>$-b \pm \sqrt{b^2 - 4ac} \over 2a$</code></pre>
+<p>Besides these basics, you can to add tables, rulers, links to videos, HTML code, etc. To know more visit the creator’s web site: <a href="https://daringfireball.net/projects/markdown/" class="uri">https://daringfireball.net/projects/markdown/</a> or this cheatsheet <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" class="uri">https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet</a>.</p>
+<p>R has a specific file format for this type of documents <em>.Rmd</em>. R Markdown has an online book really useful and detailed here <a href="https://bookdown.org/yihui/rmarkdown/" class="uri">https://bookdown.org/yihui/rmarkdown/</a>. This tool let you build different type of documents like the next ones:</p>
+<ul>
+<li><strong>Documents</strong>: HTML, <span class="math inline">\(\LaTeX\)</span>/PDF, Microsoft Word, Tufte-style handouts</li>
+<li><strong>Interactive documents</strong>: HTML Widgets, Shiny</li>
+<li><strong>Dashboards</strong>: Gauges, values boxes, HTML Widgets, Shiny, Storyboard</li>
+<li><strong>Books</strong>: HTML, PDF, EPUB</li>
+<li><strong>Web sites</strong></li>
+<li><strong>JSS templates, R Journal, Skeleton, CV</strong></li>
+<li><strong>Package Vignettes</strong></li>
+<li><strong>Presentations</strong>: Beamer, Slidy, ioslides, reveal.js, xaringan</li>
+</ul>
+<p>In the next link, you will find some examples of each one <a href="https://rmarkdown.rstudio.com/gallery.HTML" class="uri">https://rmarkdown.rstudio.com/gallery.HTML</a>. And in this cheatsheet, a good summary of R Markdown is presented <a href="https://rmarkdown.rstudio.com/lesson-15.HTML" class="uri">https://rmarkdown.rstudio.com/lesson-15.HTML</a>.</p>
+</div>
+</div>
+</div>
+<div id="how-to-start" class="section level2">
+<h2>How to start</h2>
+<p>The first step is to get R and RStudio, and install the package <em>rmarkdown</em> with the code</p>
+<pre class="r"><code>install.packages(&quot;rmarkdown&quot;)</code></pre>
+<p>In the last versions you can directly create presentations going to <code>File -&gt; New File -&gt; R Presentation</code>. Then, a <em>.RPres</em> document is going to be created. This is the simplest, really simplest, way to start but my advice is to go quickly to the next step if you want more flexibility in the slides and final appearance.</p>
+<p>So going to <code>File -&gt; New File -&gt; R Markdown</code> and selecting the option <code>Presentation</code>, you are going to have different options to create your slides. Selecting any of them, a file like this is automatically generated:</p>
+<p><img src="/post/2019-09-24_files/image1.png" /></p>
+<p>Depending on the final style of the output there are different output options. In the next points, we are going to explain in detail the main features of all them.</p>
+<ul>
+<li><strong>ioslides</strong>: the option <code>output: ioslides_presentation</code></li>
+<li><strong>slidy</strong>: the option <code>output: slidy_presentation</code></li>
+<li><strong>beamer</strong>: the option <code>output: beamer_presentation</code></li>
+</ul>
+</div>
+<div id="the-r-markdown-file" class="section level2">
+<h2>The R Markdown file</h2>
+<div id="header" class="section level3">
+<h3>Header</h3>
+<p>The header is the R Markdown document part where you can set the title, the author, the date, and the output as the image shows:</p>
+<pre class="text"><code>---
+title: &quot;Mastering R presentations&quot;
+author: &quot;Paula LC&quot;
+date: &quot;2019-09-24&quot;
+output: ioslides_document
+---</code></pre>
+<p>But at the same time, other options can be determined as follows:</p>
+<pre class="text"><code>---
+title: &quot;Mastering R presentations&quot;
+author: &quot;Paula LC&quot;
+date: &quot;2019-09-24&quot;
+output: 
+  ioslides_presentation:
+    incremental: false
+    self-included: true
+---</code></pre>
+</div>
+<div id="content" class="section level3">
+<h3>Content</h3>
+<p>Once the header is completed, you can add any kind of content that you can practically imagine: R code, equations, charts, images, videos etc. In the next points we are going to see how to add each type of content.</p>
+<div id="r-chunks" class="section level4">
+<h4>R Chunks</h4>
+<p>In addition to plain text, headers and other Markdown elements, you have the option of inserting R code which will be executed every time you run the file. These parts of the document are called <em>R chunks</em>. To insert an R Chunk you can use RStudio toolbar <code>Insert button</code> or the keyboard shortcut <code>Ctrl + Alt + I</code> on Windows and <code>Cmd + Option + I</code> on macOS.</p>
+<p>There are a lot of options referring to how to include tables, text output, figures, etc. For example, to add the option to show in the output the R code before the results you have to add between the brackets <code>{r }</code> the option <code>echo</code> as follows <code>{r echo=TRUE}</code>. By default, the code is not shown.</p>
+<p>More options:</p>
+<ul>
+<li><strong>cache</strong>: cache results for future knits (default = FALSE)</li>
+<li><strong>cache.path</strong>: directory to save cached results in (default = “cache/”)</li>
+<li><strong>child</strong>: file(s) to knit and then include (default = NULL)</li>
+<li><strong>collapse</strong>: collapse all output into single block (default = FALSE)</li>
+<li><strong>comment</strong>: prefix for each line of results (default = ‘##’)</li>
+<li><strong>dependson</strong>: chunk dependencies for caching (default = NULL)</li>
+<li><strong>echo</strong>: Display code in output document (default = TRUE)</li>
+<li><strong>engine</strong>: code language used in chunk (default = ‘R’)</li>
+<li><strong>error</strong>: Display error messages in doc (TRUE) or stop render when errors occur (FALSE) (default = FALSE)</li>
+<li><strong>eval</strong>: Run code in chunk (default = TRUE)</li>
+<li><strong>message</strong>: display code messages in document (default = TRUE)</li>
+<li><strong>results=asis</strong>: passthrough results</li>
+<li><strong>results=hide</strong>: do not display results</li>
+<li><strong>results=hold</strong>: put all results below all code</li>
+<li><strong>tidy</strong>: tidy code for display (default = FALSE)</li>
+<li><strong>warning</strong>: display code warnings in document (default = TRUE)</li>
+<li><strong>fig.align</strong>: ‘lef’, ‘right’, or ‘center’ (default = ‘default’)</li>
+<li><strong>fig.cap</strong>: figure caption as character string (default = NULL)</li>
+<li><strong>fig.height, fig.width</strong>: Dimensions of plots in inches</li>
+<li><strong>highlight</strong>: highlight source code (default = TRUE)</li>
+<li><strong>include</strong>: Include chunk in doc after running (default = TRUE)</li>
+</ul>
+<p>In the next link you can find more details about R chunks: <a href="https://bookdown.org/yihui/rmarkdown/r-code.HTML" class="uri">https://bookdown.org/yihui/rmarkdown/r-code.HTML</a></p>
+</div>
+<div id="equations" class="section level4">
+<h4>Equations</h4>
+<p>There is the chance to add equations to your presentations with <em>MathJax</em> scripts. These are included in HTML documents for rendering <span class="math inline">\(\LaTeX\)</span> and MathML equations. To control how MathJax is included you have the next options:</p>
+<ul>
+<li><code>default</code> to use an HTTPS URL from a CDN host (currently provided by RStudio)</li>
+<li><code>local</code>: to use a local version of MathJax (which is copied into the output directory). Note that when using “local” you also need to set the self_contained option to false.</li>
+<li>URL indicating the location to load MathJax</li>
+<li><code>null</code> to exclude MathJax entirely.</li>
+</ul>
+<p>For example, to use a local copy of MathJax:</p>
+<pre class="text"><code>---
+title: &quot;Example&quot;
+output:
+  ioslides_document:
+    mathjax: local
+    self_contained: false
+---</code></pre>
+<p>To use a self-hosted copy of MathJax:</p>
+<pre class="text"><code>---
+title: &quot;Example&quot;
+output:
+  ioslides_document:
+    mathjax: &quot;http://example.com/MathJax.js&quot;
+---</code></pre>
+</div>
+<div id="tables" class="section level4">
+<h4>Tables</h4>
+<p>You have four options to add tables. First one, directly from R Markdown</p>
+<pre class="text"><code>Colons can be used to align columns.
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |</code></pre>
+<p>or the next ones, from R code with the libraries <code>knitr</code>, <code>xtable</code>, or <code>stargazer</code>.</p>
+<pre class="text"><code>data &lt;- faithful[1:4, ]
+knitr::kable(data, caption = &#39;Table with kable&#39;)
+
+data &lt;- faithful[1:4, ]
+print(xtable::xtable(data, caption = &#39;Table with xtable&#39;), type = &#39;HTML&#39;, 
+      HTML.table.attributes = &#39;border=0&#39;)
+
+data &lt;- faithful[1:4, ]
+stargazer::stargazer(data, type = &#39;HTML&#39;, title = &#39;Table with stargazer&#39;)</code></pre>
+</div>
+<div id="interactive-graphs" class="section level4">
+<h4>Interactive graphs</h4>
+<p>In R there are a lot of packages to create interactive graphs. <em>Highcharter</em> is one of them, as well as the well-known <em>HTMLwidgets</em>. Here we have an example of a highcharter graph.</p>
+<pre class="r"><code>library(highcharter)
+highchart() %&gt;% 
+  hc_title(text = &quot;Scatter chart with size and color&quot;) %&gt;% 
+  hc_add_series(mtcars, &quot;point&quot;, hcaes(wt, mpg, size=drat, color=hp)) %&gt;%
+  widgetframe::frameWidget()</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/2019-09-24_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="presentation-formats" class="section level2">
+<h2>Presentation formats</h2>
+<p>We just explored the different contents and parts of our R Markdown document. Let’s see what type of output format we can obtain.</p>
+<div id="ioslides" class="section level3">
+<h3>Ioslides</h3>
+<p>Ioslides is a nice R presentation format characterized by the simplicity of the result. There are some features specific from ioslides, such as the display mode</p>
+<ul>
+<li><code>f</code>: enable fullscreen mode</li>
+<li><code>w</code>: toggle widescreen mode</li>
+<li><code>o</code>: enable overview mode</li>
+<li><code>h</code>: enable code highlight mode</li>
+<li><code>p</code>: show presenter notes</li>
+</ul>
+<p>or the incremental bullets:</p>
+<pre class="text"><code>---
+output:
+  ioslides_presentation:
+    incremental: true
+---</code></pre>
+<p>Moreover, you can change the presentation size, the text size, or even the transition speed in the header of the document. Specifically, for the transition speed you can set the number of seconds for each slide or use the standard options: <code>default</code>, <code>slower</code>, <code>faster</code>.</p>
+<pre class="text"><code>---
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+    transition: slower
+---</code></pre>
+<p>For another hand, there is a quick way to add a background image without editing the CSS file,</p>
+<pre class="text"><code>## {data-background=&quot;my_background.png&quot;}</code></pre>
+<p>But if you want to add specific style changes to your presentation, I recommend you to edit the CSS file and add it to the header of the RMarkdown document:</p>
+<pre class="text"><code>---
+output:
+  ioslides_presentation:
+    css: styles.css
+---</code></pre>
+<p>One of the disadvantages of ioslides is that customization is limited compared with other output formats. At the end of this tutorial we explain how to modify by your own a CSS file.</p>
+</div>
+<div id="slidy" class="section level3">
+<h3>Slidy</h3>
+<p>Slidy has more flexibility than ioslides as to appearance and style. Now we are going to see some of the main special features that slidy has.</p>
+<p>There is the chance to change the display mode with the next shortcuts;</p>
+<ul>
+<li><code>c</code>: Show table of contents</li>
+<li><code>c</code>: Toggles the display of the footer</li>
+<li><code>a</code>: Toggles display of current vs all slides (useful for printing handouts)</li>
+<li><code>s</code>: Make fonts smaller</li>
+<li><code>b</code>: Make fonts larger</li>
+</ul>
+<p>And we can adjust the font directly in the header of the document without editing the CSS file:</p>
+<pre class="text"><code>---
+output:
+  slidy_presentation:
+    font_adjustment: -1
+---</code></pre>
+<p>You will find other interesting features of slidy such as the countdown timer in the footer or the customized footer text that can be easily added with the options <code>duration</code> and <code>footer</code>.</p>
+<div id="slidy-themes" class="section level4">
+<h4>Slidy themes</h4>
+<p>In slidy, there are different Boostrap themes to use drawn from the Bootswatch theme library. The themes are <code>default</code>, <code>cerulean</code>, <code>journal</code>, <code>flatly</code>, <code>darkly</code>, <code>readable</code>, <code>spacelab</code>, <code>united</code>, <code>cosmo</code>, <code>lumen</code>, <code>paper</code>, <code>sandstone</code>, <code>simplex</code>, and <code>yeti</code>. To add your own style with a CSS file, pass null in the theme parameter.</p>
+<p>Moreover, the syntax highlighting style can be specified with the option <code>highlight</code>. Supported styles are <code>default</code>, <code>tango</code>, <code>pygments</code>, <code>kate</code>, <code>monochrome</code>, <code>espresso</code>, <code>zenburn</code>, <code>haddock</code>, and <code>textmate</code>. And you have the option of preventing syntax highlighting passing null to the parameter.</p>
+</div>
+</div>
+<div id="beamer" class="section level3">
+<h3>Beamer</h3>
+<p>Beamer is a <span class="math inline">\(\LaTeX\)</span> class to produce presentations and slides. It is so common in academia and so useful to add mathematical formulas and expressions. You can create your own Beamer presentations from R without a deep knowledge of <span class="math inline">\(\LaTeX\)</span> (only Markdown).</p>
+<p>So the first step is to install tex. Tex is a typesetting for complex mathematical formulae used in <span class="math inline">\(\LaTeX\)</span>. To install it, download tone of the next programs, depending on your OS system:
+- MikTeX on Windows
+- MacTeX 2013+ on OS X
+- TeX Live 2013+ on Linux</p>
+<p>Beamer themes are the same that you can find in <span class="math inline">\(\LaTeX\)</span>. In the next link <a href="https://hartwork.org/beamer-theme-matrix/" class="uri">https://hartwork.org/beamer-theme-matrix/</a> you have the list of the different available header options related to the appearance and style:</p>
+<pre class="text"><code>---
+output:
+  beamer_presentation:
+    theme: &quot;AnnArbor&quot;
+    colortheme: &quot;dolphin&quot;
+    fonttheme: &quot;structurebold&quot;
+---</code></pre>
+</div>
+<div id="reveal.js" class="section level3">
+<h3>Reveal.js</h3>
+<p>There are other interesting options to create presentations in R such as reveal.js and xaringan. Reveal is very well-known because of the flexibility in the themes and transitions by default, the vertical slides or the possibility to include a web site inside a slide. In this part, we are going to explain how to generate a revealjs file and the main features of this awesome library.</p>
+<p>First of all, it is required to install revealjs package</p>
+<pre class="r"><code>install.packages(&quot;revealjs&quot;)</code></pre>
+<p>Then, you can directly change in the R Markdown document header the <em>output</em> argument to <code>revealjs_presentation</code> or go to menu <code>File -&gt; New File -&gt; R Markdown -&gt; From template</code> and select reveal.js presentation.</p>
+<p><img src="/post/2019-09-24_files/revealjs.png" /></p>
+<p>There are some amazing keyboard shortcuts:</p>
+<p>-<code>f</code> for fullscreen
+- <code>o</code> or <code>ESC</code> for overview mode
+- <code>alt</code> or (<code>ctrl</code> in Linux) and click an element, to zoom this element
+- <code>s</code> for speaker view (so pretty!)
+- <code>B</code> or <code>.</code> to pause the presentation</p>
+<p>And there is a lot of variety about appearance and styles. If you want to change how the presentation looks like, you can choose any of the next theme options: <code>default</code>, <code>simple</code>, <code>sky</code>, <code>beige</code>, <code>serif</code>, <code>solarized</code>, <code>blood</code>, <code>moon</code>, <code>night</code>, <code>black</code>, <code>league</code>, and <code>white</code>. And for the syntax highlighting style: <code>default</code>, <code>tango</code>, <code>pygments</code>, <code>kate</code>, <code>monochrome</code>, <code>espresso</code>, <code>zenburn</code>, and <code>haddock</code>. Pass null to prevent syntax highlighting. The way to specify it is the same than the previous presentation types.</p>
+<pre class="text"><code>---
+output:
+  revealjs::revealjs_presentation:
+    theme: black
+    highlight: pygments
+---</code></pre>
+<p>In revealjs you can center the text of the slides changing the <code>center</code> option to true, which by default is false, as well as the possibility of modifying the transitions and backgrounds, i.e. how the slide is going to move to the next one. Available transitions and background_transitions are <code>default</code>, <code>fade</code>, <code>slide</code>, <code>convex</code>, <code>concave</code>, <code>zoom</code> or <code>none</code>. Any of these global options can be overriden specifying the data-transition attribute in the header of the slide:</p>
+<pre class="text"><code>## Use a zoom transition {data-transition=&quot;zoom&quot;}</code></pre>
+<p>Moreover, Revealjs lets add different backgrounds like color, image, video, and iframe:</p>
+<pre class="text"><code>## CSS color background {data-background=#ff0000}
+
+## Full size image background {data-background=&quot;background.jpeg&quot;}
+
+## Video background {data-background-video=&quot;background.mp4&quot;}
+
+## A background page {data-background-iframe=&quot;https://example.com&quot;}</code></pre>
+<p>Finally, you can specify the level of heading will be used with the <code>slide_level</code> option. For example, if the slide_level is 2, the level-1 headers will be built horizontally and level-2 headers, vertically.</p>
+<p>Other interesting features are the great look on touch devices, the fragmented slides, easy to export to pdf, keyboard bindings, or the parallax scrolling background.</p>
+<p>References <a href="https://CRAN.R-project.org/package=revealjs" class="uri">https://CRAN.R-project.org/package=revealjs</a>.</p>
+</div>
+<div id="ninja-presentation" class="section level3">
+<h3>Ninja presentation</h3>
+<p>The last type of presentations that we are going to see is the xaringan library. It is an R Markdown extension based on the JavaScript library remark.js (<a href="https://remarkjs.com" class="uri">https://remarkjs.com</a>). This package was originally designed for “ninja”, so it is recommended to people that have a well-known of CSS. For another hand, if you need slides to be self-contained, then xaringan it is not a good option because needs a webserver to run. Another bad news is that xaringan doesn’t work well with HTML widgets.</p>
+<p>To install the library type</p>
+<pre class="text"><code>install.packages(&quot;xaringan&quot;)</code></pre>
+<p>or install it directly from GitHub to ensure that you are downloading the last version</p>
+<pre class="text"><code>devtools::install_github(&#39;yihui/xaringan&#39;)</code></pre>
+<p>Once you get installed, go to the menu <code>File -&gt; New File -&gt; R Markdown -&gt; From template</code> and click on ninja presentation.</p>
+<p><img src="/post/2019-09-24_files/ninja.png" /></p>
+<p>Note: If you understand chinese you can select the last option ;).</p>
+<p>The header is going to look like this</p>
+<pre class="text"><code>---
+title: &quot;Presentation Ninja&quot;
+subtitle: &quot;⚔&lt;br/&gt;with xaringan&quot;
+author: &quot;Yihui Xie&quot;
+institute: &quot;RStudio, Inc.&quot;
+date: &quot;2016/12/12 (updated: 2019-09-23)&quot;
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---</code></pre>
+<p>A lit bit more complicated than others and as you will see, there are some funny arguments that make this library really different.</p>
+<ul>
+<li><code>css</code>: to add your own CSS file,</li>
+<li><code>self_contained</code>: to produce a self-contained HTML file</li>
+<li><code>seal</code>: to generate a title slide automatically using the YAML metadata of the R Markdown document (if FALSE, you should write the title slide by yourself)</li>
+<li><code>yolo</code>: to insert the Mustache Karl (TM) randomly in the slides. Using TRUE, a number between 0-1 to insert the Mustache Karl in a percentage of the slides, or even a list(times = n, img = path)</li>
+<li><code>chakra</code>: path to the remark.js library (can be either local or remote).</li>
+<li><code>nature</code>: (Nature transformation) A list of configurations to be passed to remark.create(), e.g. list(ratio = ‘16:9’, navigation = list(click = TRUE)); see <a href="https://github.com/gnab/remark/wiki/Configuration" class="uri">https://github.com/gnab/remark/wiki/Configuration</a></li>
+</ul>
+<p>Besides the options provided by remark.js, there are others such interesting like autoplay the slides or the countdown timer. Slides can be automatically played setting the <code>autoplay</code> option under nature (in milliseconds). For example, to display slides every 30 seconds and see the countdown timer:</p>
+<pre class="text"><code>---
+output:
+  xaringan::moon_reader:
+    nature:
+      autoplay: 30000
+      countdown: 30000
+---</code></pre>
+<p>It is possible to highlight code lines turning the option <code>highlightLines</code> to true or to extend the markdown syntax defining custom macros with the <code>beforeInit</code> option under the option nature.</p>
+</div>
+</div>
+<div id="adding-your-css-file" class="section level2">
+<h2>Adding your CSS file</h2>
+<p>Some of the previous presentation formats give us the chance to add a customized CSS file. To know how to change a specific element you can inspect it with any web browser and focus exactly on what you want to modify by yourself. An example of a basic modification in a CSS file is the next one. Here we are selecting the background color of the body, the color of the headers and the full text for the reveal presentation, and the size of the h1 header:</p>
+<pre class="css"><code>body {
+  background: #111;
+  background-color: #111; }
+
+.reveal {
+  color: #fff; }
+  
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  color: #fff;
+ }
+ 
+.reveal h1 {
+  font-size: 4.77em; }</code></pre>
+<p>Then you have to save the CSS file in the same path that your R presentation document.</p>
+</div>
+<div id="how-to-export-the-presentation" class="section level2">
+<h2>How to export the presentation</h2>
+<p>With all the HTML output it is possible to export the presentation to pdf with any web browser using the menu <code>Print to PDF</code> from Google Chrome, for example. But there is another alternative like publishing the presentation online in RPubs or GitHub. You must be registered in any of the two platforms to be able to add your work. For RPubs, you have to invoke the <code>More -&gt; Publish</code> to RPubs command from the presentation toolbar, and in GitHub, you have to create a new repository with the HTML document and all the style files associated, and enable to GitHub pages to this repository. Here you have the steps to do it: <a href="https://pages.github.com/" class="uri">https://pages.github.com/</a>.</p>
+</div>
+<div id="basic-example" class="section level2">
+<h2>Basic example</h2>
+<p>Finally, let’s show you a simple reveal.js example to get you started.</p>
+<pre class="text"><code>---
+title: &quot;Revealjs Presentation Example&quot;
+author: &quot;Paula LC&quot;
+date: &quot;September 24, 2019&quot;
+output:
+  revealjs::revealjs_presentation:
+    theme: black
+    highlight: pygments
+---
+
+## Basic slide with text and lists
+
+Hello world!
+
+- List item 1
+- List item 2
+  + List item 2.1
+
+## Equations
+
+This summation expression $\sum_{i=1}^n X_i$ appears inline.
+
+$$f(y|N,p) = {{N}\choose{y}} \cdot p^y \cdot (1-p)^{N-y}$$
+
+## Tables
+
+```{r cars, echo = TRUE, results=&#39;asis&#39;}
+mod &lt;- lm(dist~speed, data=cars)
+pander::pander(mod, type = &#39;html&#39;, title = &#39;Table with pander&#39;)
+```
+
+## Interactive plot
+  
+```{r, echo=FALSE, warning=FALSE}
+library(leaflet)
+
+m &lt;- leaflet() %&gt;%
+  addTiles() %&gt;%
+  addMarkers(lat=40.3325364, lng=-3.7675058, popup=&quot;Coding Club UC3M&quot;)
+m
+```
+
+## A background page {data-background-iframe=&#39;https://codingclubuc3m.rbind.io&#39;}</code></pre>
+<p>After <em>knitting</em> this, here is the result:</p>
+<iframe src="/post/2019-09-24_files/revealjs.html" width="672" height="400px">
+</iframe>
+</div>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
+<p>RStudio is an awesome framework that provides you the chance to create nice presentations with a simple syntax, adding interactive content, and with a professional and modern style. Moreover, your presentation will be reproducible if you want to make any change, as well as you can save your templates to use them in the future. In my opinion, it is a really good alternative to other traditional software to create presentations and so easy to work with it. I hope it is so useful for you too :)</p>
+</div>
