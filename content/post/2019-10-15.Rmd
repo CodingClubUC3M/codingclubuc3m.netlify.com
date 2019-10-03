@@ -54,18 +54,21 @@ One of the best-known examples of strange attractors was discovered by Kiyohiro 
 
 [^1]: K.Ikeda, Multiple-valued Stationary State and its Instability of the Transmitted Light by a Ring Cavity System, Opt. Commun. 30 257-261 (1979); K. Ikeda, H. Daido and O. Akimoto, Optical Turbulence: Chaotic Behavior of Transmitted Light from a Ring Cavity, Phys. Rev. Lett. 45, 709–712 (1980)
 
-$x_{n+1}=1+u(x_{n}\cos t_{n}-y_{n}\sin t_{n})
-\\
-y_{n+1}=u(x_{n}\sin t_{n}+y_{n}\cos t_{n})$
+$$
+x_{n+1}=1+u(x_{n}\cos t_{n}-y_{n}\sin t_{n}) \\
+y_{n+1}=u(x_{n}\sin t_{n}+y_{n}\cos t_{n})
+$$
 
 with $u\ge0.6$ and 
 
-$t_{n}=0.4-{\frac {6}{1+x_{n}^{2}+y_{n}^{2}}}$
+$$
+t_{n}=0.4-{\frac {6}{1+x_{n}^{2}+y_{n}^{2}}}
+$$
 
 In this example, our *imaginary* point moves in a 2D dimensional space, since we just need `(x, y)` coordinates to describe its movement. In the previous system, time is represented by `n`. As you can see, the Ikeda's system only depends on one parameter, called `u`. The location of the point at `n` depends only on its location at `n-1`. For example, this image [^2] shows the trajectories of 2000 random points following this previous equation with $u = 0.918$:
 
 <center>
-![](../../static/post/2019-10-15_files/Ikeda_map_simulation_u=0.918_cropped.png){width=412px}
+![](/post/2019-10-15_files/Ikeda_map_simulation_u=0.918_cropped.png){width=412px}
 </center>
 
 [^2]: Accelerometer [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
@@ -74,9 +77,10 @@ All points, regardless of their starting place, tend to end following the same p
 
 Today we will experiment with Clifford attractors, which are defined by these equations:
 
-$x_{n+1} = sin(a \: y_{n}) + c \: cos(a \: x_{n})
-\\
-y_{n+1} = sin(b \: x_{n}) + d \: cos(b \: y_{n})$
+$$
+x_{n+1} = sin(a \: y_{n}) + c \: cos(a \: x_{n}) \\
+y_{n+1} = sin(b \: x_{n}) + d \: cos(b \: y_{n})
+$$
 
 These attractors were discovered by [Clifford Pickover](https://en.wikipedia.org/wiki/Clifford_A._Pickover), an american scientific divulgator and depend on four parameters; `a`, `b`, `c` and `d`.
 
@@ -223,12 +227,13 @@ ggsave("strange1.png", plot, height = 5, width = 5, units = 'in')
 ```
 
 <center>
-![](../../static/post/2019-10-15_files/strange1.png){width=450px}
+![](/post/2019-10-15_files/strange1.png){width=450px}
 </center>
 
 
 The syntax of our plot is quite simple. Just two comments about it:
-+  shape is set to 46, the smallest filled point. More info about shapes, [here](http://sape.inf.usi.ch/quick-reference/ggplot2/shape)
+
++ Shape is set to 46, the smallest filled point. More info about shapes, [here](http://sape.inf.usi.ch/quick-reference/ggplot2/shape)
 + Since there are a lot of points, I make them transparent with alpha to take advantage on its overlapping and reveal patterns of shadows.
 
 
@@ -254,7 +259,7 @@ ggsave("strange2.png", plot, height = 5, width = 5, units = 'in')
 ```
 
 <center>
-![](../../static/post/2019-10-15_files/strange2.png){width=450px}
+![](/post/2019-10-15_files/strange2.png){width=450px}
 </center>
 
 Don't you feel like playing with parameters? From my point of view, this is a *very classy* way of spending your time.
@@ -263,9 +268,10 @@ Don't you feel like playing with parameters? From my point of view, this is a *v
 
 Once we know what strange attractors *look like*, let's try another family of them. This is the new formula we will experiment with:
 
-$x_{n+1} = a_{1} + a_{2}x_{n} + a_{3}y_{n} + a_{4}|x_{n}|^{a_{5}} + a_{6}|y_{n}|^{a_{7}}
-\\
-y_{n+1} = a_{8} + a_{9}x_{n} + a_{10}y_{n} + a_{11}|x_{n}|^{a_{12}} + a_{13}|y_{n}|^{a_{14}}$
+$$
+x_{n+1} = a_{1} + a_{2}x_{n} + a_{3}y_{n} + a_{4}|x_{n}|^{a_{5}} + a_{6}|y_{n}|^{a_{7}} \\
+y_{n+1} = a_{8} + a_{9}x_{n} + a_{10}y_{n} + a_{11}|x_{n}|^{a_{12}} + a_{13}|y_{n}|^{a_{14}}
+$$
 
 These attractors are localized mostly to a small region of the XY plane with *tentacles* that stretch out to large distances. If any of the exponents are negative and the attractor intersects the line along which the respective variable is zero, a point on the line maps to infinity. However, large values are visited infrequently by the orbit, so many iterations are required to determine that the orbit is unbounded. For this reason most of the attractors in the figures have holes in their interiors where their orbits are precluded from coming too close to their origins.
 
@@ -317,7 +323,7 @@ ggsave("strange3.png", plot, height = 5, width = 5, units = 'in')
 
 
 <center>
-![](../../static/post/2019-10-15_files/strange3.png){width=450px}
+![](/post/2019-10-15_files/strange3.png){width=450px}
 </center>
 
 Ops! What happened? Why our image is so small now? The reason is because some few points are located quite far from the vast majority (you can think about them as *outliers*). Let's remove 5% of extreme points from both tails independently:
@@ -341,7 +347,7 @@ ggsave("strange3.png", plot, height = 5, width = 5, units = 'in')
 
 
 <center>
-![](../../static/post/2019-10-15_files/strange5.png){width=450px}
+![](/post/2019-10-15_files/strange5.png){width=450px}
 </center>
 
 Now a stunning image appears. 
@@ -371,7 +377,7 @@ plot <- ggplot(df) +
 ggsave("strange4.png", plot, height = 5, width = 5, units = 'in')
 ```
 <center>
-![](../../static/post/2019-10-15_files/strange999.png){width=450px}
+![](/post/2019-10-15_files/strange999.png){width=450px}
 </center>
 
 

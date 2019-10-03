@@ -30,7 +30,7 @@ for (i in 1:ncol(df)) {
   output[[i]] &lt;- mean(df[[i]])
 }
 output</code></pre>
-<pre><code>## [1]  0.001234251 -0.011186552 -0.006037145  0.034129932</code></pre>
+<pre><code>## [1] -0.0069680221  0.0247380568  0.0014428622 -0.0002675645</code></pre>
 <p>In the previous example, we repeated 4 times the task (which is the <em>piece</em> of code inside the curly brackets). Another way to do iterations in R, sometimes more efficient than a <code>for</code> loop, is by using the <em>apply</em> family. This is how the previous loop can be rewritten using the <code>apply</code> function:</p>
 <pre class="r"><code>output &lt;- apply(df, 2, mean)
 output</code></pre>
@@ -39,17 +39,25 @@ output</code></pre>
 <div id="what-are-strange-attractors" class="section level2">
 <h2>What are strange attractors?</h2>
 <p>In mathematics, a dynamical system is a set of functions which describes the time dependence of a point in a geometrical space. An attractor is a set of numerical values towards a dynamical system tend to evolve in discrete time regardless of their starting conditions. Simple attractors can be <strong>fixed points</strong>, <strong>sets of points</strong> or <strong>limit cycles</strong>. More interesting attractors are <em>strange</em>, <em>chaotic</em> or <em>itinerant</em> attractors, which span an array of possible states in which a dynamical system can roam around without repeating itself.</p>
-<p>One of the best-known examples of strange attractors was discovered by Kiyohiro Ikeda <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> and bears his name. It is defined by the next equations:</p>
-<p><span class="math inline">\(x_{n+1}=1+u(x_{n}\cos t_{n}-y_{n}\sin t_{n}) \\ y_{n+1}=u(x_{n}\sin t_{n}+y_{n}\cos t_{n})\)</span></p>
+<p>One of the best-known examples of strange attractors was discovered by Kiyohiro Ikeda <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and bears his name. It is defined by the next equations:</p>
+<p><span class="math display">\[
+x_{n+1}=1+u(x_{n}\cos t_{n}-y_{n}\sin t_{n}) \\
+y_{n+1}=u(x_{n}\sin t_{n}+y_{n}\cos t_{n})
+\]</span></p>
 <p>with <span class="math inline">\(u\ge0.6\)</span> and</p>
-<p><span class="math inline">\(t_{n}=0.4-{\frac {6}{1+x_{n}^{2}+y_{n}^{2}}}\)</span></p>
-<p>In this example, our <em>imaginary</em> point moves in a 2D dimensional space, since we just need <code>(x, y)</code> coordinates to describe its movement. In the previous system, time is represented by <code>n</code>. As you can see, the Ikeda’s system only depends on one parameter, called <code>u</code>. The location of the point at <code>n</code> depends only on its location at <code>n-1</code>. For example, this image <a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> shows the trajectories of 2000 random points following this previous equation with <span class="math inline">\(u = 0.918\)</span>:</p>
+<p><span class="math display">\[
+t_{n}=0.4-{\frac {6}{1+x_{n}^{2}+y_{n}^{2}}}
+\]</span></p>
+<p>In this example, our <em>imaginary</em> point moves in a 2D dimensional space, since we just need <code>(x, y)</code> coordinates to describe its movement. In the previous system, time is represented by <code>n</code>. As you can see, the Ikeda’s system only depends on one parameter, called <code>u</code>. The location of the point at <code>n</code> depends only on its location at <code>n-1</code>. For example, this image <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> shows the trajectories of 2000 random points following this previous equation with <span class="math inline">\(u = 0.918\)</span>:</p>
 <center>
-<img src="../../static/post/2019-10-15_files/Ikeda_map_simulation_u=0.918_cropped.png" width="412" />
+<img src="/post/2019-10-15_files/Ikeda_map_simulation_u=0.918_cropped.png" width="412" />
 </center>
 <p>All points, regardless of their starting place, tend to end following the same path, represented in bright white color. Another interesting property of strange attractors is that points that are very close at some instant, can differ significantly in the next step. This is why strange attractors are also known as <em>chaotic</em> attractors.</p>
 <p>Today we will experiment with Clifford attractors, which are defined by these equations:</p>
-<p><span class="math inline">\(x_{n+1} = sin(a \: y_{n}) + c \: cos(a \: x_{n}) \\ y_{n+1} = sin(b \: x_{n}) + d \: cos(b \: y_{n})\)</span></p>
+<p><span class="math display">\[
+x_{n+1} = sin(a \: y_{n}) + c \: cos(a \: x_{n}) \\
+y_{n+1} = sin(b \: x_{n}) + d \: cos(b \: y_{n})
+\]</span></p>
 <p>These attractors were discovered by <a href="https://en.wikipedia.org/wiki/Clifford_A._Pickover">Clifford Pickover</a>, an american scientific divulgator and depend on four parameters; <code>a</code>, <code>b</code>, <code>c</code> and <code>d</code>.</p>
 </div>
 <div id="populating-attractors-an-inefficient-approach" class="section level2">
@@ -174,7 +182,8 @@ head(df)</code></pre>
 <div id="rendering-the-plot-with-ggplot" class="section level2">
 <h2>Rendering the plot with ggplot</h2>
 <p>Once we have built our data frame, it’s time to represent it with <code>ggplot</code>.</p>
-<p>Making graphics is a necessary skill and for this <code>ggplot</code> is an amazing tool, which by the way, I encourage you to learn. Usually, a good visualization is the best way to show your results. R is an extraordinary tool for visualizing data and one of the most important libraries to do it is <code>ggplot2</code>: it is powerful, flexible and is updated to include functionalities regularly. Although its syntax may seem a bit strange at first, here are four important concepts from my point of view to help you out with understanding it:</p>
+<p>Making graphics is a necessary skill and for this <code>ggplot</code> is an amazing tool, which by
+the way, I encourage you to learn. Usually, a good visualization is the best way to show your results. R is an extraordinary tool for visualizing data and one of the most important libraries to do it is <code>ggplot2</code>: it is powerful, flexible and is updated to include functionalities regularly. Although its syntax may seem a bit strange at first, here are four important concepts from my point of view to help you out with understanding it:</p>
 <ul>
 <li>It’s truly important to have clear the type of graph you want to plot: for each one there’s a different <em>geometry</em>: <code>geom_point</code> to represent points, <code>geom_line</code> to represent time series, <code>geom_bar</code> to do bar chars … Have a look to <code>ggplot2</code> package, there are many other types.</li>
 <li>Each of those geometries needs to define what data is to be used and how. For example, as you will see in our graph, we placed on the x-axis the <code>x</code> column of our data frame <code>df</code> and <code>y</code> on the y-axis, so we did <code>aes(x = x, y = y)</code>.</li>
@@ -190,9 +199,13 @@ head(df)</code></pre>
 
 ggsave(&quot;strange1.png&quot;, plot, height = 5, width = 5, units = &#39;in&#39;)</code></pre>
 <center>
-<img src="../../static/post/2019-10-15_files/strange1.png" width="450" />
+<img src="/post/2019-10-15_files/strange1.png" width="450" />
 </center>
-<p>The syntax of our plot is quite simple. Just two comments about it: + shape is set to 46, the smallest filled point. More info about shapes, <a href="http://sape.inf.usi.ch/quick-reference/ggplot2/shape">here</a> + Since there are a lot of points, I make them transparent with alpha to take advantage on its overlapping and reveal patterns of shadows.</p>
+<p>The syntax of our plot is quite simple. Just two comments about it:</p>
+<ul>
+<li>Shape is set to 46, the smallest filled point. More info about shapes, <a href="http://sape.inf.usi.ch/quick-reference/ggplot2/shape">here</a></li>
+<li>Since there are a lot of points, I make them transparent with alpha to take advantage on its overlapping and reveal patterns of shadows.</li>
+</ul>
 </div>
 <div id="playing-with-parameters" class="section level2">
 <h2>Playing with parameters</h2>
@@ -211,14 +224,17 @@ ggplot(df, aes(x = x, y = y)) +
 
 ggsave(&quot;strange2.png&quot;, plot, height = 5, width = 5, units = &#39;in&#39;)</code></pre>
 <center>
-<img src="../../static/post/2019-10-15_files/strange2.png" width="450" />
+<img src="/post/2019-10-15_files/strange2.png" width="450" />
 </center>
 <p>Don’t you feel like playing with parameters? From my point of view, this is a <em>very classy</em> way of spending your time.</p>
 </div>
 <div id="the-general-2d-map" class="section level2">
 <h2>The General 2D-Map</h2>
 <p>Once we know what strange attractors <em>look like</em>, let’s try another family of them. This is the new formula we will experiment with:</p>
-<p><span class="math inline">\(x_{n+1} = a_{1} + a_{2}x_{n} + a_{3}y_{n} + a_{4}|x_{n}|^{a_{5}} + a_{6}|y_{n}|^{a_{7}} \\ y_{n+1} = a_{8} + a_{9}x_{n} + a_{10}y_{n} + a_{11}|x_{n}|^{a_{12}} + a_{13}|y_{n}|^{a_{14}}\)</span></p>
+<p><span class="math display">\[
+x_{n+1} = a_{1} + a_{2}x_{n} + a_{3}y_{n} + a_{4}|x_{n}|^{a_{5}} + a_{6}|y_{n}|^{a_{7}} \\
+y_{n+1} = a_{8} + a_{9}x_{n} + a_{10}y_{n} + a_{11}|x_{n}|^{a_{12}} + a_{13}|y_{n}|^{a_{14}}
+\]</span></p>
 <p>These attractors are localized mostly to a small region of the XY plane with <em>tentacles</em> that stretch out to large distances. If any of the exponents are negative and the attractor intersects the line along which the respective variable is zero, a point on the line maps to infinity. However, large values are visited infrequently by the orbit, so many iterations are required to determine that the orbit is unbounded. For this reason most of the attractors in the figures have holes in their interiors where their orbits are precluded from coming too close to their origins.</p>
 <pre class="r"><code>cppFunction(&#39;DataFrame createTrajectory(int n, double x0, double y0,
             double a1, double a2, double a3, double a4, double a5,
@@ -262,7 +278,7 @@ ggplot(df) +
 
 ggsave(&quot;strange3.png&quot;, plot, height = 5, width = 5, units = &#39;in&#39;)</code></pre>
 <center>
-<img src="../../static/post/2019-10-15_files/strange3.png" width="450" />
+<img src="/post/2019-10-15_files/strange3.png" width="450" />
 </center>
 <p>Ops! What happened? Why our image is so small now? The reason is because some few points are located quite far from the vast majority (you can think about them as <em>outliers</em>). Let’s remove 5% of extreme points from both tails independently:</p>
 <pre class="r"><code>mx &lt;- quantile(df$x, probs = 0.05)
@@ -279,7 +295,7 @@ ggplot(df) +
 
 ggsave(&quot;strange3.png&quot;, plot, height = 5, width = 5, units = &#39;in&#39;)</code></pre>
 <center>
-<img src="../../static/post/2019-10-15_files/strange5.png" width="450" />
+<img src="/post/2019-10-15_files/strange5.png" width="450" />
 </center>
 <p>Now a stunning image appears.</p>
 <p>Sometimes you will need to process the data frame after you generate it since:</p>
@@ -303,7 +319,7 @@ plot &lt;- ggplot(df) +
 
 ggsave(&quot;strange4.png&quot;, plot, height = 5, width = 5, units = &#39;in&#39;)</code></pre>
 <center>
-<img src="../../static/post/2019-10-15_files/strange999.png" width="450" />
+<img src="/post/2019-10-15_files/strange999.png" width="450" />
 </center>
 </div>
 <div id="summary" class="section level2">
@@ -323,7 +339,7 @@ ggsave(&quot;strange4.png&quot;, plot, height = 5, width = 5, units = &#39;in&#3
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>K.Ikeda, Multiple-valued Stationary State and its Instability of the Transmitted Light by a Ring Cavity System, Opt. Commun. 30 257-261 (1979); K. Ikeda, H. Daido and O. Akimoto, Optical Turbulence: Chaotic Behavior of Transmitted Light from a Ring Cavity, Phys. Rev. Lett. 45, 709–712 (1980)<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Accelerometer <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a><a href="#fnref2">↩</a></p></li>
+<li id="fn1"><p>K.Ikeda, Multiple-valued Stationary State and its Instability of the Transmitted Light by a Ring Cavity System, Opt. Commun. 30 257-261 (1979); K. Ikeda, H. Daido and O. Akimoto, Optical Turbulence: Chaotic Behavior of Transmitted Light from a Ring Cavity, Phys. Rev. Lett. 45, 709–712 (1980)<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Accelerometer <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a><a href="#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
