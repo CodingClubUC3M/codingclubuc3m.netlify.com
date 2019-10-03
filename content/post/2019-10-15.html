@@ -1,0 +1,345 @@
+---
+title: "Strange Attractors: an R experiment about maths, recursivity and creative coding"
+authors: ["Antonio Sánchez"]
+date: 2019-10-15
+categories: ["R"]
+tags: ["R", "Rcpp", "purrr", "creative coding"]
+---
+
+
+
+<p>Learning to code can be quite hard. Apart from the difficulties of learning a new <em>language</em>, following a book can be quite boring. From my point of view, one of the bests ways to become a good programmer is choosing <em>small and funny</em> experiments oriented to train specific techniques of programming. This is what I usually do in my blog <a href="www.fronkonstin.com">Fronkonstin</a>. In this tutorial, we will learn to combine C++ with R to create efficient loops. We will also learn interesting things about <code>ggplot2</code>, a very important package for data visualization. The <em>excuse</em> to do all this is to create beautiful images using a mathematical concept called <em>Strange Attractors</em>, that we will discuss briefly also. Combining art and coding is often called <em>generative art</em>, so be ready because after following this tutorial you can discover a new use of R to fall for as I am. Here we go!</p>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Iteration is an indispensable technique in every programming language. Mastering it will help you to produce robust, fast, concise and easy to understand code. Iterating is repeating the same task over and over and the first way to do that efficiently is writing a <em>loop</em>, which is a way to resume many lines of code in just a few of them. In R, you can do this using the <code>for</code> function. For example, this loop calculates the mean of each column of a data frame called <code>df</code>:</p>
+<pre class="r"><code>library(tidyverse)
+
+n &lt;- 1000 # Rows of data frame
+
+# df with 4 columns and n rows sampled from N(0,1)
+df &lt;- tibble(
+  a = rnorm(n),
+  b = rnorm(n),
+  c = rnorm(n),
+  d = rnorm(n)
+)
+
+output &lt;- vector(&quot;double&quot;, ncol(df)) # Empty output
+# For loop
+for (i in 1:ncol(df)) {
+  output[[i]] &lt;- mean(df[[i]])
+}
+output</code></pre>
+<pre><code>## [1] -0.0069680221  0.0247380568  0.0014428622 -0.0002675645</code></pre>
+<p>In the previous example, we repeated 4 times the task (which is the <em>piece</em> of code inside the curly brackets). Another way to do iterations in R, sometimes more efficient than a <code>for</code> loop, is by using the <em>apply</em> family. This is how the previous loop can be rewritten using the <code>apply</code> function:</p>
+<pre class="r"><code>output &lt;- apply(df, 2, mean)
+output</code></pre>
+<p>These approaches have limitations. For example, if you want to use the result of an iteration as the input of the next one, you can not use <em>apply</em>. Another one is that sometimes R is not enough fast, which makes the <code>for</code> function quite inefficient. When you face this kind of situations, a good option is combinnig C++ and R. To illustrate this, let’s briefly introduce a stunning mathematical <em>creature</em>: the strange attractors.</p>
+</div>
+<div id="what-are-strange-attractors" class="section level2">
+<h2>What are strange attractors?</h2>
+<p>In mathematics, a dynamical system is a set of functions which describes the time dependence of a point in a geometrical space. An attractor is a set of numerical values towards a dynamical system tend to evolve in discrete time regardless of their starting conditions. Simple attractors can be <strong>fixed points</strong>, <strong>sets of points</strong> or <strong>limit cycles</strong>. More interesting attractors are <em>strange</em>, <em>chaotic</em> or <em>itinerant</em> attractors, which span an array of possible states in which a dynamical system can roam around without repeating itself.</p>
+<p>One of the best-known examples of strange attractors was discovered by Kiyohiro Ikeda <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and bears his name. It is defined by the next equations:</p>
+<p><span class="math display">\[
+x_{n+1}=1+u(x_{n}\cos t_{n}-y_{n}\sin t_{n}) \\
+y_{n+1}=u(x_{n}\sin t_{n}+y_{n}\cos t_{n})
+\]</span></p>
+<p>with <span class="math inline">\(u\ge0.6\)</span> and</p>
+<p><span class="math display">\[
+t_{n}=0.4-{\frac {6}{1+x_{n}^{2}+y_{n}^{2}}}
+\]</span></p>
+<p>In this example, our <em>imaginary</em> point moves in a 2D dimensional space, since we just need <code>(x, y)</code> coordinates to describe its movement. In the previous system, time is represented by <code>n</code>. As you can see, the Ikeda’s system only depends on one parameter, called <code>u</code>. The location of the point at <code>n</code> depends only on its location at <code>n-1</code>. For example, this image <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> shows the trajectories of 2000 random points following this previous equation with <span class="math inline">\(u = 0.918\)</span>:</p>
+<center>
+<img src="/post/2019-10-15_files/Ikeda_map_simulation_u=0.918_cropped.png" width="412" />
+</center>
+<p>All points, regardless of their starting place, tend to end following the same path, represented in bright white color. Another interesting property of strange attractors is that points that are very close at some instant, can differ significantly in the next step. This is why strange attractors are also known as <em>chaotic</em> attractors.</p>
+<p>Today we will experiment with Clifford attractors, which are defined by these equations:</p>
+<p><span class="math display">\[
+x_{n+1} = sin(a \: y_{n}) + c \: cos(a \: x_{n}) \\
+y_{n+1} = sin(b \: x_{n}) + d \: cos(b \: y_{n})
+\]</span></p>
+<p>These attractors were discovered by <a href="https://en.wikipedia.org/wiki/Clifford_A._Pickover">Clifford Pickover</a>, an american scientific divulgator and depend on four parameters; <code>a</code>, <code>b</code>, <code>c</code> and <code>d</code>.</p>
+</div>
+<div id="populating-attractors-an-inefficient-approach" class="section level2">
+<h2>Populating attractors: an inefficient approach</h2>
+<p>To represent the trajectory of a particular point, we need to store in a data frame its locations at every single (discrete) moment of time. For example, this is how we can do it using a <code>for</code> loop:</p>
+<pre class="r"><code># Parameters setting
+a &lt;- -1.25
+b &lt;- -1.25
+c &lt;- -1.82
+d &lt;- -1.91
+
+# Number of jumps
+n &lt;- 5
+
+# Initialization of df to store locations of point
+df &lt;- data.frame(x = double(n+1), y = double(n+1))
+
+# The point starts at (0,0)
+df[1, &quot;x&quot;] &lt;- 0
+df[1, &quot;y&quot;] &lt;- 0
+
+# For loop to store locations
+for (i in 1:n) {
+  df[i+1, &quot;x&quot;] &lt;- sin(a*df[i, &quot;y&quot;])+c*cos(a*df[i, &quot;x&quot;])
+  df[i+1, &quot;y&quot;] &lt;- sin(b*df[i, &quot;x&quot;])+d*cos(b*df[i, &quot;y&quot;])
+}
+
+df</code></pre>
+<pre><code>##            x          y
+## 1  0.0000000  0.0000000
+## 2 -1.8200000 -1.9100000
+## 3  1.8629450  2.1543131
+## 4  0.8172482  0.9946399
+## 5 -1.8969558 -1.4673201
+## 6  2.2716156  1.1936322</code></pre>
+<p>As you can see, our point started at <code>(0,0)</code> and <em>jumped</em> 5 times (the number of jumps is represented by <code>n</code>). You can try to change <code>n</code> from <code>5</code> to <code>10000000</code> and see what happens (disclaimer: be patient).</p>
+<p>A better approach to do it is using <code>purrr</code>, a functional programming package which provides useful tools for iterating through lists and vectors, generalizing code and removing programming redundancies. The <code>purrr</code> tools work in combination with functions, lists and vectors and results in code that is consistent and concise. This can be a <code>purrr</code> approach to our problem:</p>
+<pre class="r"><code>library(purrrlyr)
+
+n &lt;- 5
+
+# Initialization of our data frame
+df &lt;- tibble(x = numeric(n+1),
+             y = numeric(n+1))
+
+# Convert our data frame into a list
+by_row(df, function(v) list(v)[[1L]], .collate = &quot;list&quot;)$.out -&gt; df
+
+# This function computes current location depending of previous one
+f &lt;- function(j, k, a, b, c, d) {
+  tibble(
+    x = sin(a*j$y)+c*cos(a*j$x),
+    y = sin(b*j$x)+d*cos(b*j$y)
+  )
+}
+
+# We apply accumulate on our list to store all steps and convert into a data frame
+accumulate(df, f, a, b, c, d) %&gt;% map_df(~ .x) -&gt; df
+
+df</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##        x      y
+##    &lt;dbl&gt;  &lt;dbl&gt;
+## 1  0      0    
+## 2 -1.82  -1.91 
+## 3  1.86   2.15 
+## 4  0.817  0.995
+## 5 -1.90  -1.47 
+## 6  2.27   1.19</code></pre>
+<p>Even this approach is not efficient since the <code>accumulate</code> function must be applied on an existing object (the <code>df</code> in our case)</p>
+</div>
+<div id="combining-c-and-r-the-good-way" class="section level2">
+<h2>Combining C++ and R: the good way</h2>
+<p>The next paragraph, extracted from Hadley Wickham’s <a href="https://adv-r.hadley.nz/rcpp.html">Advanced R</a>, explains the motivations of combining C++ and R:</p>
+<p><code>Rcpp</code> makes it very simple to connect C++ to R and provides a clean, approachable API that lets you write high-performance code, insulated from R’s complex C API. Typical bottlenecks that C++ can address include:</p>
+<ul>
+<li><p>Loops that can’t be easily vectorised because subsequent iterations depend on previous ones.</p></li>
+<li><p>Recursive functions, or problems which involve calling functions millions of times. The overhead of calling a function in C++ is much lower than in R.</p></li>
+<li><p>Problems that require advanced data structures and algorithms that R doesn’t provide. Through the standard template library (STL), C++ has efficient implementations of many important data structures, from ordered maps to double-ended queues.</p></li>
+</ul>
+<p>This code populates our data frame using C++:</p>
+<pre class="r"><code># Load in libaries
+library(Rcpp)
+library(tidyverse)
+
+# Here comes the C++ code
+cppFunction(&#39;DataFrame createTrajectory(int n, double x0, double y0,
+            double a, double b, double c, double d) {
+            // create the columns
+            NumericVector x(n);
+            NumericVector y(n);
+            x[0]=x0;
+            y[0]=y0;
+            for(int i = 1; i &lt; n; ++i) {
+            x[i] = sin(a*y[i-1])+c*cos(a*x[i-1]);
+            y[i] = sin(b*x[i-1])+d*cos(b*y[i-1]);
+            }
+            // return a new data frame
+            return DataFrame::create(_[&quot;x&quot;]= x, _[&quot;y&quot;]= y);
+            }
+            &#39;)
+
+a &lt;- -1.25
+b &lt;- -1.25
+c &lt;- -1.82
+d &lt;- -1.91
+
+# Call the function starting at (0,0) to store 10M jumps
+df &lt;- createTrajectory(10000000, 0, 0, a, b, c, d)
+
+head(df)</code></pre>
+<pre><code>##            x          y
+## 1  0.0000000  0.0000000
+## 2 -1.8200000 -1.9100000
+## 3  1.8629450  2.1543131
+## 4  0.8172482  0.9946399
+## 5 -1.8969558 -1.4673201
+## 6  2.2716156  1.1936322</code></pre>
+<p>Note that, apart from <code>Rcpp</code>, we also loaded the tidyverse package. This is because we will use some of its features, as <code>dplyr</code> or <code>ggplot2</code>, later.</p>
+<p>The function <code>createTrajectory</code> is written in <code>C++</code> and stores the itinerary of an initial point. You can try it to see that It’s extremely fast. In the previous example, I populated on the fly our data frame with 10 million points starting at <code>(0,0)</code> in less than 5 seconds in a conventional laptop.</p>
+</div>
+<div id="rendering-the-plot-with-ggplot" class="section level2">
+<h2>Rendering the plot with ggplot</h2>
+<p>Once we have built our data frame, it’s time to represent it with <code>ggplot</code>.</p>
+<p>Making graphics is a necessary skill and for this <code>ggplot</code> is an amazing tool, which by
+the way, I encourage you to learn. Usually, a good visualization is the best way to show your results. R is an extraordinary tool for visualizing data and one of the most important libraries to do it is <code>ggplot2</code>: it is powerful, flexible and is updated to include functionalities regularly. Although its syntax may seem a bit strange at first, here are four important concepts from my point of view to help you out with understanding it:</p>
+<ul>
+<li>It’s truly important to have clear the type of graph you want to plot: for each one there’s a different <em>geometry</em>: <code>geom_point</code> to represent points, <code>geom_line</code> to represent time series, <code>geom_bar</code> to do bar chars … Have a look to <code>ggplot2</code> package, there are many other types.</li>
+<li>Each of those geometries needs to define what data is to be used and how. For example, as you will see in our graph, we placed on the x-axis the <code>x</code> column of our data frame <code>df</code> and <code>y</code> on the y-axis, so we did <code>aes(x = x, y = y)</code>.</li>
+<li>You can also combine geometries. We didn’t do that for our example but you may want, for example, to combine bars and lines on the same plot. To do it you can just use <code>+</code> operator. This operator is very important: it doesn’t only combine geometries, it’s also used to add features to the plot as we did to define its aspect ratio (with <code>coord_equal</code>) or its appearance (with <code>theme_void</code>).</li>
+<li>You can modify every detail of the look and feel of your graph but be patient. To begin with, I recommend the use of predefined themes as I did with <code>theme_void</code>. There are many of them and it’s is a <em>quick and easy</em> way to change the appearance of your plot: just a way of making life easier and simpler.</li>
+</ul>
+<p>The <code>ggplot2</code> package is a new world by itself and takes part of the <code>tidyverse</code>, a collection of efficient libraries designed to analyze data in a consistent way.</p>
+<p>This is how we can represent the points of our data frame:</p>
+<pre class="r"><code>ggplot(df, aes(x = x, y = y)) +
+  geom_point(shape = 46, alpha = .01) +
+  coord_equal() +
+  theme_void() -&gt; plot
+
+ggsave(&quot;strange1.png&quot;, plot, height = 5, width = 5, units = &#39;in&#39;)</code></pre>
+<center>
+<img src="/post/2019-10-15_files/strange1.png" width="450" />
+</center>
+<p>The syntax of our plot is quite simple. Just two comments about it:</p>
+<ul>
+<li>Shape is set to 46, the smallest filled point. More info about shapes, <a href="http://sape.inf.usi.ch/quick-reference/ggplot2/shape">here</a></li>
+<li>Since there are a lot of points, I make them transparent with alpha to take advantage on its overlapping and reveal patterns of shadows.</li>
+</ul>
+</div>
+<div id="playing-with-parameters" class="section level2">
+<h2>Playing with parameters</h2>
+<p>Strange attractors are extremely sensitive to their parameters. This feature makes them very entertaining as well as an infinite source of surprises. This is what happens to Clifford attractor when setting <code>a</code>, <code>b</code>, <code>c</code> and <code>d</code> parameters to <code>-1.2</code>, <code>-1.9</code>, <code>1.8</code> and <code>-1.6</code> respectively:</p>
+<pre class="r"><code>a &lt;- -1.2
+b &lt;- -1.9
+c &lt;- 1.8
+d &lt;- -1.6
+
+df &lt;- createTrajectory(10000000, 0, 0, a, b, c, d)
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(shape = 46, alpha = .01) +
+  coord_equal() +
+  theme_void() -&gt; plot
+
+ggsave(&quot;strange2.png&quot;, plot, height = 5, width = 5, units = &#39;in&#39;)</code></pre>
+<center>
+<img src="/post/2019-10-15_files/strange2.png" width="450" />
+</center>
+<p>Don’t you feel like playing with parameters? From my point of view, this is a <em>very classy</em> way of spending your time.</p>
+</div>
+<div id="the-general-2d-map" class="section level2">
+<h2>The General 2D-Map</h2>
+<p>Once we know what strange attractors <em>look like</em>, let’s try another family of them. This is the new formula we will experiment with:</p>
+<p><span class="math display">\[
+x_{n+1} = a_{1} + a_{2}x_{n} + a_{3}y_{n} + a_{4}|x_{n}|^{a_{5}} + a_{6}|y_{n}|^{a_{7}} \\
+y_{n+1} = a_{8} + a_{9}x_{n} + a_{10}y_{n} + a_{11}|x_{n}|^{a_{12}} + a_{13}|y_{n}|^{a_{14}}
+\]</span></p>
+<p>These attractors are localized mostly to a small region of the XY plane with <em>tentacles</em> that stretch out to large distances. If any of the exponents are negative and the attractor intersects the line along which the respective variable is zero, a point on the line maps to infinity. However, large values are visited infrequently by the orbit, so many iterations are required to determine that the orbit is unbounded. For this reason most of the attractors in the figures have holes in their interiors where their orbits are precluded from coming too close to their origins.</p>
+<pre class="r"><code>cppFunction(&#39;DataFrame createTrajectory(int n, double x0, double y0,
+            double a1, double a2, double a3, double a4, double a5,
+            double a6, double a7, double a8, double a9, double a10,
+            double a11, double a12, double a13, double a14) {
+            // create the columns
+            NumericVector x(n);
+            NumericVector y(n);
+            x[0]=x0;
+            y[0]=y0;
+            for(int i = 1; i &lt; n; ++i) {
+            x[i] = a1+a2*x[i-1]+ a3*y[i-1]+ a4*pow(fabs(x[i-1]), a5)+ a6*pow(fabs(y[i-1]), a7);
+            y[i] = a8+a9*x[i-1]+ a10*y[i-1]+ a11*pow(fabs(x[i-1]), a12)+ a13*pow(fabs(y[i-1]), a14);
+            }
+            // return a new data frame
+            return DataFrame::create(_[&quot;x&quot;]= x, _[&quot;y&quot;]= y);
+            }
+            &#39;)
+a1 &lt;- -0.8
+a2 &lt;- 0.4
+a3 &lt;- -1.1
+a4 &lt;- 0.5
+a5 &lt;- -0.6
+a6 &lt;- -0.1
+a7 &lt;- -0.5
+a8 &lt;- 0.8
+a9 &lt;- 1.0
+a10 &lt;- -0.3
+a11 &lt;- -0.6
+a12 &lt;- -0.3
+a13 &lt;- -1.2
+a14 &lt;- -0.3
+
+df &lt;- createTrajectory(10000000, 1, 1, a1, a2, a3, a4, a5, a6,
+                       a7, a8, a9, a10, a11, a12, a13, a14)
+
+ggplot(df) +
+  geom_point(aes(x = x, y = y), shape = 46, alpha = .01, color = &quot;black&quot;) +
+  coord_fixed() +
+  theme_void() -&gt; plot
+
+ggsave(&quot;strange3.png&quot;, plot, height = 5, width = 5, units = &#39;in&#39;)</code></pre>
+<center>
+<img src="/post/2019-10-15_files/strange3.png" width="450" />
+</center>
+<p>Ops! What happened? Why our image is so small now? The reason is because some few points are located quite far from the vast majority (you can think about them as <em>outliers</em>). Let’s remove 5% of extreme points from both tails independently:</p>
+<pre class="r"><code>mx &lt;- quantile(df$x, probs = 0.05)
+Mx &lt;- quantile(df$x, probs = 0.95)
+my &lt;- quantile(df$y, probs = 0.05)
+My &lt;- quantile(df$y, probs = 0.95)
+
+df %&gt;% filter(x &gt; mx, x &lt; Mx, y &gt; my, y &lt; My) -&gt; df
+
+ggplot(df) +
+  geom_point(aes(x = x, y = y), shape = 46, alpha = .01, color = &quot;black&quot;) +
+  coord_fixed() +
+  theme_void() -&gt; plot
+
+ggsave(&quot;strange3.png&quot;, plot, height = 5, width = 5, units = &#39;in&#39;)</code></pre>
+<center>
+<img src="/post/2019-10-15_files/strange5.png" width="450" />
+</center>
+<p>Now a stunning image appears.</p>
+<p>Sometimes you will need to process the data frame after you generate it since:</p>
+<ul>
+<li>Extreme values can hide the pattern as happened before or even <em>scape</em> to infinite (solution: remove outliers).</li>
+<li>Some images can be quite <em>boring</em>: from my point of view, the more <em>distributed</em> ae points on the XY plane, the nicer is the resulting image (solution: try with a small data frame and keep it if some measure of dispersion over the plane or the individual axis is high enough; in this case, compute the big picture).</li>
+</ul>
+<p>To conclude, let’s change the appearance of our plot. We will use the <code>theme</code> function to customize it setting the background color to black and adding a white line as frame.</p>
+<pre class="r"><code>opt &lt;-  theme(legend.position  = &quot;none&quot;,
+              panel.background = element_rect(fill=&quot;black&quot;, color=&quot;white&quot;),
+              plot.background  = element_rect(fill=&quot;black&quot;),
+              axis.ticks       = element_blank(),
+              panel.grid       = element_blank(),
+              axis.title       = element_blank(),
+              axis.text        = element_blank())
+
+plot &lt;- ggplot(df) +
+  geom_point(aes(x = x, y = y), shape = 46, alpha = .01, color = &quot;white&quot;) +
+  coord_fixed() +
+  opt
+
+ggsave(&quot;strange4.png&quot;, plot, height = 5, width = 5, units = &#39;in&#39;)</code></pre>
+<center>
+<img src="/post/2019-10-15_files/strange999.png" width="450" />
+</center>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+</div>
+<div id="further-reading" class="section level2">
+<h2>Further reading</h2>
+<p>More about recursivity and <code>ggplot</code>:</p>
+<ul>
+<li>Hadley’s <a href="https://r4ds.had.co.nz/iteration.html">R for Data Science</a> and <a href="https://adv-r.hadley.nz/rcpp.html">Advanced R</a>: the first one covers iteration methods (including functional ones) as well as <code>ggplot</code> and the second one introduces <code>Rcpp</code> to use C++ when R is not fast enough.</li>
+</ul>
+<p>More about strange attractors:</p>
+<ul>
+<li><a href="http://sprott.physics.wisc.edu/sa.htm">Strange Attractors: Creating Patterns in Chaos</a>, by Julien C. Sprott: a beautiful book which describes a big amount of different attractors including equations and examples of their patterns.</li>
+</ul>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>K.Ikeda, Multiple-valued Stationary State and its Instability of the Transmitted Light by a Ring Cavity System, Opt. Commun. 30 257-261 (1979); K. Ikeda, H. Daido and O. Akimoto, Optical Turbulence: Chaotic Behavior of Transmitted Light from a Ring Cavity, Phys. Rev. Lett. 45, 709–712 (1980)<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Accelerometer <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a><a href="#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
