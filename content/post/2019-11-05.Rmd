@@ -6,7 +6,7 @@ output:
   ioslides_presentation:
     incremental: false
     self-included: true
-    css: 2019-11-05_files/styles.css
+    css: ../../static/post/2019-11-05_files/styles.css
 ---
 
 ## Outline
@@ -312,7 +312,7 @@ spplot(NY8[syracuse, ], c("SMR", "FIXED.EFF", "IID.EFF"))
 
 
 <div class="columns-2">
-![](2019-11-05_files/ggmap2.png)
+![](../../static/post/2019-11-05_files/ggmap2.png)
 
 * Lattice data involves data measured at different areas, e.g.,
 neighbourhoods, cities, provinces, states, etc.
