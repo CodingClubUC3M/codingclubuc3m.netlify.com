@@ -24,7 +24,7 @@ url_video = ""
 url_code = ""
 
 [image]
-  caption = "[**External link**](https://github.com/becarioprecario)"
+  caption = "[**External link**](https://becarioprecario.github.io)"
   focal_point = "Center" 
 +++
 
