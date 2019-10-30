@@ -1,6 +1,6 @@
 ---
 title: "Spatial Data Analysis with INLA"
-author: "Virgilio Gómez Rubio<p>Coding Club UC3M</p>"
+author: "Virgilio Gómez Rubio"
 date : 2019-11-05
 categories: ["R"]
 tags: ["R", "INLA", "spatial"]
