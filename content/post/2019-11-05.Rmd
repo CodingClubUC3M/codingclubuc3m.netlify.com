@@ -1,0 +1,790 @@
+---
+title: "Spatial Data Analysis with INLA"
+authors: ["Virgilio Gómez Rubio"]
+date: 2019-11-05
+categories: ["R"]
+tags: ["R", "INLA", "spatial"]
+---
+
+## Introduction
+
+In this session I will focus on Bayesian inference using the integrated nested
+Laplace approximation (INLA) method. As described in Rue et al.  (2009), INLA
+can be used to estimate the posterior marginal distribution of Bayesian
+hierarchical models. This method is implemented in the `INLA` package available
+for the `R` programming language. Given that the types of models that INLA can
+fit are quite wide, we will focus on spatial models for the analysis of lattice
+data. Hence, 
+
+
+## Bayesian inference
+
+A Bayesian hierarchical model can be defined as follows:
+
+$$
+y_i \sim f(y_i \mid \mathbf{x}, \theta_1)
+$$
+
+$$
+\mathbf{x} \sim GMRF(\theta_2)
+$$
+
+$$
+\theta \sim \pi(\theta)
+$$
+
+Here, $\mathbf{y} = (y_1, \ldots, y_n)$ is a vector of responses, $\mathbf{x}$
+a vector of latent effects and $\theta = (\theta_1, \theta_2)$ a vector of
+hyperparameters. $GMRF(\theta_2)$ is a Gaussian Markov random field (GMRF) with
+zero mean, which can be regarded as a multivariate Gaussian distribution
+with zero mean and sparse precision matrix that depends on hyperparameters
+$\theta_2$.
+
+Fitting a Bayesian model means computing the posterior distribution of
+$\mathbf{x}$ and $\theta$ $\pi(\theta, \mathbf{x} \mid y)$. This can be obtained
+by using Bayes' rule as follows:
+
+$$
+\pi(\theta, \mathbf{x} \mid y)  \propto \pi(y \mid \theta, \mathbf{x})\pi(\theta)
+$$
+
+Once the joint posterior distribution is known, we could compute posterior
+probabilities of linear predictors, random effects, sums of random effects,
+etc. Depending on the likelihood and the prior distribution computing
+$\pi(\theta, \mathbf{x} \mid y)$ can be very difficult.
+
+
+### Inference with Markov chain Monte Carlo
+
+In the last 20-30 years some computational approaches have been proposed to
+estimate $\pi(\theta, \mathbf{x} \mid y)$ with Monte Carlo methods.  In
+particular, Markov chain Monte Carlo (MCMC) methods provide simulations from
+the ensemble of model parameters, i.e., a multivariate distribution.  This will
+allow us to estimate the joint posterior distribution. 
+
+However, we may be interested in a single parameter or a subset of the
+parameters. Inference for this subset of parameters can be done by simply
+ignoring the samples for the other parameters
+
+Using the samples it is possible to compute the posterior distribution of any
+function on the model parameters.  Notice that MCMC may require lots of simulations for
+valid inference. Also, we must check that the burn-in period has ended, i.e.,
+we have reached the posterior distribution
+
+
+## Integrated Nested Laplace Approximation
+
+ Sometimes we only need marginal inference on some parameters, i.e., we
+need $\pi(\theta_i \mid y)$. Rue et al. (2009) propose a way of approximating
+the marginal distributions using different approximations to the distributions
+involved and using the Laplace approximation for the integrals.
+
+Now we are dealing with (many) univariate distributions. This is
+computationally faster because numerical integration techniques are used
+instead of Monte Carlo sampling.  The marginal distributions for the latent
+effects and hyper-parameters can be written as
+
+
+$$
+\pi(x_i \mid \mathbf{y}) = \int \pi(x_i \mid \mathbf{\theta}, \mathbf{y})  \pi(\mathbf{\theta}\mid \mathbf{y}) d\mathbf{\theta}
+$$
+\noindent
+and
+
+$$
+\pi(\theta_j\mid \mathbf{y}) = \int \pi(\mathbf{\theta}\mid  \mathbf{y})  d\mathbf{\theta}_{-j} 
+$$
+
+The posterior distribution of the hyperparameters $\pi(\mathbf{\theta}\mid  \mathbf{y})$ is approximated using different methods.
+
+
+### `R-INLA` package 
+
+The INLA method is implemented in the `INLA` (also known as `R-INLA`) package,
+which is available from [http://www.r-inla.org](http://www.r-inla.org).
+This package relies on the `inla()`-function to fit the models. This functions
+works in a similar way as, for example, `glm()`. The model is defined in a \code{formula} and there is a flexible way of defining the likelihood, priors and
+latent effects in the model.
+
+
+The output provides the posterior marginals of the model parameters and latent
+effects, linear  predictors, and some other derived quantities (such as linear
+combinations of the model latent effects).  In addition, `INLA` provides tools
+to manipulate $\pi(\cdot \mid y)$ to compute $\pi(f(\cdot) \mid y)$. `INLA` can compute some model assessment/choice: Marginal likelihood, DIC, CPO, ...
+
+
+### Spatial latent effects 
+
+The following table summarizes some of the spatial latent effects available
+in `INLA`:
+
+
+
+  Name in `f()`     Model
+----------------  --------
+  `generic0`        $\Sigma=\frac{1}{\tau}Q^{-1}$
+  `generic1`        $\Sigma=\frac{1}{\tau}(I_n-\frac{\rho}{\lambda_{max}}C)^{-1}$
+  `besag`           Intrinsic CAR
+  `besagproper`     Proper CAR
+  `bym`             Convolution model
+  `rw2d`            Random walk 2-D
+  `matern2d`        Matèrn correlation (discrete)
+  `slm`             Spatial lag model
+  `spde`            Matèrn correlation (continuous)
+
+
+
+## Dataset: Leukemia in upstate New York
+
+To illustrate how spatial models are fitted with `INLA`, the New York leukemia
+dataset will be used. This has been widely analyzed in the literature (see, for
+example, Waller and Gotway, 2004) and it is available in the `DClusterm`
+package. The dataset records a number of cases of leukemia in upstate New York
+at the census tract level. Some of the variables in the dataset are:
+
+* `Cases`: Number of leukemia cases in the period 1978-1982.
+* `POP8`: Population in 1980.
+* `PCTOWNHOME`:  Proportion of people who own their home.
+* `PCTAGE65P`:  Proportion of people aged 65 or more.
+* `AVGIDIST`: Average inverse distance to the nearest Trichloroethene (TCE) site.
+
+Note that the interest is on the exposure to TCE, using `AVGIDIST` as a proxy
+for exposure. Variables `PCTOWNHOME` and `PCTAGE65P` will act as possible
+confounders that must be included in the model. **However, we will not do it
+here because we want to test how the spatial latent effects capture residual
+spatial variation.**
+
+The dataset can be loaded as follows:
+
+```{r  message = FALSE, results = "hide"}
+library(spdep)
+library(DClusterm)
+data(NY8)
+```
+
+Given that the interest is in studying the risk of leukemia in upstate New York,
+the expected number of cases is computed first. This is done by computing the
+overall mortality rate (total cases divided by total population) and 
+multiplying the population by it:
+
+```{r}
+rate <- sum(NY8$Cases) / sum(NY8$POP8)
+NY8$Expected <- NY8$POP8 * rate
+```
+
+Once the expected number of cases is obtained, a raw estimate of risk can be
+obtained with the *standardized mortality ratio* (SMR), which is computed as
+the number of observed cases divided by the number of expected cases: 
+
+```{r}
+NY8$SMR <- NY8$Cases / NY8$Expected
+```
+
+### Disease mapping
+
+In Epidemiology it is important to produce maps to show the spatial distribution
+of the relative risk. In this example, we will focus on Syracuse city to reduce
+the computation time to produce the map. Hence, we create an index
+with the areas in Syracuse city:
+
+```{r}
+# Subset Syracuse city
+syracuse <- which(NY8$AREANAME == "Syracuse city")
+```
+
+A disease map can be simply created with function `spplot` (in package
+`sp`):
+
+```{r fig = TRUE}
+library(viridis)
+spplot(NY8[syracuse, ], "SMR", #at = c(0.6, 0.9801, 1.055, 1.087, 1.125, 13),
+   col.regions = rev(magma(16))) #gray.colors(16, 0.9, 0.4))
+```
+
+Interactive maps can be easily created with the `tmap` package:
+
+```{r eval = TRUE, message = FALSE, warning = FALSE}
+library(tmap)
+tmap_mode("view")
+
+SMR_map <- tm_shape(NY8[syracuse, ]) +
+  tm_fill(col = "SMR", alpha = 0.35) +
+  tm_borders() +
+  tm_shape(TCE) + tm_dots(col = "red") # Add TCE sites
+widgetframe::frameWidget(print(SMR_map))
+```
+
+Note that the previous map also includes the locations of the 11
+TCE-contaminated sites and that this can be seen by zooming out.
+
+
+## Mixed-effects models
+
+### Poisson regression
+
+The first model that we will consider is a Poisson model with no latent random
+effects as this will provide a baseline to compare to other models. The model
+to fit is :
+
+$$
+O_i|\mu_i \sim Po(\mu_i)
+$$
+
+$$
+\mu_i = E_i \theta_i 
+$$
+
+$$
+\log(\theta_i) = \beta_0 + \beta_1 AVGIDIST_i
+$$
+
+In order to fit the model with `INLA`, function `inla` is used:
+
+```{r message = FALSE, results = "hide"}
+library(INLA)
+m1 <- inla(Cases ~ 1 + AVGIDIST,
+   data = as.data.frame(NY8),
+  family = "poisson",
+  E = NY8$Expected, control.predictor = list(compute = TRUE),
+  control.compute = list(dic = TRUE, waic = TRUE))
+```
+
+Note that it works similarly to the `glm` function. Here, argument
+`E` is used for the expected number of cases. Alternatively, they could
+enter the linear predictor in the log-scale as an offset.
+Other arguments are set to compute the marginals of the model parameters
+(with `control.predictor`) and to compute some model choice criteria
+(with `control.compute`).
+
+Next, the summary of the model can be obtained:
+
+```{r}
+summary(m1)
+```
+
+### Poisson regression with random effects
+
+Latent random effects can be added to the model to account for overdispersion
+by including i.i.d. Gaussian random effects in the linear predictor, as
+follows:
+
+$$
+O_i|\mu_i \sim Po(\mu_i)
+$$
+
+$$
+\mu_i = E_i \theta_i 
+$$
+
+$$
+\log(\theta_i) = \beta_0 + \beta_1 AVGIDIST_i
+$$
+
+$$
+u_i \sim N(0, \tau)
+$$
+
+In order to fit the model with `INLA` an index to identify
+the random effects (`ID`) is created first. Latent random effects
+are specified with the `f`-function in `INLA`:
+
+```{r messages = FALSE}
+NY8$ID <- 1:nrow(NY8)
+m2 <- inla(Cases ~ 1 + AVGIDIST + f(ID, model = "iid"),
+  data = as.data.frame(NY8), family = "poisson", 
+  E = NY8$Expected,
+  control.predictor = list(compute = TRUE),
+  control.compute = list(dic = TRUE, waic = TRUE))
+```
+
+
+Now the summary of the mode includes information about the random effects:
+
+```{r}
+summary(m2)
+```
+
+
+### Add point estimates for mapping
+
+The posterior means estimated with these two models can be added to
+the `SpatialPolygonsDataFrame` `NY8` to be plotted later:
+
+```{r}
+NY8$FIXED.EFF <- m1$summary.fitted[, "mean"]
+NY8$IID.EFF <- m2$summary.fitted[, "mean"]
+```
+
+```{r, fig = TRUE, fig.width = 8, fig.height = 4}
+spplot(NY8[syracuse, ], c("SMR", "FIXED.EFF", "IID.EFF"),
+  col.regions = rev(magma(16)))
+```
+
+Note how the model smooths the relative risk.
+
+
+## Spatial Models for Lattice Data
+
+
+
+Lattice data involves data measured at different areas, e.g.,
+neighborhoods, cities, provinces, states, etc. Spatial dependence appears because neighbor areas will show similar
+values of the variable of interest
+
+### Models for lattice data
+
+We have observations $y=\{y_i\}_{i=1}^n$ from the $n$ areas. $\mathbf{y}$ is
+assigned a multivariate distribution that *accounts for spatial dependence*.  A
+common way of describing spatial proximity in lattice data is by means of an
+*adjacency matrix $W$. Element $W_{i, j}$ is non-zero if areas $i$ and $j$ are
+neighbors. Usually, two areas are neighbors if they share a common boundary.
+There are other definitions of neighborhood (see Bivand et al., 2013).
+
+
+### Adjacency matrix
+
+The adjacency matrix can be computed using function `poly2nb` in package
+`spdep`. This function will consider two areas as neighbors if their borders
+touch at least in one point (i.e., *queen* adjacency):
+
+```{r}
+NY8.nb <- poly2nb(NY8)
+```
+
+This will return an `nb` object with the definition of the neighborhood structure:
+
+```{r}
+NY8.nb
+```
+
+In addition, `nb` objects can be plot when the centroids of the polygons are
+known:
+
+```{r fig = TRUE, eval = TRUE}
+plot(NY8) 
+plot(NY8.nb, coordinates(NY8), add = TRUE, pch = ".", col = "gray")
+```
+
+## Regression models
+
+
+It is often the case that, in addition to $y_i$, we have a number of covariates
+$X_i$. Hence, we may want to *regress* $y_i$ on $X_i$.  In addition to the
+covariates we may want to account for the spatial structure of the data.
+Different types of regression models can be used to model lattice data:
+
++ Generalized Linear Models (with spatial random effects).
++ Spatial econometrics models.
+
+### Linear Mixed Models
+
+ A common approach (for Gaussian data) is to use a linear
+regression with random effects:
+
+$$
+Y =  X \beta+ Zu +\varepsilon 
+$$
+
+
+The vector of random effects $u$ is modeled as a multivariate Normal distribution:
+
+$$
+u \sim N(0, \sigma^2_u \Sigma)
+$$
+
+$\Sigma$ is defined such as it induces higher correlation with adjacent areas, $Z$ is a design matrix for the random effects and 
+$\varepsilon_i \sim N(0, \sigma^2), i=1, \ldots, n$ is an error term.
+
+Generalized Linear Mixed Models can be defined in a similar way by using a 
+different likelihood and linking the appropriate parameter to the linear
+predictor.
+
+
+### Structure of spatial random effects
+
+There are many different ways of including spatial dependence
+in $\Sigma$:
+
+
+* *Simultaneous autoregressive (SAR):*
+
+$$
+\Sigma^{-1} = [(I-\rho W)' (I-\rho W)]
+$$
+
+* *Conditional autoregressive (CAR):*
+
+$$
+\Sigma^{-1} = (I-\rho W)
+$$
+
+* *Intrinsic CAR (ICAR):*
+
+  $$
+  \Sigma^{-1} = diag(n_i) - W
+  $$
+
+  $n_i$ is the number of neighbors of area $i$.
+
+
+* $\Sigma_{i,j}$ depends on  a function of $d(i,j)$. For example:
+
+$$
+\Sigma_{i,j} = \exp\{-d(i,j)/\phi\}
+$$
+
+* 'Mixture' of matrices (Leroux et al.'s model):
+
+  $$
+  \Sigma = [(1 - \lambda) I_n + \lambda M]^{-1};\ \lambda \in (0,1)
+  $$
+
+  $M$ precision of intrinsic CAR specification
+
+
+CAR and ICAR specifications have been proposed within the Statistics field,
+while the SAR specification was coined within Spatial Econometrics.  Regardless
+of its origin, all specifications presented here can be regarded as Gaussian
+latent effects with a particular precision matrix.
+
+### ICAR model 
+
+The first example will be based on the ICAR specification. Note that the
+spatial latent effect is defined using the `f`-function. This will require
+an index to identify the random effects in each area, the type of model
+and the adjacency matrix. For this, a sparse matrix will be used.
+
+```{r}
+# Create sparse adjacency matrix
+NY8.mat <- as(nb2mat(NY8.nb, style = "B"), "Matrix")
+# Fit model
+m.icar <- inla(Cases ~ 1 +  AVGIDIST + 
+    f(ID, model = "besag", graph = NY8.mat),
+  data = as.data.frame(NY8), E = NY8$Expected, family ="poisson",
+  control.predictor = list(compute = TRUE),
+  control.compute = list(dic = TRUE, waic = TRUE))
+```
+
+
+```{r}
+summary(m.icar)
+```
+
+
+### BYM model
+
+The Besag, York and Mollié model includes two latent random effects: an ICAR
+latent effect and a Gaussian iid latent effect.  The linear predictor $\eta_i$
+is:
+
+$$
+\eta_i = \alpha + \beta AVGIDIST_i + u_i + v_i
+$$
+
+* $u_i$ is an i.i.d. Gaussian random effect
+* $v_i$ is an intrinsic CAR random effect
+
+
+
+There is no need
+to define these two latent effects if `model` is set to `"bym"` when
+the latent random effect is defined with the `f` function.
+
+```{r}
+m.bym = inla(Cases ~ 1 +  AVGIDIST + 
+    f(ID, model = "bym", graph = NY8.mat),
+  data = as.data.frame(NY8), E = NY8$Expected, family ="poisson",
+  control.predictor = list(compute = TRUE),
+  control.compute = list(dic = TRUE, waic = TRUE))
+```
+
+
+```{r}
+summary(m.bym)
+```
+
+
+###  Leroux et al. model
+
+This model is defined using a 'mixture' of matrices (Leroux et al.'s model)
+to define the precision matrix of the latent effect:
+
+$$
+\Sigma^{-1} = [(1 - \lambda) I_n + \lambda M];\ \lambda \in (0,1)
+$$
+
+Here,  $M$ precision of intrinsic CAR specification.
+
+This model is implemented using the `generic1` latent effect, which
+uses the following precision matrix:
+
+$$
+\Sigma^{-1} = \frac{1}{\tau}(I_n-\frac{\rho}{\lambda_{max}}C); \rho \in [0,1)
+$$
+
+Here, $C$ is a matrix and $\lambda_{max}$ its maximum eigenvalue.
+
+In order to define the right model, we should take matrix $C$ as follows:
+
+$$
+C = I_n - M;\ M = diag(n_i) - W
+$$
+
+
+Then, $\lambda_{max} = 1$ and
+
+$$
+\Sigma^{-1} = 
+\frac{1}{\tau}(I_n-\frac{\rho}{\lambda_{max}}C) = 
+  \frac{1}{\tau}(I_n-\rho(I_n - M)) = (1-\rho) I_n + \rho M
+$$
+
+
+
+To fit the model, the first step is to create matrix $M$:
+
+```{r}
+ICARmatrix <- Diagonal(nrow(NY8.mat), apply(NY8.mat, 1, sum)) - NY8.mat
+Cmatrix <- Diagonal(nrow(NY8), 1) -  ICARmatrix
+```
+
+We can check that the maximum eigenvalue, $\lambda_{max}$, is one:
+
+```{r}
+max(eigen(Cmatrix)$values)
+```
+
+The model is fit as usual with function `inla`. Note that the $C$ matrix
+is passed to the `f` function using argument `Cmatrix`:
+
+```{r}
+m.ler = inla(Cases ~ 1 +  AVGIDIST +
+    f(ID, model = "generic1", Cmatrix = Cmatrix),
+  data = as.data.frame(NY8), E = NY8$Expected, family ="poisson",
+  control.predictor = list(compute = TRUE),
+  control.compute = list(dic = TRUE, waic = TRUE))
+```
+
+```{r}
+summary(m.ler)
+```
+
+
+## Spatial Econometrics Models
+
+Spatial econometrics have been developed following a slightly different
+approach to spatial modeling. Instead of using latent effects, spatial
+dependence is modeled explicitly. Autoregressive models are used to make the
+response variable to depend on the values of its neighbors.
+
+
+### Simultaneous Autoregressive Model (SEM)
+
+This model includes covariates and an autoregressive on the **error term**:
+
+
+$$
+y= X \beta+u; u=\rho Wu+e; e\sim N(0, \sigma^2)
+$$
+
+$$
+y= X \beta + \varepsilon; \varepsilon\sim N(0, \sigma^2 (I-\rho W)^{-1} (I-\rho W')^{-1})
+$$
+
+
+### Spatial Lag Model (SLM)
+
+This model includes covariates and an autoregressive on the **response**:
+
+
+$$
+y = \rho W y + X \beta + e; e\sim N(0, \sigma^2)
+$$
+
+$$
+y = (I-\rho W)^{-1}X\beta+\varepsilon;\ \varepsilon \sim N(0, \sigma^2(I-\rho W)^{-1} (I-\rho W')^{-1})
+$$
+
+
+
+### New `slm` Latent Class 
+
+`R-INLA` includes now an *experimental* new latent effect called `slm` to
+fit the following model:
+
+$$
+\mathbf{x}= (I_n-\rho W)^{-1} (X\beta +e)
+$$
+
+The elements of this model are:
+
+* $W$ is a row-standardized adjacency matrix.
+* $\rho$ is a spatial autocorrelation parameter.
+* $X$ is a matrix of covariates, with coefficients $\beta$.
+* $e$ are Gaussian i.i.d. errors with variance $\sigma^2$.
+
+
+The `slm` latent effect is **experimental** and it can be
+combined with other effects in the linear predictor
+
+Spatial econometrics models can be fit with the `slm` latent
+effect by noting that the SME and SLM can be defined as:
+
+* **SEM**
+
+$$
+y= X \beta + (I-\rho W)^{-1} (0+e);\ e \sim N(0, \sigma^2 I)
+$$
+
+* **SLM**
+
+$$
+y = (I-\rho W)^{-1}(X\beta+e);\ e \sim N(0, \sigma^2 I)
+$$
+
+
+### Model definition
+
+In order to define a model, we need:
+
+* `X`: Matrix of covariates
+* `W`: **Row-standardized** adjacency matrix
+* `Q`: Precision matrix of coefficients  $\beta$
+* Range of $\rho$, often defined by the eigenvalues
+
+
+```{r}
+#X
+mmatrix <- model.matrix(Cases ~ 1 + AVGIDIST, NY8)
+
+#W
+W <- as(nb2mat(NY8.nb, style = "W"), "Matrix")
+
+#Q
+Q.beta = Diagonal(n = ncol(mmatrix), x = 0.001)
+
+#Range of rho
+rho.min<- -1
+rho.max<- 1
+```
+
+
+The argument of the `slm` latent effects are passed through argument
+`args.sm`. Here, we have created a list with the same name to keep
+all the required values together:
+
+```{r}
+#Arguments for 'slm'
+args.slm = list(
+   rho.min = rho.min ,
+   rho.max = rho.max,
+   W = W,
+   X = mmatrix,
+   Q.beta = Q.beta
+)
+```
+
+In addition,  the prior for the precision parameter$\tau$ and the spatial
+autocorrelation parameter $\rho$ are set:
+
+```{r}
+#Prior on rho
+hyper.slm = list(
+   prec = list(
+      prior = "loggamma", param = c(0.01, 0.01)),
+      rho = list(initial=0, prior = "logitbeta", param = c(1,1))
+)
+
+```
+
+The prior definition uses a named list with different arguments.  Argument
+`prior` defines the prior to use, and `param` its parameters.  Here, the
+precision is assigned a gamma prior with parameters $0.01$ and $0.01$, while
+the spatial autocorrelation parameter is given a beta prior with parameters $1$
+and $1$ (i.e., a uniform prior in the interval $(1, 1)$).
+
+### Model fitting 
+
+```{r}
+#SLM model
+m.slm <- inla( Cases ~ -1 +
+     f(ID, model = "slm", args.slm = args.slm, hyper = hyper.slm),
+   data = as.data.frame(NY8), family = "poisson",
+   E = NY8$Expected,
+   control.predictor = list(compute = TRUE),
+   control.compute = list(dic = TRUE, waic = TRUE)
+)
+
+```
+
+
+```{r}
+summary(m.slm)
+```
+
+
+Estimates of the coefficients appear as part of the random effects:
+
+```{r}
+round(m.slm$summary.random$ID[47:48,], 4)
+```
+
+
+Spatial autocorrelation is reported in the internal scale (i.e., between
+0 and 1) and needs to be re-scaled:
+
+```{r}
+marg.rho.internal <- m.slm$marginals.hyperpar[["Rho for ID"]]
+marg.rho <- inla.tmarginal( function(x) {
+  rho.min + x * (rho.max - rho.min)
+}, marg.rho.internal)
+
+inla.zmarginal(marg.rho, FALSE)
+
+```
+
+```{r fig = TRUE}
+plot(marg.rho, type = "l", main = "Spatial autocorrelation")
+
+```
+
+
+## Summary of results
+
+
+```{r}
+NY8$ICAR <- m.icar$summary.fitted.values[, "mean"]
+NY8$BYM <- m.bym$summary.fitted.values[, "mean"]
+NY8$LEROUX <- m.ler$summary.fitted.values[, "mean"]
+NY8$SLM <- m.slm$summary.fitted.values[, "mean"]
+```
+
+
+```{r fig = TRUE}
+spplot(NY8[syracuse, ], 
+  c("FIXED.EFF", "IID.EFF", "ICAR", "BYM", "LEROUX", "SLM"),
+  col.regions = rev(magma(16))
+)
+```
+
+Note how spatial models produce smoother estimates of the relative risk.
+
+In order to choose the best model, the model selection criteria computed
+above can be used:
+
+```{r, echo=FALSE}
+
+results <- lapply(list(m1, m2, m.icar, m.bym, m.ler, m.slm), function(X) {
+
+  as.vector(c(X$mlik[1,1], X$dic$dic, X$waic$waic))
+})
+
+tab.res <- as.data.frame(do.call(rbind, results))
+
+colnames(tab.res) <- c("Marg. Lik.", "DIC", "WAIC")
+rownames(tab.res) <- c("FIXED", "IID", "ICAR", "BYM", "LEROUX", "SLM")
+
+knitr::kable(tab.res)
+
+```
+

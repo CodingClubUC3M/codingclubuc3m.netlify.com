@@ -1,0 +1,868 @@
+---
+title: "Spatial Data Analysis with INLA"
+authors: ["Virgilio Gómez Rubio"]
+date: 2019-11-05
+categories: ["R"]
+tags: ["R", "INLA", "spatial"]
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>In this session I will focus on Bayesian inference using the integrated nested
+Laplace approximation (INLA) method. As described in Rue et al. (2009), INLA
+can be used to estimate the posterior marginal distribution of Bayesian
+hierarchical models. This method is implemented in the <code>INLA</code> package available
+for the <code>R</code> programming language. Given that the types of models that INLA can
+fit are quite wide, we will focus on spatial models for the analysis of lattice
+data. Hence,</p>
+</div>
+<div id="bayesian-inference" class="section level2">
+<h2>Bayesian inference</h2>
+<p>A Bayesian hierarchical model can be defined as follows:</p>
+<p><span class="math display">\[
+y_i \sim f(y_i \mid \mathbf{x}, \theta_1)
+\]</span></p>
+<p><span class="math display">\[
+\mathbf{x} \sim GMRF(\theta_2)
+\]</span></p>
+<p><span class="math display">\[
+\theta \sim \pi(\theta)
+\]</span></p>
+<p>Here, <span class="math inline">\(\mathbf{y} = (y_1, \ldots, y_n)\)</span> is a vector of responses, <span class="math inline">\(\mathbf{x}\)</span>
+a vector of latent effects and <span class="math inline">\(\theta = (\theta_1, \theta_2)\)</span> a vector of
+hyperparameters. <span class="math inline">\(GMRF(\theta_2)\)</span> is a Gaussian Markov random field (GMRF) with
+zero mean, which can be regarded as a multivariate Gaussian distribution
+with zero mean and sparse precision matrix that depends on hyperparameters
+<span class="math inline">\(\theta_2\)</span>.</p>
+<p>Fitting a Bayesian model means computing the posterior distribution of
+<span class="math inline">\(\mathbf{x}\)</span> and <span class="math inline">\(\theta\)</span> <span class="math inline">\(\pi(\theta, \mathbf{x} \mid y)\)</span>. This can be obtained
+by using Bayes’ rule as follows:</p>
+<p><span class="math display">\[
+\pi(\theta, \mathbf{x} \mid y)  \propto \pi(y \mid \theta, \mathbf{x})\pi(\theta)
+\]</span></p>
+<p>Once the joint posterior distribution is known, we could compute posterior
+probabilities of linear predictors, random effects, sums of random effects,
+etc. Depending on the likelihood and the prior distribution computing
+<span class="math inline">\(\pi(\theta, \mathbf{x} \mid y)\)</span> can be very difficult.</p>
+<div id="inference-with-markov-chain-monte-carlo" class="section level3">
+<h3>Inference with Markov chain Monte Carlo</h3>
+<p>In the last 20-30 years some computational approaches have been proposed to
+estimate <span class="math inline">\(\pi(\theta, \mathbf{x} \mid y)\)</span> with Monte Carlo methods. In
+particular, Markov chain Monte Carlo (MCMC) methods provide simulations from
+the ensemble of model parameters, i.e., a multivariate distribution. This will
+allow us to estimate the joint posterior distribution.</p>
+<p>However, we may be interested in a single parameter or a subset of the
+parameters. Inference for this subset of parameters can be done by simply
+ignoring the samples for the other parameters</p>
+<p>Using the samples it is possible to compute the posterior distribution of any
+function on the model parameters. Notice that MCMC may require lots of simulations for
+valid inference. Also, we must check that the burn-in period has ended, i.e.,
+we have reached the posterior distribution</p>
+</div>
+</div>
+<div id="integrated-nested-laplace-approximation" class="section level2">
+<h2>Integrated Nested Laplace Approximation</h2>
+<p>Sometimes we only need marginal inference on some parameters, i.e., we
+need <span class="math inline">\(\pi(\theta_i \mid y)\)</span>. Rue et al. (2009) propose a way of approximating
+the marginal distributions using different approximations to the distributions
+involved and using the Laplace approximation for the integrals.</p>
+<p>Now we are dealing with (many) univariate distributions. This is
+computationally faster because numerical integration techniques are used
+instead of Monte Carlo sampling. The marginal distributions for the latent
+effects and hyper-parameters can be written as</p>
+<p><span class="math display">\[
+\pi(x_i \mid \mathbf{y}) = \int \pi(x_i \mid \mathbf{\theta}, \mathbf{y})  \pi(\mathbf{\theta}\mid \mathbf{y}) d\mathbf{\theta}
+\]</span>
+
+and</p>
+<p><span class="math display">\[
+\pi(\theta_j\mid \mathbf{y}) = \int \pi(\mathbf{\theta}\mid  \mathbf{y})  d\mathbf{\theta}_{-j} 
+\]</span></p>
+<p>The posterior distribution of the hyperparameters <span class="math inline">\(\pi(\mathbf{\theta}\mid \mathbf{y})\)</span> is approximated using different methods.</p>
+<div id="r-inla-package" class="section level3">
+<h3><code>R-INLA</code> package</h3>
+<p>The INLA method is implemented in the <code>INLA</code> (also known as <code>R-INLA</code>) package,
+which is available from <a href="http://www.r-inla.org">http://www.r-inla.org</a>.
+This package relies on the <code>inla()</code>-function to fit the models. This functions
+works in a similar way as, for example, <code>glm()</code>. The model is defined in a  and there is a flexible way of defining the likelihood, priors and
+latent effects in the model.</p>
+<p>The output provides the posterior marginals of the model parameters and latent
+effects, linear predictors, and some other derived quantities (such as linear
+combinations of the model latent effects). In addition, <code>INLA</code> provides tools
+to manipulate <span class="math inline">\(\pi(\cdot \mid y)\)</span> to compute <span class="math inline">\(\pi(f(\cdot) \mid y)\)</span>. <code>INLA</code> can compute some model assessment/choice: Marginal likelihood, DIC, CPO, …</p>
+</div>
+<div id="spatial-latent-effects" class="section level3">
+<h3>Spatial latent effects</h3>
+<p>The following table summarizes some of the spatial latent effects available
+in <code>INLA</code>:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Name in <code>f()</code></th>
+<th align="center">Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>generic0</code></td>
+<td align="center"><span class="math inline">\(\Sigma=\frac{1}{\tau}Q^{-1}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><code>generic1</code></td>
+<td align="center"><span class="math inline">\(\Sigma=\frac{1}{\tau}(I_n-\frac{\rho}{\lambda_{max}}C)^{-1}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>besag</code></td>
+<td align="center">Intrinsic CAR</td>
+</tr>
+<tr class="even">
+<td align="center"><code>besagproper</code></td>
+<td align="center">Proper CAR</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>bym</code></td>
+<td align="center">Convolution model</td>
+</tr>
+<tr class="even">
+<td align="center"><code>rw2d</code></td>
+<td align="center">Random walk 2-D</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>matern2d</code></td>
+<td align="center">Matèrn correlation (discrete)</td>
+</tr>
+<tr class="even">
+<td align="center"><code>slm</code></td>
+<td align="center">Spatial lag model</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>spde</code></td>
+<td align="center">Matèrn correlation (continuous)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="dataset-leukemia-in-upstate-new-york" class="section level2">
+<h2>Dataset: Leukemia in upstate New York</h2>
+<p>To illustrate how spatial models are fitted with <code>INLA</code>, the New York leukemia
+dataset will be used. This has been widely analyzed in the literature (see, for
+example, Waller and Gotway, 2004) and it is available in the <code>DClusterm</code>
+package. The dataset records a number of cases of leukemia in upstate New York
+at the census tract level. Some of the variables in the dataset are:</p>
+<ul>
+<li><code>Cases</code>: Number of leukemia cases in the period 1978-1982.</li>
+<li><code>POP8</code>: Population in 1980.</li>
+<li><code>PCTOWNHOME</code>: Proportion of people who own their home.</li>
+<li><code>PCTAGE65P</code>: Proportion of people aged 65 or more.</li>
+<li><code>AVGIDIST</code>: Average inverse distance to the nearest Trichloroethene (TCE) site.</li>
+</ul>
+<p>Note that the interest is on the exposure to TCE, using <code>AVGIDIST</code> as a proxy
+for exposure. Variables <code>PCTOWNHOME</code> and <code>PCTAGE65P</code> will act as possible
+confounders that must be included in the model. <strong>However, we will not do it
+here because we want to test how the spatial latent effects capture residual
+spatial variation.</strong></p>
+<p>The dataset can be loaded as follows:</p>
+<pre class="r"><code>library(spdep)
+library(DClusterm)
+data(NY8)</code></pre>
+<p>Given that the interest is in studying the risk of leukemia in upstate New York,
+the expected number of cases is computed first. This is done by computing the
+overall mortality rate (total cases divided by total population) and
+multiplying the population by it:</p>
+<pre class="r"><code>rate &lt;- sum(NY8$Cases) / sum(NY8$POP8)
+NY8$Expected &lt;- NY8$POP8 * rate</code></pre>
+<p>Once the expected number of cases is obtained, a raw estimate of risk can be
+obtained with the <em>standardized mortality ratio</em> (SMR), which is computed as
+the number of observed cases divided by the number of expected cases:</p>
+<pre class="r"><code>NY8$SMR &lt;- NY8$Cases / NY8$Expected</code></pre>
+<div id="disease-mapping" class="section level3">
+<h3>Disease mapping</h3>
+<p>In Epidemiology it is important to produce maps to show the spatial distribution
+of the relative risk. In this example, we will focus on Syracuse city to reduce
+the computation time to produce the map. Hence, we create an index
+with the areas in Syracuse city:</p>
+<pre class="r"><code># Subset Syracuse city
+syracuse &lt;- which(NY8$AREANAME == &quot;Syracuse city&quot;)</code></pre>
+<p>A disease map can be simply created with function <code>spplot</code> (in package
+<code>sp</code>):</p>
+<pre class="r"><code>library(viridis)</code></pre>
+<pre><code>## Loading required package: viridisLite</code></pre>
+<pre class="r"><code>spplot(NY8[syracuse, ], &quot;SMR&quot;, #at = c(0.6, 0.9801, 1.055, 1.087, 1.125, 13),
+   col.regions = rev(magma(16))) #gray.colors(16, 0.9, 0.4))</code></pre>
+<p><img src="/post/2019-11-05_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Interactive maps can be easily created with the <code>tmap</code> package:</p>
+<pre class="r"><code>library(tmap)
+tmap_mode(&quot;view&quot;)
+
+SMR_map &lt;- tm_shape(NY8[syracuse, ]) +
+  tm_fill(col = &quot;SMR&quot;, alpha = 0.35) +
+  tm_borders() +
+  tm_shape(TCE) + tm_dots(col = &quot;red&quot;) # Add TCE sites
+widgetframe::frameWidget(print(SMR_map))</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/2019-11-05_files/figure-html//widgets/widget_unnamed-chunk-6.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>Note that the previous map also includes the locations of the 11
+TCE-contaminated sites and that this can be seen by zooming out.</p>
+</div>
+</div>
+<div id="mixed-effects-models" class="section level2">
+<h2>Mixed-effects models</h2>
+<div id="poisson-regression" class="section level3">
+<h3>Poisson regression</h3>
+<p>The first model that we will consider is a Poisson model with no latent random
+effects as this will provide a baseline to compare to other models. The model
+to fit is :</p>
+<p><span class="math display">\[
+O_i|\mu_i \sim Po(\mu_i)
+\]</span></p>
+<p><span class="math display">\[
+\mu_i = E_i \theta_i 
+\]</span></p>
+<p><span class="math display">\[
+\log(\theta_i) = \beta_0 + \beta_1 AVGIDIST_i
+\]</span></p>
+<p>In order to fit the model with <code>INLA</code>, function <code>inla</code> is used:</p>
+<pre class="r"><code>library(INLA)
+m1 &lt;- inla(Cases ~ 1 + AVGIDIST,
+   data = as.data.frame(NY8),
+  family = &quot;poisson&quot;,
+  E = NY8$Expected, control.predictor = list(compute = TRUE),
+  control.compute = list(dic = TRUE, waic = TRUE))</code></pre>
+<p>Note that it works similarly to the <code>glm</code> function. Here, argument
+<code>E</code> is used for the expected number of cases. Alternatively, they could
+enter the linear predictor in the log-scale as an offset.
+Other arguments are set to compute the marginals of the model parameters
+(with <code>control.predictor</code>) and to compute some model choice criteria
+(with <code>control.compute</code>).</p>
+<p>Next, the summary of the model can be obtained:</p>
+<pre class="r"><code>summary(m1)</code></pre>
+<pre><code>## 
+## Call:
+##    c(&quot;inla(formula = Cases ~ 1 + AVGIDIST, family = \&quot;poisson\&quot;, data 
+##    = as.data.frame(NY8), &quot;, &quot; E = NY8$Expected, control.compute = 
+##    list(dic = TRUE, waic = TRUE), &quot;, &quot; control.predictor = 
+##    list(compute = TRUE))&quot;) 
+## Time used:
+##     Pre = 0.368, Running = 0.0968, Post = 0.0587, Total = 0.524 
+## Fixed effects:
+##               mean    sd 0.025quant 0.5quant 0.975quant   mode kld
+## (Intercept) -0.065 0.045     -0.155   -0.065      0.023 -0.064   0
+## AVGIDIST     0.320 0.078      0.160    0.322      0.465  0.327   0
+## 
+## Expected number of effective parameters(stdev): 2.00(0.00)
+## Number of equivalent replicates : 140.25 
+## 
+## Deviance Information Criterion (DIC) ...............: 948.12
+## Deviance Information Criterion (DIC, saturated) ....: 418.75
+## Effective number of parameters .....................: 2.00
+## 
+## Watanabe-Akaike information criterion (WAIC) ...: 949.03
+## Effective number of parameters .................: 2.67
+## 
+## Marginal log-Likelihood:  -480.28 
+## Posterior marginals for the linear predictor and
+##  the fitted values are computed</code></pre>
+</div>
+<div id="poisson-regression-with-random-effects" class="section level3">
+<h3>Poisson regression with random effects</h3>
+<p>Latent random effects can be added to the model to account for overdispersion
+by including i.i.d. Gaussian random effects in the linear predictor, as
+follows:</p>
+<p><span class="math display">\[
+O_i|\mu_i \sim Po(\mu_i)
+\]</span></p>
+<p><span class="math display">\[
+\mu_i = E_i \theta_i 
+\]</span></p>
+<p><span class="math display">\[
+\log(\theta_i) = \beta_0 + \beta_1 AVGIDIST_i
+\]</span></p>
+<p><span class="math display">\[
+u_i \sim N(0, \tau)
+\]</span></p>
+<p>In order to fit the model with <code>INLA</code> an index to identify
+the random effects (<code>ID</code>) is created first. Latent random effects
+are specified with the <code>f</code>-function in <code>INLA</code>:</p>
+<pre class="r"><code>NY8$ID &lt;- 1:nrow(NY8)
+m2 &lt;- inla(Cases ~ 1 + AVGIDIST + f(ID, model = &quot;iid&quot;),
+  data = as.data.frame(NY8), family = &quot;poisson&quot;, 
+  E = NY8$Expected,
+  control.predictor = list(compute = TRUE),
+  control.compute = list(dic = TRUE, waic = TRUE))</code></pre>
+<p>Now the summary of the mode includes information about the random effects:</p>
+<pre class="r"><code>summary(m2)</code></pre>
+<pre><code>## 
+## Call:
+##    c(&quot;inla(formula = Cases ~ 1 + AVGIDIST + f(ID, model = \&quot;iid\&quot;), 
+##    family = \&quot;poisson\&quot;, &quot;, &quot; data = as.data.frame(NY8), E = 
+##    NY8$Expected, control.compute = list(dic = TRUE, &quot;, &quot; waic = 
+##    TRUE), control.predictor = list(compute = TRUE))&quot; ) 
+## Time used:
+##     Pre = 0.236, Running = 0.315, Post = 0.0744, Total = 0.625 
+## Fixed effects:
+##               mean    sd 0.025quant 0.5quant 0.975quant   mode kld
+## (Intercept) -0.126 0.064     -0.256   -0.125     -0.006 -0.122   0
+## AVGIDIST     0.347 0.105      0.139    0.346      0.558  0.344   0
+## 
+## Random effects:
+##   Name     Model
+##     ID IID model
+## 
+## Model hyperparameters:
+##                     mean       sd 0.025quant 0.5quant 0.975quant mode
+## Precision for ID 3712.34 11263.70       3.52     6.94   39903.61 5.18
+## 
+## Expected number of effective parameters(stdev): 54.95(30.20)
+## Number of equivalent replicates : 5.11 
+## 
+## Deviance Information Criterion (DIC) ...............: 926.93
+## Deviance Information Criterion (DIC, saturated) ....: 397.56
+## Effective number of parameters .....................: 61.52
+## 
+## Watanabe-Akaike information criterion (WAIC) ...: 932.63
+## Effective number of parameters .................: 57.92
+## 
+## Marginal log-Likelihood:  -478.93 
+## Posterior marginals for the linear predictor and
+##  the fitted values are computed</code></pre>
+</div>
+<div id="add-point-estimates-for-mapping" class="section level3">
+<h3>Add point estimates for mapping</h3>
+<p>The posterior means estimated with these two models can be added to
+the <code>SpatialPolygonsDataFrame</code> <code>NY8</code> to be plotted later:</p>
+<pre class="r"><code>NY8$FIXED.EFF &lt;- m1$summary.fitted[, &quot;mean&quot;]
+NY8$IID.EFF &lt;- m2$summary.fitted[, &quot;mean&quot;]</code></pre>
+<pre class="r"><code>spplot(NY8[syracuse, ], c(&quot;SMR&quot;, &quot;FIXED.EFF&quot;, &quot;IID.EFF&quot;),
+  col.regions = rev(magma(16)))</code></pre>
+<p><img src="/post/2019-11-05_files/figure-html/unnamed-chunk-12-1.png" width="768" /></p>
+<p>Note how the model smooths the relative risk.</p>
+</div>
+</div>
+<div id="spatial-models-for-lattice-data" class="section level2">
+<h2>Spatial Models for Lattice Data</h2>
+<p>Lattice data involves data measured at different areas, e.g.,
+neighborhoods, cities, provinces, states, etc. Spatial dependence appears because neighbor areas will show similar
+values of the variable of interest</p>
+<div id="models-for-lattice-data" class="section level3">
+<h3>Models for lattice data</h3>
+<p>We have observations <span class="math inline">\(y=\{y_i\}_{i=1}^n\)</span> from the <span class="math inline">\(n\)</span> areas. <span class="math inline">\(\mathbf{y}\)</span> is
+assigned a multivariate distribution that <em>accounts for spatial dependence</em>. A
+common way of describing spatial proximity in lattice data is by means of an
+*adjacency matrix <span class="math inline">\(W\)</span>. Element <span class="math inline">\(W_{i, j}\)</span> is non-zero if areas <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are
+neighbors. Usually, two areas are neighbors if they share a common boundary.
+There are other definitions of neighborhood (see Bivand et al., 2013).</p>
+</div>
+<div id="adjacency-matrix" class="section level3">
+<h3>Adjacency matrix</h3>
+<p>The adjacency matrix can be computed using function <code>poly2nb</code> in package
+<code>spdep</code>. This function will consider two areas as neighbors if their borders
+touch at least in one point (i.e., <em>queen</em> adjacency):</p>
+<pre class="r"><code>NY8.nb &lt;- poly2nb(NY8)</code></pre>
+<p>This will return an <code>nb</code> object with the definition of the neighborhood structure:</p>
+<pre class="r"><code>NY8.nb</code></pre>
+<pre><code>## Neighbour list object:
+## Number of regions: 281 
+## Number of nonzero links: 1624 
+## Percentage nonzero weights: 2.056712 
+## Average number of links: 5.779359</code></pre>
+<p>In addition, <code>nb</code> objects can be plot when the centroids of the polygons are
+known:</p>
+<pre class="r"><code>plot(NY8) 
+plot(NY8.nb, coordinates(NY8), add = TRUE, pch = &quot;.&quot;, col = &quot;gray&quot;)</code></pre>
+<p><img src="/post/2019-11-05_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
+</div>
+<div id="regression-models" class="section level2">
+<h2>Regression models</h2>
+<p>It is often the case that, in addition to <span class="math inline">\(y_i\)</span>, we have a number of covariates
+<span class="math inline">\(X_i\)</span>. Hence, we may want to <em>regress</em> <span class="math inline">\(y_i\)</span> on <span class="math inline">\(X_i\)</span>. In addition to the
+covariates we may want to account for the spatial structure of the data.
+Different types of regression models can be used to model lattice data:</p>
+<ul>
+<li>Generalized Linear Models (with spatial random effects).</li>
+<li>Spatial econometrics models.</li>
+</ul>
+<div id="linear-mixed-models" class="section level3">
+<h3>Linear Mixed Models</h3>
+<p>A common approach (for Gaussian data) is to use a linear
+regression with random effects:</p>
+<p><span class="math display">\[
+Y =  X \beta+ Zu +\varepsilon 
+\]</span></p>
+<p>The vector of random effects <span class="math inline">\(u\)</span> is modeled as a multivariate Normal distribution:</p>
+<p><span class="math display">\[
+u \sim N(0, \sigma^2_u \Sigma)
+\]</span></p>
+<p><span class="math inline">\(\Sigma\)</span> is defined such as it induces higher correlation with adjacent areas, <span class="math inline">\(Z\)</span> is a design matrix for the random effects and
+<span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2), i=1, \ldots, n\)</span> is an error term.</p>
+<p>Generalized Linear Mixed Models can be defined in a similar way by using a
+different likelihood and linking the appropriate parameter to the linear
+predictor.</p>
+</div>
+<div id="structure-of-spatial-random-effects" class="section level3">
+<h3>Structure of spatial random effects</h3>
+<p>There are many different ways of including spatial dependence
+in <span class="math inline">\(\Sigma\)</span>:</p>
+<ul>
+<li><em>Simultaneous autoregressive (SAR):</em></li>
+</ul>
+<p><span class="math display">\[
+\Sigma^{-1} = [(I-\rho W)&#39; (I-\rho W)]
+\]</span></p>
+<ul>
+<li><em>Conditional autoregressive (CAR):</em></li>
+</ul>
+<p><span class="math display">\[
+\Sigma^{-1} = (I-\rho W)
+\]</span></p>
+<ul>
+<li><p><em>Intrinsic CAR (ICAR):</em></p>
+<p><span class="math display">\[
+\Sigma^{-1} = diag(n_i) - W
+\]</span></p>
+<p><span class="math inline">\(n_i\)</span> is the number of neighbors of area <span class="math inline">\(i\)</span>.</p></li>
+<li><p><span class="math inline">\(\Sigma_{i,j}\)</span> depends on a function of <span class="math inline">\(d(i,j)\)</span>. For example:</p></li>
+</ul>
+<p><span class="math display">\[
+\Sigma_{i,j} = \exp\{-d(i,j)/\phi\}
+\]</span></p>
+<ul>
+<li><p>‘Mixture’ of matrices (Leroux et al.’s model):</p>
+<p><span class="math display">\[
+\Sigma = [(1 - \lambda) I_n + \lambda M]^{-1};\ \lambda \in (0,1)
+\]</span></p>
+<p><span class="math inline">\(M\)</span> precision of intrinsic CAR specification</p></li>
+</ul>
+<p>CAR and ICAR specifications have been proposed within the Statistics field,
+while the SAR specification was coined within Spatial Econometrics. Regardless
+of its origin, all specifications presented here can be regarded as Gaussian
+latent effects with a particular precision matrix.</p>
+</div>
+<div id="icar-model" class="section level3">
+<h3>ICAR model</h3>
+<p>The first example will be based on the ICAR specification. Note that the
+spatial latent effect is defined using the <code>f</code>-function. This will require
+an index to identify the random effects in each area, the type of model
+and the adjacency matrix. For this, a sparse matrix will be used.</p>
+<pre class="r"><code># Create sparse adjacency matrix
+NY8.mat &lt;- as(nb2mat(NY8.nb, style = &quot;B&quot;), &quot;Matrix&quot;)
+# Fit model
+m.icar &lt;- inla(Cases ~ 1 +  AVGIDIST + 
+    f(ID, model = &quot;besag&quot;, graph = NY8.mat),
+  data = as.data.frame(NY8), E = NY8$Expected, family =&quot;poisson&quot;,
+  control.predictor = list(compute = TRUE),
+  control.compute = list(dic = TRUE, waic = TRUE))</code></pre>
+<pre class="r"><code>summary(m.icar)</code></pre>
+<pre><code>## 
+## Call:
+##    c(&quot;inla(formula = Cases ~ 1 + AVGIDIST + f(ID, model = \&quot;besag\&quot;, 
+##    &quot;, &quot; graph = NY8.mat), family = \&quot;poisson\&quot;, data = 
+##    as.data.frame(NY8), &quot;, &quot; E = NY8$Expected, control.compute = 
+##    list(dic = TRUE, waic = TRUE), &quot;, &quot; control.predictor = 
+##    list(compute = TRUE))&quot;) 
+## Time used:
+##     Pre = 0.298, Running = 0.305, Post = 0.0406, Total = 0.644 
+## Fixed effects:
+##               mean    sd 0.025quant 0.5quant 0.975quant   mode kld
+## (Intercept) -0.122 0.052     -0.226   -0.122     -0.022 -0.120   0
+## AVGIDIST     0.318 0.121      0.075    0.320      0.551  0.324   0
+## 
+## Random effects:
+##   Name     Model
+##     ID Besags ICAR model
+## 
+## Model hyperparameters:
+##                  mean   sd 0.025quant 0.5quant 0.975quant mode
+## Precision for ID 3.20 1.67       1.41     2.79       7.56 2.27
+## 
+## Expected number of effective parameters(stdev): 46.68(12.67)
+## Number of equivalent replicates : 6.02 
+## 
+## Deviance Information Criterion (DIC) ...............: 904.12
+## Deviance Information Criterion (DIC, saturated) ....: 374.75
+## Effective number of parameters .....................: 48.31
+## 
+## Watanabe-Akaike information criterion (WAIC) ...: 906.77
+## Effective number of parameters .................: 44.27
+## 
+## Marginal log-Likelihood:  -685.70 
+## Posterior marginals for the linear predictor and
+##  the fitted values are computed</code></pre>
+</div>
+<div id="bym-model" class="section level3">
+<h3>BYM model</h3>
+<p>The Besag, York and Mollié model includes two latent random effects: an ICAR
+latent effect and a Gaussian iid latent effect. The linear predictor <span class="math inline">\(\eta_i\)</span>
+is:</p>
+<p><span class="math display">\[
+\eta_i = \alpha + \beta AVGIDIST_i + u_i + v_i
+\]</span></p>
+<ul>
+<li><span class="math inline">\(u_i\)</span> is an i.i.d. Gaussian random effect</li>
+<li><span class="math inline">\(v_i\)</span> is an intrinsic CAR random effect</li>
+</ul>
+<p>There is no need
+to define these two latent effects if <code>model</code> is set to <code>&quot;bym&quot;</code> when
+the latent random effect is defined with the <code>f</code> function.</p>
+<pre class="r"><code>m.bym = inla(Cases ~ 1 +  AVGIDIST + 
+    f(ID, model = &quot;bym&quot;, graph = NY8.mat),
+  data = as.data.frame(NY8), E = NY8$Expected, family =&quot;poisson&quot;,
+  control.predictor = list(compute = TRUE),
+  control.compute = list(dic = TRUE, waic = TRUE))</code></pre>
+<pre class="r"><code>summary(m.bym)</code></pre>
+<pre><code>## 
+## Call:
+##    c(&quot;inla(formula = Cases ~ 1 + AVGIDIST + f(ID, model = \&quot;bym\&quot;, 
+##    graph = NY8.mat), &quot;, &quot; family = \&quot;poisson\&quot;, data = 
+##    as.data.frame(NY8), E = NY8$Expected, &quot;, &quot; control.compute = 
+##    list(dic = TRUE, waic = TRUE), control.predictor = list(compute = 
+##    TRUE))&quot; ) 
+## Time used:
+##     Pre = 0.294, Running = 1, Post = 0.0652, Total = 1.36 
+## Fixed effects:
+##               mean    sd 0.025quant 0.5quant 0.975quant   mode kld
+## (Intercept) -0.123 0.052     -0.227   -0.122     -0.023 -0.121   0
+## AVGIDIST     0.318 0.121      0.075    0.320      0.551  0.324   0
+## 
+## Random effects:
+##   Name     Model
+##     ID BYM model
+## 
+## Model hyperparameters:
+##                                         mean      sd 0.025quant 0.5quant
+## Precision for ID (iid component)     1790.06 1769.02     115.76  1265.24
+## Precision for ID (spatial component)    3.12    1.36       1.37     2.82
+##                                      0.975quant   mode
+## Precision for ID (iid component)        6522.28 310.73
+## Precision for ID (spatial component)       6.58   2.33
+## 
+## Expected number of effective parameters(stdev): 47.66(12.79)
+## Number of equivalent replicates : 5.90 
+## 
+## Deviance Information Criterion (DIC) ...............: 903.41
+## Deviance Information Criterion (DIC, saturated) ....: 374.04
+## Effective number of parameters .....................: 48.75
+## 
+## Watanabe-Akaike information criterion (WAIC) ...: 906.61
+## Effective number of parameters .................: 45.04
+## 
+## Marginal log-Likelihood:  -425.65 
+## Posterior marginals for the linear predictor and
+##  the fitted values are computed</code></pre>
+</div>
+<div id="leroux-et-al.model" class="section level3">
+<h3>Leroux et al. model</h3>
+<p>This model is defined using a ‘mixture’ of matrices (Leroux et al.’s model)
+to define the precision matrix of the latent effect:</p>
+<p><span class="math display">\[
+\Sigma^{-1} = [(1 - \lambda) I_n + \lambda M];\ \lambda \in (0,1)
+\]</span></p>
+<p>Here, <span class="math inline">\(M\)</span> precision of intrinsic CAR specification.</p>
+<p>This model is implemented using the <code>generic1</code> latent effect, which
+uses the following precision matrix:</p>
+<p><span class="math display">\[
+\Sigma^{-1} = \frac{1}{\tau}(I_n-\frac{\rho}{\lambda_{max}}C); \rho \in [0,1)
+\]</span></p>
+<p>Here, <span class="math inline">\(C\)</span> is a matrix and <span class="math inline">\(\lambda_{max}\)</span> its maximum eigenvalue.</p>
+<p>In order to define the right model, we should take matrix <span class="math inline">\(C\)</span> as follows:</p>
+<p><span class="math display">\[
+C = I_n - M;\ M = diag(n_i) - W
+\]</span></p>
+<p>Then, <span class="math inline">\(\lambda_{max} = 1\)</span> and</p>
+<p><span class="math display">\[
+\Sigma^{-1} = 
+\frac{1}{\tau}(I_n-\frac{\rho}{\lambda_{max}}C) = 
+  \frac{1}{\tau}(I_n-\rho(I_n - M)) = (1-\rho) I_n + \rho M
+\]</span></p>
+<p>To fit the model, the first step is to create matrix <span class="math inline">\(M\)</span>:</p>
+<pre class="r"><code>ICARmatrix &lt;- Diagonal(nrow(NY8.mat), apply(NY8.mat, 1, sum)) - NY8.mat
+Cmatrix &lt;- Diagonal(nrow(NY8), 1) -  ICARmatrix</code></pre>
+<p>We can check that the maximum eigenvalue, <span class="math inline">\(\lambda_{max}\)</span>, is one:</p>
+<pre class="r"><code>max(eigen(Cmatrix)$values)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>The model is fit as usual with function <code>inla</code>. Note that the <span class="math inline">\(C\)</span> matrix
+is passed to the <code>f</code> function using argument <code>Cmatrix</code>:</p>
+<pre class="r"><code>m.ler = inla(Cases ~ 1 +  AVGIDIST +
+    f(ID, model = &quot;generic1&quot;, Cmatrix = Cmatrix),
+  data = as.data.frame(NY8), E = NY8$Expected, family =&quot;poisson&quot;,
+  control.predictor = list(compute = TRUE),
+  control.compute = list(dic = TRUE, waic = TRUE))</code></pre>
+<pre class="r"><code>summary(m.ler)</code></pre>
+<pre><code>## 
+## Call:
+##    c(&quot;inla(formula = Cases ~ 1 + AVGIDIST + f(ID, model = 
+##    \&quot;generic1\&quot;, &quot;, &quot; Cmatrix = Cmatrix), family = \&quot;poisson\&quot;, data 
+##    = as.data.frame(NY8), &quot;, &quot; E = NY8$Expected, control.compute = 
+##    list(dic = TRUE, waic = TRUE), &quot;, &quot; control.predictor = 
+##    list(compute = TRUE))&quot;) 
+## Time used:
+##     Pre = 0.236, Running = 0.695, Post = 0.0493, Total = 0.98 
+## Fixed effects:
+##               mean    sd 0.025quant 0.5quant 0.975quant   mode   kld
+## (Intercept) -0.128 0.448      -0.91   -0.128      0.656 -0.126 0.075
+## AVGIDIST     0.325 0.122       0.08    0.327      0.561  0.330 0.000
+## 
+## Random effects:
+##   Name     Model
+##     ID Generic1 model
+## 
+## Model hyperparameters:
+##                   mean    sd 0.025quant 0.5quant 0.975quant  mode
+## Precision for ID 2.720 1.098       1.27    2.489      5.480 2.106
+## Beta for ID      0.865 0.142       0.47    0.915      0.997 0.996
+## 
+## Expected number of effective parameters(stdev): 52.25(13.87)
+## Number of equivalent replicates : 5.38 
+## 
+## Deviance Information Criterion (DIC) ...............: 903.14
+## Deviance Information Criterion (DIC, saturated) ....: 373.77
+## Effective number of parameters .....................: 53.12
+## 
+## Watanabe-Akaike information criterion (WAIC) ...: 906.20
+## Effective number of parameters .................: 48.19
+## 
+## Marginal log-Likelihood:  -474.94 
+## Posterior marginals for the linear predictor and
+##  the fitted values are computed</code></pre>
+</div>
+</div>
+<div id="spatial-econometrics-models" class="section level2">
+<h2>Spatial Econometrics Models</h2>
+<p>Spatial econometrics have been developed following a slightly different
+approach to spatial modeling. Instead of using latent effects, spatial
+dependence is modeled explicitly. Autoregressive models are used to make the
+response variable to depend on the values of its neighbors.</p>
+<div id="simultaneous-autoregressive-model-sem" class="section level3">
+<h3>Simultaneous Autoregressive Model (SEM)</h3>
+<p>This model includes covariates and an autoregressive on the <strong>error term</strong>:</p>
+<p><span class="math display">\[
+y= X \beta+u; u=\rho Wu+e; e\sim N(0, \sigma^2)
+\]</span></p>
+<p><span class="math display">\[
+y= X \beta + \varepsilon; \varepsilon\sim N(0, \sigma^2 (I-\rho W)^{-1} (I-\rho W&#39;)^{-1})
+\]</span></p>
+</div>
+<div id="spatial-lag-model-slm" class="section level3">
+<h3>Spatial Lag Model (SLM)</h3>
+<p>This model includes covariates and an autoregressive on the <strong>response</strong>:</p>
+<p><span class="math display">\[
+y = \rho W y + X \beta + e; e\sim N(0, \sigma^2)
+\]</span></p>
+<p><span class="math display">\[
+y = (I-\rho W)^{-1}X\beta+\varepsilon;\ \varepsilon \sim N(0, \sigma^2(I-\rho W)^{-1} (I-\rho W&#39;)^{-1})
+\]</span></p>
+</div>
+<div id="new-slm-latent-class" class="section level3">
+<h3>New <code>slm</code> Latent Class</h3>
+<p><code>R-INLA</code> includes now an <em>experimental</em> new latent effect called <code>slm</code> to
+fit the following model:</p>
+<p><span class="math display">\[
+\mathbf{x}= (I_n-\rho W)^{-1} (X\beta +e)
+\]</span></p>
+<p>The elements of this model are:</p>
+<ul>
+<li><span class="math inline">\(W\)</span> is a row-standardized adjacency matrix.</li>
+<li><span class="math inline">\(\rho\)</span> is a spatial autocorrelation parameter.</li>
+<li><span class="math inline">\(X\)</span> is a matrix of covariates, with coefficients <span class="math inline">\(\beta\)</span>.</li>
+<li><span class="math inline">\(e\)</span> are Gaussian i.i.d. errors with variance <span class="math inline">\(\sigma^2\)</span>.</li>
+</ul>
+<p>The <code>slm</code> latent effect is <strong>experimental</strong> and it can be
+combined with other effects in the linear predictor</p>
+<p>Spatial econometrics models can be fit with the <code>slm</code> latent
+effect by noting that the SME and SLM can be defined as:</p>
+<ul>
+<li><strong>SEM</strong></li>
+</ul>
+<p><span class="math display">\[
+y= X \beta + (I-\rho W)^{-1} (0+e);\ e \sim N(0, \sigma^2 I)
+\]</span></p>
+<ul>
+<li><strong>SLM</strong></li>
+</ul>
+<p><span class="math display">\[
+y = (I-\rho W)^{-1}(X\beta+e);\ e \sim N(0, \sigma^2 I)
+\]</span></p>
+</div>
+<div id="model-definition" class="section level3">
+<h3>Model definition</h3>
+<p>In order to define a model, we need:</p>
+<ul>
+<li><code>X</code>: Matrix of covariates</li>
+<li><code>W</code>: <strong>Row-standardized</strong> adjacency matrix</li>
+<li><code>Q</code>: Precision matrix of coefficients <span class="math inline">\(\beta\)</span></li>
+<li>Range of <span class="math inline">\(\rho\)</span>, often defined by the eigenvalues</li>
+</ul>
+<pre class="r"><code>#X
+mmatrix &lt;- model.matrix(Cases ~ 1 + AVGIDIST, NY8)
+
+#W
+W &lt;- as(nb2mat(NY8.nb, style = &quot;W&quot;), &quot;Matrix&quot;)
+
+#Q
+Q.beta = Diagonal(n = ncol(mmatrix), x = 0.001)
+
+#Range of rho
+rho.min&lt;- -1
+rho.max&lt;- 1</code></pre>
+<p>The argument of the <code>slm</code> latent effects are passed through argument
+<code>args.sm</code>. Here, we have created a list with the same name to keep
+all the required values together:</p>
+<pre class="r"><code>#Arguments for &#39;slm&#39;
+args.slm = list(
+   rho.min = rho.min ,
+   rho.max = rho.max,
+   W = W,
+   X = mmatrix,
+   Q.beta = Q.beta
+)</code></pre>
+<p>In addition, the prior for the precision parameter<span class="math inline">\(\tau\)</span> and the spatial
+autocorrelation parameter <span class="math inline">\(\rho\)</span> are set:</p>
+<pre class="r"><code>#Prior on rho
+hyper.slm = list(
+   prec = list(
+      prior = &quot;loggamma&quot;, param = c(0.01, 0.01)),
+      rho = list(initial=0, prior = &quot;logitbeta&quot;, param = c(1,1))
+)</code></pre>
+<p>The prior definition uses a named list with different arguments. Argument
+<code>prior</code> defines the prior to use, and <code>param</code> its parameters. Here, the
+precision is assigned a gamma prior with parameters <span class="math inline">\(0.01\)</span> and <span class="math inline">\(0.01\)</span>, while
+the spatial autocorrelation parameter is given a beta prior with parameters <span class="math inline">\(1\)</span>
+and <span class="math inline">\(1\)</span> (i.e., a uniform prior in the interval <span class="math inline">\((1, 1)\)</span>).</p>
+</div>
+<div id="model-fitting" class="section level3">
+<h3>Model fitting</h3>
+<pre class="r"><code>#SLM model
+m.slm &lt;- inla( Cases ~ -1 +
+     f(ID, model = &quot;slm&quot;, args.slm = args.slm, hyper = hyper.slm),
+   data = as.data.frame(NY8), family = &quot;poisson&quot;,
+   E = NY8$Expected,
+   control.predictor = list(compute = TRUE),
+   control.compute = list(dic = TRUE, waic = TRUE)
+)</code></pre>
+<pre><code>## Warning in inla.model.properties.generic(inla.trim.family(model), (mm[names(mm) == : Model &#39;slm&#39; in section &#39;latent&#39; is marked as &#39;experimental&#39;; changes may appear at any time.
+##   Use this model with extra care!!! Further warnings are disabled.</code></pre>
+<pre class="r"><code>summary(m.slm)</code></pre>
+<pre><code>## 
+## Call:
+##    c(&quot;inla(formula = Cases ~ -1 + f(ID, model = \&quot;slm\&quot;, args.slm = 
+##    args.slm, &quot;, &quot; hyper = hyper.slm), family = \&quot;poisson\&quot;, data = 
+##    as.data.frame(NY8), &quot;, &quot; E = NY8$Expected, control.compute = 
+##    list(dic = TRUE, waic = TRUE), &quot;, &quot; control.predictor = 
+##    list(compute = TRUE))&quot;) 
+## Time used:
+##     Pre = 0.265, Running = 1.2, Post = 0.058, Total = 1.52 
+## Random effects:
+##   Name     Model
+##     ID SLM model
+## 
+## Model hyperparameters:
+##                   mean    sd 0.025quant 0.5quant 0.975quant  mode
+## Precision for ID 8.989 4.115      3.709    8.085     19.449 6.641
+## Rho for ID       0.822 0.073      0.653    0.832      0.936 0.854
+## 
+## Expected number of effective parameters(stdev): 62.82(15.46)
+## Number of equivalent replicates : 4.47 
+## 
+## Deviance Information Criterion (DIC) ...............: 902.32
+## Deviance Information Criterion (DIC, saturated) ....: 372.95
+## Effective number of parameters .....................: 64.13
+## 
+## Watanabe-Akaike information criterion (WAIC) ...: 905.19
+## Effective number of parameters .................: 56.12
+## 
+## Marginal log-Likelihood:  -477.30 
+## Posterior marginals for the linear predictor and
+##  the fitted values are computed</code></pre>
+<p>Estimates of the coefficients appear as part of the random effects:</p>
+<pre class="r"><code>round(m.slm$summary.random$ID[47:48,], 4)</code></pre>
+<pre><code>##    ID   mean     sd 0.025quant 0.5quant 0.975quant   mode kld
+## 47 47 0.4634 0.3107    -0.1618   0.4671     1.0648 0.4726   0
+## 48 48 0.2606 0.3410    -0.4583   0.2764     0.8894 0.3063   0</code></pre>
+<p>Spatial autocorrelation is reported in the internal scale (i.e., between
+0 and 1) and needs to be re-scaled:</p>
+<pre class="r"><code>marg.rho.internal &lt;- m.slm$marginals.hyperpar[[&quot;Rho for ID&quot;]]
+marg.rho &lt;- inla.tmarginal( function(x) {
+  rho.min + x * (rho.max - rho.min)
+}, marg.rho.internal)
+
+inla.zmarginal(marg.rho, FALSE)</code></pre>
+<pre><code>## Mean            0.644436 
+## Stdev           0.145461 
+## Quantile  0.025 0.309507 
+## Quantile  0.25  0.556851 
+## Quantile  0.5   0.663068 
+## Quantile  0.75  0.752368 
+## Quantile  0.975 0.869702</code></pre>
+<pre class="r"><code>plot(marg.rho, type = &quot;l&quot;, main = &quot;Spatial autocorrelation&quot;)</code></pre>
+<p><img src="/post/2019-11-05_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+</div>
+</div>
+<div id="summary-of-results" class="section level2">
+<h2>Summary of results</h2>
+<pre class="r"><code>NY8$ICAR &lt;- m.icar$summary.fitted.values[, &quot;mean&quot;]
+NY8$BYM &lt;- m.bym$summary.fitted.values[, &quot;mean&quot;]
+NY8$LEROUX &lt;- m.ler$summary.fitted.values[, &quot;mean&quot;]
+NY8$SLM &lt;- m.slm$summary.fitted.values[, &quot;mean&quot;]</code></pre>
+<pre class="r"><code>spplot(NY8[syracuse, ], 
+  c(&quot;FIXED.EFF&quot;, &quot;IID.EFF&quot;, &quot;ICAR&quot;, &quot;BYM&quot;, &quot;LEROUX&quot;, &quot;SLM&quot;),
+  col.regions = rev(magma(16))
+)</code></pre>
+<p><img src="/post/2019-11-05_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>Note how spatial models produce smoother estimates of the relative risk.</p>
+<p>In order to choose the best model, the model selection criteria computed
+above can be used:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">Marg. Lik.</th>
+<th align="right">DIC</th>
+<th align="right">WAIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FIXED</td>
+<td align="right">-480.2814</td>
+<td align="right">948.1198</td>
+<td align="right">949.0287</td>
+</tr>
+<tr class="even">
+<td>IID</td>
+<td align="right">-478.6043</td>
+<td align="right">926.9295</td>
+<td align="right">932.6333</td>
+</tr>
+<tr class="odd">
+<td>ICAR</td>
+<td align="right">-685.6478</td>
+<td align="right">904.1253</td>
+<td align="right">906.7689</td>
+</tr>
+<tr class="even">
+<td>BYM</td>
+<td align="right">-425.2479</td>
+<td align="right">903.4114</td>
+<td align="right">906.6138</td>
+</tr>
+<tr class="odd">
+<td>LEROUX</td>
+<td align="right">-474.4091</td>
+<td align="right">903.1453</td>
+<td align="right">906.1948</td>
+</tr>
+<tr class="even">
+<td>SLM</td>
+<td align="right">-476.8145</td>
+<td align="right">902.3201</td>
+<td align="right">905.1892</td>
+</tr>
+</tbody>
+</table>
+</div>
