@@ -1,6 +1,6 @@
 ---
 title: "Spatial Data Analysis with INLA"
-author: "Virgilio Gómez Rubio"
+authors: ["Virgilio Gómez Rubio"]
 date: 2019-11-05
 categories: ["R"]
 tags: ["R", "INLA", "spatial"]
@@ -143,13 +143,9 @@ package. The dataset records a number of cases of leukemia in upstate New York
 at the census tract level. Some of the variables in the dataset are:
 
 * `Cases`: Number of leukemia cases in the period 1978-1982.
-
 * `POP8`: Population in 1980.
-
 * `PCTOWNHOME`:  Proportion of people who own their home.
-
 * `PCTAGE65P`:  Proportion of people aged 65 or more.
-
 * `AVGIDIST`: Average inverse distance to the nearest Trichloroethene (TCE) site.
 
 Note that the interest is on the exposure to TCE, using `AVGIDIST` as a proxy
@@ -199,7 +195,7 @@ syracuse <- which(NY8$AREANAME == "Syracuse city")
 A disease map can be simply created with function `spplot` (in package
 `sp`):
 
-```{r fig = TRUE, echo = FALSE}
+```{r fig = TRUE}
 library(viridis)
 spplot(NY8[syracuse, ], "SMR", #at = c(0.6, 0.9801, 1.055, 1.087, 1.125, 13),
    col.regions = rev(magma(16))) #gray.colors(16, 0.9, 0.4))
@@ -207,7 +203,7 @@ spplot(NY8[syracuse, ], "SMR", #at = c(0.6, 0.9801, 1.055, 1.087, 1.125, 13),
 
 Interactive maps can be easily created with the `tmap` package:
 
-```{r eval = TRUE, echo = FALSE, message = FALSE, warning = FALSE}
+```{r eval = TRUE, message = FALSE, warning = FALSE}
 library(tmap)
 tmap_mode("view")
 
@@ -215,7 +211,7 @@ SMR_map <- tm_shape(NY8[syracuse, ]) +
   tm_fill(col = "SMR", alpha = 0.35) +
   tm_borders() +
   tm_shape(TCE) + tm_dots(col = "red") # Add TCE sites
-SMR_map
+widgetframe::frameWidget(print(SMR_map))
 ```
 
 Note that the previous map also includes the locations of the 11
@@ -262,7 +258,7 @@ Other arguments are set to compute the marginals of the model parameters
 
 Next, the summary of the model can be obtained:
 
-```{r echo = FALSE}
+```{r}
 summary(m1)
 ```
 
@@ -304,7 +300,7 @@ m2 <- inla(Cases ~ 1 + AVGIDIST + f(ID, model = "iid"),
 
 Now the summary of the mode includes information about the random effects:
 
-```{r echo = FALSE}
+```{r}
 summary(m2)
 ```
 
@@ -319,7 +315,7 @@ NY8$FIXED.EFF <- m1$summary.fitted[, "mean"]
 NY8$IID.EFF <- m2$summary.fitted[, "mean"]
 ```
 
-```{r echo = TRUE, fig = TRUE, fig.width = 8, fig.height = 4}
+```{r, fig = TRUE, fig.width = 8, fig.height = 4}
 spplot(NY8[syracuse, ], c("SMR", "FIXED.EFF", "IID.EFF"),
   col.regions = rev(magma(16)))
 ```
@@ -378,7 +374,6 @@ covariates we may want to account for the spatial structure of the data.
 Different types of regression models can be used to model lattice data:
 
 + Generalized Linear Models (with spatial random effects).
-
 + Spatial econometrics models.
 
 ### Linear Mixed Models
@@ -471,7 +466,7 @@ m.icar <- inla(Cases ~ 1 +  AVGIDIST +
 ```
 
 
-```{r echo = FALSE}
+```{r}
 summary(m.icar)
 ```
 
@@ -487,7 +482,6 @@ $$
 $$
 
 * $u_i$ is an i.i.d. Gaussian random effect
-
 * $v_i$ is an intrinsic CAR random effect
 
 
@@ -505,7 +499,7 @@ m.bym = inla(Cases ~ 1 +  AVGIDIST +
 ```
 
 
-```{r echo = FALSE}
+```{r}
 summary(m.bym)
 ```
 
@@ -571,7 +565,7 @@ m.ler = inla(Cases ~ 1 +  AVGIDIST +
   control.compute = list(dic = TRUE, waic = TRUE))
 ```
 
-```{r, echo = FALSE}
+```{r}
 summary(m.ler)
 ```
 
@@ -625,11 +619,8 @@ $$
 The elements of this model are:
 
 * $W$ is a row-standardized adjacency matrix.
-
 * $\rho$ is a spatial autocorrelation parameter.
-
 * $X$ is a matrix of covariates, with coefficients $\beta$.
-
 * $e$ are Gaussian i.i.d. errors with variance $\sigma^2$.
 
 
@@ -657,11 +648,8 @@ $$
 In order to define a model, we need:
 
 * `X`: Matrix of covariates
-
-* `W` **Row-standardized** adjacency matrix
-
+* `W`: **Row-standardized** adjacency matrix
 * `Q`: Precision matrix of coefficients  $\beta$
-
 * Range of $\rho$, often defined by the eigenvalues
 
 
@@ -730,7 +718,7 @@ m.slm <- inla( Cases ~ -1 +
 ```
 
 
-```{r echo = FALSE}
+```{r}
 summary(m.slm)
 ```
 
@@ -755,7 +743,7 @@ inla.zmarginal(marg.rho, FALSE)
 
 ```
 
-```{r fig = TRUE, echo = FALSE}
+```{r fig = TRUE}
 plot(marg.rho, type = "l", main = "Spatial autocorrelation")
 
 ```
@@ -772,7 +760,7 @@ NY8$SLM <- m.slm$summary.fitted.values[, "mean"]
 ```
 
 
-```{r fig = TRUE, echo = TRUE}
+```{r fig = TRUE}
 spplot(NY8[syracuse, ], 
   c("FIXED.EFF", "IID.EFF", "ICAR", "BYM", "LEROUX", "SLM"),
   col.regions = rev(magma(16))
@@ -784,7 +772,7 @@ Note how spatial models produce smoother estimates of the relative risk.
 In order to choose the best model, the model selection criteria computed
 above can be used:
 
-```{r echo = FALSE}
+```{r, echo=FALSE}
 
 results <- lapply(list(m1, m2, m.icar, m.bym, m.ler, m.slm), function(X) {
 
