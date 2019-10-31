@@ -788,3 +788,18 @@ knitr::kable(tab.res)
 
 ```
 
+## References
+
+Bivand, R., E. Pebesma and V. Gómez-Rubio (2013). *Applied spatial data
+analysis with R*. Springer-Verlag. New York.
+
+Gómez-Rubio, V. (2020). Bayesian inference with INLA. CRC Press. Boca Raton,
+FL. [https://becarioprecario.bitbucket.io/inla-gitbook](https://becarioprecario.bitbucket.io/inla-gitbook)
+
+Rue, H., S. Martino and N. Chopin (2009). *Approximate bayesian inference for
+latent Gaussian models by using integrated nested Laplace approximations*.
+Journal of the royal statistical society: Series B (statistical methodology)
+71(2): 319–392.
+
+Waller, L. A. and C. A. Gotway (2004). Applied spatial statistics for public
+health data. John Wiley & Sons, Inc. Hoboken, New Jersey.
