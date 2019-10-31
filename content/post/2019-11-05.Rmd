@@ -1,20 +1,20 @@
 ---
 title: "Spatial Data Analysis with INLA"
 author: "Virgilio Gómez Rubio"
-date : 2019-11-05
+date: 2019-11-05
 categories: ["R"]
 tags: ["R", "INLA", "spatial"]
 ---
 
 ## Introduction
 
-In this session I will focus on Bayesian inference using the integrated
-nested Laplace approximation (INLA) method. This is described in Rue et al.
-(2019) that can be used to estimate the posterior marginal distribution
-of Bayesian hierarchical models. This is implemented in the `INLA` package
-available for the `R` programming language. Given that the types of models
-that INLA can fit is quite wide, we will focus on spatial models for the
-analysis of lattice data. Hence, 
+In this session I will focus on Bayesian inference using the integrated nested
+Laplace approximation (INLA) method. As described in Rue et al.  (2009), INLA
+can be used to estimate the posterior marginal distribution of Bayesian
+hierarchical models. This method is implemented in the `INLA` package available
+for the `R` programming language. Given that the types of models that INLA can
+fit are quite wide, we will focus on spatial models for the analysis of lattice
+data. Hence, 
 
 
 ## Bayesian inference
@@ -57,17 +57,17 @@ $\pi(\theta, \mathbf{x} \mid y)$ can be very difficult.
 ### Inference with Markov chain Monte Carlo
 
 In the last 20-30 years some computational approaches have been proposed to
-estimate $\pi(\theta, \mathbf{x} \mid y)$ with Monte Carlo methods.  MCMC
-provides simulations from the ensemble of model parameters, i.e., a
-multivariate distribution.  This will allow us to estimate the joint posterior
-distribution. 
+estimate $\pi(\theta, \mathbf{x} \mid y)$ with Monte Carlo methods.  In
+particular, Markov chain Monte Carlo (MCMC) methods provide simulations from
+the ensemble of model parameters, i.e., a multivariate distribution.  This will
+allow us to estimate the joint posterior distribution. 
 
 However, we may be interested in a single parameter or a subset of the
 parameters. Inference for this subset of parameters can be done by simply
 ignoring the samples for the other parameters
 
 Using the samples it is possible to compute the posterior distribution of any
-function on the model parameters.  MCMC may require lots of simulations for
+function on the model parameters.  Notice that MCMC may require lots of simulations for
 valid inference. Also, we must check that the burn-in period has ended, i.e.,
 we have reached the posterior distribution
 
@@ -103,7 +103,7 @@ The posterior distribution of the hyperparameters $\pi(\mathbf{\theta}\mid  \mat
 The INLA method is implemented in the `INLA` (also known as `R-INLA`) package,
 which is available from [http://www.r-inla.org](http://www.r-inla.org).
 This package relies on the `inla()`-function to fit the models. This functions
-woks in a similar way as , for example, `glm()`. The model is defined in a \code{formula} and there is a flexible way of defining the likelihood, priors and
+works in a similar way as, for example, `glm()`. The model is defined in a \code{formula} and there is a flexible way of defining the likelihood, priors and
 latent effects in the model.
 
 
@@ -136,11 +136,11 @@ in `INLA`:
 
 ## Dataset: Leukemia in upstate New York
 
-To illustrate how spatial models are fit with `INLA`, the New York leukemia
-dataset will be used. This has been widely analyzed in the literature
-(see, for example, Waller and Gotway, 2004) and it is available in the
-`DClusterm` package. The dataset records number of cases of leukemia in upstate
-New York at the census tract level. Some of the variables in the dataset are:
+To illustrate how spatial models are fitted with `INLA`, the New York leukemia
+dataset will be used. This has been widely analyzed in the literature (see, for
+example, Waller and Gotway, 2004) and it is available in the `DClusterm`
+package. The dataset records a number of cases of leukemia in upstate New York
+at the census tract level. Some of the variables in the dataset are:
 
 * `Cases`: Number of leukemia cases in the period 1978-1982.
 
@@ -176,7 +176,7 @@ rate <- sum(NY8$Cases) / sum(NY8$POP8)
 NY8$Expected <- NY8$POP8 * rate
 ```
 
-Once the expected number of cases are obtained, a raw estimate of risk can be
+Once the expected number of cases is obtained, a raw estimate of risk can be
 obtained with the *standardized mortality ratio* (SMR), which is computed as
 the number of observed cases divided by the number of expected cases: 
 
@@ -218,7 +218,7 @@ SMR_map <- tm_shape(NY8[syracuse, ]) +
 SMR_map
 ```
 
-Note that the previous map also include the locations of the 11
+Note that the previous map also includes the locations of the 11
 TCE-contaminated sites and that this can be seen by zooming out.
 
 
@@ -226,9 +226,9 @@ TCE-contaminated sites and that this can be seen by zooming out.
 
 ### Poisson regression
 
-The first model that we will consider is a Poisson model
-with no latent random effects as this will provide a baseline to compare
-other models to. The model to fit is :
+The first model that we will consider is a Poisson model with no latent random
+effects as this will provide a baseline to compare to other models. The model
+to fit is :
 
 $$
 O_i|\mu_i \sim Po(\mu_i)
@@ -253,8 +253,8 @@ m1 <- inla(Cases ~ 1 + AVGIDIST,
   control.compute = list(dic = TRUE, waic = TRUE))
 ```
 
-Note that it works similarly as the `glm` function. Here, argument
-`E` is used fo the expected number of cases. Alternatively, they could
+Note that it works similarly to the `glm` function. Here, argument
+`E` is used for the expected number of cases. Alternatively, they could
 enter the linear predictor in the log-scale as an offset.
 Other arguments are set to compute the marginals of the model parameters
 (with `control.predictor`) and to compute some model choice criteria
@@ -341,7 +341,7 @@ We have observations $y=\{y_i\}_{i=1}^n$ from the $n$ areas. $\mathbf{y}$ is
 assigned a multivariate distribution that *accounts for spatial dependence*.  A
 common way of describing spatial proximity in lattice data is by means of an
 *adjacency matrix $W$. Element $W_{i, j}$ is non-zero if areas $i$ and $j$ are
-neighbors. Usually, two areas are neighbors if the share a common boundary
+neighbors. Usually, two areas are neighbors if they share a common boundary.
 There are other definitions of neighborhood (see Bivand et al., 2013).
 
 
@@ -391,14 +391,14 @@ Y =  X \beta+ Zu +\varepsilon
 $$
 
 
-The vector random effects $u$ is modeled as a multivariate Normal distribution:
+The vector of random effects $u$ is modeled as a multivariate Normal distribution:
 
 $$
 u \sim N(0, \sigma^2_u \Sigma)
 $$
 
 $\Sigma$ is defined such as it induces higher correlation with adjacent areas, $Z$ is a design matrix for the random effects and 
-$\varepsilon_i \sim N(0, \sigma^2), i=1, \ldots, n$ is an error term
+$\varepsilon_i \sim N(0, \sigma^2), i=1, \ldots, n$ is an error term.
 
 Generalized Linear Mixed Models can be defined in a similar way by using a 
 different likelihood and linking the appropriate parameter to the linear
@@ -447,17 +447,17 @@ $$
   $M$ precision of intrinsic CAR specification
 
 
-CAR and ICAR specifications have been proposed within the Statistics
-field, while the SAR specification was coined within Spatial Econometrics.
-In the end, all specifications presented here can be regarded as Gaussian latent
-effects with a particular precision matrix.
+CAR and ICAR specifications have been proposed within the Statistics field,
+while the SAR specification was coined within Spatial Econometrics.  Regardless
+of its origin, all specifications presented here can be regarded as Gaussian
+latent effects with a particular precision matrix.
 
 ### ICAR model 
 
 The first example will be based on the ICAR specification. Note that the
 spatial latent effect is defined using the `f`-function. This will require
 an index to identify the random effects in each area, the type of model
-and the adjacency matrix. For this, an sparse matrix will be used.
+and the adjacency matrix. For this, a sparse matrix will be used.
 
 ```{r}
 # Create sparse adjacency matrix
@@ -493,7 +493,7 @@ $$
 
 
 There is no need
-to define these two latent effects when `model` is set to `"bym"` when
+to define these two latent effects if `model` is set to `"bym"` when
 the latent random effect is defined with the `f` function.
 
 ```{r}
@@ -581,7 +581,7 @@ summary(m.ler)
 Spatial econometrics have been developed following a slightly different
 approach to spatial modeling. Instead of using latent effects, spatial
 dependence is modeled explicitly. Autoregressive models are used to make the
-response variable to depend on the values at its neighbors.
+response variable to depend on the values of its neighbors.
 
 
 ### Simultaneous Autoregressive Model (SEM)
