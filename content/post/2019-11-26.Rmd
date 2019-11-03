@@ -237,7 +237,7 @@ Say you have this R script (and its companion test):
 
 ```{r eval = FALSE}
 # R/sign_of_product.R
-sign_of_product.R <- function(x, y) {
+sign_of_product <- function(x, y) {
     if (x < 0) {
         if (y < 0) {
             return("Positive")
