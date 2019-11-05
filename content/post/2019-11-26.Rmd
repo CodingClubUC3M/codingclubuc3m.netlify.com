@@ -411,7 +411,7 @@ For reference, the full-fledged workflow looks like this:
 
 ### Benefits of TDD
 
-* It ensures that we get the desired result
+* It ensures that we get the desired result.
 * It compels us to produce testable code.
 * It serves as a guide in case we don't know where to start but we are clear on what we want to get.
 * Let's be honest, if we manage to get working code, there is little chance that we'll devote time to write tests later.
@@ -436,7 +436,7 @@ Lets tackle them one at a time.
 
 __Requirement #1__:  The result of `my_factorial(0)` must be 1
 
-Step 1 (RED): Write the first test:
+Step 1 (RED).  Write the first test:
 ```{r error=TRUE}
 # tests/testthat/test_myfactorial.R
 test_that("Valid arguments", {
@@ -446,7 +446,7 @@ test_that("Valid arguments", {
 As expected, the test has failed.  Be wary otherwise.
 
 
-Step 2 (GREEN): Write the minimum amount of code that makes the test pass:
+Step 2 (GREEN).  Write the minimum amount of code that makes the test pass:
 ```{r error=TRUE}
 # R/myfactorial.R
 my_factorial <- function(n) 1 # Looks like cheating, but bear with me!
@@ -462,7 +462,7 @@ Congrats! The code now passes the test, yay!
 __Requirement #2__: Choose a number _n_; `my_factorial(n)`
 should return the product of all positive integers less than or equal to _n_
 
-Step 1 (RED): Write a test:
+Step 1 (RED).  Write a test:
 ```{r error=TRUE}
 # tests/testthat/test_myfactorial.R
 test_that("Valid arguments", {
@@ -472,7 +472,7 @@ test_that("Valid arguments", {
 ```
 
 
-Step 2 (GREEN): Write the minimum amount of code that makes the tests pass:
+Step 2 (GREEN).  Write the minimum amount of code that makes the tests pass:
 ```{r error=TRUE}
 # R/myfactorial.R
 my_factorial <- function(n) {
@@ -490,7 +490,7 @@ test_that("Valid arguments", {
 Test passing now.
 
 
-Step 3 (RED): Write yet another test:
+Step 3 (RED).  Write yet another test:
 ```{r error=TRUE}
 # tests/testthat/test_myfactorial.R
 test_that("Valid arguments", {
@@ -501,7 +501,7 @@ test_that("Valid arguments", {
 ```
 
 
-Step 4 (GREEN+REFACTOR): We don't have a choice but to refactor. The tests already in place will keep our new code true!
+Step 4 (GREEN+REFACTOR).  We don't have a choice but to refactor. The tests already in place will keep our new code true!
 
 ```{r error=TRUE}
 # R/myfactorial.R
