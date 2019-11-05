@@ -536,7 +536,7 @@ Then, $\lambda_{max} = 1$ and
 $$
 \Sigma^{-1} = 
 \frac{1}{\tau}(I_n-\frac{\rho}{\lambda_{max}}C) = 
-  \frac{1}{\tau}(I_n-\rho(I_n - M)) = (1-\rho) I_n + \rho M
+  \frac{1}{\tau}(I_n-\rho(I_n - M)) = \frac{1}{\tau}((1-\rho) I_n + \rho M)
 $$
 
 

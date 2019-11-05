@@ -578,7 +578,7 @@ C = I_n - M;\ M = diag(n_i) - W
 <p><span class="math display">\[
 \Sigma^{-1} = 
 \frac{1}{\tau}(I_n-\frac{\rho}{\lambda_{max}}C) = 
-  \frac{1}{\tau}(I_n-\rho(I_n - M)) = (1-\rho) I_n + \rho M
+  \frac{1}{\tau}(I_n-\rho(I_n - M)) = \frac{1}{\tau}((1-\rho) I_n + \rho M)
 \]</span></p>
 <p>To fit the model, the first step is to create matrix <span class="math inline">\(M\)</span>:</p>
 <pre class="r"><code>ICARmatrix &lt;- Diagonal(nrow(NY8.mat), apply(NY8.mat, 1, sum)) - NY8.mat
