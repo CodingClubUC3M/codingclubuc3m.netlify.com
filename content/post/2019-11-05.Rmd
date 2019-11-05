@@ -277,7 +277,7 @@ $$
 $$
 
 $$
-\log(\theta_i) = \beta_0 + \beta_1 AVGIDIST_i
+\log(\theta_i) = \beta_0 + \beta_1 AVGIDIST_i + u_i
 $$
 
 $$
