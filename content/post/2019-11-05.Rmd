@@ -224,7 +224,7 @@ TCE-contaminated sites and that this can be seen by zooming out.
 
 The first model that we will consider is a Poisson model with no latent random
 effects as this will provide a baseline to compare to other models. The model
-to fit is :
+to fit is:
 
 $$
 O_i|\mu_i \sim Po(\mu_i)
@@ -329,14 +329,14 @@ Note how the model smooths the relative risk.
 
 Lattice data involves data measured at different areas, e.g.,
 neighborhoods, cities, provinces, states, etc. Spatial dependence appears because neighbor areas will show similar
-values of the variable of interest
+values of the variable of interest.
 
 ### Models for lattice data
 
 We have observations $y=\{y_i\}_{i=1}^n$ from the $n$ areas. $\mathbf{y}$ is
 assigned a multivariate distribution that *accounts for spatial dependence*.  A
 common way of describing spatial proximity in lattice data is by means of an
-*adjacency matrix $W$. Element $W_{i, j}$ is non-zero if areas $i$ and $j$ are
+adjacency matrix $W$. Element $W_{i, j}$ is non-zero if areas $i$ and $j$ are
 neighbors. Usually, two areas are neighbors if they share a common boundary.
 There are other definitions of neighborhood (see Bivand et al., 2013).
 

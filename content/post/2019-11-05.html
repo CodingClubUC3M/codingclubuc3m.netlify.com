@@ -217,7 +217,7 @@ TCE-contaminated sites and that this can be seen by zooming out.</p>
 <h3>Poisson regression</h3>
 <p>The first model that we will consider is a Poisson model with no latent random
 effects as this will provide a baseline to compare to other models. The model
-to fit is :</p>
+to fit is:</p>
 <p><span class="math display">\[
 O_i|\mu_i \sim Po(\mu_i)
 \]</span></p>
@@ -348,13 +348,13 @@ NY8$IID.EFF &lt;- m2$summary.fitted[, &quot;mean&quot;]</code></pre>
 <h2>Spatial Models for Lattice Data</h2>
 <p>Lattice data involves data measured at different areas, e.g.,
 neighborhoods, cities, provinces, states, etc. Spatial dependence appears because neighbor areas will show similar
-values of the variable of interest</p>
+values of the variable of interest.</p>
 <div id="models-for-lattice-data" class="section level3">
 <h3>Models for lattice data</h3>
 <p>We have observations <span class="math inline">\(y=\{y_i\}_{i=1}^n\)</span> from the <span class="math inline">\(n\)</span> areas. <span class="math inline">\(\mathbf{y}\)</span> is
 assigned a multivariate distribution that <em>accounts for spatial dependence</em>. A
 common way of describing spatial proximity in lattice data is by means of an
-*adjacency matrix <span class="math inline">\(W\)</span>. Element <span class="math inline">\(W_{i, j}\)</span> is non-zero if areas <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are
+adjacency matrix <span class="math inline">\(W\)</span>. Element <span class="math inline">\(W_{i, j}\)</span> is non-zero if areas <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are
 neighbors. Usually, two areas are neighbors if they share a common boundary.
 There are other definitions of neighborhood (see Bivand et al., 2013).</p>
 </div>
