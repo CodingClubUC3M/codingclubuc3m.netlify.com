@@ -174,11 +174,21 @@ test_that("Add one to 99", {
 From the R console, you can run all tests in a file with `test_file("./path/to/file")`,
 and all tests in a folder with `test_dir("./path/to/folder")`.
 
-Both functions, `test_file()` and `test_dir()`, accept a parameter `reporter` with tree options:
+Both functions, `test_file()` and `test_dir()`, accept a parameter `reporter` with several options, such as:
 
-* "stop" halts the testing whenever a failure is encountered.
-* "minimal" if you want a simpler report.
-* "summary", which is the default.
+* "progress", which is the default,
+* "minimal" if you want a simpler report,
+* "location", which shows the file, line and column of the test run (failed or otherwise),
+* "debug", which allows to debug interactively a failing test
+and more.
+
+These can also be combined into a `MultiReporter`, by passing an string vector with several reporters:
+
+```{r eval = FALSE}
+test_dir("./path/to/folder", reporter=c("minimal", "location"))
+```
+
+Fancy, eh?
 
 See
 [the](https://www.rdocumentation.org/packages/testthat/versions/2.2.1/topics/test_file)
