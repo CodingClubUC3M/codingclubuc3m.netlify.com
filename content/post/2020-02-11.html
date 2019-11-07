@@ -1,0 +1,407 @@
+---
+title: 'An introduction to webscraping: locating Spanish schools'
+authors: Jorge Cimentada
+date: "2020-02-11"
+categories: ["R"]
+tags: ["R", "big data", "webscraping"]
+---
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Whevener a new paper is released using some type of scraped data, most of my peers in the social science community get baffled at how researchers can do this. In fact, many social scientists can’t even think of research questions that can be addressed with this type of data simply because they don’t know it’s even possible. As the old saying goes, when you have a hammer, every problem looks like a nail.</p>
+<p>With increasing amount of data being collected on a daily basis, it is eminent that scientists start getting familiar with new technologies that can help answer old questions. Moreover, we need to be adventerous about cutting edge data sources as they can also allow us to ask new questions which weren’t even thought of in the past.</p>
+<p>In this tutorial I’ll be guiding you through the basics of web scraping using R and the <code>xml2</code> and <code>httr</code> packages. I’ll begin with a very simple example using some fake data and elaborate further by trying to scrape the location of a sample of schools in Spain.</p>
+</div>
+<div id="basic-steps" class="section level1">
+<h1>Basic steps</h1>
+<p>For web scraping in <code>R</code>, you can fulfill almost all of your needs with the <code>xml2</code> and <code>httr</code> package. As you wander through the web, you’ll see many examples using the <code>rvest</code> package. <code>xml2</code> and <code>rvest</code> are very similar so don’t feel you’re lacking behind for learning one and not the other. In addittion to these two packages, we’ll need some others for plotting locations on a map (<code>ggplot2</code>, <code>sf</code>, <code>rnaturalearth</code>) and wrangling data (<code>tidyverse</code>).</p>
+<p>The final package used in the real world example is <code>scrapex</code>. In the real world example, we’ll be scraping data from the website <code>www.buscocolegio.com</code> to locate a sample of schools in Spain. However, throughout the tutorial we won’t be scraping the data directly from their real website. What would happen to this tutorial if 6 months from now <code>www.buscocolegio.com</code> updates the design of the website? Everything from our real world example would be lost.</p>
+<p>Scraping tutorials are usually very unstable precisely because of this. To circumvent that problem, I’ve saved a random sample of websites from some schools in <code>www.buscocolegio.com</code> into an R package called <code>scrapex</code>. Althought the links we’ll be working on will be hosted locally on your machine, the HTML of the website is identical to the one hosted on the website.</p>
+<p>You can install the package with:</p>
+<pre class="r"><code># install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;cimentadaj/scrapex&quot;)</code></pre>
+<p>If you see a lot of warnings during the installation, it is expected. It is related to the package being too big for normal CRAN standards. Let’s load all of our packages with:</p>
+<p>Let’s begin with a simple example. Below we define an XML structure and look at it’s structure:</p>
+<pre class="r"><code>xml_test &lt;- &quot;&lt;people&gt;
+&lt;jason&gt;
+  &lt;person type=&#39;fictional&#39;&gt;
+    &lt;first_name&gt;
+      &lt;married&gt;
+        Jason
+      &lt;/married&gt;
+    &lt;/first_name&gt;
+    &lt;last_name&gt;
+        Bourne
+    &lt;/last_name&gt;
+    &lt;occupation&gt;
+      Spy
+    &lt;/occupation&gt;
+  &lt;/person&gt;
+&lt;/jason&gt;
+&lt;carol&gt;
+  &lt;person type=&#39;real&#39;&gt;
+    &lt;first_name&gt;
+      &lt;married&gt;
+        Carol
+      &lt;/married&gt;
+    &lt;/first_name&gt;
+    &lt;last_name&gt;
+        Kalp
+    &lt;/last_name&gt;
+    &lt;occupation&gt;
+      Scientist
+    &lt;/occupation&gt;
+  &lt;/person&gt;
+&lt;/carol&gt;
+&lt;/people&gt;
+&quot;
+
+cat(xml_test)</code></pre>
+<pre><code>## &lt;people&gt;
+## &lt;jason&gt;
+##   &lt;person type=&#39;fictional&#39;&gt;
+##     &lt;first_name&gt;
+##       &lt;married&gt;
+##         Jason
+##       &lt;/married&gt;
+##     &lt;/first_name&gt;
+##     &lt;last_name&gt;
+##         Bourne
+##     &lt;/last_name&gt;
+##     &lt;occupation&gt;
+##       Spy
+##     &lt;/occupation&gt;
+##   &lt;/person&gt;
+## &lt;/jason&gt;
+## &lt;carol&gt;
+##   &lt;person type=&#39;real&#39;&gt;
+##     &lt;first_name&gt;
+##       &lt;married&gt;
+##         Carol
+##       &lt;/married&gt;
+##     &lt;/first_name&gt;
+##     &lt;last_name&gt;
+##         Kalp
+##     &lt;/last_name&gt;
+##     &lt;occupation&gt;
+##       Scientist
+##     &lt;/occupation&gt;
+##   &lt;/person&gt;
+## &lt;/carol&gt;
+## &lt;/people&gt;</code></pre>
+<p>In XML and HTML the basic building blocks are something called tags. For example, the first tag in the structure shown above is <code>&lt;people&gt;</code>. This tag is matched by <code>&lt;/people&gt;</code> at the end of the string:</p>
+<p><img src="./xml_examples/xml_one.png" width="30%" style="display: block; margin: auto;" /></p>
+<p>If you pay close attention, you’ll see that <strong>each</strong> tag in the XML structure has a beginning (signaled by <code>&lt;&gt;</code>) and an end (signaled by <code>&lt;/&gt;</code>). For example, the next tag after <code>&lt;people&gt;</code> is <code>&lt;jason&gt;</code> and right before the tag <code>&lt;carol&gt;</code> is the end of the jason tag <code>&lt;/jason&gt;</code>.</p>
+<p><img src="./xml_examples/xml_two.png" width="30%" style="display: block; margin: auto;" /></p>
+<p>Similarly, you’ll find that the <code>&lt;carol&gt;</code> tag is also matched by a <code>&lt;/carol&gt;</code> finishing tag.</p>
+<p><img src="./xml_examples/xml_three.png" width="30%" style="display: block; margin: auto;" /></p>
+<p>In theory, tags can have whatever meaning you attach to them (such as <code>&lt;people&gt;</code> or <code>&lt;occupation&gt;</code>). However, in practice there are hundreds of tags which are standard in websites (for example, <a href="https://www.w3schools.com/tags/">here</a>). If you’re just getting started, there’s no need for you to learn them but as you progress in web scraping, you’ll start to recognize them (one brief example is <code>&lt;strong&gt;</code> which simply <strong>bolds</strong> text in a website).</p>
+<p>The <code>xml2</code> package was designed to read XML data and to navigate the tree structure to extract information. For example, let’s read in the XML data from before and look at it’s general structure:</p>
+<pre class="r"><code>xml_raw &lt;- read_xml(xml_test)
+xml_structure(xml_raw)</code></pre>
+<pre><code>## &lt;people&gt;
+##   &lt;jason&gt;
+##     &lt;person [type]&gt;
+##       &lt;first_name&gt;
+##         &lt;married&gt;
+##           {text}
+##       &lt;last_name&gt;
+##         {text}
+##       &lt;occupation&gt;
+##         {text}
+##   &lt;carol&gt;
+##     &lt;person [type]&gt;
+##       &lt;first_name&gt;
+##         &lt;married&gt;
+##           {text}
+##       &lt;last_name&gt;
+##         {text}
+##       &lt;occupation&gt;
+##         {text}</code></pre>
+<p>You can see that the structure is tree-based, meaning that tags such as <code>&lt;jason&gt;</code> and <code>&lt;carol&gt;</code> are nested within the <code>&lt;people&gt;</code> tag. In XML jargon, <code>&lt;people&gt;</code> is the <strong>root node</strong>, whereas <code>&lt;jason&gt;</code> and <code>&lt;carol&gt;</code> are the <strong>child nodes</strong> from <code>&lt;people&gt;</code>.</p>
+<p>In more detail, the structure is as follows:</p>
+<ul>
+<li>The <strong>root</strong> node is <code>&lt;people&gt;</code></li>
+<li>The <strong>child</strong> nodes are <code>&lt;jason&gt;</code> and <code>&lt;carol&gt;</code></li>
+<li>Then each <strong>child</strong> node has nodes <code>&lt;first_name&gt;</code>, <code>&lt;married&gt;</code>, <code>&lt;last_name&gt;</code> and <code>&lt;occupation&gt;</code> nested within them.</li>
+</ul>
+<p>Put it another way, if something is nested within a <strong>node</strong>, then the nested node is a <strong>child</strong> of the upper level node. In our example, the <strong>root</strong> node is <code>&lt;people&gt;</code> so we can check which are it’s children:</p>
+<pre class="r"><code># xml_child returns only one child (specified in search)
+# Here, jason is the first child
+xml_child(xml_raw, search = 1)</code></pre>
+<pre><code>## {xml_node}
+## &lt;jason&gt;
+## [1] &lt;person type=&quot;fictional&quot;&gt;\n  &lt;first_name&gt;\n    &lt;married&gt;\n        Ja ...</code></pre>
+<pre class="r"><code># Here, carol is the second child
+xml_child(xml_raw, search = 2)</code></pre>
+<pre><code>## {xml_node}
+## &lt;carol&gt;
+## [1] &lt;person type=&quot;real&quot;&gt;\n  &lt;first_name&gt;\n    &lt;married&gt;\n        Carol\n ...</code></pre>
+<pre class="r"><code># Use xml_children to extract **all** children
+child_xml &lt;- xml_children(xml_raw)
+
+child_xml</code></pre>
+<pre><code>## {xml_nodeset (2)}
+## [1] &lt;jason&gt;\n  &lt;person type=&quot;fictional&quot;&gt;\n    &lt;first_name&gt;\n      &lt;marri ...
+## [2] &lt;carol&gt;\n  &lt;person type=&quot;real&quot;&gt;\n    &lt;first_name&gt;\n      &lt;married&gt;\n ...</code></pre>
+<p>Now that you understand what tags are, they can also have different attributes which are usually specified as <code>&lt;fake_tag attribute='fake'&gt;</code> and ended as usual with <code>&lt;/fake_tag&gt;</code>. If you look at the XML structure of our example, you’ll notice that each <code>&lt;person&gt;</code> tag has a attribute called <code>type</code>. As you’ll see in our real world example, extracting these attributes is often the aim of our scraping adventure. We can extract all attributes that match a specific name with <code>xml_attrs</code>.</p>
+<pre class="r"><code># Extract the attribute type from all nodes
+xml_attrs(child_xml, &quot;type&quot;)</code></pre>
+<pre><code>## [[1]]
+## named character(0)
+## 
+## [[2]]
+## named character(0)</code></pre>
+<p>Wait, why didn’t this work? Well, if you look at the output of <code>child_xml</code>, we have two nodes on which the main tag is <code>&lt;jason&gt;</code> and <code>&lt;carol&gt;</code>.</p>
+<pre class="r"><code>child_xml</code></pre>
+<pre><code>## {xml_nodeset (2)}
+## [1] &lt;jason&gt;\n  &lt;person type=&quot;fictional&quot;&gt;\n    &lt;first_name&gt;\n      &lt;marri ...
+## [2] &lt;carol&gt;\n  &lt;person type=&quot;real&quot;&gt;\n    &lt;first_name&gt;\n      &lt;married&gt;\n ...</code></pre>
+<p>Do these tags have an attribute? No, because if they did, they would have something like <code>&lt;jason type='fake_tag'&gt;</code>. What we need is to look down at the <code>&lt;person&gt;</code> tag within <code>&lt;jason&gt;</code> and <code>&lt;carol&gt;</code> and extract the attribute from <code>&lt;person&gt;</code>.</p>
+<p>Does this sound familiar? Both <code>&lt;jason&gt;</code> and <code>&lt;carol&gt;</code> have an associated <code>&lt;person&gt;</code> tag below them, making them their children. We can just go down one level by running <code>xml_children</code> on these tags and extract them.</p>
+<pre class="r"><code># We go down one level of children
+person_nodes &lt;- xml_children(child_xml)
+
+# &lt;person&gt; is now the main node, so we can extract attributes
+person_nodes</code></pre>
+<pre><code>## {xml_nodeset (2)}
+## [1] &lt;person type=&quot;fictional&quot;&gt;\n  &lt;first_name&gt;\n    &lt;married&gt;\n        Ja ...
+## [2] &lt;person type=&quot;real&quot;&gt;\n  &lt;first_name&gt;\n    &lt;married&gt;\n        Carol\n ...</code></pre>
+<pre class="r"><code># Both type attributes
+xml_attrs(person_nodes, &quot;type&quot;)</code></pre>
+<pre><code>## [[1]]
+##        type 
+## &quot;fictional&quot; 
+## 
+## [[2]]
+##   type 
+## &quot;real&quot;</code></pre>
+<p>Using the <code>xml_path</code> function you can even find the ‘address’ of these nodes to retrieve specific tags without having to write down <code>xml_children</code> many times. For example:</p>
+<pre class="r"><code># Specific address of each person tag for the whole xml tree
+# only using the `person_nodes`
+xml_path(person_nodes)</code></pre>
+<pre><code>## [1] &quot;/people/jason/person&quot; &quot;/people/carol/person&quot;</code></pre>
+<p>To extract specific ‘addresses’ of this XML tree, the main function we’ll use is <code>xml_find_all</code>. This function accepts the XML tree and an ‘address’ string. We can use very simple strings, such as the one given by <code>xml_path</code>:</p>
+<pre class="r"><code># You can use results from xml_path like directories
+xml_find_all(xml_raw, &quot;/people/jason/person&quot;)</code></pre>
+<pre><code>## {xml_nodeset (1)}
+## [1] &lt;person type=&quot;fictional&quot;&gt;\n  &lt;first_name&gt;\n    &lt;married&gt;\n        Ja ...</code></pre>
+<p>The expression above is asking for the node <code>"/people/jason/person"</code>. This will return the same as saying <code>xml_raw %&gt;% xml_child(search = 1)</code>. For deeply nested trees, <code>xml_find_all</code> will be many times much cleaner than calling <code>xml_child</code> recursively many times.</p>
+<p>However, in most cases the ‘addresses’ used in XML come from a separate language called XPath (in fact, the ‘address’ we’ve been looking at <strong>is</strong> XPath). XPath is a complex language (such as regular expressions for strings) which is beyond this brief tutorial. However, with the examples we’ve seen so far, we can use some basic XPath which we’ll need later on.</p>
+<p>To extract all tags in a document, we can use <code>//name_of_tag</code>.</p>
+<pre class="r"><code># Search for all &#39;married&#39; nodes
+xml_find_all(xml_raw, &quot;//married&quot;)</code></pre>
+<pre><code>## {xml_nodeset (2)}
+## [1] &lt;married&gt;\n        Jason\n      &lt;/married&gt;
+## [2] &lt;married&gt;\n        Carol\n      &lt;/married&gt;</code></pre>
+<p>With the previous XPath, we’re searching for <strong>all</strong> married tags within the complete XML tree. The resul returns all married nodes (I use the words tags and nodes interchangeably) in the complete tree structure. Another example is finding all tags of <code>&lt;occupation&gt;</code>:</p>
+<pre class="r"><code>xml_find_all(xml_raw, &quot;//occupation&quot;)</code></pre>
+<pre><code>## {xml_nodeset (2)}
+## [1] &lt;occupation&gt;\n      Spy\n    &lt;/occupation&gt;
+## [2] &lt;occupation&gt;\n      Scientist\n    &lt;/occupation&gt;</code></pre>
+<p>You can replace the tag of interest and <code>xml_find_all</code> will find all of them.</p>
+<p>If you wanted to find all tags <strong>below</strong> your current node, you only need to add a <code>.</code> at the beginning: <code>".//occupation"</code>. So for example, if we dived into the <code>&lt;jason&gt;</code> tag and we wanted his <code>&lt;occupation&gt;</code> tag, <code>"//occupation"</code> will returns <strong>all</strong> <code>&lt;occupation&gt;</code> tags. Instead, <code>".//occupation"</code> will return only the tag matches <strong>below</strong> the current tag. For example:</p>
+<pre class="r"><code>xml_raw %&gt;%
+  # Dive only into Jason&#39;s tag
+  xml_child(search = 1) %&gt;%
+  xml_find_all(&quot;.//occupation&quot;)</code></pre>
+<pre><code>## {xml_nodeset (1)}
+## [1] &lt;occupation&gt;\n      Spy\n    &lt;/occupation&gt;</code></pre>
+<pre class="r"><code># Instead, the wrong way would have been:
+xml_raw %&gt;%
+  # Dive only into Jason&#39;s tag
+  xml_child(search = 1) %&gt;%
+  # Here we get both occupation tags
+  xml_find_all(&quot;//occupation&quot;)</code></pre>
+<pre><code>## {xml_nodeset (2)}
+## [1] &lt;occupation&gt;\n      Spy\n    &lt;/occupation&gt;
+## [2] &lt;occupation&gt;\n      Scientist\n    &lt;/occupation&gt;</code></pre>
+<p>The first example only returns <code>&lt;jason&gt;</code>’s occupation whereas the second returned <strong>all</strong> occupations, regardless of where you are in the tree.</p>
+<p>XPath also allows you to identify tags that contain only one specific <strong>attribute</strong>, such as the ones we saw earlier. For example, to filter all <code>&lt;person&gt;</code> tags with the attribute <code>filter</code> set to <code>fictional</code>, we could do it with:</p>
+<pre class="r"><code># Give me all the tags &#39;person&#39; that have an attribute type=&#39;fictional&#39;
+xml_raw %&gt;%
+  xml_find_all(&quot;//person[@type=&#39;fictional&#39;]&quot;)</code></pre>
+<pre><code>## {xml_nodeset (1)}
+## [1] &lt;person type=&quot;fictional&quot;&gt;\n  &lt;first_name&gt;\n    &lt;married&gt;\n        Ja ...</code></pre>
+<p>If you wanted to do the same but for the tags <strong>below</strong> your current nodes, the same trick we learned earlier would work: <code>".//person[@type='fictional']"</code>. These are just some primers that can help you jump easily to using XPath, but I encourage you to look at other examples on the web, as complex websites often require complex XPath expressions.</p>
+<p>Before we begin our real word example, you might be asking yourself how you can actually <strong>extract</strong> the text/numeric data from these <strong>nodes</strong>. Well, that’s easy: <code>xml_text</code>.</p>
+<pre class="r"><code>xml_raw %&gt;%
+  xml_find_all(&quot;.//occupation&quot;) %&gt;%
+  xml_text()</code></pre>
+<pre><code>## [1] &quot;\n      Spy\n    &quot;       &quot;\n      Scientist\n    &quot;</code></pre>
+<p>Once you’ve narrowed down your tree-based search to one single piece of text or numbers, <code>xml_text()</code> will extract that for you (there’s also <code>xml_double</code> and <code>xml_integer</code> for extracting numbers). As I said, XPath is really a huge language. If you’re interested, <a href="https://devhints.io/xpath">this</a> XPath cheat sheets has helped me a lot to learn tricks for easy scraping.</p>
+</div>
+<div id="real-world-example" class="section level1">
+<h1>Real world example</h1>
+<p>We’re interested in making a lists of many schools in Spain and visualizing their location. This can be useful for many things such as matching population density of children across different regions to school locations. The website <code>www.buscocolegio.com</code> contains a database of schools similar to what we’re looking for. As described at the beginning, instead we’re going to use <code>spanish_schools_ex()</code> from the package <code>scrapex</code> which contains the links to a sample of websites from different schools locally.</p>
+<p>Let’s look at one example for one school.</p>
+<pre class="r"><code>school_links &lt;- spanish_schools_ex()
+
+# Keep only the HTML file of one particular school.
+school_url &lt;- school_links[13]
+
+school_url</code></pre>
+<pre><code>## [1] &quot;/usr/local/lib/R/site-library/scrapex/extdata/spanish_schools_ex/3006839/www.buscocolegio.com/Colegio/detalles-colegio.action?id=3006839.html&quot;</code></pre>
+<p>If you’re interested in looking at the website in your interactively in your browser, you can do it with <code>browseURL(prep_browser(school_url))</code>. Let’s read the HTML (XML and HTML are <strong>usually</strong> interchangeable, so here we use <code>read_html</code>).</p>
+<pre class="r"><code># Here we use `read_html` because `read_xml` is throwing an error
+# when attempting to read. However, everything we&#39;ve discussed
+# should be the same.
+school_raw &lt;- read_html(school_url) %&gt;% xml_child()
+
+school_raw</code></pre>
+<pre><code>## {html_node}
+## &lt;head&gt;
+##  [1] &lt;title&gt;Aquí encontrarás toda la información necesaria sobre CEIP SA ...
+##  [2] &lt;meta charset=&quot;utf-8&quot;&gt;\n
+##  [3] &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, ...
+##  [4] &lt;meta http-equiv=&quot;x-ua-compatible&quot; content=&quot;ie=edge&quot;&gt;\n
+##  [5] &lt;meta name=&quot;author&quot; content=&quot;BuscoColegio&quot;&gt;\n
+##  [6] &lt;meta name=&quot;description&quot; content=&quot;Encuentra toda la información nec ...
+##  [7] &lt;meta name=&quot;keywords&quot; content=&quot;opiniones SANCHIS GUARNER, contacto  ...
+##  [8] &lt;link rel=&quot;shortcut icon&quot; href=&quot;../favicon.ico&quot;&gt;\n
+##  [9] &lt;link rel=&quot;stylesheet&quot; href=&quot;../../fonts.googleapis.com/css%3Ffamil ...
+## [10] &lt;link rel=&quot;stylesheet&quot; href=&quot;../../s3.eu-west-3.amazonaws.com/busco ...
+## [11] &lt;link rel=&quot;stylesheet&quot; href=&quot;../assets/vendor/icon-awesome/css/font ...
+## [12] &lt;link rel=&quot;stylesheet&quot; href=&quot;../assets/vendor/icon-line/css/simple- ...
+## [13] &lt;link rel=&quot;stylesheet&quot; href=&quot;../assets/vendor/icon-line-pro/style.c ...
+## [14] &lt;link rel=&quot;stylesheet&quot; href=&quot;../assets/vendor/icon-hs/style.css&quot;&gt;\n
+## [15] &lt;link rel=&quot;stylesheet&quot; href=&quot;../../s3.eu-west-3.amazonaws.com/busco ...
+## [16] &lt;link rel=&quot;stylesheet&quot; href=&quot;../../s3.eu-west-3.amazonaws.com/busco ...
+## [17] &lt;link rel=&quot;stylesheet&quot; href=&quot;../../s3.eu-west-3.amazonaws.com/busco ...
+## [18] &lt;link rel=&quot;stylesheet&quot; href=&quot;../../s3.eu-west-3.amazonaws.com/busco ...
+## [19] &lt;link rel=&quot;stylesheet&quot; href=&quot;../../s3.eu-west-3.amazonaws.com/busco ...
+## [20] &lt;link rel=&quot;stylesheet&quot; href=&quot;../../s3.eu-west-3.amazonaws.com/busco ...
+## ...</code></pre>
+<!-- Web scraping is very specific to the website you're after. You have to get very familiar with it to be able to match perfectly the information you're looking for. In many cases, scraping two websites will require vastly different strategies. For this particular example, we're only interested in figuring out the **location** of each school so we only have to extract it's location.  -->
+<!-- ```{r, echo = FALSE, out.width = 3000} -->
+<!-- knitr::include_graphics("./buscocolegios_xml/main_page.png") -->
+<!-- ``` -->
+<!-- <br> -->
+<!-- In the image you'll find a typical school's website in `wwww.buscocolegio.com`. The website has a lot of information, but we're only interested in the button that is circled by the orange rectangle. If you can't find it easily, it's below the Google Maps on the right which says "Buscar colegio cercano".  -->
+<!-- When you click on this button, this actually points you towards the coordinates of the school so we just have to find a way of figuring out how to click this button or figure out how to get it's information. All browsers allow you to do this if you press CTRL + SHIFT + c at the same time (Firefox and Chrome support this hot key). If a a window on the right popped in full of code, then you're on the right track: -->
+<!-- <br> -->
+<!-- ```{r, echo = FALSE, out.width = 3000} -->
+<!-- knitr::include_graphics("./buscocolegios_xml/developer_tools.png") -->
+<!-- ``` -->
+<!-- <br> -->
+<!-- Here we can search the source code of the website. If you place your mouse pointer over the lines of code from this right-most window, you'll some sections of the website being highlighted in blue. This indicates which parts of the code refer to which parts of the website. Luckily for us, we don't have to search the complete source code to find that specific location. We can approximate our search by typing the text we're looking for in the search bar at the top of the right window: -->
+<!-- <br> -->
+<!-- ```{r, echo = FALSE, out.width = 3000} -->
+<!-- knitr::include_graphics("./buscocolegios_xml/search_developer_tools.png") -->
+<!-- ``` -->
+<!-- <br> -->
+<!-- After we click enter, we'll be automatically directed to the tag that has the information that we want. -->
+<!-- <br> -->
+<!-- ```{r, echo = FALSE, out.width = 3000} -->
+<!-- knitr::include_graphics("./buscocolegios_xml/location_tag.png") -->
+<!-- ``` -->
+<!-- <br> -->
+<!-- More specifically, we can see that the latitude and longitude of schools are found in an attributed called `href` in a tag `<a>`: -->
+<!-- <br> -->
+<!-- ```{r, echo = FALSE, out.width = 3000} -->
+<!-- knitr::include_graphics("./buscocolegios_xml/location_tag_zoomed.png") -->
+<!-- ``` -->
+<!-- <br> -->
+<!-- Can you see the latitud and longitude fields in the text highlighted blue? It's hidden in-between words. That is precisely the type of information we're after. Extracting all `<a>` tags from the website (hint: XPath similar to `"//a"`) will yield hundreds of matches because `<a>` is a very common tag. Moreover, refining the search to `<a>` tags which have an `href` attribute will also yield hundreds of matches because `href` is the standard attribute to attach links within websites. We need to narrow down our search within the website.  -->
+<!-- One strategy is to find the 'father' node of this particular `<a>` tag and then match a node which has that same sequence of father -> child nodes. By looking at the structure of this small XML snippet from the right-most window, we see that the 'grandfather' of this `<a>` tag is `<p class="d-flex align-items-baseline g-mt-5'>` which has a particularly long attribute called `class`.  -->
+<!-- <br> -->
+<!-- ```{r, echo = FALSE, out.width = 3000} -->
+<!-- knitr::include_graphics("./buscocolegios_xml/location_tag_zoomed.png") -->
+<!-- ``` -->
+<!-- <br> -->
+<!-- Don't be intimidated by these tag names and long attributes. I also don't know what any of these attributes mean. But what I do know is that this is the 'grandfather' of the `<a>` tag I'm interested in. So using our XPath skills, let's search for that `<p>` tag and see if we get only one match. -->
+<!-- ```{r} -->
+<!-- # Search for all <p> tags with that class in the document -->
+<!-- school_raw %>% -->
+<!--   xml_find_all("//p[@class='d-flex align-items-baseline g-mt-5']") -->
+<!-- ``` -->
+<!-- Only one match, so this is good news. This means that we can uniquely identify this particular `<p>` tag. Let's refine the search to say: Find that specific `<p>` tag **followed** by an `<a>` tag. This only means I'll add a `"//a"` to the previous expression. -->
+<!-- ```{r } -->
+<!-- school_raw %>% -->
+<!--   xml_find_all("//p[@class='d-flex align-items-baseline g-mt-5']//a") -->
+<!-- ``` -->
+<!-- There we go! We can see the specific `href` that contains the latitud and longitud data we're interested in. How do we extract the `href` attribute? Using `xml_attr` as we did before! -->
+<!-- ```{r} -->
+<!-- location_str <- -->
+<!--   school_raw %>% -->
+<!--   xml_find_all("//p[@class='d-flex align-items-baseline g-mt-5']//a") %>% -->
+<!--   xml_attr(attr = "href") -->
+<!-- location_str -->
+<!-- ``` -->
+<!-- Ok, now we need some regex skills to get only the latitude and longitude: -->
+<!-- ```{r} -->
+<!-- location <- -->
+<!--   location_str %>% -->
+<!--   str_extract_all("=.+$") %>% -->
+<!--   str_replace_all("=|colegio\\.longitud", "") %>%  -->
+<!--   str_split("&") %>% -->
+<!--   .[[1]] -->
+<!-- location -->
+<!-- ``` -->
+<!-- Ok, so we got the information we needed for one single school. Let's turn that into a function so we can pass only the school's link and get the coodinates back. -->
+<!-- Before we do that, I will set something called my `User-Agent`. In short, the `User-Agent` is **who** you are. It is good practice to identify the person who is scraping the website because if you're causing any trouble on the website, the website can directly identify who is causing problems. You can figure out your user agent [here](https://www.google.com/search?client=ubuntu&channel=fs&q=what%27s+my+user+agent&ie=utf-8&oe=utf-8) and paste it in the string below. In addition, I will add a time sleep of 5 second to the function because we want to make sure we don't cause any troubles to the website we're scraping due to an overload of requests. -->
+<!-- ```{r} -->
+<!-- # This sets your `User-Agent` globally so that all requests are -->
+<!-- # identified with this `User-Agent` -->
+<!-- set_config( -->
+<!--   user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:70.0) Gecko/20100101 Firefox/70.0") -->
+<!-- ) -->
+<!-- # Collapse all of the code from above into one function called -->
+<!-- # school grabber -->
+<!-- school_grabber <- function(school_url) { -->
+<!--   # We add a time sleep of 5 seconds to avoid -->
+<!--   # sending too many quick requests to the website -->
+<!--   Sys.sleep(5) -->
+<!--   school_raw <- read_html(school_url) %>% xml_child() -->
+<!--   location_str <- -->
+<!--     school_raw %>% -->
+<!--     xml_find_all("//p[@class='d-flex align-items-baseline g-mt-5']//a") %>% -->
+<!--     xml_attr(attr = "href") -->
+<!--   location <- -->
+<!--     location_str %>% -->
+<!--     str_extract_all("=.+$") %>% -->
+<!--     str_replace_all("=|colegio\\.longitud", "") %>%  -->
+<!--     str_split("&") %>% -->
+<!--     .[[1]] -->
+<!--   # Turn into a data frame -->
+<!--   data.frame( -->
+<!--     latitude = location[1], -->
+<!--     longitude = location[2], -->
+<!--     stringsAsFactors = FALSE -->
+<!--   ) -->
+<!-- } -->
+<!-- school_grabber(school_url) -->
+<!-- ``` -->
+<!-- Ok, so it's working. The only thing left is extract this for many schools. As shown earlier, `scrapex` contains a list of 27 school links that we can automatically scrape. Let's loop over those, get the information of coordinates for each and collapse all of them into a data frame. -->
+<!-- ```{r, eval = FALSE} -->
+<!-- res <- map_dfr(school_links, school_grabber) -->
+<!-- res -->
+<!-- ``` -->
+<!-- ```{r, echo = FALSE} -->
+<!-- res <- read.csv("./school_coordinates.csv") -->
+<!-- res -->
+<!-- ``` -->
+<!-- So now that we have the locations of these schools, let's plot them: -->
+<!-- ```{r} -->
+<!-- res <- mutate_all(res, as.numeric) -->
+<!-- sp_sf <- -->
+<!--   ne_countries(scale = "large", country = "Spain", returnclass = "sf") %>%  -->
+<!--   st_transform(crs = 4326) -->
+<!-- ggplot(sp_sf) + -->
+<!--   geom_sf() + -->
+<!--   geom_point(data = res, aes(x = longitude, y = latitude)) + -->
+<!--   coord_sf(xlim = c(-20, 10), ylim = c(25, 45)) + -->
+<!--   theme_minimal() + -->
+<!--   ggtitle("Sample of schools in Spain") -->
+<!-- ``` -->
+<!-- There we go! We went from literally no information at the beginning of this tutorial to interpretable and summarized information only using web data. We can see some schools in Madrid (center) as well in other regions of Spain, including Catalonia and Galicia. This marks the end of our scraping adventure but before we finish, I want to mention some of the ethical guidelines for webscraping. Scraping is extremely useful for us but can give headaches to other people maintaining the website of interest. Here's a list of ethical guidelines you should always follow: -->
+<!-- * Read the terms and services: many websites prohibit webscraping and you could be in a breach of privacy by scraping the data. [One](https://fortune.com/2016/05/18/okcupid-data-research/) famous example. -->
+<!-- * Check the `robots.txt` file. This is a file that most websites have (`www.buscocolegio.com` does **not**) which tell you which specific paths inside the website are scrapable and which are not. See [here](https://www.robotstxt.org/robotstxt.html) for an explanation of what robots.txt look like and where to find them. -->
+<!-- * Some websites are supported by very big servers, which means you can send 4-5 website requests per second. Others, such as `www.buscocolegio.com` are not. It's good practice to always put a time sleep between your requests. In our example, I set it to 5 seconds because this is a small website and we don't want to crash their servers. -->
+<!-- * When making requests, there are computational ways of identifying yourself. For example, every request (such as the one's we do) can have something called a `User-Agent`. It is good practice to include yourself in as the `User-Agent` (as we did in our code) because the admin of the server can directly identify if someone's causing problem due to their web scraping. -->
+<!-- You can read more about these ethical issues [here](http://robertorocha.info/on-the-ethics-of-web-scraping/). -->
+<!-- # Wrapup -->
+<!-- This tutorial introduced you to basic concepts in web scraping and applied them in a real world setting. Web scraping is a vast field in computer science (you can find entire books on the subject such as [this](https://www.apress.com/gp/book/9781484235812)). We covered some basic techniques which I think can take you a long way but there's definately more to learn. For those curious about where to turn, I'm looking forward to the upcoming book ["A Field Guide for Web Scraping and Accessing APIs with R"](https://rud.is/b/books/) by Bob Rudis, which should be released in the near future. Now go scrape some websites ethically! -->
+</div>
