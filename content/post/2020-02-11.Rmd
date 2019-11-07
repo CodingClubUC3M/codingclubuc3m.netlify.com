@@ -1,6 +1,6 @@
 ---
 title: 'An introduction to webscraping: locating Spanish schools'
-authors: Jorge Cimentada
+authors: ["Jorge Cimentada"]
 date: "2020-02-11"
 categories: ["R"]
 tags: ["R", "big data", "webscraping"]
@@ -95,23 +95,19 @@ cat(xml_test)
 In XML and HTML the basic building blocks are something called tags. For example, the first tag in the structure shown above is `<people>`. This tag is matched by `</people>` at the end of the string:
 
 ```{r, out.width = "30%", echo = FALSE}
-# EXT
-dir_data <- here::here("static/post/2020-02-11_files")
-knitr::include_graphics(file.path(dir_data, "xml_examples/xml_one.png"))
+knitr::include_graphics(file.path("/post/2020-02-11_files", "xml_examples/xml_one.png"))
 ```
 
 If you pay close attention, you'll see that **each** tag in the XML structure has a beginning (signaled by `<>`) and an end (signaled by `</>`). For example, the next tag after `<people>` is `<jason>` and right before the tag `<carol>` is the end of the jason tag `</jason>`.
 
 ```{r, out.width = "30%", echo = FALSE}
-# EXT
-knitr::include_graphics(file.path(dir_data, "xml_examples/xml_two.png"))
+knitr::include_graphics(file.path("/post/2020-02-11_files", "xml_examples/xml_two.png"))
 ```
 
 Similarly, you'll find that the `<carol>` tag is also matched by a `</carol>` finishing tag.
 
 ```{r, out.width = "30%", echo = FALSE}
-# EXT
-knitr::include_graphics(file.path(dir_data, "xml_examples/xml_three.png"))
+knitr::include_graphics(file.path("/post/2020-02-11_files", "xml_examples/xml_three.png"))
 ```
 
 In theory, tags can have whatever meaning you attach to them (such as `<people>` or `<occupation>`). However, in practice there are hundreds of tags which are standard in websites (for example, [here](https://www.w3schools.com/tags/)). If you're just getting started, there's no need for you to learn them but as you progress in web scraping, you'll start to recognize them (one brief example is `<strong>` which simply **bolds** text in a website).
@@ -278,8 +274,7 @@ school_raw
 Web scraping is very specific to the website you're after. You have to get very familiar with it to be able to match perfectly the information you're looking for. In many cases, scraping two websites will require vastly different strategies. For this particular example, we're only interested in figuring out the **location** of each school so we only have to extract it's location. 
 
 ```{r, echo = FALSE, out.width = 3000}
-# EXT
-knitr::include_graphics(file.path(dir_data, "buscocolegios_xml/main_page.png"))
+knitr::include_graphics(file.path("/post/2020-02-11_files", "buscocolegios_xml/main_page.png"))
 ```
 
 <br>
@@ -291,7 +286,7 @@ When you click on this button, this actually points you towards the coordinates 
 
 ```{r, echo = FALSE, out.width = 3000}
 # EXT
-knitr::include_graphics(file.path(dir_data, "buscocolegios_xml/developer_tools.png"))
+knitr::include_graphics(file.path("/post/2020-02-11_files", "buscocolegios_xml/developer_tools.png"))
 ```
 
 <br>
@@ -302,7 +297,7 @@ Here we can search the source code of the website. If you place your mouse point
 
 ```{r, echo = FALSE, out.width = 3000}
 # EXT
-knitr::include_graphics(file.path(dir_data, "buscocolegios_xml/search_developer_tools.png"))
+knitr::include_graphics(file.path("/post/2020-02-11_files", "buscocolegios_xml/search_developer_tools.png"))
 ```
 
 <br>
@@ -312,8 +307,7 @@ After we click enter, we'll be automatically directed to the tag that has the in
 <br>
 
 ```{r, echo = FALSE, out.width = 3000}
-# EXT
-knitr::include_graphics(file.path(dir_data, "buscocolegios_xml/location_tag.png"))
+knitr::include_graphics(file.path("/post/2020-02-11_files", "buscocolegios_xml/location_tag.png"))
 ```
 
 <br>
@@ -323,8 +317,7 @@ More specifically, we can see that the latitude and longitude of schools are fou
 <br>
 
 ```{r, echo = FALSE, out.width = 3000}
-# EXT
-knitr::include_graphics(file.path(dir_data, "buscocolegios_xml/location_tag_zoomed.png"))
+knitr::include_graphics(file.path("/post/2020-02-11_files", "buscocolegios_xml/location_tag_zoomed.png"))
 ```
 
 <br>
@@ -336,7 +329,7 @@ One strategy is to find the 'father' node of this particular `<a>` tag and then 
 <br>
 
 ```{r, echo = FALSE, out.width = 3000}
-knitr::include_graphics(file.path(dir_data, "buscocolegios_xml/location_tag_zoomed.png"))
+knitr::include_graphics(file.path("/post/2020-02-11_files", "buscocolegios_xml/location_tag_zoomed.png"))
 ```
 
 <br>
@@ -436,8 +429,7 @@ res
 ```
 
 ```{r, echo = FALSE}
-# EXT
-res <- read.csv(file.path(dir_data, "school_coordinates.csv"))
+res <- read.csv(file.path("/post/2020-02-11_files", "school_coordinates.csv"))
 res
 ```
 
