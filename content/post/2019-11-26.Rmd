@@ -339,7 +339,25 @@ you get a nice “Overall report”, with the files with less coverage at the to
 
 A function typically calls other functions, that we call *dependencies*.
 
-Should we mock **all** of the dependencies?  Let's look into this a little bit.
+A *mock* function replaces a dependency during a test,
+and must be implemented in a way that allows us to test the caller function.
+
+To illustrate this, let's say we are testing a function that depends on
+a function `get_json(...)` that connects to an external REST service
+and returns some JSON payload.
+We should then replace `get_json(...)` with a mock function,
+that forcibly returns a sample JSON of our choice:
+
+```{r eval = FALSE}
+# The real `get_json()` is defined elsewhere, and is probably quite complex
+# Mocked `get_json()` function:
+get_json <- function() {
+  '{"user": "Jane Doe", "age": 42}'
+}
+```
+This will enable us to write a unit test of the caller function.
+
+Now, should we then mock **all** of the dependencies?  Let's look into this a little bit.
 
 Some of these dependencies may be well tested already, for instance,
 if they belong to the standard library of the language, or to a well-established package.
@@ -360,7 +378,7 @@ This strategy gives us the additional advantage of being able to test functions 
 Note that since version `2.0.0` of the `testthat` package,
 you [can’t mock functions in base packages](https://www.tidyverse.org/articles/2017/12/testthat-2-0-0/)
 
-Let's see an example of a mocked function:
+Let's now see how `testthat` simplifies using mocked functions:
 
 ```{r}
 # R/salary.R
@@ -442,7 +460,7 @@ Why? Because the numbers get so huge that up to 14 we can get integers,
 but from 15 onwards we'll get only floats, or worse, overflow.
 * Requirement #4. The function should only accept integers.
 
-Lets tackle them one at a time.
+Let's tackle them one at a time.
 
 __Requirement #1__:  The result of `my_factorial(0)` must be 1
 
@@ -538,7 +556,6 @@ Test passing now.
 
 The final two requirements are left as an exercise to the reader (go on, don't be shy!).
 
-...
 
 The final result might look something like this:
 
@@ -588,7 +605,7 @@ CAVEAT EMPTOR!  Your code can pass all the unit tests, with a 100% coverage, and
 </center>
 
 These are called *integration* problems, which are tackled using _integration tests_.
-This form of testing comprises tests that, er, test more than one unit (read: function) at a time.
+This form of testing comprises tests that, _ahem_, test more than one unit (read: function) at a time.
 
 
 ### Hints for Testing in Data Science and Machine Learning
