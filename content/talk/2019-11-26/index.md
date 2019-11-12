@@ -25,7 +25,7 @@ event = "Tutorial"
 event_url = ""
 event_form = "https://forms.gle/vGTpJd3p29ZqDgW19"
 
-location = "**Room 7.3.J06**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
+location = "**Room 18.0.A09**. Campus de Getafe, Calle Madrid, 126, 28903 Getafe, Madrid, Spain."
   
 selected = false
 
