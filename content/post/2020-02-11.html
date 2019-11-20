@@ -4,7 +4,6 @@ authors: ["Jorge Cimentada"]
 date: "2020-02-11"
 categories: ["R"]
 tags: ["R", "big data", "web scraping"]
-
 ---
 
 
@@ -31,7 +30,7 @@ library(sf)
 library(rnaturalearth)
 library(ggplot2)
 library(scrapex)</code></pre>
-<p>Let’s begin with a simple example. Below we define an XML string and look at it’s structure:</p>
+<p>Let’s begin with a simple example. Below we define an XML string and look at its structure:</p>
 <pre class="r"><code>xml_test &lt;- &quot;&lt;people&gt;
 &lt;jason&gt;
   &lt;person type=&#39;fictional&#39;&gt;
@@ -106,7 +105,7 @@ cat(xml_test)</code></pre>
 <p>Similarly, you’ll find that the <code>&lt;carol&gt;</code> tag is also matched by a <code>&lt;/carol&gt;</code> finishing tag.</p>
 <p><img src="/post/2020-02-11_files/xml_examples/xml_three.png" width="30%" style="display: block; margin: auto;" /></p>
 <p>In theory, tags can have whatever meaning you attach to them (such as <code>&lt;people&gt;</code> or <code>&lt;occupation&gt;</code>). However, in practice there are hundreds of tags which are standard in websites (for example, <a href="https://www.w3schools.com/tags/">here</a>). If you’re just getting started, there’s no need for you to learn them but as you progress in web scraping, you’ll start to recognize them (one brief example is <code>&lt;strong&gt;</code> which simply <strong>bolds</strong> text in a website).</p>
-<p>The <code>xml2</code> package was designed to read XML strings and to navigate the tree structure to extract information. For example, let’s read in the XML data from our fake example and look at it’s general structure:</p>
+<p>The <code>xml2</code> package was designed to read XML strings and to navigate the tree structure to extract information. For example, let’s read in the XML data from our fake example and look at its general structure:</p>
 <pre class="r"><code>xml_raw &lt;- read_xml(xml_test)
 xml_structure(xml_raw)</code></pre>
 <pre><code>## &lt;people&gt;
@@ -159,7 +158,7 @@ child_xml</code></pre>
 xml_attrs(child_xml, &quot;type&quot;)</code></pre>
 <pre><code>## [[1]]
 ## named character(0)
-## 
+##
 ## [[2]]
 ## named character(0)</code></pre>
 <p>Wait, why didn’t this work? Well, if you look at the output of <code>child_xml</code>, we have two nodes on which are for <code>&lt;jason&gt;</code> and <code>&lt;carol&gt;</code>.</p>
@@ -180,11 +179,11 @@ person_nodes</code></pre>
 <pre class="r"><code># Both type attributes
 xml_attrs(person_nodes, &quot;type&quot;)</code></pre>
 <pre><code>## [[1]]
-##        type 
-## &quot;fictional&quot; 
-## 
+##        type
+## &quot;fictional&quot;
+##
 ## [[2]]
-##   type 
+##   type
 ## &quot;real&quot;</code></pre>
 <p>Using the <code>xml_path</code> function you can even find the ‘address’ of these nodes to retrieve specific tags without having to write down <code>xml_children</code> many times. For example:</p>
 <pre class="r"><code># Specific address of each person tag for the whole xml tree
@@ -330,7 +329,7 @@ location_str</code></pre>
 <pre class="r"><code>location &lt;-
   location_str %&gt;%
   str_extract_all(&quot;=.+$&quot;) %&gt;%
-  str_replace_all(&quot;=|colegio\\.longitud&quot;, &quot;&quot;) %&gt;% 
+  str_replace_all(&quot;=|colegio\\.longitud&quot;, &quot;&quot;) %&gt;%
   str_split(&quot;&amp;&quot;) %&gt;%
   .[[1]]
 
@@ -358,11 +357,11 @@ school_grabber &lt;- function(school_url) {
     school_raw %&gt;%
     xml_find_all(&quot;//p[@class=&#39;d-flex align-items-baseline g-mt-5&#39;]//a&quot;) %&gt;%
     xml_attr(attr = &quot;href&quot;)
-  
+
   location &lt;-
     location_str %&gt;%
     str_extract_all(&quot;=.+$&quot;) %&gt;%
-    str_replace_all(&quot;=|colegio\\.longitud&quot;, &quot;&quot;) %&gt;% 
+    str_replace_all(&quot;=|colegio\\.longitud&quot;, &quot;&quot;) %&gt;%
     str_split(&quot;&amp;&quot;) %&gt;%
     .[[1]]
 
@@ -413,7 +412,7 @@ res</code></pre>
 <pre class="r"><code>res &lt;- mutate_all(res, as.numeric)
 
 sp_sf &lt;-
-  ne_countries(scale = &quot;large&quot;, country = &quot;Spain&quot;, returnclass = &quot;sf&quot;) %&gt;% 
+  ne_countries(scale = &quot;large&quot;, country = &quot;Spain&quot;, returnclass = &quot;sf&quot;) %&gt;%
   st_transform(crs = 4326)
 
 ggplot(sp_sf) +

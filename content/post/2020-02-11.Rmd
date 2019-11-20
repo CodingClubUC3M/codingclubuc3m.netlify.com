@@ -4,7 +4,6 @@ authors: ["Jorge Cimentada"]
 date: "2020-02-11"
 categories: ["R"]
 tags: ["R", "big data", "web scraping"]
-
 ---
 
 ```{r knitr-setup, include=FALSE}
@@ -52,7 +51,7 @@ library(ggplot2)
 library(scrapex)
 ```
 
-Let's begin with a simple example. Below we define an XML string and look at it's structure:
+Let's begin with a simple example. Below we define an XML string and look at its structure:
 
 ```{r}
 xml_test <- "<people>
@@ -112,7 +111,7 @@ knitr::include_graphics(file.path(main_dir, "xml_examples/xml_three.png"))
 
 In theory, tags can have whatever meaning you attach to them (such as `<people>` or `<occupation>`). However, in practice there are hundreds of tags which are standard in websites (for example, [here](https://www.w3schools.com/tags/)). If you're just getting started, there's no need for you to learn them but as you progress in web scraping, you'll start to recognize them (one brief example is `<strong>` which simply **bolds** text in a website).
 
-The `xml2` package was designed to read XML strings and to navigate the tree structure to extract information. For example, let's read in the XML data from our fake example and look at it's general structure:
+The `xml2` package was designed to read XML strings and to navigate the tree structure to extract information. For example, let's read in the XML data from our fake example and look at its general structure:
 
 
 ```{r}
