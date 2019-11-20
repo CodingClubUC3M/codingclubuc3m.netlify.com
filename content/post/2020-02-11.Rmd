@@ -1,9 +1,9 @@
 ---
-title: "An introduction to webscraping: locating Spanish schools"
+title: "An introduction to web scraping: locating Spanish schools"
 authors: ["Jorge Cimentada"]
 date: "2020-02-11"
 categories: ["R"]
-tags: ["R", "big data", "webscraping"]
+tags: ["R", "big data", "web scraping"]
 
 ---
 
@@ -128,7 +128,7 @@ In more detail, the structure is as follows:
 * The **child** nodes are `<jason>` and `<carol>`
 * Then each **child** node has nodes `<first_name>`, `<married>`, `<last_name>` and `<occupation>` nested within them. 
 
-Put another way, if something is nested within a **node**, then the nested node is a **child** of the upper level node. In our example, the **root** node is `<people>` so we can check which are it's children:
+Put another way, if something is nested within a **node**, then the nested node is a **child** of the upper-level node. In our example, the **root** node is `<people>` so we can check which are its children:
 
 ```{r}
 # xml_child returns only one child (specified in search)
@@ -242,11 +242,11 @@ xml_raw %>%
 
 ```
 
-Once you've narrowed down your tree-based search to one single piece of text or numbers, `xml_text()` will extract that for you (there's also `xml_double` and `xml_integer` for extracting numbers). As I said, XPath is really a huge language. If you're interested, [this](https://devhints.io/xpath) XPath cheat sheets has helped me a lot to learn tricks for easy scraping. 
+Once you've narrowed down your tree-based search to one single piece of text or numbers, `xml_text()` will extract that for you (there's also `xml_double` and `xml_integer` for extracting numbers). As I said, XPath is really a huge language. If you're interested, [this](https://devhints.io/xpath) XPath cheat sheets have helped me a lot to learn tricks for easy scraping. 
 
 ## Real-world example
 
-We're interested in making a lists of many schools in Spain and visualizing their location. This can be useful for many things such as matching population density of children across different regions to school locations. The website `www.buscocolegio.com` contains a database of schools similar to what we're looking for. As described at the beginning, instead we're going to use `scrapex` which has the function `spanish_schools_ex()` containing the links to a sample of websites from different schools saved locally on your computer.
+We're interested in making a list of many schools in Spain and visualizing their location. This can be useful for many things such as matching population density of children across different regions to school locations. The website `www.buscocolegio.com` contains a database of schools similar to what we're looking for. As described at the beginning, instead we're going to use `scrapex` which has the function `spanish_schools_ex()` containing the links to a sample of websites from different schools saved locally on your computer.
 
 Let's look at an example for one school.
 
@@ -270,7 +270,7 @@ school_raw <- read_html(school_url) %>% xml_child()
 school_raw
 ```
 
-Web scraping strategies are very specific to the website you're after. You have to get very familiar with the website you're interested to be able to match perfectly the information you're looking for. In many cases, scraping two websites will require vastly different strategies. For this particular example, we're only interested in figuring out the **location** of each school so we only have to extract it's location. 
+Web scraping strategies are very specific to the website you're after. You have to get very familiar with the website you're interested to be able to match perfectly the information you're looking for. In many cases, scraping two websites will require vastly different strategies. For this particular example, we're only interested in figuring out the **location** of each school so we only have to extract its location. 
 
 ```{r, echo = FALSE, out.width = 3000}
 knitr::include_graphics(file.path(main_dir, "buscocolegios_xml/main_page.png"))
@@ -280,7 +280,7 @@ knitr::include_graphics(file.path(main_dir, "buscocolegios_xml/main_page.png"))
 
 In the image above you'll find a typical school's website in `wwww.buscocolegio.com`. The website has a lot of information, but we're only interested in the button that is circled by the orange rectangle. If you can't find it easily, it's below the Google Maps on the right which says "Buscar colegio cercano". 
 
-When you click on this button, this actually points you towards the coordinates of the school so we just have to find a way of figuring out how to click this button or figure out how to get it's information. All browsers allow you to do this if you press CTRL + SHIFT + c at the same time (Firefox and Chrome support this hot key). If a a window on the right popped in full of code, then you're on the right track:
+When you click on this button, this actually points you towards the coordinates of the school so we just have to find a way of figuring out how to click this button or figure out how to get its information. All browsers allow you to do this if you press CTRL + SHIFT + c at the same time (Firefox and Chrome support this hotkey). If a window on the right popped in full of code, then you're on the right track:
 
 <br>
 
@@ -320,7 +320,7 @@ knitr::include_graphics(file.path(main_dir, "buscocolegios_xml/location_tag_zoom
 
 <br>
 
-Can you see the latitud and longitude fields in the text highlighted blue? It's hidden in-between words. That is precisely the type of information we're after. Extracting all `<a>` tags from the website (hint: XPath similar to `"//a"`) will yield hundreds of matches because `<a>` is a very common tag. Moreover, refining the search to `<a>` tags which have an `href` attribute will also yield hundreds of matches because `href` is the standard attribute to attach links within websites. We need to narrow down our search within the website. 
+Can you see the latitude and longitude fields in the text highlighted blue? It's hidden in-between words. That is precisely the type of information we're after. Extracting all `<a>` tags from the website (hint: XPath similar to `"//a"`) will yield hundreds of matches because `<a>` is a very common tag. Moreover, refining the search to `<a>` tags which have an `href` attribute will also yield hundreds of matches because `href` is the standard attribute to attach links within websites. We need to narrow down our search within the website. 
 
 One strategy is to find the 'father' or 'grandfather' node of this particular `<a>` tag and then match a node which has that same sequence of grandfather -> father -> child node. By looking at the structure of this small XML snippet from the right-most window, we see that the 'grandfather' of this `<a>` tag is `<p class="d-flex align-items-baseline g-mt-5'>` which has a particularly long attribute named `class`. 
 
@@ -350,7 +350,7 @@ school_raw %>%
 
 ```
 
-There we go! We can see the specific `href` that contains the latitud and longitud data we're interested in. How do we extract the `href` attribute? Using `xml_attr` as we did before!
+There we go! We can see the specific `href` that contains the latitude and longitude data we're interested in. How do we extract the `href` attribute? Using `xml_attr` as we did before!
 
 ```{r}
 location_str <-
@@ -374,9 +374,9 @@ location <-
 location
 ```
 
-Ok, so we got the information we needed for one single school. Let's turn that into a function so we can pass only the school's link and get the coodinates back.
+Ok, so we got the information we needed for one single school. Let's turn that into a function so we can pass only the school's link and get the coordinates back.
 
-Before we do that, I will set something called my `User-Agent`. In short, the `User-Agent` is **who** you are. It is good practice to identify the person who is scraping the website because if you're causing any trouble on the website, the website can directly identify who is causing problems. You can figure out your user agent [here](https://www.google.com/search?client=ubuntu&channel=fs&q=what%27s+my+user+agent&ie=utf-8&oe=utf-8) and paste it in the string below. In addition, I will add a time sleep of 5 second to the function because we want to make sure we don't cause any troubles to the website we're scraping due to an overload of requests.
+Before we do that, I will set something called my `User-Agent`. In short, the `User-Agent` is **who** you are. It is good practice to identify the person who is scraping the website because if you're causing any trouble on the website, the website can directly identify who is causing problems. You can figure out your user agent [here](https://www.google.com/search?client=ubuntu&channel=fs&q=what%27s+my+user+agent&ie=utf-8&oe=utf-8) and paste it in the string below. In addition, I will add a time sleep of 5 seconds to the function because we want to make sure we don't cause any troubles to the website we're scraping due to an overload of requests.
 
 ```{r}
 # This sets your `User-Agent` globally so that all requests are
@@ -419,7 +419,7 @@ school_grabber <- function(school_url) {
 school_grabber(school_url)
 ```
 
-Ok, so it's working. The only thing left is extract this for many schools. As shown earlier, `scrapex` contains a list of 27 school links that we can automatically scrape. Let's loop over those, get the information of coordinates for each and collapse all of them into a data frame.
+Ok, so it's working. The only thing left is to extract this for many schools. As shown earlier, `scrapex` contains a list of 27 school links that we can automatically scrape. Let's loop over those, get the information of coordinates for each and collapse all of them into a data frame.
 
 ```{r, eval = FALSE}
 res <- map_dfr(school_links, school_grabber)
@@ -465,9 +465,9 @@ ggplot(sp_sf) +
 
 There we go! We went from literally no information at the beginning of this tutorial to interpretable and summarized information only using web data. We can see some schools in Madrid (center) as well in other regions of Spain, including Catalonia and Galicia. 
 
-This marks the end of our scraping adventure but before we finish, I want to mention some of the ethical guidelines for webscraping. Scraping is extremely useful for us but can give headaches to other people maintaining the website of interest. Here's a list of ethical guidelines you should always follow:
+This marks the end of our scraping adventure but before we finish, I want to mention some of the ethical guidelines for web scraping. Scraping is extremely useful for us but can give headaches to other people maintaining the website of interest. Here's a list of ethical guidelines you should always follow:
 
-* Read the terms and services: many websites prohibit webscraping and you could be in a breach of privacy by scraping the data. [One](https://fortune.com/2016/05/18/okcupid-data-research/) famous example.
+* Read the terms and services: many websites prohibit web scraping and you could be in a breach of privacy by scraping the data. [One](https://fortune.com/2016/05/18/okcupid-data-research/) famous example.
 
 * Check the `robots.txt` file. This is a file that most websites have (`www.buscocolegio.com` does **not**) which tell you which specific paths inside the website are scrapable and which are not. See [here](https://www.robotstxt.org/robotstxt.html) for an explanation of what robots.txt look like and where to find them.
 

@@ -1,9 +1,9 @@
 ---
-title: "An introduction to webscraping: locating Spanish schools"
+title: "An introduction to web scraping: locating Spanish schools"
 authors: ["Jorge Cimentada"]
 date: "2020-02-11"
 categories: ["R"]
-tags: ["R", "big data", "webscraping"]
+tags: ["R", "big data", "web scraping"]
 
 ---
 
@@ -135,7 +135,7 @@ xml_structure(xml_raw)</code></pre>
 <li>The <strong>child</strong> nodes are <code>&lt;jason&gt;</code> and <code>&lt;carol&gt;</code></li>
 <li>Then each <strong>child</strong> node has nodes <code>&lt;first_name&gt;</code>, <code>&lt;married&gt;</code>, <code>&lt;last_name&gt;</code> and <code>&lt;occupation&gt;</code> nested within them.</li>
 </ul>
-<p>Put another way, if something is nested within a <strong>node</strong>, then the nested node is a <strong>child</strong> of the upper level node. In our example, the <strong>root</strong> node is <code>&lt;people&gt;</code> so we can check which are it’s children:</p>
+<p>Put another way, if something is nested within a <strong>node</strong>, then the nested node is a <strong>child</strong> of the upper-level node. In our example, the <strong>root</strong> node is <code>&lt;people&gt;</code> so we can check which are its children:</p>
 <pre class="r"><code># xml_child returns only one child (specified in search)
 # Here, jason is the first child
 xml_child(xml_raw, search = 1)</code></pre>
@@ -239,11 +239,11 @@ xml_raw %&gt;%
   xml_find_all(&quot;.//occupation&quot;) %&gt;%
   xml_text()</code></pre>
 <pre><code>## [1] &quot;\n      Spy\n    &quot;       &quot;\n      Scientist\n    &quot;</code></pre>
-<p>Once you’ve narrowed down your tree-based search to one single piece of text or numbers, <code>xml_text()</code> will extract that for you (there’s also <code>xml_double</code> and <code>xml_integer</code> for extracting numbers). As I said, XPath is really a huge language. If you’re interested, <a href="https://devhints.io/xpath">this</a> XPath cheat sheets has helped me a lot to learn tricks for easy scraping.</p>
+<p>Once you’ve narrowed down your tree-based search to one single piece of text or numbers, <code>xml_text()</code> will extract that for you (there’s also <code>xml_double</code> and <code>xml_integer</code> for extracting numbers). As I said, XPath is really a huge language. If you’re interested, <a href="https://devhints.io/xpath">this</a> XPath cheat sheets have helped me a lot to learn tricks for easy scraping.</p>
 </div>
 <div id="real-world-example" class="section level2">
 <h2>Real-world example</h2>
-<p>We’re interested in making a lists of many schools in Spain and visualizing their location. This can be useful for many things such as matching population density of children across different regions to school locations. The website <code>www.buscocolegio.com</code> contains a database of schools similar to what we’re looking for. As described at the beginning, instead we’re going to use <code>scrapex</code> which has the function <code>spanish_schools_ex()</code> containing the links to a sample of websites from different schools saved locally on your computer.</p>
+<p>We’re interested in making a list of many schools in Spain and visualizing their location. This can be useful for many things such as matching population density of children across different regions to school locations. The website <code>www.buscocolegio.com</code> contains a database of schools similar to what we’re looking for. As described at the beginning, instead we’re going to use <code>scrapex</code> which has the function <code>spanish_schools_ex()</code> containing the links to a sample of websites from different schools saved locally on your computer.</p>
 <p>Let’s look at an example for one school.</p>
 <pre class="r"><code>school_links &lt;- spanish_schools_ex()
 
@@ -282,11 +282,11 @@ school_raw</code></pre>
 ## [19] &lt;link rel=&quot;stylesheet&quot; href=&quot;https://s3.eu-west-3.amazonaws.com/bus ...
 ## [20] &lt;link rel=&quot;stylesheet&quot; href=&quot;https://s3.eu-west-3.amazonaws.com/bus ...
 ## ...</code></pre>
-<p>Web scraping strategies are very specific to the website you’re after. You have to get very familiar with the website you’re interested to be able to match perfectly the information you’re looking for. In many cases, scraping two websites will require vastly different strategies. For this particular example, we’re only interested in figuring out the <strong>location</strong> of each school so we only have to extract it’s location.</p>
+<p>Web scraping strategies are very specific to the website you’re after. You have to get very familiar with the website you’re interested to be able to match perfectly the information you’re looking for. In many cases, scraping two websites will require vastly different strategies. For this particular example, we’re only interested in figuring out the <strong>location</strong> of each school so we only have to extract its location.</p>
 <p><img src="/post/2020-02-11_files/buscocolegios_xml/main_page.png" width="3000" style="display: block; margin: auto;" /></p>
 <p><br></p>
 <p>In the image above you’ll find a typical school’s website in <code>wwww.buscocolegio.com</code>. The website has a lot of information, but we’re only interested in the button that is circled by the orange rectangle. If you can’t find it easily, it’s below the Google Maps on the right which says “Buscar colegio cercano”.</p>
-<p>When you click on this button, this actually points you towards the coordinates of the school so we just have to find a way of figuring out how to click this button or figure out how to get it’s information. All browsers allow you to do this if you press CTRL + SHIFT + c at the same time (Firefox and Chrome support this hot key). If a a window on the right popped in full of code, then you’re on the right track:</p>
+<p>When you click on this button, this actually points you towards the coordinates of the school so we just have to find a way of figuring out how to click this button or figure out how to get its information. All browsers allow you to do this if you press CTRL + SHIFT + c at the same time (Firefox and Chrome support this hotkey). If a window on the right popped in full of code, then you’re on the right track:</p>
 <p><br></p>
 <p><img src="/post/2020-02-11_files/buscocolegios_xml/developer_tools.png" width="3000" style="display: block; margin: auto;" /></p>
 <p><br></p>
@@ -302,7 +302,7 @@ school_raw</code></pre>
 <p><br></p>
 <p><img src="/post/2020-02-11_files/buscocolegios_xml/location_tag_zoomed.png" width="3000" style="display: block; margin: auto;" /></p>
 <p><br></p>
-<p>Can you see the latitud and longitude fields in the text highlighted blue? It’s hidden in-between words. That is precisely the type of information we’re after. Extracting all <code>&lt;a&gt;</code> tags from the website (hint: XPath similar to <code>"//a"</code>) will yield hundreds of matches because <code>&lt;a&gt;</code> is a very common tag. Moreover, refining the search to <code>&lt;a&gt;</code> tags which have an <code>href</code> attribute will also yield hundreds of matches because <code>href</code> is the standard attribute to attach links within websites. We need to narrow down our search within the website.</p>
+<p>Can you see the latitude and longitude fields in the text highlighted blue? It’s hidden in-between words. That is precisely the type of information we’re after. Extracting all <code>&lt;a&gt;</code> tags from the website (hint: XPath similar to <code>"//a"</code>) will yield hundreds of matches because <code>&lt;a&gt;</code> is a very common tag. Moreover, refining the search to <code>&lt;a&gt;</code> tags which have an <code>href</code> attribute will also yield hundreds of matches because <code>href</code> is the standard attribute to attach links within websites. We need to narrow down our search within the website.</p>
 <p>One strategy is to find the ‘father’ or ‘grandfather’ node of this particular <code>&lt;a&gt;</code> tag and then match a node which has that same sequence of grandfather -&gt; father -&gt; child node. By looking at the structure of this small XML snippet from the right-most window, we see that the ‘grandfather’ of this <code>&lt;a&gt;</code> tag is <code>&lt;p class="d-flex align-items-baseline g-mt-5'&gt;</code> which has a particularly long attribute named <code>class</code>.</p>
 <p><br></p>
 <p><img src="/post/2020-02-11_files/buscocolegios_xml/location_tag_zoomed.png" width="3000" style="display: block; margin: auto;" /></p>
@@ -318,7 +318,7 @@ school_raw %&gt;%
   xml_find_all(&quot;//p[@class=&#39;d-flex align-items-baseline g-mt-5&#39;]//a&quot;)</code></pre>
 <pre><code>## {xml_nodeset (1)}
 ## [1] &lt;a href=&quot;/Colegio/buscar-colegios-cercanos.action?colegio.latitud=38 ...</code></pre>
-<p>There we go! We can see the specific <code>href</code> that contains the latitud and longitud data we’re interested in. How do we extract the <code>href</code> attribute? Using <code>xml_attr</code> as we did before!</p>
+<p>There we go! We can see the specific <code>href</code> that contains the latitude and longitude data we’re interested in. How do we extract the <code>href</code> attribute? Using <code>xml_attr</code> as we did before!</p>
 <pre class="r"><code>location_str &lt;-
   school_raw %&gt;%
   xml_find_all(&quot;//p[@class=&#39;d-flex align-items-baseline g-mt-5&#39;]//a&quot;) %&gt;%
@@ -336,8 +336,8 @@ location_str</code></pre>
 
 location</code></pre>
 <pre><code>## [1] &quot;38.8274492&quot; &quot;0.0221681&quot;</code></pre>
-<p>Ok, so we got the information we needed for one single school. Let’s turn that into a function so we can pass only the school’s link and get the coodinates back.</p>
-<p>Before we do that, I will set something called my <code>User-Agent</code>. In short, the <code>User-Agent</code> is <strong>who</strong> you are. It is good practice to identify the person who is scraping the website because if you’re causing any trouble on the website, the website can directly identify who is causing problems. You can figure out your user agent <a href="https://www.google.com/search?client=ubuntu&amp;channel=fs&amp;q=what%27s+my+user+agent&amp;ie=utf-8&amp;oe=utf-8">here</a> and paste it in the string below. In addition, I will add a time sleep of 5 second to the function because we want to make sure we don’t cause any troubles to the website we’re scraping due to an overload of requests.</p>
+<p>Ok, so we got the information we needed for one single school. Let’s turn that into a function so we can pass only the school’s link and get the coordinates back.</p>
+<p>Before we do that, I will set something called my <code>User-Agent</code>. In short, the <code>User-Agent</code> is <strong>who</strong> you are. It is good practice to identify the person who is scraping the website because if you’re causing any trouble on the website, the website can directly identify who is causing problems. You can figure out your user agent <a href="https://www.google.com/search?client=ubuntu&amp;channel=fs&amp;q=what%27s+my+user+agent&amp;ie=utf-8&amp;oe=utf-8">here</a> and paste it in the string below. In addition, I will add a time sleep of 5 seconds to the function because we want to make sure we don’t cause any troubles to the website we’re scraping due to an overload of requests.</p>
 <pre class="r"><code># This sets your `User-Agent` globally so that all requests are
 # identified with this `User-Agent`
 set_config(
@@ -378,7 +378,7 @@ school_grabber &lt;- function(school_url) {
 school_grabber(school_url)</code></pre>
 <pre><code>##     latitude longitude
 ## 1 38.8274492 0.0221681</code></pre>
-<p>Ok, so it’s working. The only thing left is extract this for many schools. As shown earlier, <code>scrapex</code> contains a list of 27 school links that we can automatically scrape. Let’s loop over those, get the information of coordinates for each and collapse all of them into a data frame.</p>
+<p>Ok, so it’s working. The only thing left is to extract this for many schools. As shown earlier, <code>scrapex</code> contains a list of 27 school links that we can automatically scrape. Let’s loop over those, get the information of coordinates for each and collapse all of them into a data frame.</p>
 <pre class="r"><code>res &lt;- map_dfr(school_links, school_grabber)
 res</code></pre>
 <pre><code>##    latitude  longitude
@@ -424,9 +424,9 @@ ggplot(sp_sf) +
   ggtitle(&quot;Sample of schools in Spain&quot;)</code></pre>
 <p><img src="/post/2020-02-11_files/figure-html/unnamed-chunk-34-1.png" width="80%" style="display: block; margin: auto;" /></p>
 <p>There we go! We went from literally no information at the beginning of this tutorial to interpretable and summarized information only using web data. We can see some schools in Madrid (center) as well in other regions of Spain, including Catalonia and Galicia.</p>
-<p>This marks the end of our scraping adventure but before we finish, I want to mention some of the ethical guidelines for webscraping. Scraping is extremely useful for us but can give headaches to other people maintaining the website of interest. Here’s a list of ethical guidelines you should always follow:</p>
+<p>This marks the end of our scraping adventure but before we finish, I want to mention some of the ethical guidelines for web scraping. Scraping is extremely useful for us but can give headaches to other people maintaining the website of interest. Here’s a list of ethical guidelines you should always follow:</p>
 <ul>
-<li><p>Read the terms and services: many websites prohibit webscraping and you could be in a breach of privacy by scraping the data. <a href="https://fortune.com/2016/05/18/okcupid-data-research/">One</a> famous example.</p></li>
+<li><p>Read the terms and services: many websites prohibit web scraping and you could be in a breach of privacy by scraping the data. <a href="https://fortune.com/2016/05/18/okcupid-data-research/">One</a> famous example.</p></li>
 <li><p>Check the <code>robots.txt</code> file. This is a file that most websites have (<code>www.buscocolegio.com</code> does <strong>not</strong>) which tell you which specific paths inside the website are scrapable and which are not. See <a href="https://www.robotstxt.org/robotstxt.html">here</a> for an explanation of what robots.txt look like and where to find them.</p></li>
 <li><p>Some websites are supported by very big servers, which means you can send 4-5 website requests per second. Others, such as <code>www.buscocolegio.com</code> are not. It’s good practice to always put a time sleep between your requests. In our example, I set it to 5 seconds because this is a small website and we don’t want to crash their servers.</p></li>
 <li><p>When making requests, there are computational ways of identifying yourself. For example, every request (such as the one’s we do) can have something called a <code>User-Agent</code>. It is good practice to include yourself in as the <code>User-Agent</code> (as we did in our code) because the admin of the server can directly identify if someone’s causing problems due to their web scraping.</p></li>
