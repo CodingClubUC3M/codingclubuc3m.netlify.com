@@ -1,0 +1,562 @@
+---
+title: "Automated testing with 'testthat' in practice"
+authors: ["Virginia Peón García"]
+date: 2019-11-26
+categories: ["R"]
+tags: ["R", "testthat", "testing", "TDD"]
+---
+
+
+
+<p>You test your code. We know you do. How else are you sure that your changes don’t break the program?
+But after you commit, you discard those pesky scripts and throw away code.
+Don’t you think it’s a bit of a waste to dump all that effort that took you quite a decent chunk of your day to conjure?
+Well, here you are, so let’s see another way. A <em>better</em> way.</p>
+<p>In the words of Hadley Wickham, author of the <code>testthat</code> package,
+in <a href="https://rjournal.github.io/archive/2011-1/RJournal_2011-1.pdf#page=5">The R Journal</a>:</p>
+<blockquote>
+<p>“It’s not that we don’t test our code, it’s that we don’t store
+our tests so they can be re-run automatically.”</p>
+</blockquote>
+<p>So now we are going to see how to accomplish this using <strong>automated unit testing</strong>, leveraging the <code>testthat</code> package.
+We’ll cover (pun intended) how much of your code went untested, with the <code>covr</code> package,
+and also we’ll learn to test functions independently of their dependencies, making use of <em>mock</em> functions.</p>
+<p>We’ll also introduce <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test-driven Development</a>, or TDD.</p>
+<div id="what-is-a-unit-test" class="section level2">
+<h2>What is a Unit Test?</h2>
+<p><a href="https://en.wikipedia.org/wiki/Unit_testing">Unit testing</a>
+is a method that allows us to check the correct behaviour of a unit of code,
+which, in the context of R, translates to the correct behaviour of a function.</p>
+<p>For a unit test to be good enough, some requirements must be met:</p>
+<ul>
+<li>The whole battery of tests must take as little time as possible,
+ideally no more than 10 min, so each test should finish as quickly as possible.</li>
+<li>Running a test should report clearly where in the code the errors occurred, if any.</li>
+<li>No manual intervention should be involved.</li>
+<li>Each test should be independent of each other, so running one test should not
+affect the running of any other.</li>
+</ul>
+<p>Let’s review some advantages of proper Unit Testing:</p>
+<ul>
+<li>You’ll save a lot of debug time. And I mean <em>a lot</em>.</li>
+<li>You won’t make the same mistake twice (heh! you wish! ;-P)</li>
+<li>You will promptly discover bugs trying to creep into your code when adding changes to it.</li>
+<li>Enables <a href="https://en.wikipedia.org/wiki/Continuous_integration">continuous integration</a>.</li>
+<li>The tests themselves provide documentation for the code.</li>
+<li>When an error occurs, the culprit code is handed to you in a silver platter.</li>
+<li>It forces you to write <em>testable code</em>, and thus improves the overall design.</li>
+</ul>
+</div>
+<div id="unit-testing-in-r-testthat-library" class="section level2">
+<h2>Unit Testing in R: <code>testthat</code> Library</h2>
+<div id="setup" class="section level3">
+<h3>Setup</h3>
+<pre class="r"><code># Install package from CRAN only if not installed, and load the library
+if (!require(testthat)) install.packages(&#39;testthat&#39;)
+library(testthat)</code></pre>
+</div>
+<div id="expectations" class="section level3">
+<h3>Expectations</h3>
+<p>An <em>expectation</em> allows us to assert that the values returned by a function match the ones we should get.</p>
+<p>So, for instance, <code>expect_identical(a, b)</code> means
+&quot;I expect that <em>a</em> will be identical to <em>b</em>&quot;.</p>
+<p>Example:
+Let’s test the functions <code>my_good_sum(x, y)</code> and <code>my_buggy_sum(x, y)</code>,
+being OK and broken respectively. On purpose. Ye be warned.</p>
+<pre class="r"><code>my_good_sum  &lt;- function(x, y) x + y
+my_buggy_sum &lt;- function(x, y) x + y + 42
+
+# Pass
+expect_identical(my_good_sum(6, 4), 10)
+
+# Fail
+expect_identical(my_buggy_sum(6, 4), 10)</code></pre>
+<pre><code>## Error: my_buggy_sum(6, 4) not identical to 10.
+## 1/1 mismatches
+## [1] 52 - 10 == 42</code></pre>
+<p>Only if the test fails you will have an error message.</p>
+<p>Beware!! In computer memory, floats and doubles are stored using <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754</a> standard format. Due to rounding errors the usual way to compare does not always work.</p>
+<p><code>expect_identical()</code> is going to produce an error:</p>
+<pre class="r"><code>expect_identical(my_good_sum(0.1, 0.2), 0.3)</code></pre>
+<pre><code>## Error: my_good_sum(0.1, 0.2) not identical to 0.3.
+## Objects equal but not identical</code></pre>
+<p>So, we must use a different expectation this time, <code>expect_equal()</code>:</p>
+<pre class="r"><code>expect_equal(my_good_sum(0.1, 0.2), 0.3)</code></pre>
+<p>There are more than <a href="https://testthat.r-lib.org/reference/index.html#section-expectations">20 expectations</a> in the <code>testthat</code> package. They try to answer questions like:</p>
+<ul>
+<li>Are the values equal, equivalent or identical?
+<ul>
+<li><code>expect_equal(x, y)</code></li>
+<li><code>expect_equivalent(x, y)</code></li>
+<li><code>expect_identical(x, y)</code></li>
+</ul></li>
+<li>Does the code produce any output/message/warning/error?
+<ul>
+<li><code>expect_output(x, y)</code></li>
+<li><code>expect_message(x, y)</code></li>
+<li><code>expect_warning(x, y)</code></li>
+<li><code>expect_error(x, y)</code></li>
+</ul></li>
+<li>How does the returned value compare to a specified value?
+<ul>
+<li><code>expect_lt(x, y)</code></li>
+<li><code>expect_lte(x, y)</code></li>
+<li><code>expect_gt(x, y)</code></li>
+<li><code>expect_gte(x, y)</code></li>
+</ul></li>
+</ul>
+</div>
+<div id="multiple-assertions" class="section level3">
+<h3>Multiple Assertions</h3>
+<p><code>test_that()</code> allows us to group several expectations that test a function or feature.</p>
+<pre class="r"><code>test_that(&quot;Check commutative property&quot;, {
+    expect_identical(my_good_sum(4, 6), 10)
+    expect_identical(my_good_sum(6, 4), 10)
+})
+
+test_that(&quot;Check neutral element&quot;, {
+    expect_identical(my_buggy_sum(0, 0), 0)
+    expect_identical(my_buggy_sum(0, 1), 1)
+    expect_identical(my_buggy_sum(1, 0), 1)
+})</code></pre>
+<pre><code>## Error: Test failed: &#39;Check neutral element&#39;
+## * my_buggy_sum(0, 0) not identical to 0.
+## 1/1 mismatches
+## [1] 42 - 0 == 42
+## * my_buggy_sum(0, 1) not identical to 1.
+## 1/1 mismatches
+## [1] 43 - 1 == 42
+## * my_buggy_sum(1, 0) not identical to 1.
+## 1/1 mismatches
+## [1] 43 - 1 == 42</code></pre>
+<p>We can see how the naming allows us to identify any failing test more easily.</p>
+</div>
+<div id="how-to-organize-and-run-your-tests" class="section level3">
+<h3>How to Organize and Run Your Tests</h3>
+<p>We should have a folder named <code>R</code> with all the R code, and one folder named <code>tests/testthat</code>, where all the test scripts will live.
+For each file with R scripts there should be another one with tests, with the same name, but prefixed by <code>test_</code>, as shown:</p>
+<pre><code>   R/my_program.R &lt;=&gt; tests/testthat/test_my_program.R</code></pre>
+<p>So, if you have a file with code, for example in <code>R/code.R</code>:</p>
+<pre class="r"><code>add_one &lt;- function(x) x + 1</code></pre>
+<p>your test file should be <code>tests/testthat/test_code.R</code>:</p>
+<pre class="r"><code>source(&quot;../../R/code.R&quot;) # This is only needed if your project is not a package
+
+test_that(&quot;Add one to 99&quot;, {
+    expect_equal(add_one(99), 100)
+})</code></pre>
+<p>From the R console, you can run all tests in a file with <code>test_file(&quot;./path/to/file&quot;)</code>,
+and all tests in a folder with <code>test_dir(&quot;./path/to/folder&quot;)</code>.</p>
+<p>Both functions, <code>test_file()</code> and <code>test_dir()</code>, accept a parameter <code>reporter</code> with several options, such as:</p>
+<ul>
+<li>“progress”, which is the default,</li>
+<li>“minimal” if you want a simpler report,</li>
+<li>“location”, which shows the file, line and column of the test run (failed or otherwise),</li>
+<li>“debug”, which allows to debug interactively a failing test
+and more.</li>
+</ul>
+<p>These can also be combined into a <code>MultiReporter</code>, by passing an string vector with several reporters:</p>
+<pre class="r"><code>test_dir(&quot;./path/to/folder&quot;, reporter=c(&quot;minimal&quot;, &quot;location&quot;))</code></pre>
+<p>Fancy, eh?</p>
+<p>See
+<a href="https://www.rdocumentation.org/packages/testthat/versions/2.2.1/topics/test_file">the</a>
+<a href="https://www.rdocumentation.org/packages/testthat/versions/2.2.1/topics/test_dir">docs</a>
+for more details.</p>
+<p>It is a best practice not to stop the test battery when one test fails, so that we can gather as much feedback as possible in the least amount of time.</p>
+<p>If you want to run all the tests of a package, you just need to press Ctrl/Cmd + Shift + T (from within RStudio), or run <code>devtools::test()</code> from the R console.</p>
+<p>You have a nice cheat sheet of the whole process, and more, here: <a href="https://rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf">Package Development
+with devtools Cheat Sheet</a>:</p>
+<center>
+<img src="/post/2019-11-26_files/testthat_package.png" width="250" />
+</center>
+</div>
+<div id="what-to-test" class="section level3">
+<h3>What to Test:</h3>
+<ul>
+<li>Valid inputs.</li>
+<li>Invalid inputs.</li>
+<li>Errors, exceptions, and events.</li>
+<li>Everything that might break.</li>
+</ul>
+</div>
+</div>
+<div id="test-coverage" class="section level2">
+<h2>Test Coverage</h2>
+<p>The <code>covr</code> package helps you check how much of your code is actually being tested.
+It shows which lines of code are being tested by your tests, and which are not.</p>
+<p>It usually measures coverage as a ratio, e.g. 60% of all lines, functions, etc.</p>
+<div id="setup-1" class="section level3">
+<h3>Setup</h3>
+<pre class="r"><code># Install package from CRAN only if not installed, and load the library
+if (!require(covr)) install.packages(&#39;covr&#39;)
+library(covr)</code></pre>
+</div>
+<div id="test-coverage-of-a-whole-package" class="section level3">
+<h3>Test Coverage of a Whole Package</h3>
+<p>If you want to check the coverage of a package, you simply have to:</p>
+<pre class="r"><code>covr &lt;- package_coverage(path=&quot;./path/to/package&quot;)
+covr
+report(covr)</code></pre>
+</div>
+<div id="coverage-of-individual-files" class="section level3">
+<h3>Coverage of Individual Files</h3>
+<p>Say you have this R script (and its companion test):</p>
+<pre class="r"><code># R/sign_of_product.R
+sign_of_product &lt;- function(x, y) {
+    if (x &lt; 0) {
+        if (y &lt; 0) {
+            return(&quot;Positive&quot;)
+        } else {
+            return(&quot;Negative&quot;)
+        }
+    } else {
+        if (y &lt; 0) {
+            return(&quot;Negative&quot;)
+        } else {
+            return(&quot;Positive&quot;)
+        }
+    }
+}
+
+# tests/testthat/test_sign_of_product.R
+test_that(&quot;Sign of the product&quot;, {
+    expect_equal(sign_of_product(1, -1), &quot;Negative&quot;)
+    expect_equal(sign_of_product(-1, -1), &quot;Positive&quot;)
+})</code></pre>
+<p>You can check the test coverage for just <code>R/sign_of_product.R</code> like this:</p>
+<pre class="r"><code>covr &lt;- file_coverage(&quot;R/sign_of_product.R&quot;, &quot;tests/testthat/test_sign_of_product.R&quot;)
+covr
+report(covr)</code></pre>
+<p>In the “Source” tab you will see a report that shows which lines have been tested and which have not.</p>
+<center>
+<img src="/post/2019-11-26_files/code_cov_1.png" style="width:40.0%" />
+</center>
+<p>Oops! You can see some red lines there. How many tests will I have to do?</p>
+<p>If your code has <em>if-else</em> blocks, you have to ensure that both paths of each <em>if</em> are tested.
+If <em>if-else</em> blocks are nested, the number of cases to test increases exponentially.
+See <a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity">Cyclomatic Complexity</a> for a more detailed explanation.</p>
+<p>Now, let’s get to it.</p>
+<pre class="r"><code># tests/testthat/test_sign_of_product.R
+test_that(&quot;Multiplication sign&quot;, {
+    expect_equal(sign_of_product(1, 1),   &quot;Positive&quot;)
+    expect_equal(sign_of_product(-1, 1),  &quot;Negative&quot;)
+    expect_equal(sign_of_product(1, -1),  &quot;Negative&quot;)
+    expect_equal(sign_of_product(-1, -1), &quot;Positive&quot;)
+})</code></pre>
+<p>Yay! Now we have achieved 100% test coverage. Get a juice box.</p>
+<center>
+<img src="/post/2019-11-26_files/code_cov_2.png" style="width:40.0%" />
+</center>
+<p><br />
+</p>
+<p>If you have multiple files in the <code>R</code> folder
+and their corresponding test files in the <code>tests/testthat</code> folder, then if you do:</p>
+<pre class="r"><code>covr &lt;- file_coverage(
+    c(
+        &quot;R/mult_sign.R&quot;,
+        &quot;R/other_file_1.R&quot;,
+        &quot;R/other_file_2.R&quot;
+    ),
+    c(
+        &quot;tests/testthat/test_mult_sign.R&quot;,
+        &quot;tests/testthat/test_other_file_1.R&quot;,
+        &quot;tests/testthat/test_other_file_2.R&quot;
+    )
+)
+covr
+report(covr)</code></pre>
+<p>you get a nice “Overall report”, with the files with less coverage at the top:</p>
+<center>
+<img src="/post/2019-11-26_files/code_cov_3.png" style="width:80.0%" />
+</center>
+</div>
+</div>
+<div id="mock-functions" class="section level2">
+<h2>Mock Functions</h2>
+<p>A function typically calls other functions, that we call <em>dependencies</em>.</p>
+<p>A <em>mock</em> function replaces a dependency during a test,
+and must be implemented in a way that allows us to test the caller function.</p>
+<p>To illustrate this, let’s say we are testing a function that depends on
+a function <code>get_json(...)</code> that connects to an external REST service
+and returns some JSON payload.
+We should then replace <code>get_json(...)</code> with a mock function,
+that forcibly returns a sample JSON of our choice:</p>
+<pre class="r"><code># The real `get_json()` is defined elsewhere, and is probably quite complex
+# Mocked `get_json()` function:
+get_json &lt;- function() {
+  &#39;{&quot;user&quot;: &quot;Jane Doe&quot;, &quot;age&quot;: 42}&#39;
+}</code></pre>
+<p>This will enable us to write a unit test of the caller function.</p>
+<p>Now, should we then mock <strong>all</strong> of the dependencies? Let’s look into this a little bit.</p>
+<p>Some of these dependencies may be well tested already, for instance,
+if they belong to the standard library of the language, or to a well-established package.
+In that case, mocking those would be redundant, wouldn’t it?</p>
+<p>Not so easy, cowboy.</p>
+<p>Even if well-tested, we might benefit from mocking them in these two scenarios:</p>
+<ol style="list-style-type: decimal">
+<li><p>The dependent function, although well tested, is not <a href="https://en.wikipedia.org/wiki/Pure_function">pure</a>,
+and all functions that access an external resource (e.g., REST services or external databases) fall into this category.</p></li>
+<li><p>The dependent function, although pure, takes a lot of time/resources to execute (is <em>expensive</em>).</p></li>
+</ol>
+<p>This strategy gives us the additional advantage of being able to test functions that have dependencies that are not yet implemented, which is commonplace when writing new code.</p>
+<p>Note that since version <code>2.0.0</code> of the <code>testthat</code> package,
+you <a href="https://www.tidyverse.org/articles/2017/12/testthat-2-0-0/">can’t mock functions in base packages</a></p>
+<p>Let’s now see how <code>testthat</code> simplifies using mocked functions:</p>
+<pre class="r"><code># R/salary.R
+get_gross_salary &lt;- function(employee_id) {
+    # Get the gross salary for the employee whose ID is employee_id
+    # possibly from an external database or web service
+}
+
+net_salary &lt;- function(employee_id, tax) {
+    if (!is.numeric(tax)) {
+        stop(&quot;Input type is not numeric&quot;)
+    }
+
+    gross_salary = get_gross_salary(employee_id) # External function call
+
+    return(round(gross_salary * (1 - tax), digits=2))
+}
+
+
+# tests/testthat/test_salary.R
+test_that(&#39;Net calculation works OK&#39;, {
+    local_mock(get_gross_salary = function(x) 1000 )
+    # Now the call of get_gross_salary() always returns 1000
+    expect_equal(net_salary(456, 0.20), 800)
+    expect_equal(net_salary(70, 0.15), 850)
+    expect_error(net_salary(&quot;str&quot;))
+    expect_error(net_salary(&quot;100.50&quot;))
+})</code></pre>
+<p>We’ve used <code>local_mock()</code> within a call to <code>test_that()</code>. This has the effect of mocking the desired function in all the tests defined within the <code>test_that()</code> block.</p>
+<p>But sometimes we want to be more specific, and mock a function just for a test. We can then leverage the <code>with_mock()</code> function.</p>
+<p>See the <a href="https://www.rdocumentation.org/packages/testthat/versions/2.2.1/topics/with_mock">docs</a> for the gory details.</p>
+</div>
+<div id="test-driven-development-tdd" class="section level2">
+<h2>Test-driven Development (TDD)</h2>
+<p><a href="https://en.wikipedia.org/wiki/Test-driven_development">Test-driven Development, or TDD</a>, is a software development process where you write a test before you write the actual code you are trying to test.</p>
+<p>Let’s begin with a simplified TDD workflow:</p>
+<ol style="list-style-type: decimal">
+<li>Let’s suppose we start a project from scratch.</li>
+<li>RED. Write a test. Run it. It <em>must</em> fail, hence the “RED”.</li>
+<li>GREEN. Write “just enough” code, the simplest possible, to pass the test. Even if it looks silly.
+We are then “GREEN”.</li>
+<li>REFACTOR. Work on the code to remove any duplication we might have added for the test to pass.
+Only if needed. Naturally, not on the first iteration of this loop.</li>
+<li>Jump to step 2 and start again.<br />
+<br />
+</li>
+</ol>
+For reference, the full-fledged workflow looks like this:
+<center>
+<div class="figure">
+<img src="/post/2019-11-26_files/TDD_Global_Lifecycle.png" alt="By Xarawn - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=44782343" />
+<p class="caption">By Xarawn - Own work, CC BY-SA 4.0, <a href="https://commons.wikimedia.org/w/index.php?curid=44782343" class="uri">https://commons.wikimedia.org/w/index.php?curid=44782343</a></p>
+</div>
+</center>
+<div id="benefits-of-tdd" class="section level3">
+<h3>Benefits of TDD</h3>
+<ul>
+<li>It ensures that we get the desired result.</li>
+<li>It compels us to produce testable code.</li>
+<li>It serves as a guide in case we don’t know where to start but we are clear on what we want to get.</li>
+<li>Let’s be honest, if we manage to get working code, there is little chance that we’ll devote time to write tests later.</li>
+<li>It’s a good complement to the documentation of the project.</li>
+</ul>
+</div>
+<div id="tdd-in-action" class="section level3">
+<h3>TDD in Action</h3>
+<p>Let’s see how to apply TDD in practice.</p>
+<p>The target of this section is to create a function, <code>my_factorial()</code> that satisfies the following:</p>
+<ul>
+<li>Requirement #1. The result of <code>my_factorial(0)</code> must be 1.</li>
+<li>Requirement #2. Choose a number <em>n</em>; <code>my_factorial(n)</code>
+should return the product of all positive integers less than or equal to <em>n</em>.</li>
+<li>Requirement #3. If <em>n</em> &lt; 0 or <em>n</em> &gt; 14, <code>my_factorial(n)</code> should return NULL.
+Why? Because the numbers get so huge that up to 14 we can get integers,
+but from 15 onwards we’ll get only floats, or worse, overflow.</li>
+<li>Requirement #4. The function should only accept integers.</li>
+</ul>
+<p>Let’s tackle them one at a time.</p>
+<p><strong>Requirement #1</strong>: The result of <code>my_factorial(0)</code> must be 1</p>
+<p>Step 1 (RED). Write the first test:</p>
+<pre class="r"><code># tests/testthat/test_myfactorial.R
+test_that(&quot;Valid arguments&quot;, {
+    expect_equal(my_factorial(0), 1)
+})</code></pre>
+<pre><code>## Error: Test failed: &#39;Valid arguments&#39;
+## * could not find function &quot;my_factorial&quot;
+## 1: expect_equal(my_factorial(0), 1) at &lt;text&gt;:3
+## 2: quasi_label(enquo(object), label, arg = &quot;object&quot;)
+## 3: eval_bare(get_expr(quo), get_env(quo))</code></pre>
+<p>As expected, the test has failed. Be wary otherwise.</p>
+<p>Step 2 (GREEN). Write the minimum amount of code that makes the test pass:</p>
+<pre class="r"><code># R/myfactorial.R
+my_factorial &lt;- function(n) 1 # Looks like cheating, but bear with me!
+
+# tests/testthat/test_myfactorial.R
+test_that(&quot;Valid arguments&quot;, {
+    expect_equal(my_factorial(0), 1)
+})</code></pre>
+<p>Congrats! The code now passes the test, yay!</p>
+<p><strong>Requirement #2</strong>: Choose a number <em>n</em>; <code>my_factorial(n)</code>
+should return the product of all positive integers less than or equal to <em>n</em></p>
+<p>Step 1 (RED). Write a test:</p>
+<pre class="r"><code># tests/testthat/test_myfactorial.R
+test_that(&quot;Valid arguments&quot;, {
+    expect_equal(my_factorial(0), 1)
+    expect_equal(my_factorial(3), 6)
+})</code></pre>
+<pre><code>## Error: Test failed: &#39;Valid arguments&#39;
+## * my_factorial(3) not equal to 6.
+## 1/1 mismatches
+## [1] 1 - 6 == -5</code></pre>
+<p>Step 2 (GREEN). Write the minimum amount of code that makes the tests pass:</p>
+<pre class="r"><code># R/myfactorial.R
+my_factorial &lt;- function(n) {
+    ifelse(n == 0, 1, 6)
+    # Hey! This definitely looks like cheating! What are you up to?
+}
+
+# tests/testthat/test_myfactorial.R
+test_that(&quot;Valid arguments&quot;, {
+    expect_equal(my_factorial(0), 1)
+    expect_equal(my_factorial(3), 6)
+})</code></pre>
+<p>Test passing now.</p>
+<p>Step 3 (RED). Write yet another test:</p>
+<pre class="r"><code># tests/testthat/test_myfactorial.R
+test_that(&quot;Valid arguments&quot;, {
+    expect_equal(my_factorial(0), 1)
+    expect_equal(my_factorial(3), 6)
+    expect_equal(my_factorial(10), 3628800)
+})</code></pre>
+<pre><code>## Error: Test failed: &#39;Valid arguments&#39;
+## * my_factorial(10) not equal to 3628800.
+## 1/1 mismatches
+## [1] 6 - 3628800 == -3628794</code></pre>
+<p>Step 4 (GREEN+REFACTOR). We don’t have a choice but to refactor. The tests already in place will keep our new code true!</p>
+<pre class="r"><code># R/myfactorial.R
+my_factorial &lt;- function(n) {
+    if(n == 0) return(1)
+
+    factorial &lt;- 1
+    for(i in 1:n) {
+        factorial &lt;- i * factorial
+    }
+    return(factorial)
+}
+
+# tests/testthat/test_myfactorial.R
+test_that(&quot;Valid arguments&quot;, {
+    expect_equal(my_factorial(0), 1)
+    expect_equal(my_factorial(3), 6)
+    expect_equal(my_factorial(10), 3628800)
+})</code></pre>
+<p>Test passing now.</p>
+<p>The final two requirements are left as an exercise to the reader (go on, don’t be shy!).</p>
+<p>The final result might look something like this:</p>
+<pre class="r"><code># R/myfactorial.R
+my_factorial &lt;- function(n) {
+    stopifnot(is.numeric(n))
+    if(n &lt; 0 | n &gt; 14) return(NULL)
+    if(n == 0) return(1)
+
+    factorial &lt;- 1
+    for(i in 1:n) {
+        factorial &lt;- i * factorial
+    }
+    return(factorial)
+}
+
+# tests/testthat/test_myfactorial.R
+
+test_that(&quot;Valid arguments&quot;, {
+    expect_equal(my_factorial(0), 1)
+    expect_equal(my_factorial(3), 6)
+    expect_equal(my_factorial(10), 3628800)
+
+    rnd_num &lt;- sample.int(14, 1)
+    expect_is(my_factorial(rnd_num), &quot;numeric&quot;)
+})
+
+test_that(&quot;Null for negatives&quot;, {
+    neg_num &lt;- -sample.int(100, 1)
+    expect_equal(my_factorial(neg_num), NULL)
+})
+
+test_that(&quot;Null for numbers bigger than 14&quot;, {
+    num_bigger_than_14 &lt;- 14 + sample.int(100, 1)
+    expect_equal(my_factorial(num_bigger_than_14), NULL)
+})</code></pre>
+</div>
+</div>
+<div id="beyond-unit-testing" class="section level2">
+<h2>Beyond Unit Testing</h2>
+<div id="integration" class="section level3">
+<h3>Integration</h3>
+<p>CAVEAT EMPTOR! Your code can pass all the unit tests, with a 100% coverage, and still have problems!</p>
+<center>
+<img src="/post/2019-11-26_files/nointegrationitests.png" />
+</center>
+<p>These are called <em>integration</em> problems, which are tackled using <em>integration tests</em>.
+This form of testing comprises tests that, <em>ahem</em>, test more than one unit (read: function) at a time.</p>
+</div>
+<div id="hints-for-testing-in-data-science-and-machine-learning" class="section level3">
+<h3>Hints for Testing in Data Science and Machine Learning</h3>
+<p>When working with Machine Learning models, due to their random nature,
+it is not practical to do unit testing.</p>
+<p>We can opt to set the seed for the pseudo-random number generator to a known value,
+in order to be able to predict the results that we’ll obtain from the training.
+This can be accomplished in R with <code>set.seed()</code>.</p>
+<p>On the other hand, without having to set the seed, there are a bunch of approaches
+we can leverage to ensure the fitness of the obtained output.
+These are some of them, which fall into the <em>fuzzy test</em> category:</p>
+<ul>
+<li>Ensure that the type of the result matches what we expect,
+such as <code>string</code>, <code>integer</code>, or <code>dataframe</code> with all required columns in place…</li>
+<li>Ensure that the output falls in the expected range.
+For instance, R<sup>2</sup> of a linear regression must always be between 0 and 1.</li>
+<li>Ensure that the output data fits the expected statistical distribution.</li>
+</ul>
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<div id="testthat" class="section level3">
+<h3>testthat</h3>
+<ul>
+<li><a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf">testthat: Get Started with Testing</a></li>
+<li><a href="http://r-pkgs.had.co.nz/tests.html">R packages by Hadley Wickham</a></li>
+<li><a href="https://b-rodrigues.github.io/fput/unit-testing.html">Functional programming and unit testing for data munging with R</a></li>
+<li><a href="https://testthat.r-lib.org/articles/custom-expectation.html">Custom expectations</a></li>
+<li><a href="https://www.youtube.com/watch?v=bx92oCMxUhg">R language tip: Test your code with testthat</a></li>
+<li><a href="https://www.is.uni-freiburg.de/ressourcen/algorithm-design-and-software-engineering-oeffentlicher-zugriff/11_softwaretesting.pdf">Software Testing</a></li>
+</ul>
+</div>
+<div id="coverage" class="section level3">
+<h3>Coverage</h3>
+<ul>
+<li><a href="https://walczak.org/2017/06/how-to-add-code-coverage-codecov-to-your-r-package/">How to add code coverage (codecov) to your R package?</a></li>
+<li><a href="https://stackoverflow.com/questions/48637143/r-testthat-and-covr-use-in-a-non-package-library">r testthat and covr use in a non-package library</a></li>
+<li><a href="https://jozef.io/r104-unit-testing-coverage/">RStudio:addins part 4 - Unit testing coverage investigation and improvement, made easy</a></li>
+<li><a href="https://b-rodrigues.github.io/fput/packages.html">Functional programming and unit testing for data munging with R</a></li>
+</ul>
+</div>
+<div id="mock" class="section level3">
+<h3>Mock</h3>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/mockery/vignettes/mocks-and-testthat.html">Mocks: Integrating with testthat</a></li>
+<li><a href="https://testthat.r-lib.org/reference/with_mock.html">Mock functions in a package</a></li>
+<li><a href="https://tech.comtravo.com/testing/Testing_Machine_Learning_Models_with_Unittest/">Effective Mocking of Unit Tests for Machine Learning</a></li>
+</ul>
+</div>
+<div id="tdd" class="section level3">
+<h3>TDD</h3>
+<ul>
+<li><a href="https://github.com/pparacch/tdd_r_with_testthat">Hands-on exercise on using TDD with R</a></li>
+<li><a href="http://sd.jtimothyking.com/2006/07/11/twelve-benefits-of-writing-unit-tests-first/">Twelve Benefits of Writing Unit Tests First</a></li>
+<li><a href="https://es.slideshare.net/egoodwintx/unit-testing-in-r-with-testthat-hrug">Unit Testing in R with testthat - HRUG</a></li>
+<li><a href="https://www.youtube.com/watch?v=0CPdG3uRIuc">Introducción a Test-driven Development (TDD) en R <em>(in Spanish)</em></a></li>
+</ul>
+</div>
+</div>
