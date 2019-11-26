@@ -22,8 +22,8 @@ and also we'll learn to test functions independently of their dependencies, maki
 We'll also introduce Test-driven Development, or TDD."""
 
 event = "Tutorial"
-event_url = ""
-event_form = "https://forms.gle/vGTpJd3p29ZqDgW19"
+event_url = "/post/2019-11-26"
+event_form = ""
 
 location = "**Room 18.0.A09**. Campus de Getafe, Calle Madrid, 126, 28903 Getafe, Madrid, Spain."
   
@@ -58,3 +58,6 @@ Communication and knowledge sharing have been an integral part of her duties.
 She has developed her career in several sectors, and have worked for companies
 such as Vodafone, Tuenti, SEUR and El Confidencial. Currently, she is owner
 of the A.I. initiative at Indigitall.
+
+![](/img/sessions/2019-11-26-1.jpg)
+![](/img/sessions/2019-11-26-2.jpg)
