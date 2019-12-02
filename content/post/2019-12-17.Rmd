@@ -1,7 +1,7 @@
 ---
 title: "Herds of Statistical Models"
 authors: ["Carlos J. Gil Bellosta"]
-date: 2019-11-17
+date: 2019-12-17
 categories: ["R"]
 tags: ["R", "big data", "modelization", "statistics"]
 ---
@@ -62,7 +62,7 @@ Many datasets of interest in my consulting practice are hierarchical. Not only t
 
 Take banks. I had a project at BBVA when they celebrated their 150 anniversary. I performed the mental exercise of imagining what kind of datasets would the bank manage at that time. They were probably terse and simple data summaries with aggregated data at regional level with monthly or quarterly periodicity. At some time they would have been able to include and process product level information at branch level and only quite recently to add the customer as the main data subject. Nowadays, information pertaining to each customer and including his products and their timestamped transactions will probably make a richer dataset than the whole bank managed in their early days. Information in this case grew by branching, i.e., by acquiring a hierarchical structure where branches have customers who own products and make transactions with them over time. 
 
-Another example from my consulting experience: a few years ago I was given a medical dataset to study some patterns in patients of diabetes. It came from a local hospital and it contained a few hundred rows, each concerning a different patient. And no matter what I tried, I consistently came across the same recurring outlier. I finally had a close look to that patient and found out that as well as diabetes, he was suffering from a number of other acute illnesses, AIDS being one of them. I finally discarded such case, but I always thought that in a wider analysis deserving the Big Data stamp, he together with other similar patients would have made a very interesting subdataset to study. 
+Another example from my consulting experience: a few years ago I was given a medical dataset to study some patterns in patients of diabetes. It came from a local hospital and it contained a few hundred rows, each concerning a different patient. And no matter what I tried, I consistently came across the same recurring outlier. I finally had a close look at that patient and found out that as well as diabetes, he was suffering from a number of other acute illnesses, AIDS being one of them. I finally discarded such case, but I always thought that in a wider analysis deserving the Big Data stamp, he together with other similar patients would have made a very interesting subdataset to study. 
 
 Hierarchical datasets as those discussed above but, of course not limited to them, are common in the daily practice of statistical consulting. However, they are still being studied using the old Anderson iris dataset tradition, using unjustifiable iid (independent, identically distributed) assumptions on data rows and either classical statistical methods or their modern —more able but still pertaining to the same tradition— _data science_ counterparts, including XGBoost and the like.
 
@@ -115,7 +115,7 @@ dat <- ldply(1:nrow(subject_group), function(i){
 
 Here we construct the target variable, `y`, indicating whether or not a subject liked certain item. That he likes it depends on the group the subject belongs to (weak effect), the category of the item (stronger effect) and, finally, the item itself (intermediate effect). 
 
-> Note: Here, for the sake of presentation, we are ignoring the item ids. In fact, item ids would be relevant in applications such as recommendation systems this artificial data may have some resemblance to. Other feature this dataset ignores is the time dimension. Interactions happened at some point in time and oldish interactions could be sensibly weighted down in actual applications.
+> Note: Here, for the sake of presentation, we are ignoring the item ids. In fact, item ids would be relevant in applications such as recommendation systems this artificial data may have some resemblance to. Another feature this dataset ignores is the time dimension. Interactions happened at some point in time and oldish interactions could be sensibly weighted down in actual applications.
 
 
 ```{r}
@@ -207,7 +207,7 @@ Therefore, some degree of regularization, the kind of regularization that ridge 
 
 ### Ideal modelling strategy
 
-The ideal modelling strategy is also hugely impractical for large datasets: the full Bayesian route. In this case I will not create a `stan` program but use the `stanarm` wrapper, but in more general situations one would still have to generate _ad hoc_ code.
+The ideal modelling strategy is also hugely impractical for large datasets: the full Bayesian route. In this case I will not create a `stan` program but use the `stanarm` wrapper. However, in more general problems not covered by `stanarm` one would still have to generate _ad hoc_ code.
 
 ```{r}
 model_stan <- stan_glm(f_users,
@@ -264,7 +264,7 @@ And, of course, the relationship between the target variable and the group can b
 
 > Note: I'm still searching for a good, efficient method that will let me include informative priors in subject models.
 
-> Note: academia is interested fixed effects. Consulting practice is mostly concerned with random effects (what indiviuals do). Academia's input to consulting job is precisely providing good priors. That's in part why we pay taxes.
+> Note: academia is interested in fixed effects. Consulting practice is mostly concerned with random effects (what individuals do). Academia's input to consulting job is precisely providing good priors. That's in part why we pay taxes.
 
 Alternatively, we could generate models in wider batches. Not only because of efficiency, but also to facilitate the inclusion of _priori_ information in the final model. For instance, one could attempt the following:
 
@@ -278,7 +278,7 @@ Here we are splitting the data according to the group, so the prior information 
 
 As an alternative, for some kind of models, INLA could provide a handy replacement to `lme4::glmer`.
 
-> Note: I did some very promissing tests of INLA in a recent projects where performance was a must (and our datasets contained users in the order of 1 million), but it did not finally make it to the final deliverable.
+> Note: I did some very promising tests of INLA in a recent project where performance was a must (and our datasets contained users in the order of 1 million), but it did not finally make it to the final deliverable.
 
 ## Areas of future improvement
 
@@ -286,15 +286,15 @@ The discussion above opened a number of questions, many of them are open to rese
 
 * How to fit full Bayesian models with big data efficiently. In particular, how to fit them by pieces and how to combine them. 
 * How to efficiently feed _a priori_ information on individual (per subject) models.
-* How to assess the goodness of fit of herds of models; particularly of herds consisting in a large number of models, often in the range of millions.
+* How to assess the goodness of fit of herds of models; particularly of herds consisting of a large number of models, often in the range of millions.
 
 ## Summary
 
 * Many large datasets found in consulting practice have a clear hierarchical structure.
 * Standard _data science_ models often fail to use such structure efficiently.
-* Although Bayesian approaches are more promissing, they are mostly unusable nowadays given the lack of computing power required to run them at full scale.
+* Although Bayesian approaches are more promising, they are mostly unusable nowadays given the lack of computing power required to run them at full scale.
 * However, it is possible to fit _herds of models_ to reduce to the minimum expression the amount of information loss in the modelling process.
-* But building these _herds of models_ require an intelligent design in order to both attain reasonable computing efficiency and to adequately use as much _a priori_ information as possible.
+* But building these _herds of models_ requires an intelligent design in order to both attain reasonable computing efficiency and to adequately use as much _a priori_ information as possible.
 
 
 
