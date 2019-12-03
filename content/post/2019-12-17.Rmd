@@ -150,7 +150,7 @@ flextable(head(dat))
 
 ### Typical modelling strategy
 
-The most typical modelling strategy found in practice to model these kind of data is based on the formula
+The most typical modelling strategy found in practice to model this kind of data is based on the formula
 
 ```{r}
 f0 <- y ~ category + group
@@ -200,14 +200,14 @@ dim(model.matrix(model_01))
 
 Moreover, tools intended to reduce the number of dimensions (read: _lasso_) would effectively eliminate information about certain subjects, and this is precisely contrary to our purpose.
 
-Finally, you would face _cold start_ problems in full bitterness. There may be little information about certain new subjects and the model would completely fail to associate a reasonable prediction to them. With zero observations, the model would be clueless about subject prefences and with a single observation, the model would seem overconfident on them (the 100% paradox!)
+Finally, you would face _cold start_ problems in full bitterness. There may be little information about certain new subjects and the model would completely fail to associate a reasonable prediction to them. With zero observations, the model would be clueless about subject preferences and with a single observation, the model would seem overconfident on them (the 100% paradox!)
 
 Therefore, some degree of regularization, the kind of regularization that ridge regression promises, could be of some help, but it would also fail in largish models.
 
 
 ### Ideal modelling strategy
 
-The ideal modelling strategy is also hugely impractical for large datasets: the full Bayesian route. In this case I will not create a `stan` program but use the `stanarm` wrapper. However, in more general problems not covered by `stanarm` one would still have to generate _ad hoc_ code.
+The ideal modelling strategy is also hugely impractical for large datasets: the full Bayesian route. In this case I will not use the `stanarm` wrapper rather than creating `stan` program. However, in more general problems not covered by `stanarm` one would still have to model the problem using _ad hoc_ code.
 
 ```{r}
 model_stan <- stan_glm(f_users,
@@ -223,7 +223,7 @@ This is the best thinkable modelling approach in all dimensions but one: it's co
 
 $$M = \alpha(I_i) M_i + (1 - \alpha(I_i)) M_g$$
 
-plan, but we'll have to wait a couple generations before Moore's Law does it job and we can run these models on laptops.
+plan, but we'll have to wait a couple of generations before Moore's Law does its job and we can run these models on laptops.
 
 
 ### Naive herds of models
@@ -245,7 +245,7 @@ Models become simpler, but they also raise engineering issues: we need to build 
 * How do we know the model is not behaving oddly?
 * How do we deal with subjects with little history/data?
 
-We can improve upon the this naive herds of models where $M = M_i$ by turning our interest to the $M_g$ part the naive models just discussed discard. 
+We can improve upon these naive herds of models where $M = M_i$ by turning our interest to the $M_g$ part of the naive models just discussed discard. 
 
 
 ### More advanced herds of models
@@ -258,7 +258,7 @@ my_models <- dlply(dat, .(subject), function(tmp){
 })
 ```
 
-However, we are not yet using the hierarchical structure of the dataset. Regularization like above help avoid the 100% problem (among others), but fails to exploit the possible relationships among subjects. In fact, in our example and in most real life datasets, part of the strength of the relationship between subjects and categories can be explained precisely because subjects belong to groups. These groups embody all we know about individuals without having seen them behaving.
+However, we are not yet using the hierarchical structure of the dataset. Regularization like above help avoid the 100% problem (among others), but fails to exploit the possible relationships among subjects. In fact, in our example and in most real-life datasets, part of the strength of the relationship between subjects and categories can be explained precisely because subjects belong to groups. These groups embody all we know about individuals without having seen them behaving.
 
 And, of course, the relationship between the target variable and the group can be estimated _before and independently_ of the estimation of the relationship between _this_ user and the target variable. Then, those group relationships need to be _inserted_ into the model, usually, via _informative priors_.
 
