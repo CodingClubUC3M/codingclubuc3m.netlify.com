@@ -1,13 +1,11 @@
 ---
-title: "Herds of Statistical Models"
+title: "Herds of statistical models"
 authors: ["Carlos J. Gil Bellosta"]
-date: 2019-11-17
+date: 2019-12-17
 categories: ["R"]
 tags: ["R", "big data", "modelization", "statistics"]
 ---
 
-<link href="/rmarkdown-libs/tabwid/tabwid.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/tabwid/tabwid.js"></script>
 
 
 <p>Big datasets found in statistical practice often have a rich structure. Most traditional methods, including their modern counterparts, fail to efficiently use the information contained in them. Here we propose and discuss an alternative modelling strategy based on herds of simple models.</p>
@@ -24,7 +22,7 @@ tags: ["R", "big data", "modelization", "statistics"]
 <h2>Hierarchical datasets</h2>
 <p>Many datasets of interest in my consulting practice are hierarchical. Not only they have a very obvious hierarchical structure, but we can also trace their historical growth process.</p>
 <p>Take banks. I had a project at BBVA when they celebrated their 150 anniversary. I performed the mental exercise of imagining what kind of datasets would the bank manage at that time. They were probably terse and simple data summaries with aggregated data at regional level with monthly or quarterly periodicity. At some time they would have been able to include and process product level information at branch level and only quite recently to add the customer as the main data subject. Nowadays, information pertaining to each customer and including his products and their timestamped transactions will probably make a richer dataset than the whole bank managed in their early days. Information in this case grew by branching, i.e., by acquiring a hierarchical structure where branches have customers who own products and make transactions with them over time.</p>
-<p>Another example from my consulting experience: a few years ago I was given a medical dataset to study some patterns in patients of diabetes. It came from a local hospital and it contained a few hundred rows, each concerning a different patient. And no matter what I tried, I consistently came across the same recurring outlier. I finally had a close look to that patient and found out that as well as diabetes, he was suffering from a number of other acute illnesses, AIDS being one of them. I finally discarded such case, but I always thought that in a wider analysis deserving the Big Data stamp, he together with other similar patients would have made a very interesting subdataset to study.</p>
+<p>Another example from my consulting experience: a few years ago I was given a medical dataset to study some patterns in patients of diabetes. It came from a local hospital and it contained a few hundred rows, each concerning a different patient. And no matter what I tried, I consistently came across the same recurring outlier. I finally had a close look at that patient and found out that as well as diabetes, he was suffering from a number of other acute illnesses, AIDS being one of them. I finally discarded such case, but I always thought that in a wider analysis deserving the Big Data stamp, he together with other similar patients would have made a very interesting subdataset to study.</p>
 <p>Hierarchical datasets as those discussed above but, of course not limited to them, are common in the daily practice of statistical consulting. However, they are still being studied using the old Anderson iris dataset tradition, using unjustifiable iid (independent, identically distributed) assumptions on data rows and either classical statistical methods or their modern —more able but still pertaining to the same tradition— <em>data science</em> counterparts, including XGBoost and the like.</p>
 </div>
 <div id="statistical-analysis-of-hierarchical-datasets" class="section level2">
@@ -57,7 +55,7 @@ dat &lt;- ldply(1:nrow(subject_group), function(i){
 })</code></pre>
 <p>Here we construct the target variable, <code>y</code>, indicating whether or not a subject liked certain item. That he likes it depends on the group the subject belongs to (weak effect), the category of the item (stronger effect) and, finally, the item itself (intermediate effect).</p>
 <blockquote>
-<p>Note: Here, for the sake of presentation, we are ignoring the item ids. In fact, item ids would be relevant in applications such as recommendation systems this artificial data may have some resemblance to. Other feature this dataset ignores is the time dimension. Interactions happened at some point in time and oldish interactions could be sensibly weighted down in actual applications.</p>
+<p>Note: Here, for the sake of presentation, we are ignoring the item ids. In fact, item ids would be relevant in applications such as recommendation systems this artificial data may have some resemblance to. Another feature this dataset ignores is the time dimension. Interactions happened at some point in time and oldish interactions could be sensibly weighted down in actual applications.</p>
 </blockquote>
 <pre class="r"><code>sigma_ct &lt;- .5
 
@@ -81,12 +79,115 @@ dat$y &lt;- sapply(dat$y, function(p) rbinom(1, 1, p))
 
 dat$ct_coef &lt;- dat$cs_coef &lt;- dat$item_coef &lt;- NULL
 
-flextable(head(dat))</code></pre>
-<div class="tabwid"><table style='border-collapse:collapse;'><thead><tr><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 2px solid rgba(0, 0, 0, 1.00);border-top: 2px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">category</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 2px solid rgba(0, 0, 0, 1.00);border-top: 2px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">subject</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 2px solid rgba(0, 0, 0, 1.00);border-top: 2px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">group</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 2px solid rgba(0, 0, 0, 1.00);border-top: 2px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">y</span></p></td></tr></thead><tbody><tr><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">1</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">2</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">2</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">1</span></p></td></tr><tr><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">1</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">2</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">2</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">1</span></p></td></tr><tr><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">1</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">2</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">2</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">1</span></p></td></tr><tr><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">1</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">2</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">2</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">1</span></p></td></tr><tr><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">1</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">3</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">2</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">1</span></p></td></tr><tr><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 2px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">1</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 2px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">3</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 2px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">2</span></p></td><td style="width:54px;height:18px;background-color:transparent;vertical-align: middle;border-bottom: 2px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Roboto';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">0</span></p></td></tr></tbody></table></div>
+knitr::kable(head(dat), &quot;html&quot;)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+category
+</th>
+<th style="text-align:left;">
+subject
+</th>
+<th style="text-align:left;">
+group
+</th>
+<th style="text-align:right;">
+y
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="typical-modelling-strategy" class="section level3">
 <h3>Typical modelling strategy</h3>
-<p>The most typical modelling strategy found in practice to model these kind of data is based on the formula</p>
+<p>The most typical modelling strategy found in practice to model this kind of data is based on the formula</p>
 <pre class="r"><code>f0 &lt;- y ~ category + group</code></pre>
 <p>or perhaps</p>
 <pre class="r"><code>f1 &lt;- y ~ category * group</code></pre>
@@ -147,26 +248,26 @@ summary(model_01)</code></pre>
 ## (Intercept)          -0.8473     0.4880  -1.736  0.08249 . 
 ## category2            -1.2730     0.7819  -1.628  0.10353   
 ## category3            -0.1888     0.6011  -0.314  0.75344   
-## group2              -16.1881  2797.4422  -0.006  0.99538   
-## subject2             34.6015  3426.1529   0.010  0.99194   
-## subject3             15.5314  2797.4423   0.006  0.99557   
-## subject4             17.5054  2797.4422   0.006  0.99501   
+## group2              -16.1881  2797.4420  -0.006  0.99538   
+## subject2             34.6015  3426.1527   0.010  0.99194   
+## subject3             15.5314  2797.4421   0.006  0.99557   
+## subject4             17.5054  2797.4421   0.006  0.99501   
 ## subject5              2.7191     0.9028   3.012  0.00260 **
-## subject6             16.6788  2797.4421   0.006  0.99524   
+## subject6             16.6788  2797.4420   0.006  0.99524   
 ## subject7              0.6931     0.6268   1.106  0.26878   
 ## subject8             -0.2513     0.6785  -0.370  0.71107   
 ## subject9                  NA         NA      NA       NA   
-## category2:group2     35.8745  3127.6355   0.011  0.99085   
+## category2:group2     35.8745  3127.6353   0.011  0.99085   
 ## category3:group2     -0.3418     0.8977  -0.381  0.70335   
-## category2:subject2  -51.8799  3700.6681  -0.014  0.98881   
+## category2:subject2  -51.8799  3700.6680  -0.014  0.98881   
 ## category3:subject2  -17.2586  1978.0904  -0.009  0.99304   
-## category2:subject3  -15.5314  3394.2810  -0.005  0.99635   
+## category2:subject3  -15.5314  3394.2809  -0.005  0.99635   
 ## category3:subject3    3.4210     1.2964   2.639  0.00832 **
-## category2:subject4  -35.3228  3127.6354  -0.011  0.99099   
+## category2:subject4  -35.3228  3127.6353  -0.011  0.99099   
 ## category3:subject4   -0.9202     1.1081  -0.830  0.40629   
 ## category2:subject5   -1.6974     1.2336  -1.376  0.16881   
 ## category3:subject5    0.4571     1.2235   0.374  0.70873   
-## category2:subject6  -33.4716  3127.6354  -0.011  0.99146   
+## category2:subject6  -33.4716  3127.6352  -0.011  0.99146   
 ## category3:subject6        NA         NA      NA       NA   
 ## category2:subject7    1.1648     0.9711   1.199  0.23039   
 ## category3:subject7    0.8285     0.8473   0.978  0.32821   
@@ -188,12 +289,12 @@ summary(model_01)</code></pre>
 <pre class="r"><code>dim(model.matrix(model_01))</code></pre>
 <pre><code>## [1] 450  30</code></pre>
 <p>Moreover, tools intended to reduce the number of dimensions (read: <em>lasso</em>) would effectively eliminate information about certain subjects, and this is precisely contrary to our purpose.</p>
-<p>Finally, you would face <em>cold start</em> problems in full bitterness. There may be little information about certain new subjects and the model would completely fail to associate a reasonable prediction to them. With zero observations, the model would be clueless about subject prefences and with a single observation, the model would seem overconfident on them (the 100% paradox!)</p>
+<p>Finally, you would face <em>cold start</em> problems in full bitterness. There may be little information about certain new subjects and the model would completely fail to associate a reasonable prediction to them. With zero observations, the model would be clueless about subject preferences and with a single observation, the model would seem overconfident on them (the 100% paradox!)</p>
 <p>Therefore, some degree of regularization, the kind of regularization that ridge regression promises, could be of some help, but it would also fail in largish models.</p>
 </div>
 <div id="ideal-modelling-strategy" class="section level3">
 <h3>Ideal modelling strategy</h3>
-<p>The ideal modelling strategy is also hugely impractical for large datasets: the full Bayesian route. In this case I will not create a <code>stan</code> program but use the <code>stanarm</code> wrapper, but in more general situations one would still have to generate <em>ad hoc</em> code.</p>
+<p>The ideal modelling strategy is also hugely impractical for large datasets: the full Bayesian route. In this case I will use the <code>stanarm</code> wrapper rather than creating <code>stan</code> program. However, in more general problems not covered by <code>stanarm</code> one would still have to model the problem using <em>ad hoc</em> code.</p>
 <pre class="r"><code>model_stan &lt;- stan_glm(f_users,
                        data = dat,
                        family = binomial(link = &quot;logit&quot;), 
@@ -208,13 +309,13 @@ model_stan</code></pre>
 ##  predictors:   30
 ## ------
 ##                    Median MAD_SD
-## (Intercept)        -0.1    1.2  
+## (Intercept)         0.0    1.2  
 ## category2          -0.6    1.1  
 ## category3           0.4    1.1  
-## group2              0.5    1.4  
+## group2              0.5    1.3  
 ## subject2            1.3    1.3  
 ## subject3           -1.4    1.1  
-## subject4           -0.1    1.0  
+## subject4            0.0    1.0  
 ## subject5            1.8    1.3  
 ## subject6           -0.8    1.0  
 ## subject7           -0.1    1.2  
@@ -229,22 +330,22 @@ model_stan</code></pre>
 ## category2:subject4 -2.5    1.3  
 ## category3:subject4 -0.2    1.2  
 ## category2:subject5 -2.2    1.3  
-## category3:subject5  0.2    1.3  
+## category3:subject5  0.2    1.4  
 ## category2:subject6 -0.8    1.2  
 ## category3:subject6  0.6    1.2  
 ## category2:subject7  0.4    1.2  
-## category3:subject7  0.2    1.1  
+## category3:subject7  0.3    1.1  
 ## category2:subject8 -0.6    1.3  
 ## category3:subject8  2.1    1.2  
 ## category2:subject9 -0.7    1.3  
-## category3:subject9 -0.6    1.2  
+## category3:subject9 -0.5    1.1  
 ## 
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg
 ## * For info on the priors used see ?prior_summary.stanreg</code></pre>
 <p>This is the best thinkable modelling approach in all dimensions but one: it’s completely unfeasible on largish data. In fact, it is an active area of research (see <a href="https://ai.google/research/pubs/pub41849"><em>Bayes and Big Data: The Consensus Monte Carlo Algorithm</em></a> for instance). It fully implements our</p>
 <p><span class="math display">\[M = \alpha(I_i) M_i + (1 - \alpha(I_i)) M_g\]</span></p>
-<p>plan, but we’ll have to wait a couple generations before Moore’s Law does it job and we can run these models on laptops.</p>
+<p>plan, but we’ll have to wait a couple of generations before Moore’s Law does its job and we can run these models on laptops.</p>
 </div>
 <div id="naive-herds-of-models" class="section level3">
 <h3>Naive herds of models</h3>
@@ -260,7 +361,7 @@ my_models &lt;- dlply(dat, .(subject), function(tmp){
 <li>How do we know the model is not behaving oddly?</li>
 <li>How do we deal with subjects with little history/data?</li>
 </ul>
-<p>We can improve upon the this naive herds of models where <span class="math inline">\(M = M_i\)</span> by turning our interest to the <span class="math inline">\(M_g\)</span> part the naive models just discussed discard.</p>
+<p>We can improve upon these naive herds of models where <span class="math inline">\(M = M_i\)</span> by turning our interest to the <span class="math inline">\(M_g\)</span> part of the naive models just discussed discard.</p>
 </div>
 <div id="more-advanced-herds-of-models" class="section level3">
 <h3>More advanced herds of models</h3>
@@ -268,13 +369,13 @@ my_models &lt;- dlply(dat, .(subject), function(tmp){
 <pre class="r"><code>my_models &lt;- dlply(dat, .(subject), function(tmp){
   glmer(y ~ (1 | category), family = binomial, data = tmp)
 })</code></pre>
-<p>However, we are not yet using the hierarchical structure of the dataset. Regularization like above help avoid the 100% problem (among others), but fails to exploit the possible relationships among subjects. In fact, in our example and in most real life datasets, part of the strength of the relationship between subjects and categories can be explained precisely because subjects belong to groups. These groups embody all we know about individuals without having seen them behaving.</p>
+<p>However, we are not yet using the hierarchical structure of the dataset. Regularization like above help avoid the 100% problem (among others), but fails to exploit the possible relationships among subjects. In fact, in our example and in most real-life datasets, part of the strength of the relationship between subjects and categories can be explained precisely because subjects belong to groups. These groups embody all we know about individuals without having seen them behaving.</p>
 <p>And, of course, the relationship between the target variable and the group can be estimated <em>before and independently</em> of the estimation of the relationship between <em>this</em> user and the target variable. Then, those group relationships need to be <em>inserted</em> into the model, usually, via <em>informative priors</em>.</p>
 <blockquote>
 <p>Note: I’m still searching for a good, efficient method that will let me include informative priors in subject models.</p>
 </blockquote>
 <blockquote>
-<p>Note: academia is interested fixed effects. Consulting practice is mostly concerned with random effects (what indiviuals do). Academia’s input to consulting job is precisely providing good priors. That’s in part why we pay taxes.</p>
+<p>Note: academia is interested in fixed effects. Consulting practice is mostly concerned with random effects (what individuals do). Academia’s input to consulting job is precisely providing good priors. That’s in part why we pay taxes.</p>
 </blockquote>
 <p>Alternatively, we could generate models in wider batches. Not only because of efficiency, but also to facilitate the inclusion of <em>priori</em> information in the final model. For instance, one could attempt the following:</p>
 <pre class="r"><code>my_models &lt;- dlply(dat, .(group), function(tmp){
@@ -284,7 +385,7 @@ my_models &lt;- dlply(dat, .(subject), function(tmp){
 <p>Here we are splitting the data according to the group, so the prior information contained that all members of a group share is again fully used. Still, it could be the case that the <code>group</code> split produced too large parts for <code>glmer</code> to process them. Another option would be to subsplit groups in pieces large enough to have a relative accuarate description of the prioristic parts but small enough to process them efficiently.</p>
 <p>As an alternative, for some kind of models, INLA could provide a handy replacement to <code>lme4::glmer</code>.</p>
 <blockquote>
-<p>Note: I did some very promissing tests of INLA in a recent projects where performance was a must (and our datasets contained users in the order of 1 million), but it did not finally make it to the final deliverable.</p>
+<p>Note: I did some very promising tests of INLA in a recent project where performance was a must (and our datasets contained users in the order of 1 million), but it did not finally make it to the final deliverable.</p>
 </blockquote>
 </div>
 </div>
@@ -294,7 +395,7 @@ my_models &lt;- dlply(dat, .(subject), function(tmp){
 <ul>
 <li>How to fit full Bayesian models with big data efficiently. In particular, how to fit them by pieces and how to combine them.</li>
 <li>How to efficiently feed <em>a priori</em> information on individual (per subject) models.</li>
-<li>How to assess the goodness of fit of herds of models; particularly of herds consisting in a large number of models, often in the range of millions.</li>
+<li>How to assess the goodness of fit of herds of models; particularly of herds consisting of a large number of models, often in the range of millions.</li>
 </ul>
 </div>
 <div id="summary" class="section level2">
@@ -302,8 +403,8 @@ my_models &lt;- dlply(dat, .(subject), function(tmp){
 <ul>
 <li>Many large datasets found in consulting practice have a clear hierarchical structure.</li>
 <li>Standard <em>data science</em> models often fail to use such structure efficiently.</li>
-<li>Although Bayesian approaches are more promissing, they are mostly unusable nowadays given the lack of computing power required to run them at full scale.</li>
+<li>Although Bayesian approaches are more promising, they are mostly unusable nowadays given the lack of computing power required to run them at full scale.</li>
 <li>However, it is possible to fit <em>herds of models</em> to reduce to the minimum expression the amount of information loss in the modelling process.</li>
-<li>But building these <em>herds of models</em> require an intelligent design in order to both attain reasonable computing efficiency and to adequately use as much <em>a priori</em> information as possible.</li>
+<li>But building these <em>herds of models</em> requires an intelligent design in order to both attain reasonable computing efficiency and to adequately use as much <em>a priori</em> information as possible.</li>
 </ul>
 </div>

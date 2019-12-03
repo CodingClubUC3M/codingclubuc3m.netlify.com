@@ -1,5 +1,5 @@
 ---
-title: "Herds of Statistical Models"
+title: "Herds of statistical models"
 authors: ["Carlos J. Gil Bellosta"]
 date: 2019-12-17
 categories: ["R"]
@@ -15,7 +15,6 @@ suppressMessages({
   library(plyr)
   library(rstanarm)
   library(lme4)
-  library(flextable)
 })
 
 set.seed(1234)
@@ -141,7 +140,7 @@ dat$y <- sapply(dat$y, function(p) rbinom(1, 1, p))
 
 dat$ct_coef <- dat$cs_coef <- dat$item_coef <- NULL
 
-flextable(head(dat))
+knitr::kable(head(dat), "html")
 ```
 
 
@@ -207,7 +206,7 @@ Therefore, some degree of regularization, the kind of regularization that ridge 
 
 ### Ideal modelling strategy
 
-The ideal modelling strategy is also hugely impractical for large datasets: the full Bayesian route. In this case I will not use the `stanarm` wrapper rather than creating `stan` program. However, in more general problems not covered by `stanarm` one would still have to model the problem using _ad hoc_ code.
+The ideal modelling strategy is also hugely impractical for large datasets: the full Bayesian route. In this case I will use the `stanarm` wrapper rather than creating `stan` program. However, in more general problems not covered by `stanarm` one would still have to model the problem using _ad hoc_ code.
 
 ```{r}
 model_stan <- stan_glm(f_users,
