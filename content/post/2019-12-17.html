@@ -1,0 +1,410 @@
+---
+title: "Herds of statistical models"
+authors: ["Carlos J. Gil Bellosta"]
+date: 2019-12-17
+categories: ["R"]
+tags: ["R", "big data", "modelization", "statistics"]
+---
+
+
+
+<p>Big datasets found in statistical practice often have a rich structure. Most traditional methods, including their modern counterparts, fail to efficiently use the information contained in them. Here we propose and discuss an alternative modelling strategy based on herds of simple models.</p>
+<div id="big-data-how-big-datasets-came-to-be" class="section level2">
+<h2>Big Data: How big datasets came to be</h2>
+<p>Data has not always been <em>big</em>. Classical datasets such as the famous Anderson’s iris dataset, were often small. Many of the best known statistical methods do also deal with the problems posed by data scarcity rather than data abundance. The paramount example is the ubiquitous Student’s t-test, which explores a simple dichotomous dependency for otherwise homogeneous data providing so few degrees of freedom that the normal approximation to the underlying t distribution is still too problematic.</p>
+<p>Big data did not just spring up all of a sudden and out of nothing. Datasets grew and we saw them growing until, at some point, we were told that we had entered the Big Data era. Die hard Marxists would say that a quantitative change brought along a qualitative change.</p>
+<p>But not all datasets grew in the same way: some growth patterns were more interesting than others. Very naively, one could say that datasets grew because they earned either more rows or more columns. Certainly, you can make a dataset grow in both directions without making it more interesting or, arguably, more informative. Often, datasets have a very flat structure and they do not become particularly richer by gaining extra rows of columns. One can think in examples such as simple mechanical systems (e.g., a pendulum): increasing the time resolution of the measures does not result in extra information about the system beyond certain frequency (see Nyquist–Shannon sampling theorem). Similarly, knowing the temperature at meteorological stations every minute, second or, perhaps, millisecond would increase the volume of the data they generate, but extra rows would become a nuisance in most if not all applications. Likewise, adding an extra temperature sensor in a monitored system whose measurements would strongly correlate with every other temperature sensor would certainly add a new column to the dataset but we know users would just summarize all these measurements using PCA or a similar technique.</p>
+<p><img src="/post/2019-12-17_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>The size dimension of big data is little more than a nuisance when data structure is flat. Size is key, however, when it reveals additional layers of structure. In fact, many of the datasets of interest nowadays are highly structured. These will be discussed in the following section.</p>
+<p>However, I need to remark here that I did not attempt to create a complete taxonomy of data growth mechanisms (these supposedly being flat growth in the number of rows and/or columns vs hierarchical or structured growth).</p>
+</div>
+<div id="hierarchical-datasets" class="section level2">
+<h2>Hierarchical datasets</h2>
+<p>Many datasets of interest in my consulting practice are hierarchical. Not only they have a very obvious hierarchical structure, but we can also trace their historical growth process.</p>
+<p>Take banks. I had a project at BBVA when they celebrated their 150 anniversary. I performed the mental exercise of imagining what kind of datasets would the bank manage at that time. They were probably terse and simple data summaries with aggregated data at regional level with monthly or quarterly periodicity. At some time they would have been able to include and process product level information at branch level and only quite recently to add the customer as the main data subject. Nowadays, information pertaining to each customer and including his products and their timestamped transactions will probably make a richer dataset than the whole bank managed in their early days. Information in this case grew by branching, i.e., by acquiring a hierarchical structure where branches have customers who own products and make transactions with them over time.</p>
+<p>Another example from my consulting experience: a few years ago I was given a medical dataset to study some patterns in patients of diabetes. It came from a local hospital and it contained a few hundred rows, each concerning a different patient. And no matter what I tried, I consistently came across the same recurring outlier. I finally had a close look at that patient and found out that as well as diabetes, he was suffering from a number of other acute illnesses, AIDS being one of them. I finally discarded such case, but I always thought that in a wider analysis deserving the Big Data stamp, he together with other similar patients would have made a very interesting subdataset to study.</p>
+<p>Hierarchical datasets as those discussed above but, of course not limited to them, are common in the daily practice of statistical consulting. However, they are still being studied using the old Anderson iris dataset tradition, using unjustifiable iid (independent, identically distributed) assumptions on data rows and either classical statistical methods or their modern —more able but still pertaining to the same tradition— <em>data science</em> counterparts, including XGBoost and the like.</p>
+</div>
+<div id="statistical-analysis-of-hierarchical-datasets" class="section level2">
+<h2>Statistical analysis of hierarchical datasets</h2>
+<p>The main idea in the analysis of hierarchical datasets is embodied in the following formula:</p>
+<p><span class="math display">\[M = \alpha(I_i) M_i + (1 - \alpha(I_i)) M_g\]</span></p>
+<p><span class="math inline">\(M\)</span> above is our final model. It consists of two parts: an <em>individual model</em>, <span class="math inline">\(M_i\)</span>, specific for each subject <span class="math inline">\(i\)</span>, and a global model <span class="math inline">\(M_g\)</span> that applies to all subjects and acts like a default or <em>a priori</em> model. The final models <span class="math inline">\(M\)</span> is closer to either <span class="math inline">\(M_i\)</span> or <span class="math inline">\(M_g\)</span> depending on the amount of information, <span class="math inline">\(I_i\)</span>, available about subject <span class="math inline">\(i\)</span>.</p>
+<p>It should be noted that the formula above needs not be taken literally. In particular, the convex combination between models <span class="math inline">\(M_i\)</span> and <span class="math inline">\(M_g\)</span> does not literally mean <em>weighted mean</em>. Also, these models need not be explicitly constructed. Therefore, the expression above should be taken as a guiding principle which may adopt (and, in practice, <em>does</em> adopt) many different forms that I’ll discuss in what follows.</p>
+<div id="sample-data" class="section level3">
+<h3>Sample data</h3>
+<p>In order to illustrate the principles above, I am going to construct some sample data. It resembles data from two of our last projects, and I have attempted to preserve most of their structure in the smallest possible number of rows and columns.</p>
+<p>The data setup is as follows: a number of users belonging to two <code>groups</code> <em>like</em> or <em>dislike</em> items belonging to three different <code>categories</code>.</p>
+<pre class="r"><code>ns &lt;- 9 # number of subjets
+ng &lt;- 2 # number of subject groups
+nc &lt;- 3 # number of categories
+
+subjects   &lt;- factor(1:ns)
+groups     &lt;- factor(1:ng)
+categories &lt;- factor(1:nc)</code></pre>
+<p>Users belong to groups (assigned at random) and they have been exposed to an unequal number of items. In fact, in practice, it is very common to have very unbalanced datasets, combining subjects with a solid history record together to newcomers from whom very little is known.</p>
+<pre class="r"><code>subject_group &lt;- data.frame(subject = subjects,
+                            group = sample(groups, length(subjects), replace = T),
+                            n_items = 10 * 1:length(subjects))
+
+dat &lt;- ldply(1:nrow(subject_group), function(i){
+  tmp &lt;- subject_group[i,]
+  res &lt;- merge(tmp, data.frame(category = sample(categories, tmp$n_items, replace = T)))
+  res$n_items &lt;- NULL
+  res
+})</code></pre>
+<p>Here we construct the target variable, <code>y</code>, indicating whether or not a subject liked certain item. That he likes it depends on the group the subject belongs to (weak effect), the category of the item (stronger effect) and, finally, the item itself (intermediate effect).</p>
+<blockquote>
+<p>Note: Here, for the sake of presentation, we are ignoring the item ids. In fact, item ids would be relevant in applications such as recommendation systems this artificial data may have some resemblance to. Another feature this dataset ignores is the time dimension. Interactions happened at some point in time and oldish interactions could be sensibly weighted down in actual applications.</p>
+</blockquote>
+<pre class="r"><code>sigma_ct &lt;- .5
+
+cat_type &lt;- expand.grid(group = groups, category = categories)
+cat_type$ct_coef &lt;- rnorm(nrow(cat_type), 0, sigma_ct)
+
+sigma_cs &lt;- 1.5
+
+cat_subj &lt;- expand.grid(subject = subjects, category = categories)
+cat_subj$cs_coef &lt;- rnorm(nrow(cat_subj), 0, sigma_cs)
+
+sigma_item &lt;- 1
+
+dat &lt;- merge(dat, cat_type)
+dat &lt;- merge(dat, cat_subj)
+dat$item_coef &lt;- rnorm(nrow(dat), 0, sigma_item)
+
+dat$y &lt;- with(dat, exp(ct_coef + cs_coef + item_coef))
+dat$y &lt;- dat$y / (1 + dat$y)
+dat$y &lt;- sapply(dat$y, function(p) rbinom(1, 1, p))
+
+dat$ct_coef &lt;- dat$cs_coef &lt;- dat$item_coef &lt;- NULL
+
+knitr::kable(head(dat), &quot;html&quot;)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+category
+</th>
+<th style="text-align:left;">
+subject
+</th>
+<th style="text-align:left;">
+group
+</th>
+<th style="text-align:right;">
+y
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="typical-modelling-strategy" class="section level3">
+<h3>Typical modelling strategy</h3>
+<p>The most typical modelling strategy found in practice to model this kind of data is based on the formula</p>
+<pre class="r"><code>f0 &lt;- y ~ category + group</code></pre>
+<p>or perhaps</p>
+<pre class="r"><code>f1 &lt;- y ~ category * group</code></pre>
+<p>These formulas can be embedded in many different fitting functions, <code>glm</code> being a <em>baseline</em>. Today <em>data scientists</em> would prefer modern alternatives to traditional <code>glm</code>, such as <code>glmnet</code>, random forests, or different versions of boosting. It should be noted —and it will be discussed below— how little advantage (other than regularization when available) these modern methods provide with respect to the <em>baseline</em> in the analysis of structured datasets.</p>
+<pre class="r"><code>model_00 &lt;- glm(f1, family = binomial, data = dat)
+summary(model_00)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = f1, family = binomial, data = dat)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.5409  -1.0691  -0.6835   1.0471   1.7712  
+## 
+## Coefficients:
+##                  Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)       -0.2603     0.2188  -1.190 0.234142    
+## category2         -1.0747     0.3332  -3.226 0.001258 ** 
+## category3          0.5748     0.2924   1.966 0.049297 *  
+## group2             0.1268     0.3703   0.342 0.732152    
+## category2:group2   2.0314     0.5294   3.837 0.000124 ***
+## category3:group2  -0.8766     0.4996  -1.754 0.079354 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 619.91  on 449  degrees of freedom
+## Residual deviance: 572.91  on 444  degrees of freedom
+## AIC: 584.91
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<blockquote>
+<p>Exercise: compare the coefficients obtained above with those contained in table <code>cat_type</code>.</p>
+</blockquote>
+<p>In general, this approach does approximate group preferences well. But group preferences (or <em>fixed effects</em>) do not tell the whole story about individual behaviour. Fixed effects are of interest in academic environments (e.g., statements of the form <em>men in such age group tend to…</em>) but are often of limited interest in practice, where accurate predictions of individual behaviour are needed.</p>
+<p>Going back to</p>
+<p><span class="math display">\[M = \alpha(I_i) M_i + (1 - \alpha(I_i)) M_g,\]</span></p>
+<p>using the approach above is tantamount to taking <span class="math inline">\(M = M_g\)</span>.</p>
+<p>However, this is standard practice in many applied fields and the problem is often mitigated by creating thinner user categorizations —or <em>microsegmentations</em>—, i.e., increasing the number of <em>fixed factors</em> and, therefore, increasing the number of rows in the datasets.</p>
+</div>
+<div id="adding-users" class="section level3">
+<h3>Adding users</h3>
+<p>One can try to add users to the model above. For example, doing something not unlike this:</p>
+<pre class="r"><code>f_users &lt;- y ~ category * group + category * subject
+model_01 &lt;- glm(f_users, family = binomial, data = dat)
+summary(model_01)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = f_users, family = binomial, data = dat)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.1219  -0.8305  -0.4673   0.8712   2.1301  
+## 
+## Coefficients: (4 not defined because of singularities)
+##                     Estimate Std. Error z value Pr(&gt;|z|)   
+## (Intercept)          -0.8473     0.4880  -1.736  0.08249 . 
+## category2            -1.2730     0.7819  -1.628  0.10353   
+## category3            -0.1888     0.6011  -0.314  0.75344   
+## group2              -16.1881  2797.4420  -0.006  0.99538   
+## subject2             34.6015  3426.1527   0.010  0.99194   
+## subject3             15.5314  2797.4421   0.006  0.99557   
+## subject4             17.5054  2797.4421   0.006  0.99501   
+## subject5              2.7191     0.9028   3.012  0.00260 **
+## subject6             16.6788  2797.4420   0.006  0.99524   
+## subject7              0.6931     0.6268   1.106  0.26878   
+## subject8             -0.2513     0.6785  -0.370  0.71107   
+## subject9                  NA         NA      NA       NA   
+## category2:group2     35.8745  3127.6353   0.011  0.99085   
+## category3:group2     -0.3418     0.8977  -0.381  0.70335   
+## category2:subject2  -51.8799  3700.6680  -0.014  0.98881   
+## category3:subject2  -17.2586  1978.0904  -0.009  0.99304   
+## category2:subject3  -15.5314  3394.2809  -0.005  0.99635   
+## category3:subject3    3.4210     1.2964   2.639  0.00832 **
+## category2:subject4  -35.3228  3127.6353  -0.011  0.99099   
+## category3:subject4   -0.9202     1.1081  -0.830  0.40629   
+## category2:subject5   -1.6974     1.2336  -1.376  0.16881   
+## category3:subject5    0.4571     1.2235   0.374  0.70873   
+## category2:subject6  -33.4716  3127.6352  -0.011  0.99146   
+## category3:subject6        NA         NA      NA       NA   
+## category2:subject7    1.1648     0.9711   1.199  0.23039   
+## category3:subject7    0.8285     0.8473   0.978  0.32821   
+## category2:subject8    0.2121     1.0979   0.193  0.84682   
+## category3:subject8    2.7690     0.9105   3.041  0.00236 **
+## category2:subject9        NA         NA      NA       NA   
+## category3:subject9        NA         NA      NA       NA   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 619.91  on 449  degrees of freedom
+## Residual deviance: 472.04  on 424  degrees of freedom
+## AIC: 524.04
+## 
+## Number of Fisher Scoring iterations: 16</code></pre>
+<p>This is not practical with realistic datasets for a number of reasons. The most important one is related to the large number of coefficients that need to be fitted and the huge amount of memory required to fit the models. Note that whereas the number of columns is relatively limited, the internal objects required to perform the fit are huge and grow linearly with the number of subjects:</p>
+<pre class="r"><code>dim(model.matrix(model_01))</code></pre>
+<pre><code>## [1] 450  30</code></pre>
+<p>Moreover, tools intended to reduce the number of dimensions (read: <em>lasso</em>) would effectively eliminate information about certain subjects, and this is precisely contrary to our purpose.</p>
+<p>Finally, you would face <em>cold start</em> problems in full bitterness. There may be little information about certain new subjects and the model would completely fail to associate a reasonable prediction to them. With zero observations, the model would be clueless about subject preferences and with a single observation, the model would seem overconfident on them (the 100% paradox!)</p>
+<p>Therefore, some degree of regularization, the kind of regularization that ridge regression promises, could be of some help, but it would also fail in largish models.</p>
+</div>
+<div id="ideal-modelling-strategy" class="section level3">
+<h3>Ideal modelling strategy</h3>
+<p>The ideal modelling strategy is also hugely impractical for large datasets: the full Bayesian route. In this case I will use the <code>stanarm</code> wrapper rather than creating <code>stan</code> program. However, in more general problems not covered by <code>stanarm</code> one would still have to model the problem using <em>ad hoc</em> code.</p>
+<pre class="r"><code>model_stan &lt;- stan_glm(f_users,
+                       data = dat,
+                       family = binomial(link = &quot;logit&quot;), 
+                       prior = student_t(df = 7), 
+                       prior_intercept = student_t(df = 7),
+                       cores = 2, seed = 12345)
+model_stan</code></pre>
+<pre><code>## stan_glm
+##  family:       binomial [logit]
+##  formula:      y ~ category * group + category * subject
+##  observations: 450
+##  predictors:   30
+## ------
+##                    Median MAD_SD
+## (Intercept)         0.0    1.2  
+## category2          -0.6    1.1  
+## category3           0.4    1.1  
+## group2              0.5    1.3  
+## subject2            1.3    1.3  
+## subject3           -1.4    1.1  
+## subject4            0.0    1.0  
+## subject5            1.8    1.3  
+## subject6           -0.8    1.0  
+## subject7           -0.1    1.2  
+## subject8           -1.0    1.2  
+## subject9           -0.9    1.2  
+## category2:group2    2.5    1.4  
+## category3:group2   -1.6    1.4  
+## category2:subject2 -3.1    1.6  
+## category3:subject2 -0.7    1.4  
+## category2:subject3  3.0    1.9  
+## category3:subject3  3.5    1.4  
+## category2:subject4 -2.5    1.3  
+## category3:subject4 -0.2    1.2  
+## category2:subject5 -2.2    1.3  
+## category3:subject5  0.2    1.4  
+## category2:subject6 -0.8    1.2  
+## category3:subject6  0.6    1.2  
+## category2:subject7  0.4    1.2  
+## category3:subject7  0.3    1.1  
+## category2:subject8 -0.6    1.3  
+## category3:subject8  2.1    1.2  
+## category2:subject9 -0.7    1.3  
+## category3:subject9 -0.5    1.1  
+## 
+## ------
+## * For help interpreting the printed output see ?print.stanreg
+## * For info on the priors used see ?prior_summary.stanreg</code></pre>
+<p>This is the best thinkable modelling approach in all dimensions but one: it’s completely unfeasible on largish data. In fact, it is an active area of research (see <a href="https://ai.google/research/pubs/pub41849"><em>Bayes and Big Data: The Consensus Monte Carlo Algorithm</em></a> for instance). It fully implements our</p>
+<p><span class="math display">\[M = \alpha(I_i) M_i + (1 - \alpha(I_i)) M_g\]</span></p>
+<p>plan, but we’ll have to wait a couple of generations before Moore’s Law does its job and we can run these models on laptops.</p>
+</div>
+<div id="naive-herds-of-models" class="section level3">
+<h3>Naive herds of models</h3>
+<p>One <em>naive</em> (but still useful) approach to modelling data like the one discussed above is to build one model per subject (say, <code>glm</code>). Again, this would mean using <span class="math inline">\(M = M_i\)</span>. In such case, it would not be necessary to use the <code>group</code> variable, as <code>users</code> already belong to one such group (and in practical terms, we would face colinearity issues). For instance, one could build a <em>model</em> as follows:</p>
+<pre class="r"><code>f_ind &lt;- y ~ category
+my_models &lt;- dlply(dat, .(subject), function(tmp){
+  glm(f_ind, family = binomial, data = tmp)
+})</code></pre>
+<p>Models like these are rare but not unheard of in applications. Since every subject becomes a dataset, it is possible to create models using information contained in their dataset only and identify <span class="math inline">\(M = M_i\)</span>.</p>
+<p>Models become simpler, but they also raise engineering issues: we need to build our own <em>unorthodox</em> scoring/prediction functions. But at a deeper level, they raise a number of additional and very interesting (often research-grade) questions:</p>
+<ul>
+<li>How do we measure goodness of fit?</li>
+<li>How do we know the model is not behaving oddly?</li>
+<li>How do we deal with subjects with little history/data?</li>
+</ul>
+<p>We can improve upon these naive herds of models where <span class="math inline">\(M = M_i\)</span> by turning our interest to the <span class="math inline">\(M_g\)</span> part of the naive models just discussed discard.</p>
+</div>
+<div id="more-advanced-herds-of-models" class="section level3">
+<h3>More advanced herds of models</h3>
+<p>I will indicate here three strategies to improve the naive herds of models. They are all related to the reintroduction of the <span class="math inline">\(M_g\)</span> term in the herd. The first improvement consists in using <em>regularized</em> versions of the <code>glm</code> function above. In practice, I have found the package <code>lme4</code> very useful for these purposes.</p>
+<pre class="r"><code>my_models &lt;- dlply(dat, .(subject), function(tmp){
+  glmer(y ~ (1 | category), family = binomial, data = tmp)
+})</code></pre>
+<p>However, we are not yet using the hierarchical structure of the dataset. Regularization like above help avoid the 100% problem (among others), but fails to exploit the possible relationships among subjects. In fact, in our example and in most real-life datasets, part of the strength of the relationship between subjects and categories can be explained precisely because subjects belong to groups. These groups embody all we know about individuals without having seen them behaving.</p>
+<p>And, of course, the relationship between the target variable and the group can be estimated <em>before and independently</em> of the estimation of the relationship between <em>this</em> user and the target variable. Then, those group relationships need to be <em>inserted</em> into the model, usually, via <em>informative priors</em>.</p>
+<blockquote>
+<p>Note: I’m still searching for a good, efficient method that will let me include informative priors in subject models.</p>
+</blockquote>
+<blockquote>
+<p>Note: academia is interested in fixed effects. Consulting practice is mostly concerned with random effects (what individuals do). Academia’s input to consulting job is precisely providing good priors. That’s in part why we pay taxes.</p>
+</blockquote>
+<p>Alternatively, we could generate models in wider batches. Not only because of efficiency, but also to facilitate the inclusion of <em>priori</em> information in the final model. For instance, one could attempt the following:</p>
+<pre class="r"><code>my_models &lt;- dlply(dat, .(group), function(tmp){
+  glmer(y ~ (1 + category | subject), family = binomial, data = tmp)
+})</code></pre>
+<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
+<p>Here we are splitting the data according to the group, so the prior information contained that all members of a group share is again fully used. Still, it could be the case that the <code>group</code> split produced too large parts for <code>glmer</code> to process them. Another option would be to subsplit groups in pieces large enough to have a relative accuarate description of the prioristic parts but small enough to process them efficiently.</p>
+<p>As an alternative, for some kind of models, INLA could provide a handy replacement to <code>lme4::glmer</code>.</p>
+<blockquote>
+<p>Note: I did some very promising tests of INLA in a recent project where performance was a must (and our datasets contained users in the order of 1 million), but it did not finally make it to the final deliverable.</p>
+</blockquote>
+</div>
+</div>
+<div id="areas-of-future-improvement" class="section level2">
+<h2>Areas of future improvement</h2>
+<p>The discussion above opened a number of questions, many of them are open to researchers in statistics and computer science:</p>
+<ul>
+<li>How to fit full Bayesian models with big data efficiently. In particular, how to fit them by pieces and how to combine them.</li>
+<li>How to efficiently feed <em>a priori</em> information on individual (per subject) models.</li>
+<li>How to assess the goodness of fit of herds of models; particularly of herds consisting of a large number of models, often in the range of millions.</li>
+</ul>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<ul>
+<li>Many large datasets found in consulting practice have a clear hierarchical structure.</li>
+<li>Standard <em>data science</em> models often fail to use such structure efficiently.</li>
+<li>Although Bayesian approaches are more promising, they are mostly unusable nowadays given the lack of computing power required to run them at full scale.</li>
+<li>However, it is possible to fit <em>herds of models</em> to reduce to the minimum expression the amount of information loss in the modelling process.</li>
+<li>But building these <em>herds of models</em> requires an intelligent design in order to both attain reasonable computing efficiency and to adequately use as much <em>a priori</em> information as possible.</li>
+</ul>
+</div>
