@@ -10,8 +10,8 @@ authors = ["Carlos J. Gil Bellosta"]
 abstract = """Big datasets found in statistical practice often have a rich structure. Most traditional methods, including their modern counterparts, fail to efficiently use the information contained in them. In this talk I propose and discuss an alternative modelling strategy based on herds of simple models."""
 
 event = "Tutorial"
-event_url = ""
-event_form = "https://forms.gle/iw5aKxRkEBFNzZ4A8"
+event_url = "/post/2019-12-17"
+event_form = ""
 
 location = "**Room 18.0.A06**. Campus de Getafe, Calle Madrid, 126, 28903 Getafe, Madrid, Spain."
   
@@ -35,3 +35,6 @@ R/RStudio + `plyr`, `rstanarm` and `lme4` packages.
 ### About the speaker
 
 Mathematician (BS. U. de Zaragoza, MS. Washington University). Blogger at [datanalytics](http://datanalytics.com/) and R enthusiast. Works as statistical consultant at [Circiter](http://circiter.es/).
+
+![](/img/sessions/2019-12-17-1.jpg)
+![](/img/sessions/2019-12-17-2.jpg)
