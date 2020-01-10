@@ -10,7 +10,7 @@ authors = ["Jorge Cimentada"]
 abstract = """Whenever a new paper is released using some type of scraped data, most of my peers in the social science community get baffled at how researchers can do this. In fact, many scientists can't even think of research questions that can be addressed with this type of data simply because they don't know it's even possible. As the old saying goes, when you have a hammer, every problem looks like a nail. In this tutorial I'll be guiding you through the basics of web scraping using R and the `xml2` package. I'll begin with a simple example using fake data and elaborate further by trying to scrape the location of a sample of schools in Spain. We will discuss the pros and cons of web scraping and discuss how to scrape data ethically. I assume zero knowledge on the topic, so feel free to come if you're completely new to the topic."""
 
 event = "Tutorial"
-event_url = ""
+event_url = "/post/2020-02-11"
 event_form = "https://forms.gle/ni83EDkwpTb83yu48"
 
 location = "**Room 18.0.A06**. Campus de Getafe, Calle Madrid, 126, 28903 Getafe, Madrid, Spain."
