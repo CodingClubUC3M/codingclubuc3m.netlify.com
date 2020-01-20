@@ -59,7 +59,7 @@ E(g_cases)$weight &lt;- relations_cases$accused_in_common</code></pre>
 <p>We have two ways of getting an overview of what the graph looks like.
 The first one is using the <code>summary()</code> function, where we see that the graph of accused people has 3100 nodes, 31375 edges, a name attribute for the nodes, and a weight attribute for the edges.</p>
 <pre class="r"><code>summary(g_accused)</code></pre>
-<pre><code>## IGRAPH fc85d3e UNW- 3100 31375 -- 
+<pre><code>## IGRAPH c8e74b7 UNW- 3100 31375 -- 
 ## + attr: name (v/c), weight (e/n)</code></pre>
 <p>The second way is plotting the graph to see its shape:</p>
 <pre class="r"><code>plot(g_cases, vertex.label=NA, vertex.size=2, vertex.color=&quot;#0CCF02&quot;)</code></pre>
@@ -67,7 +67,7 @@ The first one is using the <code>summary()</code> function, where we see that th
 </div>
 <div id="connected-components" class="section level2">
 <h2>Connected Components</h2>
-<p>We can see that the cases graph is composed by many single dots. Those are, indeed, isolated cases: corruption cases whose people involved haven’t been accused in any other case. But we can also appreciate some structures that are formed with interconnected nodes. Each of those structures is called a <strong>connected component</strong> in Graph Theory. Isolated nodes are also connected components themselves, with size 1.</p>
+<p>We can see that the cases graph is composed of many single dots. Those are, indeed, isolated cases: corruption cases whose people involved haven’t been accused in any other case. But we can also appreciate some structures that are formed with interconnected nodes. Each of those structures is called a <strong>connected component</strong> in Graph Theory. Isolated nodes are also connected components themselves, with size 1.</p>
 <p>With <code>igraph</code> we can calculate the connected components of a graph and check their sizes:</p>
 <pre class="r"><code>components_cases &lt;- components(g_cases)
 components_cases_sizes &lt;- sizes(components_cases)</code></pre>
@@ -75,14 +75,14 @@ components_cases_sizes &lt;- sizes(components_cases)</code></pre>
 </div>
 <div id="induced-subgraphs" class="section level2">
 <h2>Induced Subgraphs</h2>
-<p>If we want to focus on the corruption plots, we’ll need to create a new graph that only contains the cases that are involved in them. In Graph Theory, a subset of a graph created by selecting specific nodes and the edges that joins them is called an <strong>induced subgraph</strong>.</p>
+<p>If we want to focus on the corruption plots, we’ll need to create a new graph that only contains the cases that are involved in them. In Graph Theory, a subset of a graph created by selecting specific nodes and the edges that join them is called an <strong>induced subgraph</strong>.</p>
 <p>Of course, <code>igraph</code> has a function for this. First we need to get the names of the nodes that are part of a complex component, and then we can use those names to subset the graph with <code>induced_subgraph()</code>:</p>
 <pre class="r"><code>components_plots &lt;- which(components_cases_sizes &gt; 1)
 
 g_cases_plots &lt;- induced_subgraph(g_cases, vids = which(membership(components_cases) %in% components_plots))
 
 summary(g_cases_plots)</code></pre>
-<pre><code>## IGRAPH fd57a2e UNW- 235 778 -- 
+<pre><code>## IGRAPH ca24e1a UNW- 235 778 -- 
 ## + attr: name (v/c), weight (e/n)</code></pre>
 <p>The next step is getting the induced subgraph of the people that have been accused in cases that belong to a corruption plot, this is, the cases we have just selected:</p>
 <pre class="r"><code>accused_plots &lt;- subset(list_accused_in_cases, case %in% V(g_cases_plots)$name)
@@ -90,9 +90,9 @@ summary(g_cases_plots)</code></pre>
 g_accused_plots &lt;- induced_subgraph(g_accused, vids = accused_plots$accused)
 
 summary(g_accused_plots)</code></pre>
-<pre><code>## IGRAPH fd5d967 UNW- 1836 23527 -- 
+<pre><code>## IGRAPH ca2e7e8 UNW- 1836 23527 -- 
 ## + attr: name (v/c), weight (e/n)</code></pre>
-<p>As a result we see now that there are 235 corruption cases that are part of any of those 40 plots we had in total, and there are 1836 people involved in any of them, out of the 3100 we originally had.</p>
+<p>As a result we see now that there are 235 corruption cases that are part of any of those 40 plots we had in total, and there are 1836 people involved in at least one of them, out of the 3100 we originally had.</p>
 <p>And what exactly is the size of each connected component? We can see that in the picture below:</p>
 <p><img src="/post/2020-01-21_files/size_connected_components.jpg" />
 Take a moment and try to guess which cases correspond to the biggest corruption plots that appear in the image, you have probably heard about most of them.</p>
@@ -123,7 +123,7 @@ plot(g_accused_plot1, layout=layout_accused_plot1, vertex.label=NA, vertex.size=
                        to=&quot;Luis Francisco Bárcenas Gutiérrez&quot;)
 path$vpath</code></pre>
 <pre><code>## [[1]]
-## + 4/893 vertices, named, from fd6362d:
+## + 4/893 vertices, named, from ca37cd5:
 ## [1] Alberto Ruiz-Gallardón Jiménez    Ignacio González González        
 ## [3] Alberto López Viejo               Luis Francisco Bárcenas Gutiérrez</code></pre>
 <p>The shortest sequence would be: Gallardón → Ignacio González → Alberto López Viejo → Bárcenas, with a length of 3 steps.</p>
@@ -158,12 +158,12 @@ nodes_closeness &lt;- closeness(g_accused_plot1)</code></pre>
 <div id="community-extraction" class="section level2">
 <h2>Community Extraction</h2>
 <p>Finally, the last thing we are going to analyze is the groups of people that are more connected, the groups of “friends” in the graph. These groups or clusters are called <strong>communities</strong> in Graph Theory.</p>
-<p>There are many different algorithms for calculating communities, and each of them can result in a different division. A lot of them are implemented in <code>igraph</code>, with functions starting with <code>cluster_</code>. In this case, we are going to calculate the groups of friends with an algorithm called Walktrap, which is based in random walks through the graph. We can play with different number of steps until we like the groups we get.</p>
+<p>There are many different algorithms for calculating communities, and each of them can result in a different division. A lot of them are implemented in <code>igraph</code>, with functions starting with <code>cluster_</code>. In this case, we are going to calculate the groups of friends with an algorithm called Walktrap, which is based on random walks through the graph. We can play with different numbers of steps until we like the groups we get.</p>
 <pre class="r"><code>comm_accused_plot1 &lt;- cluster_walktrap(g_accused_plot1, steps=50)</code></pre>
 <p>The goodness of a division in communities can be measured with something called <strong>modularity</strong>, which determines how well separated the clusters are from each other.</p>
 <pre class="r"><code>modularity(comm_accused_plot1)</code></pre>
 <pre><code>## [1] 0.8216408</code></pre>
-<p>Modularity takes values from -1 to 1, with a value close to 1 indicating strong community structure. Therefore, we can see that the division we have achieved is pretty good.</p>
+<p>Modularity takes values from -1 to 1, with a value close to 1 indicating a strong community structure. Therefore, we can see that the division we have achieved is pretty good.</p>
 <p>And how does that division look like? We can plot the graph together with the community structure using an enhanced version of the <code>plot()</code> function that accepts the community object and the graph object as parameters:</p>
 <pre class="r"><code>plot(comm_accused_plot1, g_accused_plot1, 
      layout=layout_accused_plot1, 

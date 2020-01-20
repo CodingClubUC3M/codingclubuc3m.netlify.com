@@ -10,6 +10,8 @@ tags: ["R", "igraph", "graphs", "social network analysis"]
 knitr::opts_chunk$set(echo = TRUE)
 
 par(mar=c(0, 0, 0, 0))
+
+set.seed(1111)
 ```
 
 
@@ -110,7 +112,7 @@ plot(g_cases, vertex.label=NA, vertex.size=2, vertex.color="#0CCF02")
 
 ## Connected Components
 
-We can see that the cases graph is composed by many single dots. Those are, indeed, isolated cases: corruption cases whose people involved haven't been accused in any other case. But we can also appreciate some structures that are formed with interconnected nodes. Each of those structures is called a **connected component** in Graph Theory. Isolated nodes are also connected components themselves, with size 1.
+We can see that the cases graph is composed of many single dots. Those are, indeed, isolated cases: corruption cases whose people involved haven't been accused in any other case. But we can also appreciate some structures that are formed with interconnected nodes. Each of those structures is called a **connected component** in Graph Theory. Isolated nodes are also connected components themselves, with size 1.
 
 With `igraph` we can calculate the connected components of a graph and check their sizes:
 
@@ -123,7 +125,7 @@ If we have a look at the sizes, we can see that there are 40 connected component
 
 ## Induced Subgraphs
 
-If we want to focus on the corruption plots, we'll need to create a new graph that only contains the cases that are involved in them. In Graph Theory, a subset of a graph created by selecting specific nodes and the edges that joins them is called an **induced subgraph**.
+If we want to focus on the corruption plots, we'll need to create a new graph that only contains the cases that are involved in them. In Graph Theory, a subset of a graph created by selecting specific nodes and the edges that join them is called an **induced subgraph**.
 
 Of course, `igraph` has a function for this. First we need to get the names of the nodes that are part of a complex component, and then we can use those names to subset the graph with `induced_subgraph()`:
 
@@ -145,7 +147,7 @@ g_accused_plots <- induced_subgraph(g_accused, vids = accused_plots$accused)
 summary(g_accused_plots)
 ```
 
-As a result we see now that there are 235 corruption cases that are part of any of those 40 plots we had in total, and there are 1836 people involved in any of them, out of the 3100 we originally had.
+As a result we see now that there are 235 corruption cases that are part of any of those 40 plots we had in total, and there are 1836 people involved in at least one of them, out of the 3100 we originally had.
 
 And what exactly is the size of each connected component? We can see that in the picture below:
 
@@ -237,7 +239,7 @@ nodes_closeness <- closeness(g_accused_plot1)
 
 Finally, the last thing we are going to analyze is the groups of people that are more connected, the groups of "friends" in the graph. These groups or clusters are called **communities** in Graph Theory.
 
-There are many different algorithms for calculating communities, and each of them can result in a different division. A lot of them are implemented in `igraph`, with functions starting with `cluster_`. In this case, we are going to calculate the groups of friends with an algorithm called Walktrap, which is based in random walks through the graph. We can play with different number of steps until we like the groups we get.
+There are many different algorithms for calculating communities, and each of them can result in a different division. A lot of them are implemented in `igraph`, with functions starting with `cluster_`. In this case, we are going to calculate the groups of friends with an algorithm called Walktrap, which is based on random walks through the graph. We can play with different numbers of steps until we like the groups we get.
 
 ```{r}
 comm_accused_plot1 <- cluster_walktrap(g_accused_plot1, steps=50)
@@ -249,7 +251,7 @@ The goodness of a division in communities can be measured with something called 
 modularity(comm_accused_plot1)
 ```
 
-Modularity takes values from -1 to 1, with a value close to 1 indicating strong community structure. Therefore, we can see that the division we have achieved is pretty good.
+Modularity takes values from -1 to 1, with a value close to 1 indicating a strong community structure. Therefore, we can see that the division we have achieved is pretty good.
 
 And how does that division look like? We can plot the graph together with the community structure using an enhanced version of the `plot()` function that accepts the community object and the graph object as parameters:
 
