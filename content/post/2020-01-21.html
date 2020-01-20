@@ -1,0 +1,172 @@
+---
+title: "Graph Theory 101 with corruption cases in Spain"
+authors: ["María Medina Pérez"]
+date: 2020-01-21
+categories: ["R"]
+tags: ["R", "igraph", "graphs", "social network analysis"]
+---
+
+
+
+<p>According to CIS’ barometer, political corruption is the second biggest concern in Spain, only behind unemployment, and has been in this position since 2013, as we see Spanish news talking about open trials and new investigations on a regular basis. The European Commission estimates that corruption alone costs the EU economy 120 billion of euros per year, just a little less than the annual budget of the European Union.</p>
+<p>Even though corruption in Spain can seem endemic, given its volume and extensity, some political leaders claim that these cases are “isolated”, not related to each other, and a thing of the past.</p>
+<p>Data about all corruption cases in Spain can be modeled as a graph to unveil the networks of “friends” that are always charged together. We can then use Graph Theory concepts to analyze the relations and try to determine if these are indeed isolated cases. Let’s go and see what we find out!</p>
+<div id="what-is-a-graph" class="section level2">
+<h2>What is a graph?</h2>
+<p><a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">Graphs</a> are mathematical structures that model relations between entities. The entities are called vertices, or nodes, and are represented with a circle, and the relations are called edges, or links, and are represented with lines drawn from one circle to another.</p>
+<p>Some relations between entities might be stronger than others. That is modeled by assigning weights to the edges of the graph, which are usually represented by using different line widths.</p>
+<p>Below we can see an example of a graph with 6 nodes and 7 edges:
+<img src="/post/2020-01-21_files/graph_wikipedia.png" /></p>
+<p>In our case, we are going to build two different graphs:</p>
+<ul>
+<li><p><strong>Graph of people accused</strong>: with the people involved in the cases as nodes. Two people are related if they have been accused in the same case. The weight of the edges is the number of cases they share.</p></li>
+<li><p><strong>Graph of cases</strong>: with the corruption cases as nodes. Two cases are related if they share a person that has been accused in both. The weight of the edges is the number of people the cases have in common.</p></li>
+</ul>
+</div>
+<div id="getting-the-data" class="section level2">
+<h2>Getting the data</h2>
+<p>Now, to build these graphs we need data of all the political corruption cases in Spain, and which people are involved in them. We can get that from <a href="https://www.casos-aislados.com/">Casos Aislados</a>, a web page that is doing the work of collecting all this information from news and official court documents, and releasing it to the public.</p>
+<p>To avoid saturating the webpage with requests, I have already downloaded and processed the data, resulting in three files that we’ll use to build the graphs.</p>
+<ul>
+<li>The list of cases and people accused in each of them can be found <a href="/post/2020-01-21_data/cases_and_accused.csv">here</a>.</li>
+<li>The file of relations within people accused can be found <a href="/post/2020-01-21_data/relations_accused.csv">here</a>.</li>
+<li>The file of relations within corruption cases can be found <a href="/post/2020-01-21_data/relations_cases.csv">here</a>.</li>
+</ul>
+<p>We can load them into R by executing the following:</p>
+<pre class="r"><code>list_accused_in_cases &lt;- read.csv(&quot;cases_and_accused.csv&quot;, colClasses=&quot;character&quot;, fileEncoding=&quot;UTF-8&quot;)
+relations_accused &lt;- read.csv(&quot;relations_accused.csv&quot;, fileEncoding=&quot;UTF-8&quot;)
+relations_cases &lt;- read.csv(&quot;relations_cases.csv&quot;, fileEncoding=&quot;UTF-8&quot;)</code></pre>
+</div>
+<div id="the-igraph-package" class="section level2">
+<h2>The <em>igraph</em> package</h2>
+<p>Once we have the data loaded into R, it’s time to create the graphs and start working with them. For that, we’ll use a package called <code>igraph</code>, which is the most popular package in R for working with graphs.</p>
+<p>If you don’t have it already, you can install the package with</p>
+<pre class="r"><code>install.packages(&quot;igraph&quot;)</code></pre>
+<p>and then load the library typing</p>
+<pre class="r"><code>library(igraph)</code></pre>
+<p>We can now create the graphs from our dataframes as follows:</p>
+<pre class="r"><code># Graph of people accused
+g_accused &lt;- graph_from_data_frame(relations_accused[, c(&quot;accused_1&quot;, &quot;accused_2&quot;)],
+                                   directed=FALSE, vertices=unique(list_accused_in_cases$accused))
+E(g_accused)$weight &lt;- relations_accused$cases_in_common
+
+
+# Graph of corruption cases
+g_cases &lt;- graph_from_data_frame(relations_cases[c(&quot;case_1&quot;, &quot;case_2&quot;)],
+                                 directed=FALSE, vertices=unique(list_accused_in_cases$case))
+E(g_cases)$weight &lt;- relations_cases$accused_in_common</code></pre>
+<p>Note that the function <code>E(graph)</code> retrieves the edges of a graph. We can use that to set edge attributes.</p>
+<p>We have two ways of getting an overview of what the graph looks like.
+The first one is using the <code>summary()</code> function, where we see that the graph of accused people has 3100 nodes, 31375 edges, a name attribute for the nodes, and a weight attribute for the edges.</p>
+<pre class="r"><code>summary(g_accused)</code></pre>
+<pre><code>## IGRAPH c8e74b7 UNW- 3100 31375 -- 
+## + attr: name (v/c), weight (e/n)</code></pre>
+<p>The second way is plotting the graph to see its shape:</p>
+<pre class="r"><code>plot(g_cases, vertex.label=NA, vertex.size=2, vertex.color=&quot;#0CCF02&quot;)</code></pre>
+<p><img src="/post/2020-01-21_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="connected-components" class="section level2">
+<h2>Connected Components</h2>
+<p>We can see that the cases graph is composed of many single dots. Those are, indeed, isolated cases: corruption cases whose people involved haven’t been accused in any other case. But we can also appreciate some structures that are formed with interconnected nodes. Each of those structures is called a <strong>connected component</strong> in Graph Theory. Isolated nodes are also connected components themselves, with size 1.</p>
+<p>With <code>igraph</code> we can calculate the connected components of a graph and check their sizes:</p>
+<pre class="r"><code>components_cases &lt;- components(g_cases)
+components_cases_sizes &lt;- sizes(components_cases)</code></pre>
+<p>If we have a look at the sizes, we can see that there are 40 connected components with more than one node. All those components are not isolated corruption cases, but corruption plots. Let’s explore them further.</p>
+</div>
+<div id="induced-subgraphs" class="section level2">
+<h2>Induced Subgraphs</h2>
+<p>If we want to focus on the corruption plots, we’ll need to create a new graph that only contains the cases that are involved in them. In Graph Theory, a subset of a graph created by selecting specific nodes and the edges that join them is called an <strong>induced subgraph</strong>.</p>
+<p>Of course, <code>igraph</code> has a function for this. First we need to get the names of the nodes that are part of a complex component, and then we can use those names to subset the graph with <code>induced_subgraph()</code>:</p>
+<pre class="r"><code>components_plots &lt;- which(components_cases_sizes &gt; 1)
+
+g_cases_plots &lt;- induced_subgraph(g_cases, vids = which(membership(components_cases) %in% components_plots))
+
+summary(g_cases_plots)</code></pre>
+<pre><code>## IGRAPH ca24e1a UNW- 235 778 -- 
+## + attr: name (v/c), weight (e/n)</code></pre>
+<p>The next step is getting the induced subgraph of the people that have been accused in cases that belong to a corruption plot, this is, the cases we have just selected:</p>
+<pre class="r"><code>accused_plots &lt;- subset(list_accused_in_cases, case %in% V(g_cases_plots)$name)
+
+g_accused_plots &lt;- induced_subgraph(g_accused, vids = accused_plots$accused)
+
+summary(g_accused_plots)</code></pre>
+<pre><code>## IGRAPH ca2e7e8 UNW- 1836 23527 -- 
+## + attr: name (v/c), weight (e/n)</code></pre>
+<p>As a result we see now that there are 235 corruption cases that are part of any of those 40 plots we had in total, and there are 1836 people involved in at least one of them, out of the 3100 we originally had.</p>
+<p>And what exactly is the size of each connected component? We can see that in the picture below:</p>
+<p><img src="/post/2020-01-21_files/size_connected_components.jpg" />
+Take a moment and try to guess which cases correspond to the biggest corruption plots that appear in the image, you have probably heard about most of them.</p>
+<ul>
+<li>In the first place, with 84 cases and 893 people involved, we have a plot located mainly in Madrid, Valencia and Baleares and corresponding to the cases: Gürtel, Púnica, Lezo, Noos, Bárcenas, Bankia, Tarjetas Black, …</li>
+<li>In the second place, with 48 cases and 204 people involved, we have a plot located purely in Andalucía, comprising the ERE cases, Facturas Falsas, Cursos Formación, etc.</li>
+<li>In the third place we have a much smaller plot with 9 cases and 75 people involved, located mainly in Galicia and with the primary case being the Pokemon case.</li>
+</ul>
+<p>The biggest component of a graph is called the <strong>giant component</strong>. We will now focus on this one, the biggest corruption plot, to learn a few more concepts of Graph Theory and Social Network Analysis.</p>
+<pre class="r"><code>biggest_plot &lt;- which.max(components_cases_sizes)
+g_cases_plot1 &lt;- induced_subgraph(g_cases, vids = which(membership(components_cases) == biggest_plot))
+
+accused_plot1 &lt;- subset(list_accused_in_cases, case %in% V(g_cases_plot1)$name)
+g_accused_plot1 &lt;- induced_subgraph(g_accused, vids = accused_plot1$accused)</code></pre>
+<p>Since we are going to be plotting the same graph repeatedly, it’s a good practice to calculate the layout beforehand, and then passing it to the plot function. That way, our graph will always have the same shape, and we will save computing time.</p>
+<pre class="r"><code>layout_accused_plot1 &lt;- layout_nicely(g_accused_plot1)
+plot(g_accused_plot1, layout=layout_accused_plot1, vertex.label=NA, vertex.size=3)</code></pre>
+<p><img src="/post/2020-01-21_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="shortest-paths" class="section level2">
+<h2>Shortest Paths</h2>
+<p>Another important concept regarding graph topology is <strong>shortest paths</strong>.</p>
+<p>We can think of the graph of accused people as a network of contacts, and wonder how many calls someone has to make if they want to get in contact with another person of the graph, asking for new telephone numbers until they get the one they want. Of course, this person would choose the sequence that minimizes the number of calls to make, so the path followed would be the shortest path between the two people.</p>
+<p>Shortest paths can be different if the edges of the graph are weighted: the person looking for the phone might prefer to call the closest friend in each step, even though that implies making a bigger number of calls.</p>
+<p>The function have to use in <code>igraph</code> is <code>shortest_paths()</code>. Let’s calculate for example the shortest path between Gallardón and Bárcenas:</p>
+<pre class="r"><code>path &lt;- shortest_paths(g_accused_plot1, 
+                       from=&quot;Alberto Ruiz-Gallardón Jiménez&quot;, 
+                       to=&quot;Luis Francisco Bárcenas Gutiérrez&quot;)
+path$vpath</code></pre>
+<pre><code>## [[1]]
+## + 4/893 vertices, named, from ca37cd5:
+## [1] Alberto Ruiz-Gallardón Jiménez    Ignacio González González        
+## [3] Alberto López Viejo               Luis Francisco Bárcenas Gutiérrez</code></pre>
+<p>The shortest sequence would be: Gallardón → Ignacio González → Alberto López Viejo → Bárcenas, with a length of 3 steps.</p>
+<p>If we just need to know the distance, and not the details about the steps, we can use the function <code>distance()</code>, which takes less time to execute:</p>
+<pre class="r"><code>distances(g_accused_plot1, 
+          v=&quot;Alberto Ruiz-Gallardón Jiménez&quot;, 
+          to=&quot;Luis Francisco Bárcenas Gutiérrez&quot;)</code></pre>
+<pre><code>##                                Luis Francisco Bárcenas Gutiérrez
+## Alberto Ruiz-Gallardón Jiménez                                 3</code></pre>
+<p>Besides calculating the length of the shortest path between a specific pair of nodes, with the <code>distance()</code> function we can also calculate the length of the shortest path between every pair of nodes in the graph, getting a distance matrix:</p>
+<pre class="r"><code>paths_lengths &lt;- distances(g_accused_plot1)
+
+mean(paths_lengths)</code></pre>
+<pre><code>## [1] 4.29711</code></pre>
+<p>If we then calculate the mean value of these distances, we’ll see that, on average, every two nodes of the graph are separated by 4 or 5 steps. The networks where most nodes can be reached from every other node by a small number of steps are called <strong>small-world networks</strong>. Many real-life networks have this property.</p>
+</div>
+<div id="centrality-measures" class="section level2">
+<h2>Centrality Measures</h2>
+<p>Another interesting thing we can do with graphs is trying to determine which nodes are the most relevant in the network. We don’t have an official definition for that, but there are several ways of measuring the centrality of a node in a graph that we can use:</p>
+<ul>
+<li><p><strong>Degree centrality</strong>: given by the degree of the node in the graph, this is, the number of edges that are connected to the node. In our people network, we could use this metric to define relevance as a function of the number of contacts of a node.</p></li>
+<li><p><strong>Betweenness</strong>: given by the number of shortest paths in the graph that pass through that node. This can be seen as a measure of how essential the node is to the graph.</p></li>
+<li><p><strong>Centrality</strong>: given by the length of the shortest paths from the node to every other node in the graph. With this metric, relevance would mean being well connected, with a short distance to everybody in the graph.</p></li>
+</ul>
+<p>We can calculate all this metrics using <code>igraph</code> as follows:</p>
+<pre class="r"><code>nodes_degree &lt;- degree(g_accused_plot1)
+
+nodes_betweenness &lt;- betweenness(g_accused_plot1)
+
+nodes_closeness &lt;- closeness(g_accused_plot1)</code></pre>
+</div>
+<div id="community-extraction" class="section level2">
+<h2>Community Extraction</h2>
+<p>Finally, the last thing we are going to analyze is the groups of people that are more connected, the groups of “friends” in the graph. These groups or clusters are called <strong>communities</strong> in Graph Theory.</p>
+<p>There are many different algorithms for calculating communities, and each of them can result in a different division. A lot of them are implemented in <code>igraph</code>, with functions starting with <code>cluster_</code>. In this case, we are going to calculate the groups of friends with an algorithm called Walktrap, which is based on random walks through the graph. We can play with different numbers of steps until we like the groups we get.</p>
+<pre class="r"><code>comm_accused_plot1 &lt;- cluster_walktrap(g_accused_plot1, steps=50)</code></pre>
+<p>The goodness of a division in communities can be measured with something called <strong>modularity</strong>, which determines how well separated the clusters are from each other.</p>
+<pre class="r"><code>modularity(comm_accused_plot1)</code></pre>
+<pre><code>## [1] 0.8216408</code></pre>
+<p>Modularity takes values from -1 to 1, with a value close to 1 indicating a strong community structure. Therefore, we can see that the division we have achieved is pretty good.</p>
+<p>And how does that division look like? We can plot the graph together with the community structure using an enhanced version of the <code>plot()</code> function that accepts the community object and the graph object as parameters:</p>
+<pre class="r"><code>plot(comm_accused_plot1, g_accused_plot1, 
+     layout=layout_accused_plot1, 
+     vertex.label=NA, vertex.size=3)</code></pre>
+<p><img src="/post/2020-01-21_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+</div>

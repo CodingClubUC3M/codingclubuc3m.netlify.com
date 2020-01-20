@@ -1,0 +1,779 @@
+"case_1","case_2","accused_in_common"
+"Caso ERE/Aglomerados Morell","Caso ERE/Franja Pirítica",2
+"Caso ERE/Aglomerados Morell","Caso ERE/González Byass",2
+"Caso ERE/Aglomerados Morell","Caso ERE/Instaladora Moderna",3
+"Caso ERE/Aglomerados Morell","Caso ERE/Ubago Group Mare",2
+"Caso ERE/Aglomerados Morell","Caso ERE/Universidad de Sevilla",3
+"Caso ERE/Franja Pirítica","Caso ERE/González Byass",3
+"Caso ERE/Franja Pirítica","Caso ERE/Instaladora Moderna",4
+"Caso ERE/Franja Pirítica","Caso ERE/Ubago Group Mare",2
+"Caso ERE/Franja Pirítica","Caso ERE/Universidad de Sevilla",2
+"Caso ERE/González Byass","Caso ERE/Instaladora Moderna",3
+"Caso ERE/González Byass","Caso ERE/Ubago Group Mare",3
+"Caso ERE/González Byass","Caso ERE/Universidad de Sevilla",2
+"Caso ERE/Instaladora Moderna","Caso ERE/Ubago Group Mare",3
+"Caso ERE/Instaladora Moderna","Caso ERE/Universidad de Sevilla",5
+"Caso ERE/Ubago Group Mare","Caso ERE/Universidad de Sevilla",2
+"CASO INESTUR/IMET","CASO INESTUR/PLOMER",1
+"Caso Lezo/Tren Navalcarnero","Caso Villarejo/Pit",1
+"Caso Plaza","Caso Plaza/Aulario",1
+"CASO COOPERACIÓN/PIEZA 1","Caso Cooperación/Piezas 2 y 3",5
+"Caso ERE/Acyco","Caso ERE/Hamsa Primayor",4
+"Caso ERE/Acyco","Caso ERE/Pieza Política",5
+"Caso ERE/Acyco","Caso ERE/SK 3000",3
+"Caso ERE/Acyco","Caso ERE/Surcolor",5
+"Caso ERE/Hamsa Primayor","Caso ERE/Pieza Política",5
+"Caso ERE/Hamsa Primayor","Caso ERE/SK 3000",4
+"Caso ERE/Hamsa Primayor","Caso ERE/Surcolor",6
+"Caso ERE/Pieza Política","Caso ERE/SK 3000",5
+"Caso ERE/Pieza Política","Caso ERE/Surcolor",4
+"Caso ERE/SK 3000","Caso ERE/Surcolor",3
+"Caso Sanlúcar","Caso Terán",1
+"Caso Gürtel/Primera Época","Caso Lezo/Mercasa",1
+"Caso Gürtel/Primera Época","Caso Púnica/Financiación PP",1
+"Caso Lezo/Mercasa","Caso Púnica/Financiación PP",1
+"Caso Pokemon/Concello Santiago","Caso Pokemon/Vendex",1
+"Caso Faycán","Caso Paraíso",1
+"Caso Púnica/Eico y Madiva","Caso Púnica/Murcia",1
+"Caso Amnistía Fiscal","Caso Gürtel/Arganda",1
+"Caso Amnistía Fiscal","Caso Gürtel/Boadilla",1
+"Caso Amnistía Fiscal","Caso Gürtel/Primera Época",1
+"Caso Gürtel/Arganda","Caso Gürtel/Boadilla",7
+"Caso Gürtel/Arganda","Caso Gürtel/Primera Época",5
+"Caso Gürtel/Boadilla","Caso Gürtel/Primera Época",8
+"Caso Clepsidra","Caso Taula",1
+"Caso Imelsa","Caso Taula",4
+"Caso Colmenar Viejo","Caso Colmenar Viejo II",4
+"Caso La Loma","Caso Proconor",13
+"Caso Emperador","Caso Villarejo/Kitchen",1
+"Caso Cursos Formación/CIOMIJAS","Caso Cursos Formación/Formades",3
+"Caso Inestur/Martínez Cañamero","Caso Inestur/Marxant",2
+"Caso Inestur/Martínez Cañamero","Caso Inestur/Porreres",1
+"Caso Inestur/Marxant","Caso Inestur/Porreres",2
+"Caso ERE/CENFORPRE","Caso ERE/Egmasa",2
+"Caso ERE/CENFORPRE","Caso ERE/Guerrero y Trujillo",2
+"Caso ERE/CENFORPRE","Caso ERE/Hamsa Primayor",2
+"Caso ERE/CENFORPRE","Caso ERE/Instaladora Moderna",2
+"Caso ERE/CENFORPRE","Caso ERE/Sobrecomisiones",2
+"Caso ERE/CENFORPRE","Caso ERE/Surcolor",2
+"Caso ERE/Egmasa","Caso ERE/Guerrero y Trujillo",2
+"Caso ERE/Egmasa","Caso ERE/Hamsa Primayor",4
+"Caso ERE/Egmasa","Caso ERE/Instaladora Moderna",5
+"Caso ERE/Egmasa","Caso ERE/Sobrecomisiones",4
+"Caso ERE/Egmasa","Caso ERE/Surcolor",5
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Hamsa Primayor",2
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Instaladora Moderna",2
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Sobrecomisiones",3
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Surcolor",2
+"Caso ERE/Hamsa Primayor","Caso ERE/Instaladora Moderna",6
+"Caso ERE/Hamsa Primayor","Caso ERE/Sobrecomisiones",4
+"Caso ERE/Instaladora Moderna","Caso ERE/Sobrecomisiones",5
+"Caso ERE/Instaladora Moderna","Caso ERE/Surcolor",7
+"Caso ERE/Sobrecomisiones","Caso ERE/Surcolor",7
+"Caso Novo Carthago","Caso Zerrichera",1
+"Caso La Sal","Caso Novo Carthago",2
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Acyco",1
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Egmasa",1
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Franja Pirítica",1
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Fundación San Telmo",1
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Hamsa Primayor",1
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Heineken España",2
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Instaladora Moderna",2
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Matadero Fuenteobejuna",1
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Pieza Política",1
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Santana Motor",1
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Sierra Norte de Sevilla",1
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/SK 3000",1
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Sobrecomisiones",2
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Surcolor",2
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Yogures Andaluces",1
+"Caso ERE/Acyco","Caso ERE/Egmasa",3
+"Caso ERE/Acyco","Caso ERE/Franja Pirítica",3
+"Caso ERE/Acyco","Caso ERE/Fundación San Telmo",1
+"Caso ERE/Acyco","Caso ERE/Heineken España",2
+"Caso ERE/Acyco","Caso ERE/Instaladora Moderna",4
+"Caso ERE/Acyco","Caso ERE/Matadero Fuenteobejuna",2
+"Caso ERE/Acyco","Caso ERE/Santana Motor",4
+"Caso ERE/Acyco","Caso ERE/Sierra Norte de Sevilla",2
+"Caso ERE/Acyco","Caso ERE/Sobrecomisiones",2
+"Caso ERE/Acyco","Caso ERE/Yogures Andaluces",2
+"Caso ERE/Egmasa","Caso ERE/Franja Pirítica",4
+"Caso ERE/Egmasa","Caso ERE/Fundación San Telmo",2
+"Caso ERE/Egmasa","Caso ERE/Heineken España",2
+"Caso ERE/Egmasa","Caso ERE/Matadero Fuenteobejuna",3
+"Caso ERE/Egmasa","Caso ERE/Pieza Política",3
+"Caso ERE/Egmasa","Caso ERE/Santana Motor",4
+"Caso ERE/Egmasa","Caso ERE/Sierra Norte de Sevilla",3
+"Caso ERE/Egmasa","Caso ERE/SK 3000",1
+"Caso ERE/Egmasa","Caso ERE/Yogures Andaluces",3
+"Caso ERE/Franja Pirítica","Caso ERE/Fundación San Telmo",2
+"Caso ERE/Franja Pirítica","Caso ERE/Hamsa Primayor",2
+"Caso ERE/Franja Pirítica","Caso ERE/Heineken España",2
+"Caso ERE/Franja Pirítica","Caso ERE/Matadero Fuenteobejuna",2
+"Caso ERE/Franja Pirítica","Caso ERE/Pieza Política",3
+"Caso ERE/Franja Pirítica","Caso ERE/Santana Motor",5
+"Caso ERE/Franja Pirítica","Caso ERE/Sierra Norte de Sevilla",3
+"Caso ERE/Franja Pirítica","Caso ERE/SK 3000",1
+"Caso ERE/Franja Pirítica","Caso ERE/Sobrecomisiones",5
+"Caso ERE/Franja Pirítica","Caso ERE/Surcolor",3
+"Caso ERE/Franja Pirítica","Caso ERE/Yogures Andaluces",3
+"Caso ERE/Fundación San Telmo","Caso ERE/Hamsa Primayor",1
+"Caso ERE/Fundación San Telmo","Caso ERE/Heineken España",1
+"Caso ERE/Fundación San Telmo","Caso ERE/Instaladora Moderna",1
+"Caso ERE/Fundación San Telmo","Caso ERE/Matadero Fuenteobejuna",1
+"Caso ERE/Fundación San Telmo","Caso ERE/Pieza Política",2
+"Caso ERE/Fundación San Telmo","Caso ERE/Santana Motor",2
+"Caso ERE/Fundación San Telmo","Caso ERE/Sierra Norte de Sevilla",2
+"Caso ERE/Fundación San Telmo","Caso ERE/SK 3000",1
+"Caso ERE/Fundación San Telmo","Caso ERE/Sobrecomisiones",1
+"Caso ERE/Fundación San Telmo","Caso ERE/Surcolor",1
+"Caso ERE/Fundación San Telmo","Caso ERE/Yogures Andaluces",2
+"Caso ERE/Hamsa Primayor","Caso ERE/Heineken España",2
+"Caso ERE/Hamsa Primayor","Caso ERE/Matadero Fuenteobejuna",3
+"Caso ERE/Hamsa Primayor","Caso ERE/Santana Motor",3
+"Caso ERE/Hamsa Primayor","Caso ERE/Sierra Norte de Sevilla",2
+"Caso ERE/Hamsa Primayor","Caso ERE/Yogures Andaluces",2
+"Caso ERE/Heineken España","Caso ERE/Instaladora Moderna",3
+"Caso ERE/Heineken España","Caso ERE/Matadero Fuenteobejuna",2
+"Caso ERE/Heineken España","Caso ERE/Pieza Política",2
+"Caso ERE/Heineken España","Caso ERE/Santana Motor",2
+"Caso ERE/Heineken España","Caso ERE/Sierra Norte de Sevilla",2
+"Caso ERE/Heineken España","Caso ERE/SK 3000",1
+"Caso ERE/Heineken España","Caso ERE/Sobrecomisiones",3
+"Caso ERE/Heineken España","Caso ERE/Surcolor",3
+"Caso ERE/Heineken España","Caso ERE/Yogures Andaluces",2
+"Caso ERE/Instaladora Moderna","Caso ERE/Matadero Fuenteobejuna",3
+"Caso ERE/Instaladora Moderna","Caso ERE/Pieza Política",5
+"Caso ERE/Instaladora Moderna","Caso ERE/Santana Motor",4
+"Caso ERE/Instaladora Moderna","Caso ERE/Sierra Norte de Sevilla",2
+"Caso ERE/Instaladora Moderna","Caso ERE/SK 3000",3
+"Caso ERE/Instaladora Moderna","Caso ERE/Yogures Andaluces",2
+"Caso ERE/Matadero Fuenteobejuna","Caso ERE/Pieza Política",2
+"Caso ERE/Matadero Fuenteobejuna","Caso ERE/Santana Motor",2
+"Caso ERE/Matadero Fuenteobejuna","Caso ERE/Sierra Norte de Sevilla",3
+"Caso ERE/Matadero Fuenteobejuna","Caso ERE/SK 3000",1
+"Caso ERE/Matadero Fuenteobejuna","Caso ERE/Sobrecomisiones",5
+"Caso ERE/Matadero Fuenteobejuna","Caso ERE/Surcolor",4
+"Caso ERE/Matadero Fuenteobejuna","Caso ERE/Yogures Andaluces",3
+"Caso ERE/Pieza Política","Caso ERE/Santana Motor",4
+"Caso ERE/Pieza Política","Caso ERE/Sierra Norte de Sevilla",3
+"Caso ERE/Pieza Política","Caso ERE/Sobrecomisiones",2
+"Caso ERE/Pieza Política","Caso ERE/Yogures Andaluces",3
+"Caso ERE/Santana Motor","Caso ERE/Sierra Norte de Sevilla",3
+"Caso ERE/Santana Motor","Caso ERE/SK 3000",2
+"Caso ERE/Santana Motor","Caso ERE/Sobrecomisiones",3
+"Caso ERE/Santana Motor","Caso ERE/Surcolor",4
+"Caso ERE/Santana Motor","Caso ERE/Yogures Andaluces",3
+"Caso ERE/Sierra Norte de Sevilla","Caso ERE/SK 3000",1
+"Caso ERE/Sierra Norte de Sevilla","Caso ERE/Sobrecomisiones",3
+"Caso ERE/Sierra Norte de Sevilla","Caso ERE/Surcolor",2
+"Caso ERE/Sierra Norte de Sevilla","Caso ERE/Yogures Andaluces",4
+"Caso ERE/SK 3000","Caso ERE/Sobrecomisiones",1
+"Caso ERE/SK 3000","Caso ERE/Yogures Andaluces",1
+"Caso ERE/Sobrecomisiones","Caso ERE/Yogures Andaluces",3
+"Caso ERE/Surcolor","Caso ERE/Yogures Andaluces",2
+"Caso Bajo Guadalquivir","Caso Idelpa",1
+"Caso Invercaria/FIVA","Caso Invercaria/J. Martín",2
+"Caso Invercaria/FIVA","Caso Invercaria/Keepfresh",2
+"Caso Invercaria/J. Martín","Caso Invercaria/Keepfresh",2
+"Caso Pokemon/Vendex","Caso Xinzo de Limia",1
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Intersur",1
+"Caso Cursos Formación/Ángel Ojeda","Caso ERE/Mac Puar",1
+"Caso ERE/Heineken España","Caso ERE/Intersur",1
+"Caso ERE/Heineken España","Caso ERE/Mac Puar",1
+"Caso ERE/Instaladora Moderna","Caso ERE/Intersur",1
+"Caso ERE/Instaladora Moderna","Caso ERE/Mac Puar",1
+"Caso ERE/Intersur","Caso ERE/Mac Puar",1
+"Caso ERE/Intersur","Caso ERE/Sobrecomisiones",1
+"Caso ERE/Intersur","Caso ERE/Surcolor",1
+"Caso ERE/Mac Puar","Caso ERE/Sobrecomisiones",1
+"Caso ERE/Mac Puar","Caso ERE/Surcolor",1
+"Caso Cursos Formación/CIOMIJAS","Caso Sobresueldos",1
+"Caso Bankia Salida a Bolsa","Caso Púnica/Financiación PP",2
+"Caso Bankia Salida a Bolsa","Caso Tarjetas Black Bankia",11
+"Caso Púnica/Financiación PP","Caso Tarjetas Black Bankia",2
+"Caso Aplauso","Caso Tele7",2
+"Caso Citur","Caso de las Ratas",1
+"Caso Citur","Caso Nerer",3
+"Caso de las Ratas","Caso Nerer",2
+"Caso Can Domenge","Caso Son Oms",2
+"Caso Lezo/Financiación PP","Caso Púnica/Financiación PP",2
+"Caso Lezo/Financiación PP","Caso Tarjetas Black Bankia",1
+"Caso Invercaria/EDM","Caso Invercaria/FIVA",2
+"Caso Invercaria/EDM","Caso Invercaria/Servivation",2
+"Caso Invercaria/FIVA","Caso Invercaria/Servivation",3
+"Caso Fitonovo","Caso Selosa Bioenergía",1
+"Caso ERE/Aglomerados Morell","Caso ERE/Matadero Fuenteobejuna",3
+"Caso ERE/Aglomerados Morell","Caso ERE/Sobrecomisiones",5
+"Caso ERE/Aglomerados Morell","Caso ERE/Surcolor",4
+"Caso Campeón","Caso Pokemon/Miño-Sil",1
+"Caso Lezo/Inassa y Emissao","Caso Metrored",1
+"Caso Lezo/Inassa y Emissao","Caso Taula",1
+"Caso Metrored","Caso Taula",1
+"Caso La Loma","Caso Santa Catalina",6
+"Caso Pokemon/Grúa de Lugo","Caso Pokemon/Vendex",5
+"Caso 3 per cent","Caso Palau",2
+"Caso Emucesa","Caso TG7",1
+"Caso Contenedores","Caso Láminas Goya",1
+"Caso Gürtel/Caja B PP Valencia","Caso Gürtel/Contratos Valencia",5
+"Caso Gürtel/Caja B PP Valencia","Caso Gürtel/Fitur",4
+"Caso Gürtel/Contratos Valencia","Caso Gürtel/Fitur",6
+"Caso Proconor","Caso Santa Catalina",7
+"Caso ERE/Acyco","Caso ERE/Cetro Aceitunas",1
+"Caso ERE/Acyco","Caso ERE/González Byass",2
+"Caso ERE/Acyco","Caso ERE/Nexprom",2
+"Caso ERE/Acyco","Caso ERE/Ubago Group Mare",2
+"Caso ERE/Acyco","Caso Umax",3
+"Caso ERE/Cetro Aceitunas","Caso ERE/Egmasa",1
+"Caso ERE/Cetro Aceitunas","Caso ERE/Franja Pirítica",1
+"Caso ERE/Cetro Aceitunas","Caso ERE/González Byass",1
+"Caso ERE/Cetro Aceitunas","Caso ERE/Instaladora Moderna",1
+"Caso ERE/Cetro Aceitunas","Caso ERE/Nexprom",1
+"Caso ERE/Cetro Aceitunas","Caso ERE/Santana Motor",1
+"Caso ERE/Cetro Aceitunas","Caso ERE/Surcolor",1
+"Caso ERE/Cetro Aceitunas","Caso ERE/Ubago Group Mare",1
+"Caso ERE/Cetro Aceitunas","Caso Umax",1
+"Caso ERE/Egmasa","Caso ERE/González Byass",1
+"Caso ERE/Egmasa","Caso ERE/Nexprom",2
+"Caso ERE/Egmasa","Caso ERE/Ubago Group Mare",1
+"Caso ERE/Egmasa","Caso Umax",2
+"Caso ERE/Franja Pirítica","Caso ERE/Nexprom",2
+"Caso ERE/Franja Pirítica","Caso Umax",2
+"Caso ERE/González Byass","Caso ERE/Nexprom",1
+"Caso ERE/González Byass","Caso ERE/Santana Motor",3
+"Caso ERE/González Byass","Caso ERE/Surcolor",2
+"Caso ERE/González Byass","Caso Umax",2
+"Caso ERE/Instaladora Moderna","Caso ERE/Nexprom",2
+"Caso ERE/Instaladora Moderna","Caso Umax",3
+"Caso ERE/Nexprom","Caso ERE/Santana Motor",2
+"Caso ERE/Nexprom","Caso ERE/Surcolor",2
+"Caso ERE/Nexprom","Caso ERE/Ubago Group Mare",1
+"Caso ERE/Nexprom","Caso Umax",2
+"Caso ERE/Santana Motor","Caso ERE/Ubago Group Mare",2
+"Caso ERE/Santana Motor","Caso Umax",3
+"Caso ERE/Surcolor","Caso ERE/Ubago Group Mare",2
+"Caso ERE/Surcolor","Caso Umax",3
+"Caso ERE/Ubago Group Mare","Caso Umax",2
+"Caso Camelot","Caso Mar Menor Golf Resort",1
+"Caso Camelot","Caso Torre Pacheco",1
+"Caso Mar Menor Golf Resort","Caso Torre Pacheco",1
+"Caso Over Marketing","Caso Púnica/Financiación PP",1
+"Caso Gürtel/Caja B PP Valencia","Caso Taula",1
+"Caso Gürtel/Contratos Valencia","Caso Taula",1
+"Caso Aller","Caso Hulla",2
+"Caso Lezo/Blanqueo capitales","Caso Lezo/Inassa y Emissao",3
+"Caso Erial","Caso Lezo/Blanqueo capitales",1
+"Caso La Loma","Caso Trapur",1
+"Caso Patos/Autoridad Portuaria Vigo","Caso Patos/Moraña",2
+"Caso Villarejo/Iron","Caso Villarejo/Kitchen",2
+"Caso Brugal","Caso Gürtel/Caja B PP Valencia",1
+"Caso Inestur/Cilma","Caso Inestur/Minser",3
+"Caso Asesorías","Caso Benagéber",1
+"Caso Cerrú","Caso Plaza de Toros",1
+"Caso Horas Extras","Caso Uniformes",2
+"CASO INESTUR/BANIF","CASO INESTUR/COINT",1
+"CASO INESTUR/BANIF","CASO INESTUR/IMET",1
+"CASO INESTUR/COINT","CASO INESTUR/IMET",1
+"Caso Gürtel/Arganda","Caso Gürtel/Ayto. de Jerez",3
+"Caso Gürtel/Arganda","Caso Gürtel/Contratos Valencia",3
+"Caso Gürtel/Arganda","Caso Gürtel/Fitur",3
+"Caso Gürtel/Ayto. de Jerez","Caso Gürtel/Boadilla",4
+"Caso Gürtel/Ayto. de Jerez","Caso Gürtel/Contratos Valencia",3
+"Caso Gürtel/Ayto. de Jerez","Caso Gürtel/Fitur",3
+"Caso Gürtel/Ayto. de Jerez","Caso Gürtel/Primera Época",4
+"Caso Gürtel/Boadilla","Caso Gürtel/Contratos Valencia",3
+"Caso Gürtel/Boadilla","Caso Gürtel/Fitur",3
+"Caso Gürtel/Contratos Valencia","Caso Gürtel/Primera Época",3
+"Caso Gürtel/Fitur","Caso Gürtel/Primera Época",3
+"Caso Mercasevilla","Caso Mercasevilla/Escuela Hostelería",1
+"Caso Mercasevilla","Caso Mercasevilla/Guardería",1
+"Caso Mercasevilla/Escuela Hostelería","Caso Mercasevilla/Guardería",1
+"Caso La Loma","Caso Mioño",3
+"Caso Mioño","Caso Proconor",3
+"Caso Mioño","Caso Santa Catalina",3
+"Caso Marchelo","Caso Villarejo/Pintor",2
+"Caso Bitácora","Caso Inestur/Cilma",1
+"Caso Bitácora","Caso Inestur/Mario Morales",1
+"Caso Bitácora","Caso Inestur/Marxant",1
+"Caso Bitácora","Caso Inestur/Minser",1
+"Caso Bitácora","Caso Inestur/Porreres",1
+"Caso Bitácora","Caso Inestur/Spa",1
+"Caso Inestur/Cilma","Caso Inestur/Mario Morales",1
+"Caso Inestur/Cilma","Caso Inestur/Marxant",2
+"Caso Inestur/Cilma","Caso Inestur/Porreres",1
+"Caso Inestur/Cilma","Caso Inestur/Spa",1
+"Caso Inestur/Mario Morales","Caso Inestur/Marxant",1
+"Caso Inestur/Mario Morales","Caso Inestur/Minser",1
+"Caso Inestur/Mario Morales","Caso Inestur/Porreres",1
+"Caso Inestur/Mario Morales","Caso Inestur/Spa",1
+"Caso Inestur/Marxant","Caso Inestur/Minser",2
+"Caso Inestur/Marxant","Caso Inestur/Spa",2
+"Caso Inestur/Minser","Caso Inestur/Porreres",1
+"Caso Inestur/Minser","Caso Inestur/Spa",1
+"Caso Inestur/Porreres","Caso Inestur/Spa",1
+"Caso Gürtel/AENA","Caso Gürtel/Arganda",2
+"Caso Gürtel/AENA","Caso Gürtel/Ayto. de Jerez",1
+"Caso Gürtel/AENA","Caso Gürtel/Boadilla",2
+"Caso Gürtel/AENA","Caso Gürtel/Caja B PP Valencia",1
+"Caso Gürtel/AENA","Caso Gürtel/Contratos Valencia",1
+"Caso Gürtel/AENA","Caso Gürtel/Fitur",1
+"Caso Gürtel/AENA","Caso Gürtel/Primera Época",2
+"Caso Gürtel/AENA","Caso Gürtel/Visita del Papa",1
+"Caso Gürtel/Arganda","Caso Gürtel/Caja B PP Valencia",2
+"Caso Gürtel/Arganda","Caso Gürtel/Visita del Papa",3
+"Caso Gürtel/Ayto. de Jerez","Caso Gürtel/Caja B PP Valencia",2
+"Caso Gürtel/Ayto. de Jerez","Caso Gürtel/Visita del Papa",2
+"Caso Gürtel/Boadilla","Caso Gürtel/Caja B PP Valencia",3
+"Caso Gürtel/Boadilla","Caso Gürtel/Visita del Papa",6
+"Caso Gürtel/Caja B PP Valencia","Caso Gürtel/Primera Época",2
+"Caso Gürtel/Caja B PP Valencia","Caso Gürtel/Visita del Papa",4
+"Caso Gürtel/Contratos Valencia","Caso Gürtel/Visita del Papa",3
+"Caso Gürtel/Fitur","Caso Gürtel/Visita del Papa",4
+"Caso Gürtel/Primera Época","Caso Gürtel/Visita del Papa",3
+"Caso Gürtel/Fitur","Caso Valmor Fórmula 1",1
+"Caso Gürtel/Visita del Papa","Caso Valmor Fórmula 1",1
+"Caso Pokemon/Grúa de Lugo","Caso Pokemon/Miño-Sil",1
+"Caso Pokemon/Miño-Sil","Caso Pokemon/Vendex",1
+"Caso CAM/Caribe","Caso Erial",1
+"Caso ERE/Pieza Política","Caso Umax",4
+"Caso ERE/A-NOVO","Caso ERE/Acyco",3
+"Caso ERE/A-NOVO","Caso ERE/Aglomerados Morell",2
+"Caso ERE/A-NOVO","Caso ERE/Alcolea del Río",1
+"Caso ERE/A-NOVO","Caso ERE/Ayuntamiento San Nicolás",1
+"Caso ERE/A-NOVO","Caso ERE/CENFORPRE",1
+"Caso ERE/A-NOVO","Caso ERE/Egmasa",1
+"Caso ERE/A-NOVO","Caso ERE/Empresa ABB",1
+"Caso ERE/A-NOVO","Caso ERE/Franja Pirítica",1
+"Caso ERE/A-NOVO","Caso ERE/Guerrero y Trujillo",1
+"Caso ERE/A-NOVO","Caso ERE/Hamsa Primayor",2
+"Caso ERE/A-NOVO","Caso ERE/Heineken España",1
+"Caso ERE/A-NOVO","Caso ERE/Instaladora Moderna",2
+"Caso ERE/A-NOVO","Caso ERE/Matadero Fuenteobejuna",1
+"Caso ERE/A-NOVO","Caso ERE/Nexprom",1
+"Caso ERE/A-NOVO","Caso ERE/Peninsular del Latón",1
+"Caso ERE/A-NOVO","Caso ERE/Pieza Política",3
+"Caso ERE/A-NOVO","Caso ERE/Río Grande",2
+"Caso ERE/A-NOVO","Caso ERE/Santana Motor",2
+"Caso ERE/A-NOVO","Caso ERE/Siemens Metering",1
+"Caso ERE/A-NOVO","Caso ERE/Sierra Norte de Sevilla",1
+"Caso ERE/A-NOVO","Caso ERE/Sobrecomisiones",1
+"Caso ERE/A-NOVO","Caso ERE/Surcolor",2
+"Caso ERE/A-NOVO","Caso ERE/Universidad de Sevilla",2
+"Caso ERE/A-NOVO","Caso ERE/Yogures Andaluces",1
+"Caso ERE/A-NOVO","Caso Umax",2
+"Caso ERE/Acyco","Caso ERE/Aglomerados Morell",2
+"Caso ERE/Acyco","Caso ERE/Alcolea del Río",1
+"Caso ERE/Acyco","Caso ERE/Ayuntamiento San Nicolás",1
+"Caso ERE/Acyco","Caso ERE/CENFORPRE",1
+"Caso ERE/Acyco","Caso ERE/Empresa ABB",1
+"Caso ERE/Acyco","Caso ERE/Guerrero y Trujillo",1
+"Caso ERE/Acyco","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Acyco","Caso ERE/Río Grande",2
+"Caso ERE/Acyco","Caso ERE/Siemens Metering",1
+"Caso ERE/Acyco","Caso ERE/Universidad de Sevilla",2
+"Caso ERE/Aglomerados Morell","Caso ERE/Alcolea del Río",1
+"Caso ERE/Aglomerados Morell","Caso ERE/Ayuntamiento San Nicolás",1
+"Caso ERE/Aglomerados Morell","Caso ERE/CENFORPRE",1
+"Caso ERE/Aglomerados Morell","Caso ERE/Egmasa",1
+"Caso ERE/Aglomerados Morell","Caso ERE/Empresa ABB",1
+"Caso ERE/Aglomerados Morell","Caso ERE/Guerrero y Trujillo",1
+"Caso ERE/Aglomerados Morell","Caso ERE/Hamsa Primayor",2
+"Caso ERE/Aglomerados Morell","Caso ERE/Heineken España",1
+"Caso ERE/Aglomerados Morell","Caso ERE/Nexprom",1
+"Caso ERE/Aglomerados Morell","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Aglomerados Morell","Caso ERE/Pieza Política",2
+"Caso ERE/Aglomerados Morell","Caso ERE/Río Grande",3
+"Caso ERE/Aglomerados Morell","Caso ERE/Santana Motor",2
+"Caso ERE/Aglomerados Morell","Caso ERE/Siemens Metering",1
+"Caso ERE/Aglomerados Morell","Caso ERE/Sierra Norte de Sevilla",3
+"Caso ERE/Aglomerados Morell","Caso ERE/Yogures Andaluces",2
+"Caso ERE/Aglomerados Morell","Caso Umax",2
+"Caso ERE/Alcolea del Río","Caso ERE/Ayuntamiento San Nicolás",1
+"Caso ERE/Alcolea del Río","Caso ERE/CENFORPRE",1
+"Caso ERE/Alcolea del Río","Caso ERE/Egmasa",2
+"Caso ERE/Alcolea del Río","Caso ERE/Empresa ABB",1
+"Caso ERE/Alcolea del Río","Caso ERE/Franja Pirítica",2
+"Caso ERE/Alcolea del Río","Caso ERE/Guerrero y Trujillo",1
+"Caso ERE/Alcolea del Río","Caso ERE/Hamsa Primayor",1
+"Caso ERE/Alcolea del Río","Caso ERE/Heineken España",1
+"Caso ERE/Alcolea del Río","Caso ERE/Instaladora Moderna",1
+"Caso ERE/Alcolea del Río","Caso ERE/Matadero Fuenteobejuna",1
+"Caso ERE/Alcolea del Río","Caso ERE/Nexprom",1
+"Caso ERE/Alcolea del Río","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Alcolea del Río","Caso ERE/Pieza Política",2
+"Caso ERE/Alcolea del Río","Caso ERE/Río Grande",1
+"Caso ERE/Alcolea del Río","Caso ERE/Santana Motor",2
+"Caso ERE/Alcolea del Río","Caso ERE/Siemens Metering",1
+"Caso ERE/Alcolea del Río","Caso ERE/Sierra Norte de Sevilla",2
+"Caso ERE/Alcolea del Río","Caso ERE/Sobrecomisiones",1
+"Caso ERE/Alcolea del Río","Caso ERE/Surcolor",1
+"Caso ERE/Alcolea del Río","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/Alcolea del Río","Caso ERE/Yogures Andaluces",2
+"Caso ERE/Alcolea del Río","Caso Umax",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/CENFORPRE",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Egmasa",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Empresa ABB",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Franja Pirítica",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Guerrero y Trujillo",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Hamsa Primayor",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Heineken España",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Instaladora Moderna",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Matadero Fuenteobejuna",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Nexprom",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Pieza Política",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Río Grande",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Santana Motor",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Siemens Metering",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Sierra Norte de Sevilla",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Sobrecomisiones",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Surcolor",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso ERE/Yogures Andaluces",1
+"Caso ERE/Ayuntamiento San Nicolás","Caso Umax",1
+"Caso ERE/CENFORPRE","Caso ERE/Empresa ABB",1
+"Caso ERE/CENFORPRE","Caso ERE/Franja Pirítica",1
+"Caso ERE/CENFORPRE","Caso ERE/Heineken España",1
+"Caso ERE/CENFORPRE","Caso ERE/Matadero Fuenteobejuna",1
+"Caso ERE/CENFORPRE","Caso ERE/Nexprom",1
+"Caso ERE/CENFORPRE","Caso ERE/Peninsular del Latón",1
+"Caso ERE/CENFORPRE","Caso ERE/Pieza Política",1
+"Caso ERE/CENFORPRE","Caso ERE/Río Grande",1
+"Caso ERE/CENFORPRE","Caso ERE/Santana Motor",1
+"Caso ERE/CENFORPRE","Caso ERE/Siemens Metering",1
+"Caso ERE/CENFORPRE","Caso ERE/Sierra Norte de Sevilla",1
+"Caso ERE/CENFORPRE","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/CENFORPRE","Caso ERE/Yogures Andaluces",1
+"Caso ERE/CENFORPRE","Caso Umax",1
+"Caso ERE/Egmasa","Caso ERE/Empresa ABB",1
+"Caso ERE/Egmasa","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Egmasa","Caso ERE/Río Grande",1
+"Caso ERE/Egmasa","Caso ERE/Siemens Metering",2
+"Caso ERE/Egmasa","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/Empresa ABB","Caso ERE/Franja Pirítica",1
+"Caso ERE/Empresa ABB","Caso ERE/Guerrero y Trujillo",1
+"Caso ERE/Empresa ABB","Caso ERE/Hamsa Primayor",1
+"Caso ERE/Empresa ABB","Caso ERE/Heineken España",1
+"Caso ERE/Empresa ABB","Caso ERE/Instaladora Moderna",1
+"Caso ERE/Empresa ABB","Caso ERE/Matadero Fuenteobejuna",1
+"Caso ERE/Empresa ABB","Caso ERE/Nexprom",1
+"Caso ERE/Empresa ABB","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Empresa ABB","Caso ERE/Pieza Política",1
+"Caso ERE/Empresa ABB","Caso ERE/Río Grande",1
+"Caso ERE/Empresa ABB","Caso ERE/Santana Motor",1
+"Caso ERE/Empresa ABB","Caso ERE/Siemens Metering",1
+"Caso ERE/Empresa ABB","Caso ERE/Sierra Norte de Sevilla",1
+"Caso ERE/Empresa ABB","Caso ERE/Sobrecomisiones",1
+"Caso ERE/Empresa ABB","Caso ERE/Surcolor",1
+"Caso ERE/Empresa ABB","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/Empresa ABB","Caso ERE/Yogures Andaluces",1
+"Caso ERE/Empresa ABB","Caso Umax",1
+"Caso ERE/Franja Pirítica","Caso ERE/Guerrero y Trujillo",1
+"Caso ERE/Franja Pirítica","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Franja Pirítica","Caso ERE/Río Grande",1
+"Caso ERE/Franja Pirítica","Caso ERE/Siemens Metering",1
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Heineken España",1
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Matadero Fuenteobejuna",1
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Nexprom",1
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Pieza Política",1
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Río Grande",1
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Santana Motor",1
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Siemens Metering",1
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Sierra Norte de Sevilla",1
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/Guerrero y Trujillo","Caso ERE/Yogures Andaluces",1
+"Caso ERE/Guerrero y Trujillo","Caso Umax",1
+"Caso ERE/Hamsa Primayor","Caso ERE/Nexprom",1
+"Caso ERE/Hamsa Primayor","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Hamsa Primayor","Caso ERE/Río Grande",2
+"Caso ERE/Hamsa Primayor","Caso ERE/Siemens Metering",2
+"Caso ERE/Hamsa Primayor","Caso ERE/Universidad de Sevilla",3
+"Caso ERE/Hamsa Primayor","Caso Umax",2
+"Caso ERE/Heineken España","Caso ERE/Nexprom",1
+"Caso ERE/Heineken España","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Heineken España","Caso ERE/Río Grande",1
+"Caso ERE/Heineken España","Caso ERE/Siemens Metering",1
+"Caso ERE/Heineken España","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/Heineken España","Caso Umax",1
+"Caso ERE/Instaladora Moderna","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Instaladora Moderna","Caso ERE/Río Grande",2
+"Caso ERE/Instaladora Moderna","Caso ERE/Siemens Metering",2
+"Caso ERE/Matadero Fuenteobejuna","Caso ERE/Nexprom",1
+"Caso ERE/Matadero Fuenteobejuna","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Matadero Fuenteobejuna","Caso ERE/Río Grande",2
+"Caso ERE/Matadero Fuenteobejuna","Caso ERE/Siemens Metering",2
+"Caso ERE/Matadero Fuenteobejuna","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/Matadero Fuenteobejuna","Caso Umax",1
+"Caso ERE/Nexprom","Caso ERE/Peninsular del Latón",1
+"Caso ERE/Nexprom","Caso ERE/Pieza Política",1
+"Caso ERE/Nexprom","Caso ERE/Río Grande",1
+"Caso ERE/Nexprom","Caso ERE/Siemens Metering",1
+"Caso ERE/Nexprom","Caso ERE/Sierra Norte de Sevilla",1
+"Caso ERE/Nexprom","Caso ERE/Sobrecomisiones",1
+"Caso ERE/Nexprom","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/Nexprom","Caso ERE/Yogures Andaluces",1
+"Caso ERE/Peninsular del Latón","Caso ERE/Pieza Política",1
+"Caso ERE/Peninsular del Latón","Caso ERE/Río Grande",1
+"Caso ERE/Peninsular del Latón","Caso ERE/Santana Motor",1
+"Caso ERE/Peninsular del Latón","Caso ERE/Siemens Metering",1
+"Caso ERE/Peninsular del Latón","Caso ERE/Sierra Norte de Sevilla",1
+"Caso ERE/Peninsular del Latón","Caso ERE/Sobrecomisiones",1
+"Caso ERE/Peninsular del Latón","Caso ERE/Surcolor",1
+"Caso ERE/Peninsular del Latón","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/Peninsular del Latón","Caso ERE/Yogures Andaluces",1
+"Caso ERE/Peninsular del Latón","Caso Umax",1
+"Caso ERE/Pieza Política","Caso ERE/Río Grande",2
+"Caso ERE/Pieza Política","Caso ERE/Siemens Metering",1
+"Caso ERE/Pieza Política","Caso ERE/Universidad de Sevilla",3
+"Caso ERE/Río Grande","Caso ERE/Santana Motor",2
+"Caso ERE/Río Grande","Caso ERE/Siemens Metering",1
+"Caso ERE/Río Grande","Caso ERE/Sierra Norte de Sevilla",2
+"Caso ERE/Río Grande","Caso ERE/Sobrecomisiones",2
+"Caso ERE/Río Grande","Caso ERE/Surcolor",2
+"Caso ERE/Río Grande","Caso ERE/Universidad de Sevilla",2
+"Caso ERE/Río Grande","Caso ERE/Yogures Andaluces",2
+"Caso ERE/Río Grande","Caso Umax",2
+"Caso ERE/Santana Motor","Caso ERE/Siemens Metering",1
+"Caso ERE/Santana Motor","Caso ERE/Universidad de Sevilla",2
+"Caso ERE/Siemens Metering","Caso ERE/Sierra Norte de Sevilla",1
+"Caso ERE/Siemens Metering","Caso ERE/Sobrecomisiones",2
+"Caso ERE/Siemens Metering","Caso ERE/Surcolor",2
+"Caso ERE/Siemens Metering","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/Siemens Metering","Caso ERE/Yogures Andaluces",1
+"Caso ERE/Siemens Metering","Caso Umax",1
+"Caso ERE/Sierra Norte de Sevilla","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/Sierra Norte de Sevilla","Caso Umax",1
+"Caso ERE/Sobrecomisiones","Caso ERE/Universidad de Sevilla",1
+"Caso ERE/Sobrecomisiones","Caso Umax",1
+"Caso ERE/Surcolor","Caso ERE/Universidad de Sevilla",2
+"Caso ERE/Universidad de Sevilla","Caso ERE/Yogures Andaluces",1
+"Caso ERE/Universidad de Sevilla","Caso Umax",2
+"Caso ERE/Yogures Andaluces","Caso Umax",1
+"Caso Bankia Salida a Bolsa","Caso Lezo/Tren Navalcarnero",1
+"Caso Lezo/Tren Navalcarnero","Caso Púnica/Financiación PP",4
+"Caso Púnica","Caso Púnica/Financiación PP",1
+"Caso Púnica","Caso Púnica/Talamino",1
+"Caso Púnica/Financiación PP","Caso Púnica/Talamino",1
+"Caso Barraca","Caso Umbra",3
+"Caso Depuradora Borriol","Caso PGOU Vall de Alba",1
+"Caso ERE/Pieza Política","Caso Invercaria/Servivation",1
+"Caso ERE/SK 3000","Caso Invercaria/Servivation",1
+"Caso Aguas de Calpe","Caso Flotador/Aigües Sagunt",1
+"Caso Mar Blau","Caso Tarjetas Black Bankia",1
+"Caso Conde Roa","Caso Pokemon/Concello Santiago",1
+"Caso Eólica Valladolid","Caso Perla Negra",1
+"Caso Mercurio","Caso Pokemon/Vendex",1
+"Caso Púnica/Diputación de León","Caso Púnica/Murcia",1
+"Caso Defex/Angola","Caso Lezo/Mercasa",1
+"Caso Concursos Adif","Caso Púnica/Financiación PP",1
+"Caso Ático Estepona","Caso Lezo/Blanqueo capitales",2
+"Caso Ático Estepona","Caso Lezo/Canal Golf",1
+"Caso Ático Estepona","Caso Lezo/Inassa y Emissao",1
+"Caso Ático Estepona","Caso Lezo/Tren Navalcarnero",1
+"Caso Ático Estepona","Caso Púnica/Financiación PP",1
+"Caso Lezo/Blanqueo capitales","Caso Lezo/Canal Golf",2
+"Caso Lezo/Blanqueo capitales","Caso Lezo/Tren Navalcarnero",1
+"Caso Lezo/Blanqueo capitales","Caso Púnica/Financiación PP",1
+"Caso Lezo/Canal Golf","Caso Lezo/Inassa y Emissao",1
+"Caso Lezo/Canal Golf","Caso Lezo/Tren Navalcarnero",1
+"Caso Lezo/Canal Golf","Caso Púnica/Financiación PP",1
+"Caso Lezo/Inassa y Emissao","Caso Lezo/Tren Navalcarnero",1
+"Caso Lezo/Inassa y Emissao","Caso Púnica/Financiación PP",1
+"Caso Nazarí","Caso Serrallo",4
+"Caso Invercaria/Ándalus","Caso Invercaria/FIVA",2
+"Caso Invercaria/Ándalus","Caso Invercaria/Fumapa",2
+"Caso Invercaria/FIVA","Caso Invercaria/Fumapa",4
+"Caso de los Avales","Caso ERE/Hamsa Primayor",1
+"Caso de los Avales","Caso ERE/Instaladora Moderna",2
+"Caso de los Avales","Caso ERE/Pieza Política",3
+"Caso de los Avales","Caso ERE/SK 3000",1
+"Caso de los Avales","Caso ERE/Universidad de Sevilla",1
+"Caso de los Avales","Caso Invercaria/FIVA",1
+"Caso de los Avales","Caso Invercaria/Fumapa",1
+"Caso ERE/Hamsa Primayor","Caso Invercaria/FIVA",1
+"Caso ERE/Hamsa Primayor","Caso Invercaria/Fumapa",1
+"Caso ERE/Instaladora Moderna","Caso Invercaria/FIVA",1
+"Caso ERE/Instaladora Moderna","Caso Invercaria/Fumapa",1
+"Caso ERE/Pieza Política","Caso Invercaria/FIVA",1
+"Caso ERE/Pieza Política","Caso Invercaria/Fumapa",1
+"Caso ERE/SK 3000","Caso ERE/Universidad de Sevilla",2
+"Caso ERE/SK 3000","Caso Invercaria/FIVA",1
+"Caso ERE/SK 3000","Caso Invercaria/Fumapa",1
+"Caso ERE/Universidad de Sevilla","Caso Invercaria/FIVA",1
+"Caso ERE/Universidad de Sevilla","Caso Invercaria/Fumapa",1
+"Caso Avión Privado","Caso Cuadro Picasso",1
+"Caso Nóos","Caso Ópera",1
+"Caso Nóos","Caso Over Marketing",1
+"Caso Nóos","Caso Palma Arena",1
+"Caso Nóos","Caso Son Espases",1
+"Caso Ópera","Caso Over Marketing",1
+"Caso Ópera","Caso Palma Arena",1
+"Caso Ópera","Caso Son Espases",1
+"Caso Over Marketing","Caso Palma Arena",1
+"Caso Over Marketing","Caso Son Espases",1
+"Caso Palma Arena","Caso Son Espases",1
+"Caso Banca Catalana","Caso Pujol",1
+"Caso El Musel/A ver la ballena","Caso El Musel/Pieza principal",2
+"Caso Stratvs/I","Caso Stratvs/II",2
+"Caso ERE/Alcolea del Río","Caso ERE/Fundación San Telmo",1
+"Caso Stratvs/I","Caso Yate",1
+"Caso Stratvs/II","Caso Yate",1
+"Caso ERE/Franja Pirítica","Caso ERE/Pickman La Cartuja",1
+"Caso ERE/González Byass","Caso ERE/Pickman La Cartuja",1
+"Caso ERE/González Byass","Caso ERE/Sobrecomisiones",1
+"Caso ERE/Pickman La Cartuja","Caso ERE/Santana Motor",1
+"Caso ERE/Pickman La Cartuja","Caso ERE/Sobrecomisiones",2
+"Caso ERE/Pickman La Cartuja","Caso ERE/Surcolor",1
+"Caso Defex/Angola","Caso Defex/Egipto",2
+"Caso Montaña Roja","Caso Stratvs/II",1
+"Caso Aneri","Caso Rosario",1
+"Caso Baltar","Caso Pokemon/Vendex",1
+"Caso Cerrú","Caso Gürtel/Arganda",1
+"Caso Cerrú","Caso Gürtel/Boadilla",1
+"Caso Cerrú","Caso Gürtel/Visita del Papa",1
+"Caso Bankia Salida a Bolsa","Caso Imarol",1
+"Caso Enredadera","Caso Gürtel/Boadilla",1
+"Caso Enredadera","Caso Púnica/Financiación PP",1
+"Caso Gürtel/Boadilla","Caso Púnica/Financiación PP",1
+"Caso Bankia Salida a Bolsa","Caso Lezo/Blanqueo capitales",1
+"Caso Villarejo/Iron","Caso Villarejo/King",2
+"Caso Villarejo/Iron","Caso Villarejo/Land",2
+"Caso Villarejo/King","Caso Villarejo/Kitchen",1
+"Caso Villarejo/King","Caso Villarejo/Land",2
+"Caso Villarejo/Kitchen","Caso Villarejo/Land",1
+"Caso Lezo/Blanqueo capitales","Caso Púnica/Eico y Madiva",1
+"Caso Cursach","Caso Over Marketing",1
+"Caso El Roblecillo","Caso Novo Carthago",2
+"Caso Proconor","Caso Trapur",1
+"Caso Santa Catalina","Caso Trapur",1
+"Caso Gürtel/Visita del Papa","Caso Trajes",1
+"Caso Erial","Caso Gürtel/Visita del Papa",1
+"Caso ERE/A-NOVO","Caso ERE/González Byass",1
+"Caso ERE/A-NOVO","Caso ERE/SK 3000",1
+"Caso ERE/A-NOVO","Caso ERE/Ubago Group Mare",1
+"Caso ERE/Aglomerados Morell","Caso ERE/SK 3000",1
+"Caso ERE/González Byass","Caso ERE/Hamsa Primayor",1
+"Caso ERE/González Byass","Caso ERE/Pieza Política",1
+"Caso ERE/González Byass","Caso ERE/Río Grande",1
+"Caso ERE/González Byass","Caso ERE/SK 3000",1
+"Caso ERE/Hamsa Primayor","Caso ERE/Ubago Group Mare",1
+"Caso ERE/Pieza Política","Caso ERE/Ubago Group Mare",1
+"Caso ERE/Río Grande","Caso ERE/SK 3000",1
+"Caso ERE/Río Grande","Caso ERE/Ubago Group Mare",1
+"Caso ERE/SK 3000","Caso ERE/Ubago Group Mare",1
+"Caso ERE/SK 3000","Caso Umax",1
+"Caso Aguas de Calpe","Caso Obras de Arte",1
+"Caso Malaya","Caso Minutas",1
+"Caso Invercaria/FIVA","Caso Invercaria/Kandor",2
+"Caso Carmelitas","Caso Metrored",1
+"Caso Bárcenas","Caso Gürtel/Papeles Bárcenas",1
+"Caso Bárcenas","Caso Gürtel/Primera Época",1
+"Caso Gürtel/Papeles Bárcenas","Caso Gürtel/Primera Época",1
+"Caso Erial","Caso Oleguer Pujol",1
+"Caso Lezo/Blanqueo capitales","Caso Lezo/Mercasa",2
+"Caso Acuamed","Caso Marismas",1
+"Caso Las Teresitas","Caso Mamotreto",1
+"Caso Can Domenge","Caso Inestur/Cilma",2
+"Caso Can Domenge","Caso Maquillaje",2
+"Caso Inestur/Cilma","Caso Maquillaje",2
+"Caso Inestur/Cilma","Caso Son Oms",1
+"Caso Maquillaje","Caso Son Oms",1
+"Caso Máster","Caso Púnica/Financiación PP",1
+"Caso Emucesa","Caso Serrallo",1
+"Caso Ordenadores Bárcenas","Caso Taula",1
+"Caso El Carabassí","Caso Gran Alacant",1
+"Caso Bitácora","Caso Nóos",1
+"Caso Brugal","Caso Escorratel",1
+"Caso Mamotreto","Caso Siliuto",1
+"Caso Oleguer Pujol","Caso Pujol",1
+"Caso Bolsos","Caso Púnica/Contratos Públicos",1
+"Caso ITV","Caso Pujol",1
+"Caso Lezo/Canal Golf","Caso Lezo/Mercasa",1
+"Caso Gürtel/Boadilla","Caso Gürtel/Papeles Bárcenas",1
+"Caso Gürtel/Boadilla","Caso Imelsa",1
+"Caso Gürtel/Papeles Bárcenas","Caso Imelsa",1
+"Caso Gürtel/Primera Época","Caso Ordenadores Bárcenas",1
+"Caso Gürtel/Primera Época","Caso Over Marketing",1
+"Caso Gürtel/Primera Época","Caso Subvención PP",1
+"Caso Ordenadores Bárcenas","Caso Over Marketing",1
+"Caso Ordenadores Bárcenas","Caso Subvención PP",1
+"Caso Over Marketing","Caso Subvención PP",1
+"Caso Auditorio","Caso Púnica/Murcia",1
+"Caso Asesores","Caso Casa del Rocío",1
+"Caso Asesores","Caso Estación Autobuses",1
+"Caso Casa del Rocío","Caso Estación Autobuses",1
+"Caso Gürtel/Fitur","Caso Trajes",1
+"Caso El Musel/Pieza principal","Caso Lezo/Tren Navalcarnero",1
+"Caso Gürtel/Caja B PP Valencia","Caso Valmor Fórmula 1",2
+"Caso Villarejo/Iron","Caso Villarejo/Pit",1
+"Caso Villarejo/Iron","Caso Villarejo/Trampa",1
+"Caso Villarejo/King","Caso Villarejo/Pit",1
+"Caso Villarejo/King","Caso Villarejo/Trampa",1
+"Caso Villarejo/Land","Caso Villarejo/Pit",1
+"Caso Villarejo/Land","Caso Villarejo/Trampa",1
+"Caso Villarejo/Pit","Caso Villarejo/Trampa",1
+"Caso ERE/A-NOVO","Caso ERE/Mac Puar",1
+"Caso ERE/A-NOVO","Caso ERE/Pickman La Cartuja",1
+"Caso ERE/Mac Puar","Caso ERE/Pickman La Cartuja",1
+"Caso CAM","Caso CAM/Caribe",1
+"Caso Bankia Salida a Bolsa","Caso Rato/Blanqueo de capitales",1
+"Caso Bankia Salida a Bolsa","Caso Rato/Fraude Fiscal",1
+"Caso Rato/Blanqueo de capitales","Caso Rato/Fraude Fiscal",1
+"Caso Rato/Blanqueo de capitales","Caso Tarjetas Black Bankia",1
+"Caso Rato/Fraude Fiscal","Caso Tarjetas Black Bankia",1
+"Caso Avialsa","Caso DV4",1
+"Caso Invercaria/Aceitunas Tatis","Caso Invercaria/Ándalus",1
+"Caso Invercaria/Aceitunas Tatis","Caso Invercaria/EDM",1
+"Caso Invercaria/Aceitunas Tatis","Caso Invercaria/FIVA",1
+"Caso Invercaria/Aceitunas Tatis","Caso Invercaria/Fumapa",1
+"Caso Invercaria/Aceitunas Tatis","Caso Invercaria/J. Martín",1
+"Caso Invercaria/Aceitunas Tatis","Caso Invercaria/Kandor",1
+"Caso Invercaria/Aceitunas Tatis","Caso Invercaria/Keepfresh",1
+"Caso Invercaria/Aceitunas Tatis","Caso Invercaria/Lolita Canalla",1
+"Caso Invercaria/Aceitunas Tatis","Caso Invercaria/Own Spa",1
+"Caso Invercaria/Aceitunas Tatis","Caso Invercaria/Servivation",1
+"Caso Invercaria/Ándalus","Caso Invercaria/EDM",1
+"Caso Invercaria/Ándalus","Caso Invercaria/J. Martín",1
+"Caso Invercaria/Ándalus","Caso Invercaria/Kandor",1
+"Caso Invercaria/Ándalus","Caso Invercaria/Keepfresh",1
+"Caso Invercaria/Ándalus","Caso Invercaria/Lolita Canalla",1
+"Caso Invercaria/Ándalus","Caso Invercaria/Own Spa",1
+"Caso Invercaria/Ándalus","Caso Invercaria/Servivation",1
+"Caso Invercaria/EDM","Caso Invercaria/Fumapa",1
+"Caso Invercaria/EDM","Caso Invercaria/J. Martín",1
+"Caso Invercaria/EDM","Caso Invercaria/Kandor",1
+"Caso Invercaria/EDM","Caso Invercaria/Keepfresh",1
+"Caso Invercaria/EDM","Caso Invercaria/Lolita Canalla",1
+"Caso Invercaria/EDM","Caso Invercaria/Own Spa",1
+"Caso Invercaria/FIVA","Caso Invercaria/Lolita Canalla",1
+"Caso Invercaria/FIVA","Caso Invercaria/Own Spa",1
+"Caso Invercaria/Fumapa","Caso Invercaria/J. Martín",1
+"Caso Invercaria/Fumapa","Caso Invercaria/Kandor",1
+"Caso Invercaria/Fumapa","Caso Invercaria/Keepfresh",1
+"Caso Invercaria/Fumapa","Caso Invercaria/Lolita Canalla",1
+"Caso Invercaria/Fumapa","Caso Invercaria/Own Spa",1
+"Caso Invercaria/Fumapa","Caso Invercaria/Servivation",1
+"Caso Invercaria/J. Martín","Caso Invercaria/Kandor",1
+"Caso Invercaria/J. Martín","Caso Invercaria/Lolita Canalla",1
+"Caso Invercaria/J. Martín","Caso Invercaria/Own Spa",1
+"Caso Invercaria/J. Martín","Caso Invercaria/Servivation",1
+"Caso Invercaria/Kandor","Caso Invercaria/Keepfresh",1
+"Caso Invercaria/Kandor","Caso Invercaria/Lolita Canalla",1
+"Caso Invercaria/Kandor","Caso Invercaria/Own Spa",1
+"Caso Invercaria/Kandor","Caso Invercaria/Servivation",1
+"Caso Invercaria/Keepfresh","Caso Invercaria/Lolita Canalla",1
+"Caso Invercaria/Keepfresh","Caso Invercaria/Own Spa",1
+"Caso Invercaria/Keepfresh","Caso Invercaria/Servivation",1
+"Caso Invercaria/Lolita Canalla","Caso Invercaria/Own Spa",1
+"Caso Invercaria/Lolita Canalla","Caso Invercaria/Servivation",1
+"Caso Invercaria/Own Spa","Caso Invercaria/Servivation",1
+"Caso Cursos Formación/FAFFE","Caso Umax",1
+"Caso Erial","Caso Gürtel/Caja B PP Valencia",1
+"Caso Erial","Caso Imarol",1
+"Caso Gürtel/Caja B PP Valencia","Caso Imarol",1
+"Caso Aerocas","Caso Valmor Fórmula 1",2
+"Caso Inestur/Martínez Cañamero","Caso Inestur/Spa",1
+"Caso Mijas","Caso Sobresueldos",1
+"Caso Mijas","Caso Subastas",1
+"Caso Sobresueldos","Caso Subastas",1
