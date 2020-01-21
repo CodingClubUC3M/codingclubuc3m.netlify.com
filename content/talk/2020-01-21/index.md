@@ -11,7 +11,7 @@ abstract = """Data about all corruption cases in Spain can be modeled as a graph
 
 event = "Tutorial"
 event_url = "/post/2020-01-21"
-event_form = "https://forms.gle/5ik5XMJ3YVC1Ytxf8"
+event_form = ""
 
 location = "**Room 18.0.A06**. Campus de Getafe, Calle Madrid, 126, 28903 Getafe, Madrid, Spain."
   
@@ -35,3 +35,6 @@ R, the `igraph` package, and an Internet connection to download the data.
 ### About the speaker
 
 María Medina works as a Data Scientist at Microsoft. She studied computer science and mathematics and found the perfect combination of both fields in the data world, in which she specialized with a Master’s degree in Data Science and Big Data. She loves exploring data of any kind, and her favourite tools for doing that are R and Python. She is also an advocate for diversity in technology and co-organizes the PyLadies Madrid meetup.
+
+![](/img/sessions/2020-01-21-1.jpg)
+![](/img/sessions/2020-01-21-2.jpg)
