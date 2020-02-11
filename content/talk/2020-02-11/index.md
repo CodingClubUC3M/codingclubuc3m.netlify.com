@@ -11,7 +11,7 @@ abstract = """Whenever a new paper is released using some type of scraped data, 
 
 event = "Tutorial"
 event_url = "/post/2020-02-11"
-event_form = "https://forms.gle/ni83EDkwpTb83yu48"
+event_form = ""
 
 location = "**Room 18.0.A06**. Campus de Getafe, Calle Madrid, 126, 28903 Getafe, Madrid, Spain."
   
@@ -36,3 +36,6 @@ We'll be needing these packages: `xml2`, `httr`, `tidyverse`, `sf`, `rnaturalear
 ### About the speaker
 
 Jorge Cimentada has a PhD in Sociology from Pompeu Fabra University and is currently a Research Scientist at the Laboratory of Digital and Computational Demography at the Max Planck Institute for Demographic Research. His research is mainly focused on the study of educational inequality, inequality in spatial mobility and computational social science. He has worked on data science projects both in the private sector and in academic research and is interested developing strategies for combining machine learning techniques with classical statistics for the social sciences. You can check out his blog at [cimentadaj.github.io](https://cimentadaj.github.io/about) or contact him through Twitter at [@cimentadaj](https://twitter.com/cimentadaj).
+
+![](/img/sessions/2020-02-11-1.jpg)
+![](/img/sessions/2020-02-11-2.jpg)
