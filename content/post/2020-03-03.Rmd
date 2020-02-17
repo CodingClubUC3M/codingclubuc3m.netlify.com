@@ -1,10 +1,9 @@
 ---
-# YAML header created by ox-ravel
-title: Displaying Time Series with R
-author: Oscar Perpiñán Lamigueiro
-date: March 2020
----
-
+title: "Displaying Time Series with R"
+authors: ["Oscar Perpiñán Lamigueiro"]
+date: "2020-03-03"
+categories: ["R"]
+tags: ["R", "visualization", "time series"]
 
 # Introduction
 
