@@ -70,7 +70,7 @@ approach is to display the time evolution of all of them using a
 panel for each of the variables. The superposition of variables
 with different characteristics is not very useful (unless their
 values were previously rescaled), so this approach is postponed for
-next section (variables with the same scale).
+the next section (variables with the same scale).
 
 For the first example we will use the eight years of daily data from
 a meteorological station located at Aranjuez (Madrid).  
@@ -151,7 +151,7 @@ extraordinary events.  This method is what Tufte described as small
 multiples.
 
 Next code displays the variations of solar radiation around the time
-average with an horizon graph using a row for each time series. In the
+average with a horizon graph using a row for each time series. In the
 code we choose `origin=0` and leave the argument `horizonscale`
 undefined (default). With this combination each panel has different
 scales and the colors in each panel represent deviations from the
@@ -200,9 +200,9 @@ horizonplot(diffTa, cut = list(n = 8, overlap = 0),
 
 An alternative is a level plot displaying the time series using parts
 of its time index both as independent and as conditioning variable.
-The following code displays the differences with the day of month on
+The following code displays the differences with the day of the month on
 the horizontal axis and the year on the vertical axis, with a
-different panel for each month number. Therefore, each cell of next
+different panel for each month number. Therefore, each cell of the next
 figure corresponds to a certain day of the time series.
 
 ```{r   }
@@ -289,7 +289,7 @@ original graphic.  The function `dyOptions` provides several choices
 for the graphic, and the function `dyHighlight` configures options for
 data series mouse-over highlighting. For example, with the next code
 the semi-transparency value of the non-selected lines is reduced and
-the width of selected line is increased.
+the width of the selected line is increased.
 
  ```{r   }
  dyTemp %>%
@@ -343,7 +343,7 @@ selection and zoom capabilities.
 The `plotly` package is an interface to the `plotly` JavaScript
 library, also with a wide spectrum of graphics solutions. This package
 does not provide any function specifically focused on time
-series. Thus, the time series object has to be transformed in a
+series. Thus, the time series object has to be transformed into a
 `data.frame` including a column for the time index. If the
 `data.frame` is in *wide* format (one column per variable), each
 variable will be represented with a call to the `add_lines`
@@ -455,7 +455,7 @@ addition, the statistic type (average, maximum, minimum) is included
 as an additional conditioning variable.
 
 First, the dataset must be reshaped from the wide format
-(one colum for each variable) to the long format (only one column for
+(one column for each variable) to the long format (only one column for
 the temperature values with one row for each observation). This task
 is easily accomplished with the `melt` function included in the
 `reshape2` package.
@@ -723,7 +723,7 @@ represented both with colours and with labels.
 		  showlegend = FALSE) 
  ```
 
-Finally, animation is created with `animation_opts`, to customize the
+Finally, the animation is created with `animation_opts`, to customize the
 frame and transition times, and with `animation_slider` to define the
 slider. 
 
