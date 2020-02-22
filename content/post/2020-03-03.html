@@ -1,0 +1,635 @@
+---
+title: "Displaying time series with R"
+authors: ["Oscar Perpiñán Lamigueiro"]
+date: "2020-03-03"
+categories: ["R"]
+tags: ["R", "visualization", "time series"]
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>A time series is a sequence of observations registered at consecutive
+time instants. The visualization of time series is intended to reveal
+changes of one or more quantitative variables through time, and to
+display the relationships between the variables and their evolution
+through time. The standard time series graph displays the time along
+the horizontal axis. On the other hand, time can be conceived as a
+grouping or conditioning variable. This solution allows several
+variables to be displayed together with a scatterplot, using different
+panels for subsets of the data (time as a conditioning variable) or
+using different attributes for groups of the data (time as a grouping
+variable). Finally, time can be used as a complementary variable that
+adds information to a graph where several variables are confronted.</p>
+<p>Next sections provide a variety of examples to illustrate a set of
+useful techniques working with three datasets available at the <code>data</code>
+folder of the repository.</p>
+<p>This document has been prepared with content extracted and adapted
+from the second edition of the book <a href="https://oscarperpinan.github.io/bookvis/">“Displaying time series, spatial
+and space-time data with R”</a> published with <a href="https://www.crcpress.com/Displaying-Time-Series-Spatial-and-Space-Time-Data-with-R-Second-Edition/Lamigueiro/p/book/9781138089983">Chapman&amp;Hall/CRC</a>.</p>
+<p>The most relevant packages are: <code>lattice</code>, <code>latticeExtra</code>, and
+<code>ggplot2</code> for static graphics; <code>zoo</code> and <code>xts</code> for reading and
+arranging data as time series; <code>RColorBrewer</code> for defining color
+palettes; and packages <code>dygraphs</code>, <code>highcharter</code>, and <code>plotly</code>, based
+on the <code>htmlwidgets</code> framework, to generate animations or interactive
+graphics.</p>
+<p>Let’s begin loading the main packages and setting some graphical
+parameters of <code>lattice</code> and <code>latticeExtra</code>.</p>
+<pre class="r"><code>library(lattice)
+library(ggplot2)
+# latticeExtra must be loaded after ggplot2 to prevent masking of `layer`
+library(latticeExtra)
+library(RColorBrewer)
+# lattice and latticeExtra configuration
+myTheme &lt;- custom.theme.2(
+  pch=19, cex=0.7, region=rev(brewer.pal(9, &#39;YlOrRd&#39;)),
+  symbol=brewer.pal(n=8, name=&quot;Dark2&quot;))
+myTheme$strip.background$col = myTheme$strip.shingle$col =
+  myTheme$strip.border$col = &#39;transparent&#39;
+
+myArgs &lt;- list(
+  as.table=TRUE, between=list(x=0.5, y=0.2),
+  xscale.components = function(...)
+    modifyList(xscale.components.default(...), list(top=FALSE)),
+  yscale.components = function(...)
+    modifyList(yscale.components.default(...), list(right=FALSE)))
+
+lattice.options(default.theme=myTheme, default.args=modifyList(
+  lattice.options()$default.args, myArgs))
+
+library(zoo) </code></pre>
+<p>And this is the data we will use:</p>
+<ul>
+<li><a href="/post/2020-03-03_data/aranjuez.RData"><code>aranjuez.RData</code></a></li>
+<li><a href="/post/2020-03-03_data/navarra.RData"><code>navarra.RData</code></a></li>
+<li><a href="/post/2020-03-03_data/CO2.RData"><code>CO2.RData</code></a></li>
+</ul>
+<pre class="r"><code>load(&#39;aranjuez.RData&#39;)
+load(&#39;navarra.RData&#39;)
+load(&#39;CO2.RData&#39;)</code></pre>
+</div>
+<div id="time-on-the-horizontal-axis" class="section level2">
+<h2>Time on the horizontal axis</h2>
+<p>The most frequent visualization method of a time series uses the
+horizontal axis to depict the time index. This section illustrates
+two variants of this approach to display multivariate time series:
+multiple time series with different scales, and variables with the
+same scale.</p>
+<div id="time-graph-of-variables-with-different-scales" class="section level3">
+<h3>Time graph of variables with different scales</h3>
+<p>There is a variety of scientific research interested in the
+relationship among several meteorological variables. A suitable
+approach is to display the time evolution of all of them using a
+panel for each of the variables. The superposition of variables
+with different characteristics is not very useful (unless their
+values were previously rescaled), so this approach is postponed for
+the next section (variables with the same scale).</p>
+<p>For the first example we will use the eight years of daily data from
+a meteorological station located at Aranjuez (Madrid).
+This multivariate time series can be displayed with the <code>xyplot</code>
+method of <code>lattice</code> for <code>zoo</code> objects with a panel for each variable.</p>
+<pre class="r"><code>## The layout argument arranges panels in rows
+xyplot(aranjuez, layout = c(1, ncol(aranjuez))) </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>The package <code>ggplot2</code> provides the generic method <code>autoplot</code> to
+automate the display of certain classes with a simple command. The
+package <code>zoo</code> provides an <code>autoplot</code> method for the <code>zoo</code> class with
+a result similar to that obtained with <code>xyplot</code>.</p>
+<pre class="r"><code>## facet_free allows each panel to have its own range
+autoplot(aranjuez) + facet_free() </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="time-series-of-variables-with-the-same-scale" class="section level3">
+<h3>Time series of variables with the same scale</h3>
+<p>As an example of time series of variables with the same scale, we will
+use measurements of solar radiation from different meteorological
+stations.</p>
+<p>The first attempt to display this multivariate time series makes use
+of the <code>xyplot.zoo</code> method. The objective of this graphic is to
+display the behavior of the collection as a whole: the series are
+superposed in the same panel (<code>superpose=TRUE</code>) without legend
+(<code>auto.key=FALSE</code>), using thin lines and partial
+transparency. Transparefncy softens overplotting problems and reveals
+density clusters because regions with more overlapping lines are
+darker. Next code displays the variations around the time average
+(<code>avRad</code>).</p>
+<pre class="r"><code>avRad &lt;- zoo(rowMeans(navarra, na.rm = 1), index(navarra))
+pNavarra &lt;- xyplot(navarra - avRad,
+        superpose = TRUE, auto.key = FALSE,
+        lwd = 0.5, alpha = 0.3, col = &#39;midnightblue&#39;) 
+pNavarra </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>This result can be improved with the horizon graph. The horizon graph
+is useful in examining how a large number of series changes over time,
+and does so in a way that allows both comparisons between the
+individual time series and independent analysis of each
+series. Moreover, extraordinary behaviors and predominant patterns are
+easily distinguished.</p>
+<p>This graph displays several stacked series collapsing the y-axis
+to free vertical space:</p>
+<ul>
+<li>Positive and negative values share the same vertical
+space. Negative values are inverted and placed above the
+reference line. Sign is encoded using different hues (positive
+values in blue and negative values in red).</li>
+<li>Differences in magnitude are displayed as differences in color
+intensity (darker colors for greater differences).</li>
+<li>The color bands share the same baseline and are superposed, with
+darker bands in front of the lighter ones.</li>
+</ul>
+<p>Because the panels share the same design structure, once this
+technique is understood, it is easy to establish comparisons or spot
+extraordinary events. This method is what Tufte described as small
+multiples.</p>
+<p>Next code displays the variations of solar radiation around the time
+average with a horizon graph using a row for each time series. In the
+code we choose <code>origin=0</code> and leave the argument <code>horizonscale</code>
+undefined (default). With this combination each panel has different
+scales and the colors in each panel represent deviations from the
+origin. This is depicted in the color key with the <span class="math inline">\(\Delta_i\)</span> symbol,
+where the subscript <code>i</code> denotes the existence of multiple panels with
+different scales.</p>
+<pre class="r"><code>horizonplot(navarra - avRad,
+            layout = c(1, ncol(navarra)),
+            origin = 0, ## Deviations in each panel are calculated
+                        ## from this value
+            colorkey = TRUE,
+            col.regions = brewer.pal(6, &quot;RdBu&quot;)) </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>The horizon graph is also useful in revealing the differences between
+a univariate time series and another reference. For example, we might
+be interested in the departure of the observed temperature from the
+long-term average, or in other words, the temperature change over
+time. Let’s illustrate this approach with the time series of daily
+average temperatures measured at the meteorological station of
+Aranjuez. The reference is the long-term daily average calculated with
+<code>ave</code>.</p>
+<pre class="r"><code>Ta &lt;- aranjuez$TempAvg
+timeIndex &lt;- index(aranjuez)
+longTa &lt;- ave(Ta, format(timeIndex, &#39;%j&#39;))
+diffTa &lt;- (Ta - longTa) </code></pre>
+<p>The next code uses <code>horizonplot</code> with the cut-and-stack method to distinguish between years.</p>
+<pre class="r"><code>years &lt;- unique(format(timeIndex, &#39;%Y&#39;))
+  
+horizonplot(diffTa, cut = list(n = 8, overlap = 0),
+            colorkey = TRUE, layout = c(1, 8),
+            scales = list(draw = FALSE, y = list(relation = &#39;same&#39;)),
+            origin = 0, strip.left = FALSE) +
+    layer(grid.text(years[panel.number()], x  =  0, y  =  0.1, 
+                    gp = gpar(cex = 0.8),
+                    just = &quot;left&quot;)) </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>An alternative is a level plot displaying the time series using parts
+of its time index both as independent and as conditioning variable.
+The following code displays the differences with the day of the month on
+the horizontal axis and the year on the vertical axis, with a
+different panel for each month number. Therefore, each cell of the next
+figure corresponds to a certain day of the time series.</p>
+<pre class="r"><code>year &lt;- function(x)as.numeric(format(x, &#39;%Y&#39;))
+day &lt;- function(x)as.numeric(format(x, &#39;%d&#39;))
+month &lt;- function(x)as.numeric(format(x, &#39;%m&#39;)) </code></pre>
+<pre class="r"><code>myTheme &lt;- modifyList(custom.theme(region = brewer.pal(9, &#39;RdBu&#39;)),
+                      list(
+                          strip.background = list(col = &#39;gray&#39;),
+                          panel.background = list(col = &#39;gray&#39;)))
+
+maxZ &lt;- max(abs(diffTa))
+
+levelplot(diffTa ~ day(timeIndex) * year(timeIndex) | factor(month(timeIndex)),
+          at = pretty(c(-maxZ, maxZ), n = 8),
+          colorkey = list(height = 0.3),
+          layout = c(1, 12), strip = FALSE, strip.left = TRUE,
+          xlab = &#39;Day&#39;, ylab = &#39;Month&#39;, 
+          par.settings = myTheme)</code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>The <code>ggplot</code> version requires a <code>data.frame</code> with the day, year, and month arranged in different columns.</p>
+<pre class="r"><code>df &lt;- data.frame(Vals = diffTa,
+                 Day = day(timeIndex),
+                 Year = year(timeIndex),
+                 Month = month(timeIndex)) </code></pre>
+<p>The values (<code>Vals</code> column of this <code>data.frame</code>) are displayed as a level plot thanks to the <code>geom_raster</code> function.</p>
+<pre class="r"><code>library(scales) 
+## The packages scales is needed for the pretty_breaks function.
+
+ggplot(data = df,
+       aes(fill = Vals,
+           x = Day,
+           y = Year)) +
+    facet_wrap(~ Month, ncol = 1, strip.position = &#39;left&#39;) +
+    scale_y_continuous(breaks = pretty_breaks()) + 
+    scale_fill_distiller(palette = &#39;RdBu&#39;, direction = 1) + 
+    geom_raster() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank()) </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="interactive-graphics" class="section level3">
+<h3>Interactive graphics</h3>
+<p>This section describes the interactive alternatives of the static
+figures included in the previous sections with several packages:
+<code>dygraphs</code>, <code>highcharter</code>, and <code>plotly</code>. These packages
+are <code>R</code> interfaces to JavaScript libraries based on the <code>htmlwidgets</code>
+package.</p>
+<div id="dygraphs" class="section level4">
+<h4>Dygraphs</h4>
+<p>The <code>dygraphs</code> package is an interface to the <code>dygraphs</code> JavaScript
+library, and provides facilities for charting time-series. It works
+automatically with <code>xts</code> time series objects, or with objects than can
+be coerced to this class. The result is an interactive graph, where
+values are displayed according to the mouse position over the time
+series. Regions can be selected to zoom into a time period.</p>
+<pre class="r"><code>library(dygraphs)
+
+dyTemp &lt;- dygraph(aranjuez[, c(&quot;TempMin&quot;, &quot;TempAvg&quot;, &quot;TempMax&quot;)],
+       main = &quot;Temperature in Aranjuez&quot;,
+       ylab = &quot;ºC&quot;)
+
+widgetframe::frameWidget(dyTemp)</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/2020-03-03_files/figure-html//widgets/widget_unnamed-chunk-14.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+<p>You can customize <code>dygraphs</code> by piping additional commands onto the
+original graphic. The function <code>dyOptions</code> provides several choices
+for the graphic, and the function <code>dyHighlight</code> configures options for
+data series mouse-over highlighting. For example, with the next code
+the semi-transparency value of the non-selected lines is reduced and
+the width of the selected line is increased.</p>
+<pre class="r"><code>dyTemp %&gt;%
+  dyHighlight(highlightSeriesBackgroundAlpha = 0.2,
+    highlightSeriesOpts = list(strokeWidth = 2)) %&gt;%
+  widgetframe::frameWidget()</code></pre>
+<div id="htmlwidget-2" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"url":"/post/2020-03-03_files/figure-html//widgets/widget_unnamed-chunk-15.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+<p>An alternative approach to depict the upper and lower variables of
+this time series is with a shaded region. The <code>dySeries</code> function
+accepts a character vector of length 3 that specifies a set of input
+column names to use as the lower, value, and upper for a series with a
+shaded region around it.</p>
+<pre class="r"><code>dygraph(aranjuez[, c(&quot;TempMin&quot;, &quot;TempAvg&quot;, &quot;TempMax&quot;)],
+ main = &quot;Temperature in Aranjuez&quot;,
+ ylab = &quot;ºC&quot;) %&gt;%
+   dySeries(c(&quot;TempMin&quot;, &quot;TempAvg&quot;, &quot;TempMax&quot;),
+      label = &quot;Temperature&quot;) %&gt;%
+  widgetframe::frameWidget()</code></pre>
+<div id="htmlwidget-3" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"url":"/post/2020-03-03_files/figure-html//widgets/widget_unnamed-chunk-16.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+</div>
+<div id="highcharter" class="section level4">
+<h4>Highcharter</h4>
+<p>The <code>highcharter</code> package is an interface to the <code>highcharts</code>
+JavaScript library, with a wide spectrum of graphics
+solutions. Displaying time series with this package can be achieved
+with the combination of the generic <code>highchart</code> function and several
+calls to the <code>hc_add_series_xts</code> function through the pipe <code>%&gt;%</code>
+operator. Once again, the result is an interactive graph with
+selection and zoom capabilities.</p>
+<pre class="r"><code>library(highcharter)
+library(xts)
+
+aranjuezXTS &lt;- as.xts(aranjuez)
+
+highchart() %&gt;%
+   hc_add_series(name = &#39;TempMax&#39;,
+           aranjuezXTS[, &quot;TempMax&quot;]) %&gt;%
+   hc_add_series(name = &#39;TempMin&#39;,
+           aranjuezXTS[, &quot;TempMin&quot;]) %&gt;%
+   hc_add_series(name = &#39;TempAvg&#39;,
+           aranjuezXTS[, &quot;TempAvg&quot;]) %&gt;%
+  widgetframe::frameWidget()</code></pre>
+<div id="htmlwidget-4" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4">{"x":{"url":"/post/2020-03-03_files/figure-html//widgets/widget_unnamed-chunk-17.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="plotly" class="section level4">
+<h4>plotly</h4>
+<p>The <code>plotly</code> package is an interface to the <code>plotly</code> JavaScript
+library, also with a wide spectrum of graphics solutions. This package
+does not provide any function specifically focused on time
+series. Thus, the time series object has to be transformed into a
+<code>data.frame</code> including a column for the time index. If the
+<code>data.frame</code> is in <em>wide</em> format (one column per variable), each
+variable will be represented with a call to the <code>add_lines</code>
+function. However, if the <code>data.frame</code> is in <em>long</em> format (a column
+for values, and a column for variable names) only one call to
+<code>add_lines</code> is required. The next code follows this approach using the
+combination of <code>fortify</code>, to convert the <code>zoo</code> object into a
+<code>data.frame</code>, and <code>melt</code>, to transform from wide to long format.</p>
+<pre class="r"><code>aranjuezDF &lt;- fortify(aranjuez[,
+            c(&quot;TempMax&quot;,
+              &quot;TempAvg&quot;,
+              &quot;TempMin&quot;)],
+           melt = TRUE)
+
+summary(aranjuezDF) </code></pre>
+<pre><code>##      Index                Series         Value        
+##  Min.   :2004-01-01   TempMax:2898   Min.   :-12.980  
+##  1st Qu.:2005-12-29   TempAvg:2898   1st Qu.:  7.107  
+##  Median :2008-01-09   TempMin:2898   Median : 13.560  
+##  Mean   :2008-01-03                  Mean   : 14.617  
+##  3rd Qu.:2010-01-03                  3rd Qu.: 21.670  
+##  Max.   :2011-12-31                  Max.   : 41.910  
+##                                      NA&#39;s   :10</code></pre>
+<p>Next code produces an interactive graphic with the generic function
+<code>plot_ly</code> connected with <code>add_lines</code> through the pipe operator,
+<code>%&gt;%</code>.</p>
+<pre class="r"><code>library(plotly)
+
+plot_ly(aranjuezDF) %&gt;%
+   add_lines(x = ~ Index,
+       y = ~ Value,
+       color = ~ Series) %&gt;%
+  widgetframe::frameWidget()</code></pre>
+<div id="htmlwidget-5" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5">{"x":{"url":"/post/2020-03-03_files/figure-html//widgets/widget_unnamed-chunk-19.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="time-as-a-conditioning-or-grouping-variable" class="section level2">
+<h2>Time as a conditioning or grouping variable</h2>
+<p>Previously we learned to display the time evolution of multiple time
+series with different scales. But, what if instead of displaying the
+time evolution we want to represent the relation between the
+variables? This section follows this approach: first, a scatterplot
+matrix using groups is defined according to the time as a grouping
+variable; next, an enhanced scatterplot with time as a conditioning
+variable is produced using the small multiples technique.</p>
+<div id="scatterplot-matrix-time-as-a-grouping-variable" class="section level3">
+<h3>Scatterplot matrix: time as a grouping variable</h3>
+<p>The scatterplot matrices are based on the technique of small
+multiples: small, thumbnail-sized representations of multiple images
+displayed all at once, which allows the reader to immediately, and in
+parallel, compare the inter-frame differences. A scatterplot matrix
+is a display of all pairwise bivariate scatterplots arranged in a <span class="math inline">\(p  \times p\)</span> matrix for <span class="math inline">\(p\)</span> variables. Each subplot shows the relation
+between the pair of variables at the intersection of the row and
+column indicated by the variable names in the diagonal panels.</p>
+<p>This graphical tool is implemented in the <code>splom</code> function. The
+following code displays the relation between the set of
+meteorological variables using a sequential palette from the
+ColorBrewer catalog (<code>RbBu</code>, with black added to complete a
+twelve-color palette) to encode the month. The order of colors of
+this palette is chosen in order to display summer months with
+intense colors and to distinguish between the first and second
+half of the year with red and blue, respectively.</p>
+<pre class="r"><code>aranjuezDF &lt;- as.data.frame(aranjuez)
+aranjuezDF$Month &lt;- format(index(aranjuez), &#39;%m&#39;) </code></pre>
+<pre class="r"><code>## Red-Blue palette with black added (12 colors)
+colors &lt;- c(brewer.pal(n = 11, &#39;RdBu&#39;), &#39;#000000&#39;)
+## Rearrange according to months (darkest for summer)
+colors &lt;- colors[c(6:1, 12:7)] </code></pre>
+<pre class="r"><code>splom(~ aranjuezDF[1:10], ## Do not include &quot;Month&quot;
+     groups = aranjuezDF$Month,
+     auto.key = list(space = &#39;right&#39;, 
+         title = &#39;Month&#39;, cex.title = 1),
+     pscale = 0, varname.cex = 0.7, xlab = &#39;&#39;,
+     par.settings = custom.theme(symbol = colors,
+             pch = 19),
+     cex = 0.3, alpha = 0.1)</code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>The <code>ggplot2</code> version of this graphic is produced thanks to the
+<code>ggpairs</code> function provided by the <code>GGally</code> package.</p>
+<pre class="r"><code>library(GGally)
+
+ggpairs(aranjuezDF,
+ columns = 1:10, ## Do not include &quot;Month&quot;
+ upper = list(continuous = &quot;points&quot;),
+ mapping = aes(colour = Month, alpha = 0.1)) </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+</div>
+<div id="scatterplot-with-time-as-a-conditioning-variable" class="section level3">
+<h3>Scatterplot with time as a conditioning variable</h3>
+<p>Previous graphics use colors to encode months. Instead, we will now
+display separate scatterplots with a panel for each month. In
+addition, the statistic type (average, maximum, minimum) is included
+as an additional conditioning variable.</p>
+<p>First, the dataset must be reshaped from the wide format
+(one column for each variable) to the long format (only one column for
+the temperature values with one row for each observation). This task
+is easily accomplished with the <code>melt</code> function included in the
+<code>reshape2</code> package.</p>
+<pre class="r"><code>library(reshape2)
+
+aranjuezRshp &lt;- melt(aranjuezDF,
+                     measure.vars = c(&#39;TempMax&#39;,
+                                      &#39;TempAvg&#39;,
+                                      &#39;TempMin&#39;),
+                     variable.name = &#39;Statistic&#39;,
+                     value.name = &#39;Temperature&#39;)</code></pre>
+<p>This matrix of panels can be displayed with <code>ggplot</code> using
+<code>facet_grid</code>. Next code uses partial transparency to cope with
+overplotting, small horizontal and vertical segments (<code>geom_rug</code>) to
+display points density on both variables, and a smooth line in each
+panel.</p>
+<pre class="r"><code>ggplot(data = aranjuezRshp, aes(Radiation, Temperature)) +
+   facet_grid(Statistic ~ Month) +
+   geom_point(col = &#39;skyblue4&#39;, pch = 19, cex = 0.5, alpha = 0.3) +
+   geom_rug() +
+   stat_smooth(se = FALSE, method = &#39;loess&#39;,
+     col = &#39;indianred1&#39;, lwd = 1.2) +
+   theme_bw() </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>The version with <code>lattice</code> needs the <code>useOuterStrips</code> function from
+the <code>latticeExtra</code> package, which prints the names of the conditioning
+variables on the top and left outer margins.</p>
+<pre class="r"><code>useOuterStrips(
+   xyplot(Temperature ~ Radiation | Month * Statistic,
+    data = aranjuezRshp,
+    between = list(x = 0),
+    col = &#39;skyblue4&#39;, pch = 19,
+    cex = 0.5, alpha = 0.3)) +
+   layer({
+ panel.rug(..., col.line = &#39;indianred1&#39;,
+       end = 0.05, alpha = 0.6)
+ panel.loess(..., col = &#39;indianred1&#39;,
+         lwd = 1.5, alpha = 1)
+   }) </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+</div>
+</div>
+<div id="time-as-a-complementary-variable" class="section level2">
+<h2>Time as a complementary variable</h2>
+<p>In this section, time will be used as a complementary variable which
+adds information to a graph where several variables are
+confronted. We will illustrate this approach with the evolution of
+the relationship between Gross National Income (GNI) and carbon
+dioxide (<span class="math inline">\(CO_2\)</span>) emissions for a set of countries extracted from the
+database of the World Bank Open Data. We will try several solutions
+to display the relationship between <span class="math inline">\(CO_2\)</span> emissions and GNI over
+the years using time as a complementary variable.</p>
+<div id="polylines" class="section level3">
+<h3>Polylines</h3>
+<p>Our first approach is to display the entire data in a panel with a
+scatterplot using country names as the grouping factor. Points of each
+country are connected with polylines to reveal the time evolution.</p>
+<pre class="r"><code>## lattice version
+xyplot(GNI.capita  ~ CO2.capita, data = CO2data,
+xlab = &quot;Carbon dioxide emissions (metric tons per capita)&quot;,
+ylab = &quot;GNI per capita, PPP (current international $)&quot;,
+groups = Country.Name, type = &#39;b&#39;) </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>Three improvements can be added to this graphical result:</p>
+<ol style="list-style-type: decimal">
+<li>Define a better palette to enhance visual discrimination between
+countries.</li>
+<li>Display time information with labels to show year values.</li>
+<li>Label each polyline with the country name instead of a legend.</li>
+</ol>
+<div id="choosing-colors" class="section level4">
+<h4>Choosing colors</h4>
+<p>The <code>Country.Name</code> categorical variable will be encoded with a
+qualitative palette, namely the first five colors of <code>Set1</code> palette
+from the <code>RColorBrewer</code> package. Because there are more countries
+than colors, we have to repeat some colors to complete the number of
+levels of the variable <code>Country.Name</code>. The result is a palette with
+non-unique colors, and thus some countries will share the same
+color. This is not a problem because the curves will be labeled, and
+countries with the same color will be displayed at enough distance.</p>
+<pre class="r"><code>nCountries &lt;- nlevels(CO2data$Country.Name)
+pal &lt;- brewer.pal(n = 5, &#39;Set1&#39;)
+pal &lt;- rep(pal, length = nCountries) </code></pre>
+<p>Adjacent colors of this palette are chosen to be easily
+distinguishable. Therefore, the connection between colors and
+countries must be in such a way that nearby lines are encoded with
+adjacent colors of the palette. A simple approach is to calculate the
+annual average of the variable to be represented along the x-axis
+(<code>CO2.capita</code>), and extract colors from the palette according to the
+order of this value.</p>
+<pre class="r"><code>## Rank of average values of CO2 per capita
+CO2mean &lt;- aggregate(CO2.capita ~ Country.Name,
+          data = CO2data, FUN = mean)
+palOrdered &lt;- pal[rank(CO2mean$CO2.capita)]  
+
+## simpleTheme encapsulates the palette in a new theme for xyplot
+myTheme &lt;- simpleTheme(pch = 19, cex = 0.6, col = palOrdered) </code></pre>
+<pre class="r"><code>## lattice version
+pCO2.capita &lt;- xyplot(GNI.capita  ~ CO2.capita,
+           data = CO2data,
+           xlab = &quot;Carbon dioxide emissions (metric tons per capita)&quot;,
+           ylab = &quot;GNI per capita, PPP (current international $)&quot;,
+           groups = Country.Name,
+           par.settings = myTheme,
+           type = &#39;b&#39;)
+
+pCO2.capita </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<pre class="r"><code>## ggplot2 version
+gCO2.capita &lt;- ggplot(data = CO2data,
+           aes(x = CO2.capita,
+           y = GNI.capita,
+           color = Country.Name)) +
+   geom_point() + geom_path() +
+   scale_color_manual(values = palOrdered, guide = FALSE) +
+   xlab(&#39;CO2 emissions (metric tons per capita)&#39;) +
+   ylab(&#39;GNI per capita, PPP (current international $)&#39;) +
+   theme_bw() </code></pre>
+</div>
+<div id="labels-to-show-time-information" class="section level4">
+<h4>Labels to show time information</h4>
+<p>This result can be improved with labels displaying the years to show
+the time evolution. The panel function <code>panel.text</code> prints the
+year labels with the combination of <code>+.trellis</code>, <code>glayer_</code> and
+<code>panel.text</code>. Using <code>glayer_</code> instead of <code>glayer</code> we ensure that the
+labels are printed below the lines.</p>
+<pre class="r"><code>## lattice version
+pCO2.capita &lt;- pCO2.capita +
+   glayer_(panel.text(...,
+        labels = CO2data$Year[subscripts],
+          pos = 2, cex = 0.5, col = &#39;gray&#39;))
+pCO2.capita </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<pre class="r"><code>## ggplot2 version
+gCO2.capita &lt;- gCO2.capita + geom_text(aes(label = Year),
+                colour = &#39;gray&#39;,
+                size = 2.5,
+                hjust = 0, vjust = 0)</code></pre>
+</div>
+<div id="country-names-positioning-labels" class="section level4">
+<h4>Country names: positioning labels</h4>
+<p>The common solution to link each curve with the group value is to add
+a legend. However, a legend can be confusing with too many items. In
+addition, the reader must carry out a complex task: Choose the line,
+memorize its color, search for it in the legend, and read the country
+name.</p>
+<p>A better approach is to label each line using nearby text with the
+same color encoding. A suitable method is to place the labels
+avoiding the overlapping between labels and lines. The package
+<code>directlabels</code> includes a wide repertory of positioning methods to
+cope with overlapping. The main function, <code>direct.label</code>, is able to
+determine a suitable method for each plot, although the user can
+choose a different method from the collection or even define a custom
+method. For the <code>pCO2.capita</code> object, the best results are obtained
+with <code>extreme.grid</code>.</p>
+<pre class="r"><code>library(directlabels)
+
+## lattice version
+direct.label(pCO2.capita,
+      method = &#39;extreme.grid&#39;) </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<pre class="r"><code>## ggplot2 version
+direct.label(gCO2.capita, method = &#39;extreme.grid&#39;) </code></pre>
+<p><img src="/post/2020-03-03_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+</div>
+</div>
+<div id="interactive-graphics-animation" class="section level3">
+<h3>Interactive graphics: animation</h3>
+<p>This section describes how to display the data through animation with
+interactive functionalities with a solution that resembles the motion
+chart product published by Gapminder.</p>
+<p>Gapminder is an independent foundation based in Stockholm,
+Sweden. Its mission is “to debunk devastating myths about the world
+by offering free access to a fact-based world view.” They provide free
+online tools, data, and videos “to better understand the changing
+world.” The initial development of Gapminder was the Trendalyzer
+software, used by Hans Rosling in several sequences of his documentary
+“The Joy of Stats.”</p>
+<p>The information visualization technique used by Trendalyzer is an
+interactive bubble chart. By default it shows five variables: two
+numeric variables on the vertical and horizontal axes, bubble size and
+color, and a time variable that may be manipulated with a slider. The
+software uses brushing and linking techniques for displaying the
+numeric value of a highlighted country.</p>
+<p>We will mimic the Trendalyzer/Motion Chart solution with the package
+<code>plotly</code>, using traveling bubbles of different colors and with radius
+proportional to the values of the variable <code>CO2.PPP</code>. Previously, you
+should watch the magistral video “<a href="https://www.gapminder.org/videos/200-years-that-changed-the-world-bbc/">200 Countries, 200 Years, 4 Minutes</a>”.</p>
+<p>The <code>plotly</code> package has already been used previously to create an
+interactive graphic representing time in the x-axis. In this section
+this package produces an animation piping the result of the <code>plot_ly</code>
+and <code>add_markers</code> functions through the <code>animation_slider</code> function.</p>
+<p>Variables <code>CO2.capita</code> and <code>GNI.capita</code> are represented in the x-axis
+and y-axis, respectively.</p>
+<pre class="r"><code>p &lt;- plot_ly(CO2data,
+      x = ~CO2.capita,
+      y = ~GNI.capita,
+      sizes = c(10, 100),
+      marker = list(opacity = 0.7,
+            sizemode = &#39;diameter&#39;)) </code></pre>
+<p><code>CO2.PPP</code> is encoded with the circle sizes, while <code>Country.Name</code> is
+represented both with colours and with labels.</p>
+<pre class="r"><code>p &lt;- add_markers(p,
+      size = ~CO2.PPP,
+      color = ~Country.Name,
+      text = ~Country.Name, hoverinfo = &quot;text&quot;,
+      ids = ~Country.Name,
+      frame = ~Year,
+      showlegend = FALSE) </code></pre>
+<p>Finally, the animation is created with <code>animation_opts</code>, to customize the
+frame and transition times, and with <code>animation_slider</code> to define the
+slider.</p>
+<pre class="r"><code>p &lt;- animation_opts(p,
+         frame = 1000,
+         transition = 800,
+         redraw = FALSE)
+
+p &lt;- animation_slider(p,
+           currentvalue = list(prefix = &quot;Year &quot;))
+
+widgetframe::frameWidget(p)</code></pre>
+<div id="htmlwidget-6" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6">{"x":{"url":"/post/2020-03-03_files/figure-html//widgets/widget_unnamed-chunk-38.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
