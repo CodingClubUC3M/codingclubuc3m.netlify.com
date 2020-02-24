@@ -11,7 +11,7 @@ abstract = """The visualization of time series is intended to reveal changes of 
 
 event = "Tutorial"
 event_url = "/post/2020-03-03"
-event_form = ""
+event_form = "https://forms.gle/fDNr6Cssg735XkCG9"
 
 location = "**Room 7.2.J08**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
   
