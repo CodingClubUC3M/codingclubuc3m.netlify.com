@@ -11,7 +11,7 @@ abstract = """The visualization of time series is intended to reveal changes of 
 
 event = "Tutorial"
 event_url = "/post/2020-03-03"
-event_form = "https://forms.gle/fDNr6Cssg735XkCG9"
+event_form = ""
 
 location = "**Room 7.2.J08**. Campus de Leganés, Av. de la Universidad, 30, 28911 Leganés, Madrid, Spain."
   
@@ -44,3 +44,6 @@ Suggested R packages (only used in certain examples):
 ### About the speaker
 
 Oscar Perpiñán-Lamigueiro is an Associate Professor at the Universidad Politécnica de Madrid, involved in teaching and research of Electrical Engineering, Electronics and Programming. He is also a lecturer of Photovoltaic and Solar Energy at the Escuela de Organización Industrial. He holds a Master's Degree in Telecommunications Engineering and a PhD in Industrial Engineering. At present, his research focuses on solar radiation (forecasting, spatial interpolation, open data) and software development with R (packages rasterVis, solaR, meteoForecast, PVF).
+
+![](/img/sessions/2020-03-03-1.jpg)
+![](/img/sessions/2020-03-03-2.jpg)
