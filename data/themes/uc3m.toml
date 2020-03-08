@@ -5,7 +5,7 @@ name = "UC3M"
 light = true
 
 # Primary
-primary = "#001d85"
+primary = "#0027B1"
 primary_light = "#757de8"
 primary_dark = "#002984"
 
